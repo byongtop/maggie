@@ -3,11 +3,11 @@
 
 @theme {
   /* 定义你的品牌色调色板 */
-  --color-brand-bg: #F9F7F2;
-  --color-brand-contrast: #2D2926;
-  --color-brand-primary: #4A4540;
-  --color-brand-muted: #E5E0D8;
-  --color-brand-accent: #9C5E3F;
+  --color-brand-bg: #fffcf9;  /* 主要背景 */
+  --color-brand-contrast: #2D2926;  /* 深色/对比 */
+  --color-brand-primary: #404350;  /* 正文文本 */
+  --color-brand-muted: #E5E0D8;  /* 柔和中性色 */
+  --color-brand-accent: #9C5E3F;  /* 强调色/链接 */
 }
 
 @layer base {

@@ -1,7 +1,7 @@
 ---
 /**
- * Services.astro - 视觉增强版
- * 效果：图片背景 + 动态遮罩 + 序列号浮层
+ * Services.astro - 移动端适配修复版
+ * 修复点：移动端自动高度，Pad/PC 保持纵横比，优化内边距
  */
 const services = [
   { 
@@ -31,50 +31,51 @@ const services = [
 ];
 ---
 
-<section class="py-40 px-6 md:px-12 bg-brand-bg overflow-hidden">
+<section class="py-24 md:py-40 px-6 md:px-12 bg-brand-bg overflow-hidden">
   <div class="max-w-7xl mx-auto">
-    <div class="mb-32 flex flex-col items-center text-center">
+    <div class="mb-20 md:mb-32 flex flex-col items-center text-center">
       <span class="text-brand-contrast text-xs tracking-[0.8em] uppercase mb-6">— Our Expertise</span>
       <h2 class="text-4xl md:text-6xl font-light text-brand-accent tracking-tighter leading-none">
         PROFESSIONAL <br />
-        <span class="italic font-serif opacity-80">SERVICES</span>
+        <span class="italic font-serif opacity-80 text-brand-contrast">SERVICES</span>
       </h2>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16 md:gap-y-12">
       {services.map((service, index) => (
         <div class={`
-          group relative overflow-hidden aspect-[4/3] flex items-end p-8 md:p-12 reveal-service
+          group relative overflow-hidden flex items-end p-8 md:p-12 reveal-service
+          /* 修复核心：手机端不限制比例，使用最小高度；平板以上恢复 4/3 比例 */
+          min-h-[400px] aspect-auto md:aspect-[4/3]
           ${index % 2 !== 0 ? 'md:mt-24' : ''}
         `}>
-          <div class="absolute inset-0 z-0">
+          <div class="absolute inset-0 z-0 bg-brand-muted">
             <img 
               src={service.image} 
               alt={service.title}
               class="w-full h-full object-cover grayscale-[100%] sepia-[20%] opacity-20 group-hover:opacity-60 group-hover:grayscale-0 group-hover:scale-110 transition-all duration-[1.5s] ease-out"
             />
-            <div class="absolute inset-0 bg-linear-to-t from-brand-bg via-brand-bg/40 to-transparent z-10 group-hover:from-brand-bg/80"></div>
+            <div class="absolute inset-0 bg-linear-to-t from-brand-bg via-brand-bg/60 to-transparent z-10 group-hover:from-brand-bg/90 transition-all duration-700"></div>
           </div>
 
-          <span class="absolute top-4 right-8 text-[10rem] font-bold leading-none select-none pointer-events-none z-20
+          <span class="absolute top-2 right-4 text-[7rem] md:text-[10rem] font-bold leading-none select-none pointer-events-none z-20
             text-transparent bg-clip-text bg-linear-to-b from-brand-muted/40 to-transparent
             group-hover:from-brand-accent/20 transition-all duration-1000">
             {service.no}
           </span>
 
-          <div class="relative z-30 w-full">
-            <div class="w-8 h-[1px] bg-brand-accent group-hover:w-20 transition-all duration-700 mb-8"></div>
+          <div class="relative z-30 w-full pt-20"> <div class="w-8 h-[1px] bg-brand-accent group-hover:w-20 transition-all duration-700 mb-6 md:mb-8"></div>
             
             <div class="space-y-4">
-              <h3 class="text-2xl md:text-3xl font-light text-brand-contrast tracking-[0.1em]">
+              <h3 class="text-xl md:text-3xl font-light text-brand-contrast tracking-[0.1em]">
                 {service.title}
               </h3>
-              <p class="text-brand-primary text-sm leading-relaxed max-w-sm opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-700">
+              <p class="text-brand-primary text-sm leading-relaxed max-w-sm opacity-90 md:opacity-0 md:group-hover:opacity-100 translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-all duration-700">
                 {service.desc}
               </p>
             </div>
             
-            <div class="pt-8 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">
+            <div class="pt-6 md:pt-8 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-700 delay-100">
               <a href="/contact" class="inline-flex items-center text-[10px] tracking-[0.5em] text-brand-contrast uppercase">
                 Explore <span class="ml-4 transition-transform group-hover:translate-x-2">→</span>
               </a>
