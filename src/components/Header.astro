@@ -1,0 +1,113 @@
+---
+/**
+ * Header.astro - 暖调极简摄影师网站导航 (Hover 优化版)
+ */
+const navLinks = [
+  { name: '/ WORKS', href: '/works' },
+  { name: '/ SERVICES', href: '/services' },
+  { name: '/ ABOUT', href: '/about' },
+  { name: '/ CONTACT', href: '/contact' },
+  { name: '/ BLOG', href: '/blog ' },
+];
+---
+
+<header 
+  id="main-header"
+  class="fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b border-transparent group"
+>
+  <div 
+    id="header-content"
+    class="max-w-7xl mx-auto px-6 md:px-12 h-20 md:h-24 flex items-center justify-between transition-all duration-500 mix-blend-difference is-transparent"
+    style="text-shadow: 0 0 12px rgba(0,0,0,0.3);"
+  >
+    
+    <a href="/" class="flex flex-col group/logo">
+      <span class="text-xl md:text-2xl font-light tracking-[0.2em] text-brand-bg transition-colors duration-500">
+        PHOTO<span class="font-bold text-brand-accent italic">GRAPH</span>
+      </span>
+      <span class="text-[10px] tracking-[0.5em] text-brand-bg/80 uppercase transition-colors duration-500">
+        Visual Specialist
+      </span>
+    </a>
+
+    <nav class="hidden md:flex items-center space-x-12">
+      {navLinks.map((link) => (
+        <a 
+          href={link.href} 
+          class="nav-link text-xs tracking-[0.2em] text-brand-bg transition-all duration-300 relative group/link"
+        >
+          {link.name}
+          <span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-current transition-all duration-300 group-hover/link:w-full"></span>
+        </a>
+      ))}
+      <button id="booking-btn" class="px-6 py-2 border border-brand-bg text-brand-bg text-xs tracking-widest hover:bg-brand-bg hover:text-brand-contrast transition-all duration-300">
+        BOOKING
+      </button>
+    </nav>
+
+    <button id="menu-toggle" class="md:hidden flex flex-col space-y-1.5 focus:outline-none p-2">
+      <span class="hamburger-line w-6 h-[1px] bg-brand-bg"></span>
+      <span class="hamburger-line w-6 h-[1px] bg-brand-bg"></span>
+    </button>
+  </div>
+
+  </header>
+
+<style>
+  /* 透明模式下的特定 Hover 逻辑 */
+  .is-transparent .nav-link:hover {
+    opacity: 0.7; /* 透明模式下通过降低不透明度来反馈，避免颜色计算混乱 */
+    color: var(--color-brand-bg) !important;
+  }
+
+  /* 滚动后的模式：恢复品牌强调色 */
+  .is-scrolled .nav-link:hover {
+    color: #8C7355 !important; /* 直接强制 brand-accent */
+    opacity: 1;
+  }
+
+  header { will-change: transform, background-color, height; }
+  #header-content * { transition: all 0.5s ease; }
+</style>
+
+<script>
+  const header = document.getElementById('main-header');
+  const headerContent = document.getElementById('header-content');
+  const bookingBtn = document.getElementById('booking-btn');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      // --- 滚动后状态 ---
+      header.classList.add('bg-brand-bg/95', 'backdrop-blur-md', 'border-brand-muted', 'h-16', 'md:h-20', 'shadow-sm');
+      headerContent.classList.remove('mix-blend-difference', 'is-transparent');
+      headerContent.classList.add('is-scrolled');
+      headerContent.style.textShadow = 'none';
+      
+      // 文字颜色切换至深色
+      updateColors('text-brand-bg', 'text-brand-contrast');
+      updateColors('border-brand-bg', 'border-brand-contrast');
+      updateColors('bg-brand-bg', 'bg-brand-contrast');
+      
+    } else {
+      // --- 初始透明状态 ---
+      header.classList.remove('bg-brand-bg/95', 'backdrop-blur-md', 'border-brand-muted', 'h-16', 'md:h-20', 'shadow-sm');
+      headerContent.classList.add('mix-blend-difference', 'is-transparent');
+      headerContent.classList.remove('is-scrolled');
+      headerContent.style.textShadow = '0 2px 4px rgba(0,0,0,0.5), 0 0 20px rgba(0,0,0,0.4)';
+
+      // 文字颜色切换至亮色（以适配混合模式）
+      updateColors('text-brand-contrast', 'text-brand-bg');
+      updateColors('border-brand-contrast', 'border-brand-bg');
+      updateColors('bg-brand-contrast', 'bg-brand-bg');
+    }
+  });
+
+  function updateColors(oldClass, newClass) {
+    const elements = headerContent.querySelectorAll(`.${oldClass}`);
+    elements.forEach(el => {
+      el.classList.replace(oldClass, newClass);
+    });
+  }
+
+  // 移动端菜单逻辑...
+</script>

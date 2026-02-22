@@ -1,0 +1,35 @@
+---
+import '../styles/global.css';
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+import PortfolioGrid from '../components/PortfolioGrid.astro';
+import SelectedWorks from '../components/SelectedWorks.astro';
+import Services from '../components/Services.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Philosophy from '../components/Philosophy.astro';
+import FAQ from '../components/FAQ.astro';
+
+
+
+---
+
+<Layout>
+  <h1 class="sr-only">Your Name | Minimalist Portrait & Lifestyle Photographer in Shanghai</h1>
+  <Header />
+  <Hero />
+
+
+  <SelectedWorks />
+  <Services />
+  <Testimonials />
+  <Philosophy />
+  <FAQ />
+
+
+
+
+  <Footer />
+</Layout>

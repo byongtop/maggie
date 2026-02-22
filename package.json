@@ -1,0 +1,18 @@
+{
+  "name": "",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.2.0",
+    "astro": "^5.17.1",
+    "photoswipe": "^5.4.4",
+    "swiper": "^12.1.2",
+    "tailwindcss": "^4.2.0"
+  }
+}

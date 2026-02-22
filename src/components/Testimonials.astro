@@ -1,0 +1,119 @@
+---
+/**
+ * Testimonials.astro - 极简主义情感化评价模块
+ * 视觉风格：中轴对称、柔和过渡、品牌色引用符
+ */
+const testimonials = [
+  {
+    quote: "Capturing our wedding wasn't just about photos; it was about preserving the atmosphere we felt. The results were beyond our imagination—pure, raw, and timeless.",
+    author: "EMILY & JAMES",
+    location: "London, UK"
+  },
+  {
+    quote: "The attention to detail and the way light is handled is sheer artistry. A true minimalist who understands that sometimes, less is infinitely more.",
+    author: "MARCUS CHEN",
+    location: "Creative Director, VOGUE"
+  },
+  {
+    quote: "Professional, discreet, and incredibly talented. They managed to capture the most intimate moments without us even noticing the camera.",
+    author: "SARAH JENKINS",
+    location: "Founder, Bloom Studio"
+  }
+];
+---
+
+<section class="py-40 px-6 md:px-12 bg-brand-bg relative overflow-hidden border-t border-brand-muted">
+  <div class="max-w-4xl mx-auto text-center">
+    
+    <div class="text-brand-accent/20 text-[12rem] font-serif absolute top-20 left-1/2 -translate-x-1/2 select-none pointer-events-none">
+      “
+    </div>
+
+    <div class="swiper testimonialSwiper pt-10">
+      <div class="swiper-wrapper">
+        {testimonials.map((item) => (
+          <div class="swiper-slide flex flex-col items-center">
+            <blockquote class="text-2xl md:text-3xl lg:text-4xl font-light text-brand-contrast leading-relaxed italic mb-12 tracking-tight">
+              "{item.quote}"
+            </blockquote>
+            
+            <div class="flex flex-col items-center space-y-2">
+              <div class="w-8 h-[1px] bg-brand-accent mb-4"></div>
+              <cite class="not-italic text-sm tracking-[0.4em] text-brand-contrast font-medium">
+                {item.author}
+              </cite>
+              <span class="text-[10px] tracking-[0.2em] text-brand-primary/50 uppercase">
+                {item.location}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="flex justify-center items-center space-x-8 mt-16">
+        <button class="ts-prev text-brand-accent hover:opacity-50 transition-opacity cursor-none p-2">
+          <svg width="30" height="15" viewBox="0 0 30 15" fill="none"><path d="M30 7.5H1M1 7.5L7.5 1M1 7.5L7.5 14" stroke="currentColor" stroke-width="1"/></svg>
+        </button>
+        <div class="ts-pagination !w-auto !relative text-[10px] tracking-widest text-brand-primary/40 font-serif italic"></div>
+        <button class="ts-next text-brand-accent hover:opacity-50 transition-opacity cursor-none p-2">
+          <svg width="30" height="15" viewBox="0 0 30 15" fill="none"><path d="M0 7.5H29M29 7.5L22.5 1M29 7.5L22.5 14" stroke="currentColor" stroke-width="1"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import Swiper from 'swiper';
+  import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules';
+  import 'swiper/css';
+  import 'swiper/css/effect-fade';
+
+  new Swiper('.testimonialSwiper', {
+    modules: [Navigation, Pagination, Autoplay, EffectFade],
+    effect: 'fade',
+    fadeEffect: { crossFade: true },
+    loop: true,
+    speed: 1200,
+    autoplay: {
+      delay: 6000,
+      disableOnInteraction: false,
+    },
+    navigation: {
+      nextEl: '.ts-next',
+      prevEl: '.ts-prev',
+    },
+    pagination: {
+      el: '.ts-pagination',
+      type: 'fraction', // 使用分式分页（如 1 / 3），更有画册感
+      formatFractionCurrent: (number) => number.toString().padStart(2, '0'),
+      formatFractionTotal: (number) => number.toString().padStart(2, '0'),
+    },
+  });
+</script>
+
+<style is:global>
+  /* 针对 Swiper 分页符的细微调整 */
+  .ts-pagination .swiper-pagination-current {
+    color: var(--color-brand-accent);
+    font-weight: 500;
+  }
+  
+  /* 增加文字的呼吸感动画 */
+  .testimonialSwiper .swiper-slide-active blockquote {
+    animation: textBlurIn 1.5s ease-out forwards;
+  }
+
+  @keyframes textBlurIn {
+    from {
+      filter: blur(10px);
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      filter: blur(0);
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
