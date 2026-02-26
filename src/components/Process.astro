@@ -1,0 +1,127 @@
+---
+/**
+ * Process.astro - 深色情绪版
+ * 视觉特征：背景 #34041A，内浮巨大水印文字，金铜色交互
+ * 修改点：优化上下边距为 py-24/py-32，标题强化为纯白色确保对比度
+ */
+const steps = [
+  { 
+    no: "01", 
+    title: "SOUL DISCOVERY", 
+    subtitle: "灵魂沟通",
+    desc: "在按下快门前，我们通过深度对谈挖掘你独有的性格磁场与社交目标，定义拍摄基调。" 
+  },
+  { 
+    no: "02", 
+    title: "AESTHETIC PLAN", 
+    subtitle: "美学策划",
+    desc: "拒绝千篇一律。定制化光影方案、私人服饰策略，以及保留呼吸感的质感妆造方案。" 
+  },
+  { 
+    no: "03", 
+    title: "ARTFUL SESSION", 
+    subtitle: "沉浸拍摄",
+    desc: "在私密的快门声中，配合引导式对谈与电影感光影，捕捉你连自己都未曾发觉的本色。" 
+  },
+  { 
+    no: "04", 
+    title: "PURE SELECTION", 
+    subtitle: "艺术初选",
+    desc: "联机拍摄实时反馈。我们一同从数百张光影切片中，精准挑选出那些最具生命力的画面。" 
+  },
+  { 
+    no: "05", 
+    title: "FILM-LIKE EDIT", 
+    subtitle: "后期显影",
+    desc: "坚持“去瑕疵，存灵魂”的后期哲学。保留真实纹理，赋予照片如经典胶片般的厚重感。" 
+  }
+];
+---
+
+<section class="py-24 md:py-32 bg-[#34041A] px-8 md:px-20 relative overflow-hidden text-[#F9F2E7]">
+  
+  <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0">
+    <span class="text-[15vw] font-serif italic text-[#F9F2E7]/[0.02] uppercase tracking-tighter leading-none">
+      Flow
+    </span>
+  </div>
+
+  <div class="max-w-7xl mx-auto relative z-10">
+    <div class="mb-32 flex flex-col md:flex-row items-baseline gap-6">
+      <h2 class="text-4xl md:text-6xl font-serif italic font-light tracking-tight text-white">
+        The <span class="not-italic font-medium">Creation</span>
+      </h2>
+      <div class="h-[1px] flex-1 bg-[#F9F2E7]/10 hidden md:block"></div>
+      <p class="text-[10px] tracking-[0.5em] text-[#8C7355] uppercase">
+        Step by Step Guide
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-x-12 gap-y-24">
+      {steps.map((step, index) => (
+        <div class="group relative reveal-step" style={`transition-delay: ${index * 100}ms`}>
+          <div class="mb-10 inline-block">
+            <span class="text-xs font-sans tracking-[0.4em] text-[#8C7355] block mb-2">STEP</span>
+            <span class="text-4xl font-serif italic text-[#F9F2E7] opacity-40 group-hover:opacity-100 group-hover:text-[#8C7355] transition-all duration-700">
+              {step.no}
+            </span>
+          </div>
+
+          <div class="space-y-6">
+            <div class="space-y-2">
+              <h3 class="text-xs md:text-sm tracking-[0.3em] font-bold text-[#F9F2E7] uppercase">
+                {step.title}
+              </h3>
+              <div class="w-8 h-[1px] bg-[#8C7355] group-hover:w-full transition-all duration-1000 origin-left"></div>
+              <p class="text-[10px] text-[#F9F2E7]/40 tracking-[0.2em]">
+                {step.subtitle}
+              </p>
+            </div>
+            
+            <p class="text-xs leading-[2.2] text-[#F9F2E7]/60 font-light tracking-wide">
+              {step.desc}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+</section>
+
+<style is:global>
+  /* 流程入场动画 */
+  .reveal-step {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal-step.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* 针对中文字体的高级感处理 */
+  .reveal-step p {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+</style>
+
+<script>
+  function initProcessAnimation() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal-step').forEach(el => observer.observe(el));
+  }
+
+  initProcessAnimation();
+  document.addEventListener('astro:page-load', initProcessAnimation);
+</script>

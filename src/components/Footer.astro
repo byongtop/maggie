@@ -1,91 +1,120 @@
 ---
 /**
- * Footer.astro - 暖调极简摄影师网站页脚
- * 视觉风格：深色对比模式 (brand-contrast)
+ * Footer.astro - 勃艮第红画廊艺术版
+ * 使用自定义主题变量：brand-dark, brand-on-dark, brand-muted
  */
 const currentYear = new Date().getFullYear();
-const socialLinks = [
-  { name: 'Instagram', href: '#' },
-  { name: 'Behance', href: '#' },
-  { name: 'Xiaohongshu', href: '#' },
-  { name: 'Vogue Me', href: '#' }
+
+const navLinks = [
+  { id: '01', name: 'Works', href: '/works' },
+  { id: '02', name: 'Services', href: '/services' },
+  { id: '03', name: 'The Studio', href: '/about' },
+  { id: '04', name: 'Connect', href: '/contact' }
 ];
+
+const socialLinks = ['Instagram', 'Xiaohongshu', 'Behance'];
 ---
 
-<footer class="bg-brand-contrast text-brand-bg py-20 px-6 md:px-12">
-  <div class="max-w-7xl mx-auto">
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-12 pb-16 border-b border-brand-primary/20">
-      <div class="max-w-xl">
-        <h2 class="text-3xl md:text-5xl font-light tracking-tight leading-tight mb-6">
-          Ready to capture your <span class="italic text-brand-accent">unspoken</span> stories?
+<footer class="bg-brand-dark text-brand-on-dark pt-32 pb-12 px-8 md:px-20 relative overflow-hidden">
+  
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none opacity-[0.02]">
+    <span class="text-[30vw] font-serif italic whitespace-nowrap">AUTHENTIC</span>
+  </div>
+
+  <div class="max-w-7xl mx-auto relative z-10">
+    
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 mb-32 border-b border-brand-on-dark/10 pb-24">
+      <div class="space-y-10">
+        <h2 class="text-brand-on-dark text-3xl md:text-5xl font-serif lowercase italic leading-tight tracking-tight normal-case">
+          Ready to tell your <br/>
+          <span class="text-brand-muted opacity-80">unspoken story</span>?
         </h2>
-        <p class="text-brand-muted/60 text-sm tracking-widest uppercase">
-          Available for worldwide travel & creative collaborations.
-        </p>
-      </div>
-      
-      <a 
-        href="mailto:hello@example.com" 
-        class="group relative overflow-hidden bg-brand-accent text-brand-bg px-12 py-5 text-xs tracking-[0.3em] uppercase transition-all duration-500 hover:pr-16"
-      >
-        <span class="relative z-10">Start a Project</span>
-        <span class="absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300">→</span>
-      </a>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 py-16">
-      <div class="col-span-1 md:col-span-2">
-        <div class="text-2xl font-light tracking-[0.2em] mb-6">
-          PHOTO<span class="text-brand-accent font-bold">GRAPH</span>
+        
+        <div class="group inline-block">
+          <p class="text-[9px] tracking-[0.4em] text-brand-on-dark/30 uppercase mb-4">Direct Inquiry</p>
+          <a href="mailto:hello@example.com" class="text-2xl md:text-4xl font-light tracking-tighter hover:text-brand-muted transition-colors duration-500">
+            HELLO@YOURSTUDIO.COM
+          </a>
+          <div class="h-[1px] w-full bg-brand-muted/30 mt-4 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700"></div>
         </div>
-        <p class="text-brand-muted/50 text-sm leading-relaxed max-w-xs">
-          基于暖调极简主义，用光影捕捉每一个稍纵即逝的瞬间。作为前端专家与摄影师，我追求视觉与代码的完美契合。
-        </p>
       </div>
 
-      <div>
-        <h4 class="text-brand-accent text-xs tracking-[0.2em] uppercase mb-8">Navigation</h4>
-        <ul class="space-y-4 text-sm font-light">
-          <li><a href="/works" class="hover:text-brand-accent transition-colors">Portfolio</a></li>
-          <li><a href="/archive" class="hover:text-brand-accent transition-colors">Archive</a></li>
-          <li><a href="/about" class="hover:text-brand-accent transition-colors">About Studio</a></li>
-          <li><a href="/journal" class="hover:text-brand-accent transition-colors">Journal</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h4 class="text-brand-accent text-xs tracking-[0.2em] uppercase mb-8">Connect</h4>
-        <ul class="space-y-4 text-sm font-light">
-          {socialLinks.map(link => (
-            <li>
-              <a href={link.href} class="hover:text-brand-accent transition-colors flex items-center group">
-                {link.name}
-                <span class="ml-2 opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">↗</span>
-              </a>
-            </li>
-          ))}
-        </ul>
+      <div class="grid grid-cols-2 gap-10">
+        <div class="space-y-8">
+          <p class="text-[9px] tracking-[0.4em] text-brand-on-dark/30 uppercase">Navigation</p>
+          <ul class="space-y-4">
+            {navLinks.map(link => (
+              <li class="group">
+                <a href={link.href} class="flex items-center space-x-3 text-xs tracking-[0.2em] uppercase hover:text-brand-muted transition-colors">
+                  <span class="text-[8px] text-brand-muted font-mono">{link.id}</span>
+                  <span>{link.name}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="space-y-8">
+          <p class="text-[9px] tracking-[0.4em] text-brand-on-dark/30 uppercase">Socials</p>
+          <ul class="space-y-4">
+            {socialLinks.map(name => (
+              <li>
+                <a href="#" class="text-xs tracking-[0.2em] uppercase hover:italic hover:text-brand-muted transition-all">
+                  {name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
 
-    <div class="pt-8 border-t border-brand-primary/10 flex flex-col md:flex-row justify-between items-center gap-6">
-      <div class="text-[10px] tracking-[0.2em] text-brand-muted/30 uppercase">
-        © {currentYear} All Rights Reserved. Designed by Astro & Tailwind v4.
+    <div class="flex flex-col md:flex-row justify-between items-end gap-12">
+      <div class="space-y-6">
+        <div class="logo-area font-serif text-2xl tracking-[0.1em] text-brand-on-dark">
+          PHOTO<span class="italic font-light text-brand-muted">GRAPH</span>
+        </div>
+        <p class="text-[9px] tracking-[0.4em] text-brand-on-dark/20 uppercase max-w-xs leading-loose">
+          Based in China / Available Worldwide <br/>
+          © {currentYear} All Rights Reserved.
+        </p>
       </div>
-      
-      <div class="flex items-center space-x-6">
-        <a href="/privacy" class="text-[10px] tracking-[0.2em] text-brand-muted/30 hover:text-brand-accent">PRIVACY POLICY</a>
-        <button id="scroll-to-top" class="text-brand-accent text-[10px] tracking-[0.2em] hover:opacity-70 flex items-center">
-          BACK TO TOP <span class="ml-2">↑</span>
-        </button>
-      </div>
+
+      <button 
+        id="back-to-top"
+        class="group flex flex-col items-center space-y-4 text-[9px] tracking-[0.5em] text-brand-on-dark/40 hover:text-brand-on-dark transition-all duration-500"
+      >
+        <div class="w-12 h-12 border border-brand-on-dark/10 rounded-full flex items-center justify-center relative overflow-hidden group-hover:border-brand-muted">
+          <span class="relative z-10 transition-transform duration-500 group-hover:-translate-y-8">↑</span>
+          <span class="absolute translate-y-8 z-10 transition-transform duration-500 group-hover:translate-y-0 text-brand-muted">↑</span>
+        </div>
+        <span class="uppercase">Back to Top</span>
+      </button>
     </div>
   </div>
 </footer>
 
+<style is:global>
+  /* 针对页脚的衬线字体增强 */
+  footer h2, footer .logo-area, footer span.font-serif {
+    font-family: 'Cormorant Garamond', serif;
+    text-transform: none; /* 允许小写斜体增加艺术感 */
+  }
+
+  /* 这种“花边”是极简主义的单像素虚线 */
+  footer::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 1px;
+    height: 120px;
+    background: linear-gradient(to bottom, rgba(249, 242, 231, 0.2), transparent);
+  }
+</style>
+
 <script>
-  // 回到顶部功能
-  document.getElementById('scroll-to-top')?.addEventListener('click', () => {
+  const btt = document.getElementById('back-to-top');
+  btt?.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 </script>

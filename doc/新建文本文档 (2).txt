@@ -1,0 +1,78 @@
+首页(Home) 元素：
+1. 顶部导航栏 (Header/Navigation)  Logo/菜单/行动按钮 (CTA)
+2. 视觉首屏 (Hero Section) 震撼大图/核心标语
+3. 作品精选展示  网格布局/分类入口
+4. 个人简介/服务特色
+5. 客户证言/合作伙伴 评价/Logo 墙
+6. 博客/最新动态 (Latest News)
+7. 页脚 (Footer)  社交媒体图标/版权信息/二次导航
+
+
+#34041A 是一种非常有质感的深勃艮第酒红（Deep Burgundy）或黑加仑色。
+#F9F2E7
+
+
+颜色代码	视觉感受	角色建议
+#34041A (极深酒红/暗樱桃木)	沉稳、权威、深邃、昂贵。它比纯黑色更有温度，带有一种成熟的叙事感。	背景色、标题、主品牌色
+#F9F2E7 (象牙白/羊绒米白)	温暖、柔和、呼吸感、纯净。它避免了纯白的刺眼，能让用户长时间停留而不疲劳。	文字、Loader 按钮、辅助背景
+
+
+
+针对相亲交友形象照（Dating Profile Photography），英文表达需要根据你想要传递的“质感”来选择。相亲照的核心在于“真实但更有魅力的自己”，所以词汇通常围绕**连接（Connection）、真实（Authenticity）和第一印象（First Impression）**展开。
+
+以下是几个不同侧重点的建议：
+
+1. 行业标准与直接表达 (Direct & Professional)
+如果你希望用户一眼就看懂你的服务内容：
+
+Dating Profile Photography：最标准、最利于 SEO 搜索的表达。
+
+Dating Portraits：简洁有力，强调“肖像”的专业感。
+
+Social & Dating Headshots：强调社交全能型，适合用于微信、小红书及相亲平台。
+
+2. 强调“第一印象”与“吸引力” (Focus on Impression)
+相亲交友本质上是视觉先行，这类词汇能抓住用户的痛点：
+
+First Impression Portraits：强调“第一印象”的重要性。
+
+The Match Portraits：暗示拍了这些照片就能“配对成功”。
+
+Spark Portraits：Spark（火花），寓意照片能开启一段感情的火花。
+
+Magnetic Portraits：磁性肖像，寓意具有吸引力的形象。
+
+3. 强调“真实感”与“叙事感” (Authentic & Storytelling)
+针对你目前采用的高端、有叙事感的摄影风格，这些词汇更契合：
+
+Authentic Connection Portraits：强调真实的连接感，不虚假。
+
+Life-Inspired Dating Photos：强调生活气息，不像照相馆里死板的模特照。
+
+Narrative Dating Photography：叙事性相亲摄影，通过照片讲故事。
+
+Unveiled Portraits：直译为“揭开面纱”，寓意展示最真实、最动人的你。
+
+4. 更加高端/文艺的表达 (Premium & Artistic)
+适合配合你现在的 #34041A 勃艮第红配色方案，走轻奢路线：
+
+The Persona Suite：Persona（形象/人格），听起来像是一套高端定制服务。
+
+Aura Photography：Aura（气场），强调捕捉人特有的气质。
+
+Beloved Portraits：直译为“挚爱”，寓意为了寻找爱而拍摄。
+
+💡 我的建议
+考虑到你网站的极简风格和目前的排版（Header/Hero），我建议使用：
+
+主标题建议：
+
+"Dating & Connection Portraits"
+(兼顾了功能性和感性)
+
+副标题建议：
+
+"Capturing the most authentic version of you for a lasting first impression."
+(捕捉最真实的你，留下持久的第一印象。)
+
+

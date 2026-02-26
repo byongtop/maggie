@@ -2,19 +2,52 @@
 @import "tailwindcss";
 
 @theme {
-  /* 定义你的品牌色调色板 */
-  --color-brand-bg: #fffcf9;  /* 主要背景 */
-  --color-brand-contrast: #2D2926;  /* 深色/对比 */
-  --color-brand-primary: #404350;  /* 正文文本 */
-  --color-brand-muted: #E5E0D8;  /* 柔和中性色 */
-  --color-brand-accent: #9C5E3F;  /* 强调色/链接 */
+  /* 核心：#34041A (深红) 与 #F9F2E7 (羊绒米) 的深度整合 */
+  
+  /* 1. 主背景：改为你选的羊绒米白，非常有呼吸感 */
+  --color-brand-bg: #F9F2E7; 
+
+  /* 2. 深色背景：直接使用核心强调色作为深色块的背景 */
+  --color-brand-dark: #34041A;
+
+  /* 3. 核心强调色：保持不变，用于标题或重点 */
+  --color-brand-accent: #34041A;
+
+  /* 4. 正文文本：在米白背景上使用深褐色，比纯黑更高级 */
+  --color-brand-primary: #3C3835;
+
+  /* 5. 辅助强调色 (胡桃木)：用于分割线或次要按钮，增加层次 */
+  --color-brand-muted: #8C7355;
+
+  /* 6. 反白文字：专门用于深红背景上的文字 */
+  --color-brand-on-dark: #F9F2E7;
 }
 
 @layer base {
-  /* 设置全局默认背景和文字颜色 */
-  body {
+body {
     @apply bg-brand-bg text-brand-primary;
     margin: 0;
-    font-family: sans-serif;
+    /* 正文使用无衬线体，保持现代简约 */
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  /* 允许在特定区域（如 Loader 或 Dark Section）一键切换配色 */
+  .dark-theme {
+    @apply bg-brand-dark text-brand-on-dark;
+  }
+
+  h1, h2, h3 {
+    /* 标题默认使用深红，建立品牌识别度 */
+    @apply text-brand-accent font-light;
+    letter-spacing: 0.05em; /* 摄影站建议字间距稍微拉开，更有留白感 */
+    text-transform: uppercase;
+  }
+
+  /* 针对图片展示的全局平滑 */
+  img {
+    @apply grayscale-[10%] hover:grayscale-0 transition-all duration-700;
   }
 }

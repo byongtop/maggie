@@ -1,44 +1,95 @@
 ---
-// Hero.astro
+/**
+ * Hero.astro - 摄影重心平衡版
+ * 修复：字号缩小，避免遮挡照片
+ * 图片：使用本地资源路径
+ */
+import { Image } from 'astro:assets';
+
+// 导入本地图片
+import hero06 from '../assets/images/hero/06.jpg';
+import hero07 from '../assets/images/hero/07.jpg';
+import hero08 from '../assets/images/hero/08.jpg';
+
 const slides = [
-  { img: "/assets/images/hero/01.jpg", title: "SILENCE / 宁静", subtitle: "Captured in 2026, Iceland" },
-  { img: "/assets/images/hero/02.jpg", title: "WHISPER / 微风", subtitle: "Captured in 2026, Sahara" },
-  { img: "/assets/images/hero/03.jpg", title: "ETERNITY / 永恒", subtitle: "Captured in 2026, Tibet" },
+  { 
+    img: hero06, 
+    title: "THE FIRST IMPRESSION", 
+    subtitle: "Authentic / Magnetic / Connection",
+    desc: "捕捉最真实的你，开启一段深刻的连接。"
+  },
+  { 
+    img: hero07, 
+    title: "NARRATIVE PORTRAITS", 
+    subtitle: "Artistic / Natural / Timeless",
+    desc: "拒绝死板，在光影中讲述你的独特魅力。"
+  },
+  { 
+    img: hero08, 
+    title: "SOCIAL CURATION", 
+    subtitle: "Confidence / Style / Presence",
+    desc: "专为社交软件打造的生活化形象策略。"
+  },
 ];
 ---
 
-<section class="relative h-screen w-full bg-brand-bg overflow-hidden">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;600&display=swap');
+</style>
+
+<section class="hero-wrapper relative h-screen w-full bg-[#34041A] overflow-hidden">
+  <div class="absolute inset-y-0 left-0 z-10 w-full md:w-2/3 pointer-events-none bg-gradient-to-r from-[#34041A]/50 via-[#34041A]/10 to-transparent"></div>
+
   <div class="swiper heroSwiper h-full w-full">
     <div class="swiper-wrapper">
       {slides.map((slide) => (
         <div class="swiper-slide relative overflow-hidden">
-          <div class="img-container h-full w-full">
-            <img 
+          <div class="img-container h-full w-full bg-[#34041A]">
+            <Image 
               src={slide.img} 
-              class="h-full w-full object-cover grayscale-[20%] opacity-90" 
-              alt={slide.title} 
+              alt={slide.title}
+              class="h-full w-full object-cover grayscale-[10%] contrast-[1.05] brightness-[0.9]"
+              quality="max"
             />
           </div>
-<div class="absolute bottom-20 left-10 md:bottom-32 md:left-32 z-10 flex flex-col items-start">
-  
-  <div class="absolute -inset-12 bg-[radial-gradient(circle_at_center,rgba(45,41,38,0.2)_0%,transparent_75%)] blur-2xl pointer-events-none"></div>
 
-  <div class="relative backdrop-blur-md bg-brand-bg/30 px-10 py-8 border border-brand-bg/10 slide-content">
-    <h2 class="text-3xl md:text-5xl font-light text-brand-accent tracking-[0.2em] mb-4 uppercase">
-      {slide.title}
-    </h2>
-    
-    <div class="flex items-center space-x-4">
-      <span class="w-6 h-[1px] bg-brand-accent"></span>
-      <p class="text-brand-primary text-[10px] md:text-xs tracking-[0.4em] uppercase font-light">
-        {slide.subtitle}
-      </p>
-    </div>
-  </div>
-</div>        </div>
+          <div class="absolute inset-0 z-20 pt-32 md:pt-40 lg:pt-48">
+            <div class="max-w-7xl mx-auto px-10 md:px-24 w-full">
+              <div class="slide-content max-w-2xl">
+                <div class="flex items-center space-x-4 mb-5 animate-element">
+                  <span class="w-8 h-[1px] bg-[#F9F2E7]/40"></span>
+                  <p class="text-[#F9F2E7]/80 text-[10px] tracking-[0.5em] uppercase font-sans font-light">
+                    {slide.subtitle}
+                  </p>
+                </div>
+                
+                <h2 class="hero-title text-4xl md:text-5xl lg:text-6xl text-[#F9F2E7] mb-8 leading-tight tracking-wide animate-element">
+                  {slide.title.split(' ').map((word, i) => (
+                    <span class={i === 1 ? "font-serif italic font-light opacity-90" : "font-serif font-medium uppercase tracking-[0.1em]"}>
+                      {word}&nbsp;
+                    </span>
+                  ))}
+                </h2>
+
+                <p class="hero-desc text-[#F9F2E7]/60 text-xs md:text-sm font-light tracking-[0.2em] max-w-xs mb-10 leading-relaxed font-sans animate-element">
+                  {slide.desc}
+                </p>
+
+                <div class="animate-element">
+                  <a href="/booking" class="group relative inline-flex items-center border border-[#F9F2E7]/20 px-10 py-4 transition-all duration-700 hover:border-[#F9F2E7]">
+                    <span class="relative z-10 text-[#F9F2E7] text-[10px] tracking-[0.4em] font-sans uppercase">Explore More</span>
+                    <div class="absolute inset-0 bg-[#F9F2E7] translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-out"></div>
+                    <span class="absolute inset-0 z-20 flex items-center justify-center text-[#34041A] text-[10px] tracking-[0.4em] font-sans uppercase translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-out">Explore More</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       ))}
     </div>
-    <div class="swiper-pagination !bottom-10"></div>
+    
+    <div class="swiper-pagination !left-auto !right-12 !bottom-12 md:!top-1/2 md:-translate-y-1/2 !flex md:!flex-col !w-auto"></div>
   </div>
 </section>
 
@@ -47,55 +98,70 @@ const slides = [
   import { Pagination, Autoplay, EffectFade } from 'swiper/modules';
   import 'swiper/css';
   import 'swiper/css/effect-fade';
-  import 'swiper/css/pagination';
 
-  new Swiper('.heroSwiper', {
-    modules: [Pagination, Autoplay, EffectFade],
-    effect: 'fade',
-    loop: true,
-    speed: 2000, // 切换渐变的速度，越慢越优雅
-    autoplay: {
-      delay: 6000, // 停留时间
-      disableOnInteraction: false,
-    },
-    fadeEffect: {
-      crossFade: true // 让图片切换更平滑，不露底色
-    },
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-    },
-  });
+  const initSwiper = () => {
+    new Swiper('.heroSwiper', {
+      modules: [Pagination, Autoplay, EffectFade],
+      effect: 'fade',
+      loop: true,
+      speed: 2000, 
+      autoplay: { delay: 5000, disableOnInteraction: false },
+      fadeEffect: { crossFade: true },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+        renderBullet: function (index, className) {
+          return `<span class="${className}">0${index + 1}</span>`;
+        },
+      },
+    });
+  };
+
+  // 处理 Astro 视图过渡
+  document.addEventListener('astro:page-load', initSwiper);
+  // 初次加载
+  initSwiper();
 </script>
 
 <style is:global>
-  /* 1. 基础图片样式与动画定义 */
+  .hero-title { font-family: 'Cormorant Garamond', serif; }
+  .font-sans { font-family: 'Inter', sans-serif; }
+
+  /* 动画系统 */
+  .animate-element {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 1.2s cubic-bezier(0.2, 1, 0.3, 1);
+  }
+
+  .swiper-slide-active .animate-element:nth-child(1) { transition-delay: 0.2s; opacity: 1; transform: translateY(0); }
+  .swiper-slide-active .animate-element:nth-child(2) { transition-delay: 0.4s; opacity: 1; transform: translateY(0); }
+  .swiper-slide-active .animate-element:nth-child(3) { transition-delay: 0.6s; opacity: 1; transform: translateY(0); }
+  .swiper-slide-active .animate-element:nth-child(4) { transition-delay: 0.8s; opacity: 1; transform: translateY(0); }
+
+  /* 图片缩放动画优化 */
   .img-container img {
-    transform: scale(1.1); /* 初始略大 */
-    transition: transform 7s linear; /* 缩放速度要慢于切换速度 */
+    transform: scale(1.08);
+    transition: transform 10s ease-out;
   }
-
-  /* 2. 当 Slide 激活时，图片缓慢缩放 */
-  /* 这里我们让它从 1.1 缩放到 1.2，产生一种平滑的前行感 */
   .swiper-slide-active .img-container img {
-    transform: scale(1.25);
+    transform: scale(1);
   }
 
-  /* 3. 文字内容入场动画 */
-  .swiper-slide-active .slide-content {
-    opacity: 1;
-    transform: translate-y(0);
-  }
-
-  /* 4. 分页器自定义样式（基于你的 brand-accent） */
+  /* 分页器小数字样式 */
   .swiper-pagination-bullet {
-    background: #8C7355 !important; /* 直接写死色值或确保 Tailwind 变量生效 */
+    background: transparent !important;
+    color: #F9F2E7;
     opacity: 0.3;
-    transition: all 0.3s ease;
+    font-size: 10px;
+    margin: 10px 0 !important;
+    width: auto !important;
+    height: auto !important;
+    display: block;
+    transition: 0.5s ease;
   }
   .swiper-pagination-bullet-active {
     opacity: 1;
-    width: 24px;
-    border-radius: 4px;
+    transform: translateX(-5px);
   }
 </style>

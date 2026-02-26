@@ -1,110 +1,151 @@
 ---
 /**
- * Services.astro - 移动端适配修复版
- * 修复点：移动端自动高度，Pad/PC 保持纵横比，优化内边距
+ * Services.astro - 柔美相机取景版
+ * 1. 保留相机取景框，颜色对齐 brand-accent。
+ * 2. 文字常驻，使用 brand-on-dark。
+ * 3. 去掉 desc 背板，保持女性化的精致感。
  */
 const services = [
   { 
     no: "01", 
-    title: "FINE ART PORTRAIT", 
-    desc: "Capturing the unspoken essence of the soul through delicate light and shadow play.",
+    title: "MAGNETIC IDENTITY", 
+    subtitle: "磁场形象",
+    desc: "捕捉你最自然、最具吸引力的瞬间，让第一印象成为故事的开始。",
     image: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&q=80&w=800"
   },
   { 
     no: "02", 
-    title: "DATING PROFILE PORTRAIT", 
-    desc: "Crafting natural, confident images that tell your unique story and create meaningful connections.",
+    title: "NARRATIVE LIFESTYLE", 
+    subtitle: "叙事生活",
+    desc: "在真实的生活场景中叙事，展现你丰富的业余生活与独特的审美情趣。",
     image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=800"
   },
   { 
     no: "03", 
-    title: "COMMERCIAL PRODUCT", 
-    desc: "Elevating brand identity through meticulous texture capturing and minimalist visual language.",
+    title: "GENTLEMAN'S CODE", 
+    subtitle: "精英视觉",
+    desc: "从光影、穿搭到姿态，建立沉稳、多金且富有亲和力的视觉体系。",
     image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=800"
   },
   { 
     no: "04", 
-    title: "SPATIAL ARCHITECTURE", 
-    desc: "Exploring the balance between geometric lines and the rhythmic flow of ambient light.",
+    title: "PERSONAL BRANDING", 
+    subtitle: "职业形象",
+    desc: "超越相亲，这是你的视觉名片。为你的个人魅力寻找一个完美的视觉支点。",
     image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800"
   },
 ];
 ---
 
-<section class="py-24 md:py-40 px-6 md:px-12 bg-brand-bg overflow-hidden">
-  <div class="max-w-7xl mx-auto">
-    <div class="mb-20 md:mb-32 flex flex-col items-center text-center">
-      <span class="text-brand-contrast text-xs tracking-[0.8em] uppercase mb-6">— Our Expertise</span>
-      <h2 class="text-4xl md:text-6xl font-light text-brand-accent tracking-tighter leading-none">
-        PROFESSIONAL <br />
-        <span class="italic font-serif opacity-80 text-brand-contrast">SERVICES</span>
-      </h2>
+<section class="py-24 md:py-32 bg-brand-bg px-8 md:px-10 relative overflow-hidden">
+  <div class="absolute top-40 left-[30%] pointer-events-none select-none opacity-[0.03]">
+    <span class="text-[8vw] font-serif italic text-brand-dark leading-none">Perspective</span>
+  </div>  
+  
+  <div class="max-w-7xl mx-auto relative z-10">
+    <div class="mb-24 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-8">
+      <div class="max-w-2xl">
+        <p class="text-brand-muted text-[10px] tracking-[0.5em] uppercase mb-6 flex items-center">
+          <span class="w-8 h-[1px] bg-brand-muted/40 mr-4"></span>
+          Our Expertise
+        </p>
+        <h2 class="text-4xl md:text-7xl font-serif leading-none text-brand-dark">
+          CRAFTING <br />
+          <span class="italic font-light opacity-80">ATTRACTION</span>
+        </h2>
+      </div>
+      <p class="text-brand-primary/60 text-xs md:text-sm max-w-[280px] leading-relaxed tracking-wider font-sans mb-2">
+        我们不只是拍照，我们是在相亲交友的第一道窗口，为你建立不可替代的视觉叙事。
+      </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16 md:gap-y-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-20">
       {services.map((service, index) => (
-        <div class={`
-          group relative overflow-hidden flex items-end p-8 md:p-12 reveal-service
-          /* 修复核心：手机端不限制比例，使用最小高度；平板以上恢复 4/3 比例 */
-          min-h-[400px] aspect-auto md:aspect-[4/3]
-          ${index % 2 !== 0 ? 'md:mt-24' : ''}
-        `}>
-          <div class="absolute inset-0 z-0 bg-brand-muted">
+        <div class={`reveal-service group relative ${index % 2 !== 0 ? 'md:mt-32' : ''}`}>
+          
+          <div class="relative aspect-[4/5] overflow-hidden bg-brand-muted/10 shadow-2xl">
+            
+            <div class="absolute inset-0 z-40 pointer-events-none">
+              <div class="absolute top-5 left-5 w-10 h-10 border-t-[4px] border-l-[4px] border-white/90 group-hover:scale-110 transition-transform duration-700"></div>
+              <div class="absolute top-5 right-5 w-10 h-10 border-t-[4px] border-r-[4px] border-white/90 group-hover:scale-110 transition-transform duration-700"></div>
+              <div class="absolute bottom-5 left-5 w-10 h-10 border-b-[4px] border-l-[4px] border-white/90 group-hover:scale-110 transition-transform duration-700"></div>
+              <div class="absolute bottom-5 right-5 w-10 h-10 border-b-[4px] border-r-[4px] border-white/90 group-hover:scale-110 transition-transform duration-700"></div>
+            </div>
+
             <img 
               src={service.image} 
               alt={service.title}
-              class="w-full h-full object-cover grayscale-[100%] sepia-[20%] opacity-20 group-hover:opacity-60 group-hover:grayscale-0 group-hover:scale-110 transition-all duration-[1.5s] ease-out"
+              class="w-full h-full object-cover brightness-[0.5] group-hover:brightness-[0.6] transition-all duration-[1.5s] ease-out"
             />
-            <div class="absolute inset-0 bg-linear-to-t from-brand-bg via-brand-bg/60 to-transparent z-10 group-hover:from-brand-bg/90 transition-all duration-700"></div>
-          </div>
-
-          <span class="absolute top-2 right-4 text-[7rem] md:text-[10rem] font-bold leading-none select-none pointer-events-none z-20
-            text-transparent bg-clip-text bg-linear-to-b from-brand-muted/40 to-transparent
-            group-hover:from-brand-accent/20 transition-all duration-1000">
-            {service.no}
-          </span>
-
-          <div class="relative z-30 w-full pt-20"> <div class="w-8 h-[1px] bg-brand-accent group-hover:w-20 transition-all duration-700 mb-6 md:mb-8"></div>
             
-            <div class="space-y-4">
-              <h3 class="text-xl md:text-3xl font-light text-brand-contrast tracking-[0.1em]">
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-accent/90 via-brand-accent/30 to-transparent z-10"></div>
+            
+            <div class="absolute inset-0 p-12 md:p-20 flex flex-col justify-end z-30">
+              <div class="mb-4">
+                <span class="inline-block bg-brand-accent text-brand-on-dark px-3 py-1 text-[11px] tracking-[0.2em] font-bold uppercase">
+                  {service.no} / {service.subtitle}
+                </span>
+              </div>
+
+              <h3 class="text-3xl md:text-5xl font-serif text-brand-on-dark leading-tight uppercase font-black tracking-tighter mb-6 italic">
                 {service.title}
               </h3>
-              <p class="text-brand-primary text-sm leading-relaxed max-w-sm opacity-90 md:opacity-0 md:group-hover:opacity-100 translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-all duration-700">
-                {service.desc}
-              </p>
-            </div>
-            
-            <div class="pt-6 md:pt-8 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-700 delay-100">
-              <a href="/contact" class="inline-flex items-center text-[10px] tracking-[0.5em] text-brand-contrast uppercase">
-                Explore <span class="ml-4 transition-transform group-hover:translate-x-2">→</span>
-              </a>
+              
+              <div class="mb-10">
+                <p class="text-[14px] md:text-[16px] text-white leading-relaxed font-bold tracking-wide max-w-sm p-5 border-l-4 border-white shadow-xl">
+                  {service.desc}
+                </p>
+              </div>
+
+              <div class="absolute bottom-12 right-12 z-50">
+                <a href="/contact" class="flex flex-col items-end group/btn">
+                  <span class="text-[9px] tracking-[0.4em] text-brand-on-dark/40 uppercase mb-1 font-mono">F/1.8 1/250s</span>
+                  <span class="text-[11px] tracking-[0.5em] text-brand-on-dark border-b border-brand-on-dark pb-1 uppercase font-bold group-hover/btn:text-white group-hover/btn:border-white transition-all">
+                    Explore Path
+                  </span>
+                </a>
+              </div>
             </div>
           </div>
+
+          <div class="mt-6 flex items-center justify-between opacity-40">
+            <span class="text-[9px] font-mono text-brand-accent font-bold">● REC LIVE</span>
+            <div class="h-[1px] flex-1 mx-4 bg-brand-accent/20"></div>
+            <span class="text-[9px] font-mono text-brand-accent uppercase tracking-tighter font-bold">AF-L ON</span>
+          </div>
+
         </div>
       ))}
     </div>
   </div>
 </section>
 
-<style>
+<style is:global>
   .reveal-service {
     opacity: 0;
-    transform: translateY(50px);
+    transform: translateY(40px);
     transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .reveal-service.active {
     opacity: 1;
     transform: translateY(0);
   }
+
+  /* 优化渲染 */
+  .reveal-service h3, .reveal-service p {
+    -webkit-font-smoothing: antialiased;
+  }
 </style>
 
 <script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('active');
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.reveal-service').forEach(el => observer.observe(el));
+  function initService() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('active');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal-service').forEach(el => observer.observe(el));
+  }
+  initService();
+  document.addEventListener('astro:page-load', initService);
 </script>

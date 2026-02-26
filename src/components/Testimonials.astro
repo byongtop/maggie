@@ -1,48 +1,54 @@
 ---
 /**
- * Testimonials.astro - 深色情绪版
- * 视觉风格：深色背景 (brand-contrast)、中轴对称、柔和反差
+ * Testimonials.astro - 字体微调精致版
+ * 修复：缩小了 quote 字体，增强了空气感和呼吸感
  */
 const testimonials = [
   {
-    quote: "Capturing our wedding wasn't just about photos; it was about preserving the atmosphere we felt. The results were beyond our imagination—pure, raw, and timeless.",
-    author: "EMILY & JAMES",
-    location: "London, UK"
+    quote: "Maggie 不仅仅是在拍照，她捕捉到了我连自己都没察觉到的那份自信。在社交软件上使用这组照片后，我感受到了前所未有的正向反馈。",
+    author: "ZHAN LIU",
+    location: "Tech Entrepreneur, Shanghai"
   },
   {
-    quote: "The attention to detail and the way light is handled is sheer artistry. A true minimalist who understands that sometimes, less is infinitely more.",
-    author: "MARCUS CHEN",
-    location: "Creative Director, VOGUE"
+    quote: "光影的处理极具电影感。以前我觉得面对镜头很尴尬，但在 Maggie 的引导下，一切都变得自然而有张力。这是一次审视自我的过程。",
+    author: "ELENA WANG",
+    location: "Creative Producer"
   },
   {
-    quote: "Professional, discreet, and incredibly talented. They managed to capture the most intimate moments without us even noticing the camera.",
-    author: "SARAH JENKINS",
-    location: "Founder, Bloom Studio"
+    quote: "在这个看脸的时代，Maggie 帮我拍出了‘脸’之后的故事。那种磁场和质感是任何滤镜都无法模拟的，专业度满分。",
+    author: "KEVIN GAO",
+    location: "Finance Director"
   }
 ];
 ---
 
-<section class="py-40 px-6 md:px-12 bg-brand-contrast relative overflow-hidden">
+<section class="py-32 md:py-48 px-8 md:px-20 bg-brand-dark relative overflow-hidden text-brand-on-dark">
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none">
+    <span class="text-[80px] md:text-[120px] font-serif italic text-brand-on-dark/[0.015] leading-none tracking-[0.2em] uppercase">
+      Voices
+    </span>
+  </div>
+
   <div class="max-w-4xl mx-auto text-center relative z-20">
-    
-    <div class="text-brand-bg/5 text-[15rem] font-serif absolute top-0 left-1/2 -translate-x-1/2 select-none pointer-events-none">
+    <div class="font-serif text-4xl md:text-5xl text-brand-muted opacity-20 mb-10 select-none">
       “
     </div>
 
-    <div class="swiper testimonialSwiper pt-10">
+    <div class="swiper testimonialSwiper">
       <div class="swiper-wrapper">
         {testimonials.map((item) => (
           <div class="swiper-slide flex flex-col items-center">
-            <blockquote class="text-2xl md:text-3xl lg:text-4xl font-light text-brand-bg leading-relaxed italic mb-12 tracking-tight">
-              "{item.quote}"
+            {/* 核心修改：字号缩小至 text-base 到 text-xl，增加 tracking-wide 和 leading-relaxed */}
+            <blockquote class="text-base md:text-lg lg:text-xl font-serif font-light leading-[2] italic mb-16 tracking-widest max-w-2xl opacity-90">
+              {item.quote}
             </blockquote>
             
-            <div class="flex flex-col items-center space-y-2">
-              <div class="w-8 h-[1px] bg-brand-accent mb-4"></div>
-              <cite class="not-italic text-sm tracking-[0.4em] text-brand-bg font-medium uppercase">
+            <div class="flex flex-col items-center">
+              <div class="w-8 h-[1px] bg-brand-muted/30 mb-6"></div>
+              <cite class="not-italic text-[10px] tracking-[0.5em] text-brand-on-dark font-medium uppercase mb-2">
                 {item.author}
               </cite>
-              <span class="text-[10px] tracking-[0.2em] text-brand-bg/40 uppercase">
+              <span class="text-[8px] tracking-[0.3em] text-brand-on-dark/30 uppercase font-sans">
                 {item.location}
               </span>
             </div>
@@ -50,19 +56,25 @@ const testimonials = [
         ))}
       </div>
 
-      <div class="flex justify-center items-center space-x-8 mt-16">
-        <button class="ts-prev text-brand-accent hover:text-brand-bg transition-colors cursor-none p-2">
-          <svg width="30" height="15" viewBox="0 0 30 15" fill="none" class="stroke-current"><path d="M30 7.5H1M1 7.5L7.5 1M1 7.5L7.5 14" stroke-width="1"/></svg>
+      <div class="flex justify-center items-center space-x-10 mt-16">
+        <button class="ts-prev text-brand-muted hover:text-brand-on-dark transition-all duration-500 cursor-pointer p-2">
+          <svg width="30" height="10" viewBox="0 0 40 12" fill="none" class="stroke-current opacity-40 hover:opacity-100">
+            <path d="M40 6H1M1 6L6 1M1 6L6 11" stroke-width="1"/>
+          </svg>
         </button>
-        <div class="ts-pagination !w-auto !relative text-[10px] tracking-widest text-brand-bg/30 font-serif italic"></div>
-        <button class="ts-next text-brand-accent hover:text-brand-bg transition-colors cursor-none p-2">
-          <svg width="30" height="15" viewBox="0 0 30 15" fill="none" class="stroke-current"><path d="M0 7.5H29M29 7.5L22.5 1M29 7.5L22.5 14" stroke-width="1"/></svg>
+        
+        <div class="ts-pagination !w-auto !relative text-[9px] tracking-[0.4em] text-brand-on-dark/20 font-sans"></div>
+        
+        <button class="ts-next text-brand-muted hover:text-brand-on-dark transition-all duration-500 cursor-pointer p-2">
+          <svg width="30" height="10" viewBox="0 0 40 12" fill="none" class="stroke-current opacity-40 hover:opacity-100">
+            <path d="M0 6H39M39 6L34 1M39 6L34 11" stroke-width="1"/>
+          </svg>
         </button>
       </div>
     </div>
   </div>
 
-  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(140,115,85,0.05)_0%,transparent_70%)] pointer-events-none"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(140,115,85,0.05)_0%,transparent_70%)] pointer-events-none"></div>
 </section>
 
 <script>
@@ -71,50 +83,60 @@ const testimonials = [
   import 'swiper/css';
   import 'swiper/css/effect-fade';
 
-  new Swiper('.testimonialSwiper', {
-    modules: [Navigation, Pagination, Autoplay, EffectFade],
-    effect: 'fade',
-    fadeEffect: { crossFade: true },
-    loop: true,
-    speed: 1500, // 稍微调慢一点，增加沉稳感
-    autoplay: {
-      delay: 5000,
-      disableOnInteraction: false,
-    },
-    navigation: {
-      nextEl: '.ts-next',
-      prevEl: '.ts-prev',
-    },
-    pagination: {
-      el: '.ts-pagination',
-      type: 'fraction',
-      formatFractionCurrent: (number) => number.toString().padStart(2, '0'),
-      formatFractionTotal: (number) => number.toString().padStart(2, '0'),
-    },
-  });
+  function initTestimonials() {
+    new Swiper('.testimonialSwiper', {
+      modules: [Navigation, Pagination, Autoplay, EffectFade],
+      effect: 'fade',
+      fadeEffect: { crossFade: true },
+      loop: true,
+      speed: 2000,
+      autoplay: {
+        delay: 6000,
+        disableOnInteraction: false,
+      },
+      navigation: {
+        nextEl: '.ts-next',
+        prevEl: '.ts-prev',
+      },
+      pagination: {
+        el: '.ts-pagination',
+        type: 'fraction',
+        formatFractionCurrent: (number) => number.toString().padStart(2, '0'),
+        formatFractionTotal: (number) => number.toString().padStart(2, '0'),
+      },
+    });
+  }
+
+  initTestimonials();
+  document.addEventListener('astro:page-load', initTestimonials);
 </script>
 
 <style is:global>
-  /* 针对深色背景的分页符高亮 */
   .ts-pagination .swiper-pagination-current {
-    color: #8C7355; /* brand-accent */
-    font-weight: 500;
+    color: #F9F2E7;
+    font-weight: 400;
   }
   
-  /* 文字模糊进入动画：在深色背景下更有“浮现”感 */
-  .testimonialSwiper .swiper-slide-active blockquote {
-    animation: textBlurInLight 2s ease-out forwards;
+  .testimonialSwiper blockquote {
+    -webkit-font-smoothing: antialiased;
+    word-break: break-word;
+    /* 增加文本渲染的优雅度 */
+    text-rendering: optimizeLegibility;
   }
 
-  @keyframes textBlurInLight {
+  .testimonialSwiper .swiper-slide-active blockquote {
+    animation: testimonialReveal 3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes testimonialReveal {
     from {
-      filter: blur(15px);
+      filter: blur(8px);
       opacity: 0;
-      transform: translateY(15px);
+      transform: translateY(10px);
     }
     to {
       filter: blur(0);
-      opacity: 1;
+      opacity: 0.9;
       transform: translateY(0);
     }
   }

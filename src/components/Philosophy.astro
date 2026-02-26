@@ -1,60 +1,76 @@
 ---
 /**
  * Philosophy.astro - 创作理念模块
- * 视觉风格：极简大白空间、衬线体艺术字、图文错位排版
+ * 适配色：brand-bg (#F9F2E7), brand-dark (#34041A), brand-muted (#8C7355)
  */
+import { Image } from 'astro:assets';
+import philImg from '../assets/images/hero/06.jpg'; // 建议换成一张摄影师工作照或富有情绪的特写
+
 const philosophy = {
-  title: "A Pursuit of Light & Time",
-  subtitle: "MY PHILOSOPHY",
+  title: "Revealing the Magnetic Self",
+  subtitle: "Our Philosophy",
   content: [
-    "I believe that photography is not merely the act of capturing a subject, but the art of observing how time whispers through light. In the stillness of a frame, we find the echoes of emotions that words often fail to carry.",
-    "My work is a continuous exploration of minimalism—stripping away the noise to reveal the raw, warm essence of the human experience. Every shadow has a story, and every highlight is a memory waiting to be felt."
+    "在快节奏的社交时代，一张照片往往决定了故事的开篇。我始终认为，摄影不应是生硬的‘修饰’，而是一场关于真实吸引力的深度挖掘。我们捕捉的，是你连自己都未曾察觉的磁场。",
+    "我们拒绝影楼式的千篇一律。通过电影感的光影处理与自然的心理引导，我们将你的独特性格转化为视觉叙事。在这里，每一张形象照都是一份无声的自我介绍，让对的人，在目光交汇的瞬间读懂你的温度。"
   ],
-  image: "/assets/images/philosophy.jpg", // 建议使用一张色调温暖、低对比度的工作照
-  signature: "THE ARTIST'S VOICE"
+  signature: "Maggie / Lead Photographer"
 };
 ---
 
-<section class="py-40 px-6 md:px-12 bg-brand-bg overflow-hidden">
+<section class="py-32 md:py-48 px-8 md:px-20 bg-brand-bg overflow-hidden relative">
+  <div class="absolute top-40 left-10 pointer-events-none select-none hidden md:block opacity-[0.03]">
+    <span class="text-[100px] font-serif italic text-brand-dark tracking-tighter">Aesthetic</span>
+  </div>
+
   <div class="max-w-7xl mx-auto">
-    <div class="flex flex-col lg:flex-row items-center gap-20 lg:gap-32">
+    <div class="flex flex-col lg:flex-row items-center gap-16 lg:gap-32">
       
-      <div class="relative w-full lg:w-1/2 reveal-left">
-        <div class="absolute -top-10 -left-10 w-64 h-80 bg-brand-muted/30 -z-10 transition-transform duration-1000 group-hover:translate-x-5"></div>
+      <div class="relative w-full lg:w-5/12 reveal-left">
+        {/* 图片后方的装饰方块 */}
+        <div class="absolute -top-6 -left-6 w-32 h-40 border border-brand-muted/20 -z-10"></div>
+        <div class="absolute -bottom-6 -right-6 w-full h-full bg-brand-dark/5 -z-20"></div>
         
-        <div class="overflow-hidden bg-brand-muted aspect-[3/4] shadow-2xl">
-          <img 
-            src={philosophy.image} 
-            alt="Photographer at work" 
-            class="w-full h-full object-cover grayscale-[20%] sepia-[10%] opacity-90 hover:scale-105 transition-transform duration-1000"
+        <div class="overflow-hidden bg-brand-muted aspect-[3/4] relative">
+          <Image 
+            src={philImg} 
+            alt="The art of portrait photography" 
+            class="w-full h-full object-cover grayscale-[15%] contrast-[1.1] hover:scale-105 transition-transform duration-[2s] ease-out"
           />
+          {/* 图片上的光影涂层 */}
+          <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/10 to-transparent pointer-events-none"></div>
         </div>
         
-        <p class="mt-6 text-[10px] tracking-[0.5em] text-brand-accent uppercase font-light">
-          — Capturing the invisible
+        <p class="mt-8 text-[9px] tracking-[0.5em] text-brand-muted uppercase font-bold flex items-center">
+          <span class="w-6 h-[1px] bg-brand-muted/40 mr-4"></span>
+          The Essence of Connection
         </p>
       </div>
 
-      <div class="w-full lg:w-1/2 flex flex-col items-start reveal-right">
-        <span class="text-brand-contrast text-xs tracking-[0.8em] uppercase mb-8 italic">
+      <div class="w-full lg:w-7/12 flex flex-col items-start reveal-right">
+        <span class="text-brand-muted text-[10px] tracking-[0.6em] uppercase mb-8 font-semibold">
           {philosophy.subtitle}
         </span>
         
-        <h2 class="text-4xl md:text-6xl font-light text-brand-accent tracking-tight leading-tight mb-12 font-serif italic">
-          {philosophy.title}
+        <h2 class="text-3xl md:text-5xl lg:text-6xl font-serif text-brand-dark leading-[1.15] mb-12 tracking-tight">
+          {philosophy.title.split(' ').map((word, i) => (
+            i === 2 ? <span class="italic font-light opacity-80">{word} </span> : <span>{word} </span>
+          ))}
         </h2>
 
-        <div class="space-y-8 max-w-lg">
+        <div class="space-y-10 max-w-lg">
           {philosophy.content.map((para) => (
-            <p class="text-brand-primary text-base md:text-lg leading-relaxed font-light opacity-90">
+            <p class="text-brand-primary/80 text-sm md:text-base leading-[2] font-light tracking-wide">
               {para}
             </p>
           ))}
         </div>
 
-        <div class="mt-16 flex items-center space-x-6">
-          <div class="w-12 h-[1px] bg-brand-contrast"></div>
-          <span class="text-[10px] tracking-[0.6em] text-brand-contrast uppercase font-medium">
+        {/* 签名档 */}
+        <div class="mt-20 flex items-center space-x-8 group">
+          <div class="relative">
+             <div class="w-16 h-[1px] bg-brand-dark group-hover:w-24 transition-all duration-700"></div>
+          </div>
+          <span class="text-[10px] tracking-[0.4em] text-brand-dark uppercase font-bold italic">
             {philosophy.signature}
           </span>
         </div>
@@ -63,40 +79,39 @@ const philosophy = {
   </div>
 </section>
 
-<style>
-  /* 左右对向滑入动画 */
+<style is:global>
   .reveal-left {
     opacity: 0;
-    transform: translateX(-50px);
-    transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateX(-40px);
+    transition: all 1.8s cubic-bezier(0.16, 1, 0.3, 1);
   }
   
   .reveal-right {
     opacity: 0;
-    transform: translateX(50px);
-    transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-    transition-delay: 0.2s;
+    transform: translateX(40px);
+    transition: all 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: 0.3s;
   }
 
   .reveal-left.active, .reveal-right.active {
     opacity: 1;
     transform: translateX(0);
   }
-
-  /* 增加字体的优雅感 */
-  h2 {
-    text-underline-offset: 8px;
-  }
 </style>
 
 <script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('active');
-      }
-    });
-  }, { threshold: 0.2 });
+  const observePhilosophy = () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.2 });
 
-  document.querySelectorAll('.reveal-left, .reveal-right').forEach(el => observer.observe(el));
+    document.querySelectorAll('.reveal-left, .reveal-right').forEach(el => observer.observe(el));
+  };
+
+  observePhilosophy();
+  document.addEventListener('astro:page-load', observePhilosophy);
 </script>

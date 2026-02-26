@@ -1,113 +1,319 @@
 ---
 /**
- * Header.astro - 暖调极简摄影师网站导航 (Hover 优化版)
+ * Header.astro - 移动端菜单深度修复版
+ * 解决了点击闪烁、脚本失效以及层级遮挡问题
  */
 const navLinks = [
-  { name: '/ WORKS', href: '/works' },
-  { name: '/ SERVICES', href: '/services' },
-  { name: '/ ABOUT', href: '/about' },
-  { name: '/ CONTACT', href: '/contact' },
-  { name: '/ BLOG', href: '/blog ' },
+  { name: 'WORKS', href: '/works' },
+  { 
+    name: 'SERVICES', 
+    href: '/services',
+    children: [
+      { name: 'Lifestyle Portraits', href: '/services/lifestyle' },
+      { name: 'Dating Strategy', href: '/services/dating' }
+    ]
+  },
+  { name: 'ABOUT', href: '/about' },
+  { name: 'CONTACT', href: '/contact' },
+  { 
+    name: 'BLOG', 
+    href: '/blog',
+    children: [
+      { name: 'Photography Tips', href: '/blog/tips' },
+      { name: 'Success Stories', href: '/blog/stories' }
+    ]
+  },
 ];
 ---
 
 <header 
   id="main-header"
-  class="fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b border-transparent group"
+  class="fixed top-0 left-0 w-full z-[100] transition-all duration-700 border-b border-transparent"
 >
   <div 
-    id="header-content"
-    class="max-w-7xl mx-auto px-6 md:px-12 h-20 md:h-24 flex items-center justify-between transition-all duration-500 mix-blend-difference is-transparent"
-    style="text-shadow: 0 0 12px rgba(0,0,0,0.3);"
+    id="header-content" 
+    class="max-w-7xl mx-auto px-6 md:px-12 h-20 md:h-28 flex items-center justify-between transition-all duration-700 relative z-[110]"
   >
-    
-    <a href="/" class="flex flex-col group/logo">
-      <span class="text-xl md:text-2xl font-light tracking-[0.2em] text-brand-bg transition-colors duration-500">
-        PHOTO<span class="font-bold text-brand-accent italic">GRAPH</span>
-      </span>
-      <span class="text-[10px] tracking-[0.5em] text-brand-bg/80 uppercase transition-colors duration-500">
-        Visual Specialist
-      </span>
+    <a href="/" class="group flex flex-col items-start no-underline">
+      <div class="flex items-baseline logo-text-container">
+        <span class="text-2xl md:text-3xl font-serif font-semibold tracking-tighter text-brand-on-dark drop-shadow-subtle transition-all duration-700 group-hover:italic group-hover:font-light">
+          ROSE
+        </span>
+        <span class="mx-2 text-[10px] tracking-[0.3em] font-sans font-light text-brand-on-dark/70">
+          IS
+        </span>
+        <span class="text-2xl md:text-3xl font-serif font-light italic tracking-tight text-brand-on-dark/90">
+          ROSE
+        </span>
+      </div>
+      <div class="mt-1 flex items-center space-x-2">
+        <span class="h-[0.5px] w-4 bg-brand-muted/60 transition-all duration-700 group-hover:w-8"></span>
+        <span class="text-[7px] md:text-[8px] tracking-[0.5em] uppercase text-brand-on-dark/60 font-medium">
+          Identity & Narrative Portrait
+        </span>
+      </div>
     </a>
 
-    <nav class="hidden md:flex items-center space-x-12">
+    <nav class="hidden md:flex items-center space-x-10 h-full">
       {navLinks.map((link) => (
-        <a 
-          href={link.href} 
-          class="nav-link text-xs tracking-[0.2em] text-brand-bg transition-all duration-300 relative group/link"
-        >
-          {link.name}
-          <span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-current transition-all duration-300 group-hover/link:w-full"></span>
-        </a>
+        <div class="relative h-full flex items-center group/dropdown text-brand-on-dark">
+          <a href={link.href} class="nav-link text-[11px] tracking-[0.3em] transition-all duration-300 relative font-sans font-semibold uppercase">
+            {link.name}
+            {link.children && <span class="ml-2 text-[7px] opacity-60">▼</span>}
+          </a>
+          {link.children && (
+            <div class="absolute top-[80%] left-1/2 -translate-x-1/2 w-52 opacity-0 invisible group-hover/dropdown:opacity-100 group-hover/dropdown:visible group-hover/dropdown:top-[100%] transition-all duration-500 pt-2">
+              <div class="bg-[#34041A] border border-[#F9F2E7]/10 py-4 shadow-2xl">
+                {link.children.map((child) => (
+                  <a href={child.href} class="block px-8 py-3 text-[10px] tracking-[0.2em] text-[#F9F2E7]/70 hover:text-white hover:bg-white/5 transition-all font-bold uppercase">
+                    {child.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       ))}
-      <button id="booking-btn" class="px-6 py-2 border border-brand-bg text-brand-bg text-xs tracking-widest hover:bg-brand-bg hover:text-brand-contrast transition-all duration-300">
+      <button class="px-8 py-2.5 border border-[#F9F2E7]/40 text-[#F9F2E7] text-[10px] tracking-[0.3em] font-bold hover:bg-[#F9F2E7] hover:text-[#34041A] transition-all">
         BOOKING
       </button>
     </nav>
 
-    <button id="menu-toggle" class="md:hidden flex flex-col space-y-1.5 focus:outline-none p-2">
-      <span class="hamburger-line w-6 h-[1px] bg-brand-bg"></span>
-      <span class="hamburger-line w-6 h-[1px] bg-brand-bg"></span>
+    <button id="menu-toggle" class="md:hidden flex flex-col justify-center items-end space-y-1.5 p-2 z-[120] cursor-pointer" aria-label="Toggle Menu">
+      <span class="hamburger-line w-6 h-[1.5px] bg-[#F9F2E7] transition-all duration-300"></span>
+      <span class="hamburger-line w-4 h-[1.5px] bg-[#F9F2E7] transition-all duration-300"></span>
     </button>
   </div>
 
-  </header>
+  <div id="mobile-menu" class="fixed inset-0 bg-[#34041A] flex flex-col pt-32 px-10 overflow-y-auto">
+    <nav class="flex flex-col space-y-2">
+      {navLinks.map((link) => (
+        <div class="mobile-nav-item border-b border-[#F9F2E7]/5 py-4">
+          <div class="flex items-center justify-between group">
+            <a href={link.href} class="mobile-link text-3xl font-serif tracking-widest text-[#F9F2E7] uppercase font-bold">{link.name}</a>
+            {link.children && (
+              <button class="submenu-trigger p-4 -mr-4 text-[#F9F2E7]">
+                <span class="text-2xl transition-transform duration-300 block">＋</span>
+              </button>
+            )}
+          </div>
+          
+          {link.children && (
+            <div class="mobile-submenu overflow-hidden max-h-0 opacity-0 transition-all duration-500 ease-in-out">
+              <div class="flex flex-col space-y-4 mt-6 ml-4 border-l border-[#F9F2E7]/20 pl-6 pb-2">
+                {link.children.map((child) => (
+                  <a href={child.href} class="text-xs tracking-[0.3em] text-[#F9F2E7]/60 uppercase font-bold">
+                    {child.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      ))}
+      <a href="/booking" class="mt-12 text-sm tracking-[0.5em] text-[#34041A] bg-[#F9F2E7] py-5 text-center w-full font-bold uppercase shadow-2xl">Book Now</a>
+    </nav>
+  </div>
+</header>
 
-<style>
-  /* 透明模式下的特定 Hover 逻辑 */
-  .is-transparent .nav-link:hover {
-    opacity: 0.7; /* 透明模式下通过降低不透明度来反馈，避免颜色计算混乱 */
-    color: var(--color-brand-bg) !important;
+<style is:global>
+  /* 滚动状态样式 */
+  #main-header.is-scrolled {
+    background-color: #34041A;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  }
+  #main-header.is-scrolled #header-content { 
+    height: 70px; 
   }
 
-  /* 滚动后的模式：恢复品牌强调色 */
-  .is-scrolled .nav-link:hover {
-    color: #8C7355 !important; /* 直接强制 brand-accent */
+  /* 菜单打开时的全局状态 - 修复 transform 冲突 */
+  body.menu-active { 
+    overflow: hidden; 
+  }
+  
+  /* 修复：确保移动菜单的 transform 不被覆盖 */
+  #mobile-menu {
+    transform: translateX(100%);
+    transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+    /* 提升 z-index 确保可见 */
+    z-index: 9999 !important;
+  }
+  
+  body.menu-active #mobile-menu { 
+    transform: translateX(0) !important; /* 使用 !important 确保覆盖 */
+  }
+
+  /* 确保 header 内容在菜单之上 */
+  #header-content {
+    z-index: 10000 !important;
+  }
+
+  /* 确保菜单切换按钮始终可点击 */
+  #menu-toggle {
+    position: relative;
+    z-index: 10001 !important;
+  }
+
+  /* 修复菜单打开时汉堡按钮的样式 */
+  body.menu-active .hamburger-line:nth-child(1) { 
+    transform: translateY(4px) rotate(45deg); 
+  }
+  
+  body.menu-active .hamburger-line:nth-child(2) { 
+    transform: translateY(-3.5px) rotate(-45deg); 
+    width: 24px; 
+  }
+
+  /* 子菜单展开状态 */
+  .mobile-submenu.is-open {
+    max-height: 500px;
     opacity: 1;
+    margin-top: 1.5rem;
   }
 
-  header { will-change: transform, background-color, height; }
-  #header-content * { transition: all 0.5s ease; }
+  /* 修复：添加遮罩层防止点击穿透 */
+  body.menu-active::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 9998;
+    pointer-events: none;
+  }
+
+  /* 调试样式 - 可以帮助确认菜单是否可见，完成后可以删除 */
+  @media (max-width: 768px) {
+    #mobile-menu {
+      outline: 2px solid rgba(255, 0, 0, 0.3);
+      background-color: #34041A !important;
+    }
+    
+    body.menu-active #mobile-menu {
+      outline: 4px solid rgba(0, 255, 0, 0.3);
+    }
+  }
 </style>
 
 <script>
-  const header = document.getElementById('main-header');
-  const headerContent = document.getElementById('header-content');
-  const bookingBtn = document.getElementById('booking-btn');
+  /**
+   * 使用函数封装初始化逻辑，适配 Astro 的生命周期
+   */
+  function setupHeader() {
+    const header = document.getElementById('main-header');
+    const menuToggle = document.getElementById('menu-toggle');
+    const body = document.body;
+    const mobileMenu = document.getElementById('mobile-menu');
 
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      // --- 滚动后状态 ---
-      header.classList.add('bg-brand-bg/95', 'backdrop-blur-md', 'border-brand-muted', 'h-16', 'md:h-20', 'shadow-sm');
-      headerContent.classList.remove('mix-blend-difference', 'is-transparent');
-      headerContent.classList.add('is-scrolled');
-      headerContent.style.textShadow = 'none';
-      
-      // 文字颜色切换至深色
-      updateColors('text-brand-bg', 'text-brand-contrast');
-      updateColors('border-brand-bg', 'border-brand-contrast');
-      updateColors('bg-brand-bg', 'bg-brand-contrast');
-      
-    } else {
-      // --- 初始透明状态 ---
-      header.classList.remove('bg-brand-bg/95', 'backdrop-blur-md', 'border-brand-muted', 'h-16', 'md:h-20', 'shadow-sm');
-      headerContent.classList.add('mix-blend-difference', 'is-transparent');
-      headerContent.classList.remove('is-scrolled');
-      headerContent.style.textShadow = '0 2px 4px rgba(0,0,0,0.5), 0 0 20px rgba(0,0,0,0.4)';
-
-      // 文字颜色切换至亮色（以适配混合模式）
-      updateColors('text-brand-contrast', 'text-brand-bg');
-      updateColors('border-brand-contrast', 'border-brand-bg');
-      updateColors('bg-brand-contrast', 'bg-brand-bg');
+    if (!header || !menuToggle || !mobileMenu) {
+      console.warn('Header elements not found');
+      return;
     }
-  });
 
-  function updateColors(oldClass, newClass) {
-    const elements = headerContent.querySelectorAll(`.${oldClass}`);
-    elements.forEach(el => {
-      el.classList.replace(oldClass, newClass);
+    // 1. 处理滚动 - 修复：不改变 transform 属性
+    const onScroll = () => {
+      if (window.scrollY > 40) {
+        header.classList.add('is-scrolled');
+      } else {
+        header.classList.remove('is-scrolled');
+      }
+    };
+
+    // 2. 核心：移动端菜单切换
+    const toggleMobileMenu = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      // 切换菜单状态
+      body.classList.toggle('menu-active');
+      
+      // 调试：检查菜单状态
+      console.log('Menu active:', body.classList.contains('menu-active'));
+    };
+
+    // 添加点击事件
+    menuToggle.addEventListener('click', toggleMobileMenu);
+
+    // 3. 子菜单折叠逻辑
+    document.querySelectorAll('.submenu-trigger').forEach(trigger => {
+      trigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const parent = (e.currentTarget).closest('.mobile-nav-item');
+        const submenu = parent?.querySelector('.mobile-submenu');
+        const icon = (e.currentTarget).querySelector('span');
+
+        if (submenu) {
+          const isOpen = submenu.classList.toggle('is-open');
+          if (icon) {
+            icon.style.transform = isOpen ? 'rotate(45deg)' : 'rotate(0deg)';
+          }
+        }
+      });
     });
+
+    // 4. 点击链接后自动关闭 (防止跳转后残留)
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        body.classList.remove('menu-active');
+      });
+    });
+
+    // 5. 添加 ESC 键关闭
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape' && body.classList.contains('menu-active')) {
+        body.classList.remove('menu-active');
+      }
+    };
+
+    // 6. 点击遮罩层关闭（通过检测点击事件）
+    const onClickOutside = (e) => {
+      if (body.classList.contains('menu-active')) {
+        // 如果点击的是遮罩层（通过检查目标是否在菜单内）
+        if (!mobileMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+          body.classList.remove('menu-active');
+        }
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    document.addEventListener('keydown', onKeyDown);
+    document.addEventListener('click', onClickOutside);
+    
+    // 初始化状态
+    onScroll();
+    
+    console.log('Header setup complete');
+
+    // 返回清理函数
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      document.removeEventListener('keydown', onKeyDown);
+      document.removeEventListener('click', onClickOutside);
+      menuToggle.removeEventListener('click', toggleMobileMenu);
+    };
   }
 
-  // 移动端菜单逻辑...
+  // 初始化变量用于存储清理函数
+  let cleanup = null;
+
+  // 确保在 DOM 加载完成后执行
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      if (cleanup) cleanup();
+      cleanup = setupHeader();
+    });
+  } else {
+    if (cleanup) cleanup();
+    cleanup = setupHeader();
+  }
+  
+  // 关键：在 Astro 页面加载和 View Transitions 切换后都要重新运行
+  document.addEventListener('astro:page-load', () => {
+    if (cleanup) cleanup();
+    cleanup = setupHeader();
+  });
 </script>

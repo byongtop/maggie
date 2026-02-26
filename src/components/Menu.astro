@@ -1,0 +1,65 @@
+<div id="menu-overlay" class="menu-overlay">
+  <nav class="nav-container">
+    <a href="/vision" class="nav-item">VISION</a>
+    <a href="/membership" class="nav-item">MEMBERSHIP</a>
+    <a href="/locations" class="nav-item">LOCATIONS</a>
+    <a href="/contact" class="nav-item">CONTACT</a>
+  </nav>
+</div>
+
+<style>
+  .menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden; /* 初始隐藏 */
+    opacity: 0;
+    z-index: 100;
+  }
+  .nav-container { text-align: center; }
+  .nav-item {
+    display: block;
+    font-size: 3rem;
+    color: white;
+    text-decoration: none;
+    margin: 20px 0;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+
+  function initMenu() {
+    const btn = document.getElementById('menu-toggle');
+    const overlay = document.getElementById('menu-overlay');
+    const items = document.querySelectorAll('.nav-item');
+    let isOpen = false;
+
+    btn?.addEventListener('click', () => {
+      isOpen = !isOpen;
+      document.body.classList.toggle('menu-open', isOpen);
+
+      if (isOpen) {
+        const tl = gsap.timeline();
+        tl.to(overlay, { autoAlpha: 1, duration: 0.5 })
+          .to(items, { 
+            opacity: 1, 
+            y: 0, 
+            stagger: 0.1, 
+            duration: 0.8, 
+            ease: "expo.out" 
+          }, "-=0.3");
+      } else {
+        gsap.to(overlay, { autoAlpha: 0, duration: 0.5 });
+      }
+    });
+  }
+
+  // 确保在 Astro 的 ViewTransitions 切换后脚本重新运行
+  document.addEventListener('astro:page-load', initMenu);
+</script>
