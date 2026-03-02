@@ -1,0 +1,86 @@
+---
+// src/pages/blog/categories.astro
+// All Categories Overview
+
+import '../../styles/global.css'; 
+
+import { getCollection } from 'astro:content';
+import Layout from "../../layouts/Layout.astro";
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { Icon } from 'astro-icon/components';
+
+const allPosts = await getCollection('blog');
+
+// 统计每个分类的文章数量
+const categories = allPosts.reduce((acc, post) => {
+  const category = post.data.category;
+  acc[category] = (acc[category] || 0) + 1;
+  return acc;
+}, {} as Record<string, number>);
+
+const categoryDisplayNames = {
+  'Photography Tips & Guides': 'Photography Tips & Guides',
+  'Success Stories': 'Success Stories',
+  'Dating Insights': 'Dating Insights',
+  'Behind the Scenes': 'Behind the Scenes'
+};
+
+const categoryDescriptions = {
+  'Photography Tips & Guides': 'Expert advice on lighting, posing, and getting the perfect shot.',
+  'Success Stories': 'Real stories from real clients.',
+  'Dating Insights': 'Thoughts on modern dating in Sydney.',
+  'Behind the Scenes': 'A peek behind the lens.'
+};
+
+const categoryColors = {
+  'Photography Tips & Guides': 'bg-blue-50 text-blue-700 border-blue-200',
+  'Success Stories': 'bg-green-50 text-green-700 border-green-200',
+  'Dating Insights': 'bg-purple-50 text-purple-700 border-purple-200',
+  'Behind the Scenes': 'bg-amber-50 text-amber-700 border-amber-200'
+};
+---
+
+<Layout 
+  title="Blog Categories | ROSE IS ROSE"
+  description="Browse our blog by category—photography tips, success stories, dating insights and behind the scenes."
+>
+  <Header />
+
+  <section class="pt-40 pb-20 md:pt-48 md:pb-24 bg-brand-dark text-white">
+    <div class="container mx-auto px-6 text-center">
+      <h1 class="text-5xl md:text-7xl font-serif mb-6">CATEGORIES</h1>
+      <div class="w-24 h-px bg-brand-accent mx-auto mb-6"></div>
+      <p class="text-lg text-white/70 max-w-2xl mx-auto font-light">
+        Browse by topic—find what you're looking for
+      </p>
+    </div>
+  </section>
+
+  <main class="bg-brand-bg py-20">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 gap-8">
+        {Object.entries(categories).map(([category, count]) => (
+          <a 
+            href={`/blog/category/${category.toLowerCase().replace(/\s+/g, '-')}`}
+            class="group block p-8 bg-white border border-brand-muted/10 hover:border-brand-accent/30 transition-all duration-500"
+          >
+            <div class="flex justify-between items-start mb-4">
+              <span class={`text-xs tracking-[0.2em] uppercase px-4 py-2 rounded-full border ${categoryColors[category]}`}>
+                {categoryDisplayNames[category]}
+              </span>
+              <span class="text-sm font-mono text-brand-muted/60">{count} posts</span>
+            </div>
+            <p class="text-brand-primary/60 font-light mb-6">{categoryDescriptions[category]}</p>
+            <div class="flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-brand-muted group-hover:text-brand-accent transition-colors">
+              <span>Browse Category</span>
+              <Icon name="lucide:arrow-right" class="w-3 h-3" />
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

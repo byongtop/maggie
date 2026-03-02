@@ -1,0 +1,81 @@
+---
+// src/pages/services/[...slug].astro
+
+import '../styles/global.css';
+import { getCollection } from 'astro:content';
+
+import Layout from '../layouts/Layout.astro';
+// ... Swiper imports
+
+
+// 1. 生成动态路径
+export async function getStaticPaths() {
+  const serviceEntries = await getCollection('services', ({ data }) => {
+    return data.isPublished !== false;
+  });
+  return serviceEntries.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const { frontmatter } = entry; // 对应您定义的 Schema
+---
+
+<Layout title={frontmatter.seo.metaTitle}>
+  
+  <section class="min-h-[80vh] flex items-center bg-brand-bg pt-20 bg-cover bg-center" style={`background-image: url(${frontmatter.heroImage});`}>
+    <div class="max-w-7xl mx-auto px-6 py-16 text-center bg-brand-bg/60 backdrop-blur-sm p-12 shadow-inner">
+      <span class="text-brand-muted uppercase tracking-[0.4em] text-xs font-medium">
+        SERVICE NO. {frontmatter.no}
+      </span>
+      <h1 class="font-serif text-5xl md:text-7xl text-brand-accent mt-6 mb-8 leading-tight tracking-tighter">
+        {frontmatter.h1Title}
+      </h1>
+      <p class="text-xl max-w-3xl mx-auto mb-12 text-brand-primary/90 font-light">
+        {frontmatter.desc}
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-brand-dark text-brand-on-dark py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="font-serif text-4xl text-center mb-16 text-brand-on-dark">Service Experience</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        {frontmatter.features.map((feature: string) => (
+          <div class="p-8 border border-brand-on-dark/10 flex flex-col items-center text-center group hover:border-brand-muted transition-all duration-500">
+            <span class="text-brand-muted text-4xl mb-6">✦</span>
+            <p class="text-lg font-light leading-relaxed">{feature}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-brand-bg py-24">
+    <div class="max-w-4xl mx-auto px-6 prose prose-lg prose-brand">
+      <Content />
+    </div>
+  </section>
+
+  <section class="bg-brand-bg py-24 border-t border-brand-muted/20">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="font-serif text-4xl text-center mb-16 text-brand-accent">Frequently Asked Questions</h2>
+      <div class="space-y-10">
+        {frontmatter.faq?.map((item: any) => (
+          <div>
+            <h3 class="text-2xl font-semibold text-brand-accent mb-4">{item.question}</h3>
+            <p class="text-brand-primary/80 leading-relaxed">{item.answer}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style is:global>
+  /* 优化 Markdown 内容的样式 */
+
+</style>

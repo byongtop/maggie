@@ -53,7 +53,134 @@
 我的网站品牌视觉规范如下：角色设定：我是一名资深的前端开发专家，负责基于 Astro 和 Tailwind CSS v4 框架+ swiper 编写代码。网站风格：暖调极简主义风格。颜色系统 (Brand Palette)：在编写 HTML 结构和 Tailwind 类名时，严禁使用 Tailwind 默认的颜色类（如 bg-blue-500, text-gray-700 等）。请务必且只能使用以下自定义的 brand 颜色系列：主要背景 (brand-bg): #F9F7F2 (用于全站背景、输入框背景等)用法示例： bg-brand-bg；深色/对比 (brand-contrast): #2D2926 (用于标题、深色按钮、深色页脚等)用法示例： bg-brand-contrast, text-brand-contrast；正文文本 (brand-primary): #4A4540 (用于所有普通段落、正文描述)用法示例： text-brand-primary；柔和中性色 (brand-muted): #E5E0D8 (用于边框、分割线、浅色卡片背景)用法示例： bg-brand-muted, border-brand-muted；强调色/链接 (brand-accent): #9C5E3F (用于主行动按钮、链接、高亮文字)用法示例： bg-brand-accent, text-brand-accent, border-brand-accent。编码要求：默认样式：在生成组件时，自动应用 text-brand-primary 作为默认字体颜色。交互效果：使用 brand-accent 进行悬停（hover）处理，或在深色背景上使用 brand-bg 作为对比。一致性：确保生成的 UI 风格简约、高级，符合这套色系的质感。
 ----------------------------------------------------------------------------
 ----------------------------------------------------------------------------
+
+核心：#34041A (深红) 与 #F9F2E7 (羊绒米) 的深度整合 
+1. 主背景：改为你选的羊绒米白，非常有呼吸感   --color-brand-bg: #F9F2E7; 
+2. 深色背景：直接使用核心强调色作为深色块的背景   --color-brand-dark: #34041A;
+3. 核心强调色：保持不变，用于标题或重点  --color-brand-accent: #34041A;
+4. 正文文本：在米白背景上使用深褐色，比纯黑更高级  --color-brand-primary: #3C3835;
+5. 辅助强调色 (胡桃木)：用于分割线或次要按钮，增加层次  --color-brand-muted: #8C7355;
+6. 反白文字：专门用于深红背景上的文字  --color-brand-on-dark: #F9F2E7;
+
+
 ----------------------------------------------------------------------------
+
+角色设定：
+你现在是一名资深的前端开发专家，负责基于 Astro 和 Tailwind CSS v4 框架+ swiper 为我编写针对相亲交友形象照（Dating Profile Photography）的英文网站代码。
+
+网站风格：暖调极简主义风格
+
+颜色系统 (Brand Palette)：
+在编写 HTML 结构和 Tailwind 类名时，严禁使用 Tailwind 默认的颜色类（如 bg-blue-500, text-gray-700 等）。请务必且只能使用以下自定义的 brand 颜色系列：
+核心：#34041A (深红) 与 #F9F2E7 (羊绒米) 的深度整合 
+1. 主背景：改为你选的羊绒米白，非常有呼吸感   --color-brand-bg: #F9F2E7; 
+2. 深色背景：直接使用核心强调色作为深色块的背景   --color-brand-dark: #34041A;
+3. 核心强调色：保持不变，用于标题或重点  --color-brand-accent: #34041A;
+4. 正文文本：在米白背景上使用深褐色，比纯黑更高级  --color-brand-primary: #3C3835;
+5. 辅助强调色 (胡桃木)：用于分割线或次要按钮，增加层次  --color-brand-muted: #8C7355;
+6. 反白文字：专门用于深红背景上的文字  --color-brand-on-dark: #F9F2E7;
+
+编码要求：
+默认样式：在生成组件时，请自动应用 text-brand-primary 作为默认字体颜色。
+交互效果：使用 brand-accent 进行悬停（hover）处理，或在深色背景上使用 brand-bg 作为对比。
+一致性：确保生成的 UI 风格简约、高级和艺术感，符合这套色系的质感。
+
+网站要求：
+模块宽度 max-w-7xl mx-auto
+
+1. 核心视觉产出类
+这是最基础的服务项目，即你最终拿到手的产品。
+多场景形象照拍摄：不止是在摄影棚里拍一张大头照。服务通常包含在咖啡馆、公园、城市街道等自然场景中进行拍摄，产出你在休闲、工作、社交等不同状态下的照片。
+专业妆发造型：包含拍摄当天的化妆和发型设计。进阶的服务甚至会包含形象诊断，根据你的五官特点和个人气质，确定最适合你的上镜风格。
+精修照片交付：摄影师交付经过专业后期处理的照片。关键点在于，精修的程度是可以选择的——有的提供基础的皮肤瑕疵处理，有的则提供针对交友软件优化的“自然感精修”（保留皮肤质感、优化眼神光）。
+穿搭指导/造型服务：有些服务包含拍摄前的专业穿搭建议，甚至直接提供多套符合你人设的服装供你在拍摄时选用。
+
+2. 策略与咨询服务类
+这是目前高端相亲交友摄影服务的核心附加值，也是最能体现“交友”属性区别于普通写真的项目。
+个人品牌定位咨询：通过前期沟通，帮你梳理“你想吸引什么样的人”以及“你最大的魅力点是什么”，确立拍摄的风格基调。
+平台策略分析：部分机构会分析不同交友软件（如Tinder、Hinge、探探）的算法机制和用户画像，帮你确定哪张照片适合做首图，哪张适合展示生活情趣。
+文案撰写与优化：将服务延伸到照片之外，帮你撰写或润色个人简介，确保文字和图片传达出一致的吸引力。
+
+3. 选代服务与数据分析类
+利用技术手段，让选片过程更科学。
+吸引力测试服务：一些创新的工作室会提供“照片预测试”服务，在征得同意后，将候选照片匿名投放给目标群体进行投票，收集真实的“第一印象”反馈。
+AI筛选服务：利用AI算法分析照片的构图、光线、表情等要素，帮你从大量原片中挑出最有吸引力的几张，或者直接生成不同背景的形象照。
+
+4. 增值与衍生服务类
+社交形象全案托管：这是一种打包服务，不仅帮你拍好照片，还帮你设置好账号、挑选平台，甚至提供后续的聊天技巧指导。
+视频简历/Vlog拍摄：随着视频动态在交友平台越来越流行，一些服务开始包含拍摄15-30秒的动态视频，让你的形象更立体。
+线下社交礼仪指导：极少数高端服务会包含线下约见时的礼仪指导，确保线上形象和线下表现一致。
+
+/* src/styles/global.css */
+@import "tailwindcss";
+
+/* 1. 引入常规对比度字体 */
+@font-face {
+  font-family: 'Kudryashev';
+  src: url('/assets/fonts/fonnts.com-Kudryashev_Display_Contrast_Sans.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 2. 引入极致对比度字体 */
+@font-face {
+  font-family: 'Kudryashev';
+  src: url('/assets/fonts/fonnts.com-Kudryashev_Display_Extra_Contrast_Sans.otf') format('opentype');
+  font-weight: 700; /* 将 Extra 版本设为粗体逻辑 */
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  /* 核心：#34041A (深红) 与 #F9F2E7 (羊绒米) 的深度整合 */
+  
+  /* 1. 主背景：改为你选的羊绒米白，非常有呼吸感 */
+  --color-brand-bg: #F9F2E7; 
+  /* 2. 深色背景：直接使用核心强调色作为深色块的背景 */
+  --color-brand-dark: #34041A;
+  /* 3. 核心强调色：保持不变，用于标题或重点 */
+  --color-brand-accent: #34041A;
+  /* 4. 正文文本：在米白背景上使用深褐色，比纯黑更高级 */
+  --color-brand-primary: #3C3835;
+  /* 5. 辅助强调色 (胡桃木)：用于分割线或次要按钮，增加层次 */
+  --color-brand-muted: #8C7355;
+  /* 6. 反白文字：专门用于深红背景上的文字 */
+  --color-brand-on-dark: #F9F2E7;
+  /* 3. 在 Tailwind 主题中定义新字体系列 */
+  --font-serif: 'Kudryashev', serif;
+}
+
+@layer base {
+body {
+    @apply bg-brand-bg text-brand-primary;
+    margin: 0;
+    /* 正文使用无衬线体，保持现代简约 */
+    font-family: 'Inter', system-ui, sans-serif;
+
+    -webkit-font-smoothing: antialiased;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  /* 允许在特定区域（如 Loader 或 Dark Section）一键切换配色 */
+  .dark-theme {
+    @apply bg-brand-dark text-brand-on-dark;
+  }
+
+  h1, h2, h3 {
+    /* 标题默认使用深红，建立品牌识别度 */
+    @apply text-brand-accent font-serif;
+    letter-spacing: 0.05em; /* 摄影站建议字间距稍微拉开，更有留白感 */
+    text-transform: uppercase;
+  }
+
+  /* 针对图片展示的全局平滑 */
+  img {
+    @apply grayscale-[10%] hover:grayscale-0 transition-all duration-700;
+  }
+}
+
 ----------------------------------------------------------------------------
 ----------------------------------------------------------------------------
 ----------------------------------------------------------------------------

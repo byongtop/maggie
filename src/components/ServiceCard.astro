@@ -1,0 +1,24 @@
+---
+// ServiceCard.astro - 单个服务展示卡片
+const { title, description, href, icon } = Astro.props;
+---
+
+<a href={href} class="group block p-10 bg-white border border-brand-accent/10 hover:border-brand-accent/30 transition-all duration-500 hover:shadow-2xl hover:shadow-brand-accent/5">
+    <div class="flex flex-col h-full">
+        <span class="text-4xl font-serif text-brand-muted/40 group-hover:text-brand-accent transition-colors duration-500 mb-8">
+            {icon}
+        </span>
+        
+        <h3 class="text-2xl font-serif text-brand-accent mb-4 tracking-wider uppercase group-hover:italic transition-all duration-300">
+            {title}
+        </h3>
+        <p class="text-brand-primary/70 font-light text-sm leading-relaxed mb-10 flex-grow">
+            {description}
+        </p>
+        
+        <div class="text-brand-muted text-[10px] tracking-[0.3em] font-bold uppercase flex items-center group-hover:text-brand-accent transition-colors">
+            Explore Service
+            <span class="ml-3 w-8 h-[1px] bg-brand-muted/30 group-hover:bg-brand-accent group-hover:w-12 transition-all duration-500"></span>
+        </div>
+    </div>
+</a>

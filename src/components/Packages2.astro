@@ -1,0 +1,191 @@
+---
+/**
+ * Packages.astro - 阶梯式摄影套餐模块 (Dark Mode Version)
+ */
+const packages = [
+  {
+    name: "ESSENTIAL",
+    alias: "初见系列",
+    price: "¥1,980",
+    duration: "1.5 Hours",
+    retouched: "12 Photos",
+    original: "All Included",
+    outfits: "1-2 Outfits",
+    description: "专为社交头像、个人名片设计的极简方案。捕捉你最真实的磁场，开启第一印象。",
+    features: ["专业光影执导", "色彩美学后期", "社交软件展示建议", "底片全送"],
+    isPopular: false
+  },
+  {
+    name: "NARRATIVE",
+    alias: "叙事系列",
+    price: "¥3,680",
+    duration: "3 Hours",
+    retouched: "25 Photos",
+    original: "All Included",
+    outfits: "3-4 Outfits",
+    description: "多场景深度拍摄，通过电影感的叙事手法展现生活品味。适合需要丰富展示面的人群。",
+    features: ["场景规划与策划", "深度美学精修", "情绪流动指导", "包含室内与户外"],
+    isPopular: true
+  },
+  {
+    name: "COLLECTOR",
+    alias: "私人订制",
+    price: "¥6,880",
+    duration: "Full Day",
+    retouched: "50 Photos",
+    original: "All Included",
+    outfits: "Unlimited",
+    description: "全天候管家式拍摄。针对职业形象与私人生活进行全方位视觉构建，打造不可替代的视觉资产。",
+    features: ["高级造型顾问全程跟进", "顶级器材画质保障", "私人形象策略周报", "实体典藏相册"],
+    isPopular: false
+  }
+];
+---
+
+<section class="py-24 md:py-32 bg-brand-dark text-brand-on-dark overflow-hidden">
+  <div class="max-w-7xl mx-auto px-8 md:px-12">
+    
+    <!-- 标题区域 -->
+    <div class="mb-20 text-center">
+      <p class="text-brand-muted text-[10px] tracking-[0.5em] uppercase mb-4 reveal-up">Investment</p>
+      <h2 class="text-4xl md:text-6xl font-serif text-brand-on-dark leading-tight reveal-up">
+        CURATED <span class="italic font-light text-brand-on-dark/80">PACKAGES</span>
+      </h2>
+      <div class="w-12 h-[1px] bg-brand-muted/30 mx-auto mt-8 reveal-up"></div>
+    </div>
+
+    <!-- 卡片网格 -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
+      {packages.map((pkg, index) => (
+        <div 
+          class={`reveal-card group relative p-10 bg-[#4A1A2A] border transition-all duration-700 ease-out 
+          ${pkg.isPopular 
+            ? 'scale-105 z-10 border-brand-muted/50' 
+            : 'mt-0 lg:mt-8 border-brand-on-dark/10'}
+          hover:border-brand-muted/70 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)]`}
+        >
+          {pkg.isPopular && (
+            <div class="absolute top-0 right-10 -translate-y-1/2 bg-brand-muted text-brand-dark px-4 py-1 text-[9px] tracking-[0.3em] font-bold uppercase">
+              Recommended
+            </div>
+          )}
+
+          <!-- 头部区域 -->
+          <div class="mb-12 border-b border-brand-on-dark/10 pb-8">
+            <div class="flex justify-between items-start mb-4">
+              <div>
+                <h3 class="text-2xl font-serif text-brand-on-dark tracking-wider mb-1 uppercase font-medium">{pkg.name}</h3>
+                <span class="text-[10px] text-brand-muted tracking-[0.4em] uppercase font-light">{pkg.alias}</span>
+              </div>
+              <span class="text-xl font-serif text-brand-on-dark">{pkg.price}</span>
+            </div>
+            <p class="text-xs text-brand-on-dark/70 leading-relaxed font-sans font-light">
+              {pkg.description}
+            </p>
+          </div>
+
+          <!-- 规格参数 -->
+          <div class="grid grid-cols-2 gap-y-6 mb-12">
+            {[
+              { label: 'Duration', value: pkg.duration },
+              { label: 'Retouched', value: pkg.retouched },
+              { label: 'Outfits', value: pkg.outfits },
+              { label: 'Originals', value: pkg.original }
+            ].map(item => (
+              <div class="flex flex-col">
+                <span class="text-[9px] text-brand-muted/80 uppercase tracking-widest mb-1">{item.label}</span>
+                <span class="text-xs text-brand-on-dark font-sans font-bold uppercase tracking-wide">{item.value}</span>
+              </div>
+            ))}
+          </div>
+
+          <!-- 特性列表 -->
+          <ul class="space-y-4 mb-14">
+            {pkg.features.map(feature => (
+              <li class="flex items-center text-[12px] text-brand-on-dark/80 font-light tracking-wide">
+                <span class="w-1 h-1 rounded-full bg-brand-muted mr-3"></span>
+                {feature}
+              </li>
+            ))}
+          </ul>
+
+          <!-- 按钮 -->
+          <a 
+            href="/booking" 
+            class={`block w-full text-center py-5 text-[10px] tracking-[0.5em] uppercase transition-all duration-500 border
+            ${pkg.isPopular 
+              ? 'bg-brand-on-dark text-brand-dark border-brand-on-dark hover:bg-transparent hover:text-brand-on-dark' 
+              : 'bg-transparent text-brand-on-dark border-brand-on-dark/30 hover:border-brand-on-dark hover:bg-brand-on-dark/5'}`}
+          >
+            Choose Package
+          </a>
+          
+          <!-- 背景序号 -->
+          <span class="absolute bottom-6 right-8 text-[6rem] font-serif italic text-brand-on-dark/[0.03] pointer-events-none select-none group-hover:text-brand-muted/10 transition-colors duration-700 leading-none">
+            0{index + 1}
+          </span>
+        </div>
+      ))}
+    </div>
+
+    <!-- 脚注 -->
+    <div class="mt-20 text-center reveal-up">
+      <p class="text-[10px] text-brand-on-dark/40 tracking-[0.2em] uppercase font-sans">
+        * Additional hours and retouching available upon request. <br class="md:hidden" /> Travel fees may apply for outside Shanghai.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  /* 模块整体进入动效 */
+  .reveal-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform, opacity;
+  }
+  .reveal-up.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* 卡片序列进入动效 */
+  .reveal-card {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: all 1s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease;
+    will-change: transform, opacity, box-shadow;
+  }
+  .reveal-card.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* 延迟动效 */
+  .reveal-card:nth-child(2) { transition-delay: 0.2s; }
+  .reveal-card:nth-child(3) { transition-delay: 0.4s; }
+</style>
+
+<script>
+  function initPackages() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '50px' });
+
+    document.querySelectorAll('.reveal-up, .reveal-card').forEach(el => observer.observe(el));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPackages);
+  } else {
+    initPackages();
+  }
+  
+  document.addEventListener('astro:page-load', initPackages);
+</script>

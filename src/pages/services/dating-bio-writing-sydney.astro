@@ -1,0 +1,569 @@
+---
+// src/pages/services/dating-bio-writing-sydney.astro
+// Dating Bio Writing Sydney - roseisrose Service Page
+
+import '../../styles/global.css'; 
+
+import Layout from "../../layouts/Layout.astro";
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Packages from '../../components/Packages2.astro';
+
+import { Icon } from 'astro-icon/components';
+
+// 页面元数据
+const serviceData = {
+  level: "1",
+  no: "04",
+  title: "DATING BIO WRITING",
+  subtitle: "Words That Actually Work",
+  h1Title: "Sydney Dating Bio Writing: Say the Right Thing, Attract the Right People",
+  desc: "Great photos get them to stop. Great words get them to swipe right. We'll help you write a bio that sounds like you—just funnier, smarter, and way more swipeable.",
+  image: "/assets/images/stefan-stefancik-QXevDflbl8A-unsplash.jpg",
+  heroImage: "/assets/images/andrey-zvyagintsev-x0c6vTO5ibA-unsplash.jpg",
+  features: [
+    "60-min deep dive call to figure out your vibe",
+    "Full bio rewrite for Tinder, Hinge & Bumble",
+    "Prompt answers that actually get responses",
+    "The 'opening line' strategy—make it easy for them",
+    "Unlimited tweaks until it sounds exactly like you"
+  ],
+  order: 4,
+  seo: {
+    metaTitle: "Dating Bio Writer Sydney | Dating Profile Writer Sydney | ROSE IS ROSE",
+    metaDescription: "Need a dating bio writer in Sydney? We'll help you write Hinge prompts, Tinder bios and Bumble profiles that attract the right people. Funny, smart, and totally you.",
+    keywords: "dating bio writer Sydney, dating profile writer Sydney, Hinge prompt writer Sydney, Tinder bio writer Sydney, Bumble profile help Sydney, dating profile copywriter Sydney, what to write on dating profile Sydney",
+    imageAlt: "Dating profile bio writing service in Sydney"
+  },
+  isPublished: true,
+  faq: [
+    {
+      question: "Can't I just write my own bio?",
+      answer: "Of course you can. But here's the thing—most people either write something boring ('I love food and travel'), something try-hard, or stare at the blank screen for an hour and give up. We'll help you find the words that actually sound like you, just... better. The version of you that's funny in group chat? That's the one we want on your profile."
+    },
+    {
+      question: "Will it still sound like me?",
+      answer: "That's literally the whole point. We're not here to make you sound like some generic 'dating coach' wrote it. We'll chat, figure out your actual personality, and write in your voice—just with better punctuation and fewer typos."
+    },
+    {
+      question: "What if I don't know what to say about myself?",
+      answer: "Perfect. That's our specialty. Most people are terrible at talking about themselves—it feels weird, right? We'll ask the right questions and pull out the stuff that matters. The hobby you're actually passionate about. The thing your friends make fun of you for. That's the good stuff."
+    },
+    {
+      question: "Does it work for guys and girls?",
+      answer: "Yep. Different apps, different audiences, different strategies. We'll tailor your bio to who you're trying to attract and which app you're using. Hinge prompts need a different vibe than Tinder bios."
+    }
+  ],
+  experienceModules: [
+    {
+      title: "The Deep Dive",
+      description: "We'll jump on a call and just... chat. What makes you laugh? What do you do when no one's watching? What's the thing your friends would say about you? We're mining for gold here—and trust me, there's always gold.",
+      image: "/assets/images/andrey-zvyagintsev-x0c6vTO5ibA-unsplash.jpg",
+      imageAlt: "Dating bio consultation",
+      caption: "Yes, we'll make you talk about yourself. It's good for you."
+    },
+    {
+      title: "Hinge Prompts, Solved",
+      description: "The 'two truths and a lie' that everyone uses? Skip it. The 'I'm looking for someone who...' cliché? Nah. We'll find prompts and answers that actually make someone want to respond—because that's the whole point, right?",
+      image: "/assets/images/stefan-stefancik-QXevDflbl8A-unsplash.jpg",
+      imageAlt: "Hinge prompt writing",
+      caption: "Give them something to work with."
+    },
+    {
+      title: "The Opener Strategy",
+      description: "Here's a secret: a good bio gives them an easy way to message you. We'll plant little hooks—things to ask about, jokes to reference, opinions to debate. Suddenly, 'hey' turns into actual conversations.",
+      image: "/assets/images/florian-marette-LEDfhIf_c7E-unsplash.jpg",
+      imageAlt: "Dating profile strategy",
+      caption: "Make it easy for them to start the chat."
+    }
+  ]
+};
+---
+
+<Layout 
+  title={serviceData.seo.metaTitle}
+  description={serviceData.seo.metaDescription}
+>
+  <Header />
+  
+  <!-- Hero Section with Parallax Effect -->
+  <section class="relative h-screen min-h-[800px] flex items-center justify-center overflow-hidden">
+    <!-- Dynamic Background with Overlay -->
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 bg-gradient-to-b from-brand-dark/90 via-brand-dark/70 to-brand-dark/90 z-10"></div>
+      <div class="absolute inset-0 bg-[url('/assets/images/grid-pattern.svg')] opacity-5 z-20"></div>
+      <img 
+        src={serviceData.heroImage} 
+        alt="Sydney Dating Bio Writing" 
+        class="w-full h-full object-cover animate-ken-burns"
+      />
+    </div>
+
+    <!-- Hero Content -->
+    <div class="container relative z-30 mx-auto px-6 text-center">
+      <!-- Floating Badge -->
+      <div class="inline-flex items-center gap-3 px-6 py-3 bg-white/5 backdrop-blur-xl rounded-full border border-white/10 mb-8 animate-float">
+        <span class="w-2 h-2 rounded-full bg-brand-accent animate-pulse"></span>
+        <span class="text-xs tracking-[0.3em] text-white/80 font-light uppercase">{serviceData.subtitle}</span>
+        <span class="text-white/40 mx-2">•</span>
+        <span class="text-xs font-mono text-white/60">Words matter</span>
+      </div>
+
+      <!-- Main Title with Split Animation -->
+      <h1 class="text-7xl md:text-9xl font-serif text-white mb-6 leading-[0.9] tracking-tight">
+        <span class="block overflow-hidden">
+          <span class="block animate-title-slide-up">BIO</span>
+        </span>
+        <span class="block overflow-hidden">
+          <span class="block animate-title-slide-up animation-delay-200">WRITING</span>
+        </span>
+      </h1>
+
+      <!-- Gradient Line -->
+      <div class="w-24 h-px mx-auto mb-8 bg-gradient-to-r from-transparent via-brand-accent to-transparent animate-width-grow"></div>
+
+      <!-- Description -->
+      <p class="text-lg md:text-xl text-white/70 max-w-2xl mx-auto font-light leading-relaxed mb-12 animate-fade-in animation-delay-500">
+        {serviceData.desc}
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="flex flex-col sm:flex-row gap-6 justify-center items-center animate-fade-in animation-delay-700">
+        <a href="/booking" class="group relative px-10 py-5 bg-brand-accent text-white overflow-hidden rounded-2xl">
+          <span class="absolute inset-0 w-0 bg-white/20 group-hover:w-full transition-all duration-500"></span>
+          <span class="relative flex items-center gap-3 text-sm tracking-[0.3em] uppercase font-light">
+            Write me a bio
+            <Icon name="lucide:arrow-right" class="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+          </span>
+        </a>
+        <a href="#story" class="group flex items-center gap-3 text-white/70 hover:text-white transition-colors">
+          <span class="w-12 h-px bg-white/30 group-hover:w-16 group-hover:bg-brand-accent transition-all"></span>
+          <span class="text-xs tracking-[0.3em] uppercase font-light">Words matter</span>
+        </a>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <div class="absolute bottom-12 left-1/2 -translate-x-1/2">
+        <a href="#story" class="flex flex-col items-center gap-3 text-white/40 hover:text-white/60 transition-colors">
+          <span class="text-xs tracking-[0.2em] uppercase font-light rotate-90 mb-4">Scroll</span>
+          <div class="w-px h-16 bg-gradient-to-b from-white/20 to-transparent"></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Section -->
+  <main class="bg-brand-bg">
+  <section id="story" class="max-w-7xl mx-auto px-8 py-32 md:py-40 bg-brand-bg text-brand-primary relative">
+    <!-- Background Decorative Elements -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div class="absolute top-40 -left-20 w-80 h-80 bg-brand-accent/5 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-40 -right-20 w-96 h-96 bg-brand-accent/5 rounded-full blur-3xl"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('/assets/images/pattern.png')] opacity-[0.02]"></div>
+    </div>
+
+    <!-- 主标题 - 大留白，强对比 -->
+    <div class="mb-32 relative">
+      <div class="absolute -top-20 left-0 text-[15vw] font-serif text-brand-accent/5 leading-none select-none pointer-events-none whitespace-nowrap">
+        WORDS • WORDS • WORDS
+      </div>
+      <h2 class="text-6xl md:text-8xl font-serif text-brand-accent leading-[0.9] tracking-[-0.03em] uppercase relative">
+        SAY<br />
+        <span class="italic font-light text-brand-muted relative inline-block group">
+          SOMETHING
+          <span class="absolute -bottom-4 left-0 w-0 h-px bg-brand-accent group-hover:w-full transition-all duration-1000"></span>
+        </span>
+      </h2>
+      <p class="text-xs md:text-sm text-brand-muted/70 tracking-[0.3em] uppercase mt-12 font-sans relative pl-8 before:absolute before:left-0 before:top-1/2 before:w-6 before:h-px before:bg-brand-muted/30">
+        WHY YOUR BIO MATTERS AS MUCH AS YOUR PHOTOS
+      </p>
+    </div>
+
+    <!-- 引言段落 - 优雅的首字下沉和视差效果 -->
+    <div class="mb-32 relative group">
+      <div class="absolute -left-8 top-0 text-[12rem] font-serif text-brand-accent/10 leading-none select-none pointer-events-none group-hover:text-brand-accent/20 transition-colors duration-700">
+        "
+      </div>
+      <div class="relative pl-16">
+        <p class="text-lg md:text-2xl font-light leading-relaxed text-brand-primary/80 mb-8 dropcap">
+          <span class="text-8xl float-left font-serif text-brand-accent mr-6 mt-2 leading-[0.8]">H</span>
+          ere's the thing about dating apps: your photos get them to stop scrolling. Your bio gets them to swipe right.
+        </p>
+        <p class="text-lg md:text-xl font-light leading-relaxed text-brand-primary/70 pl-8 border-l-2 border-brand-accent/30 italic">
+          But writing about yourself is weird, right? It feels like you're either bragging or boring. We'll help you find the middle ground—the stuff that's actually interesting, actually you, and actually makes someone want to start a conversation.
+        </p>
+      </div>
+    </div>
+
+    <!-- 战略叙事区块 - 网格布局增加层次 -->
+    <div class="grid md:grid-cols-2 gap-20 mb-32">
+      <div class="relative group">
+        <div class="absolute inset-0 bg-gradient-to-br from-brand-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 -m-8 rounded-3xl"></div>
+        <h2 class="text-3xl font-serif text-brand-accent mb-8 uppercase tracking-wide flex items-center">
+          <span class="w-12 h-px bg-brand-muted mr-6 group-hover:w-20 transition-all duration-700"></span>
+          DIFFERENT APPS, DIFFERENT VIBES
+        </h2>
+        <p class="text-base font-light leading-relaxed text-brand-primary/70 relative">
+          Hinge wants prompts and personality. Tinder wants short and punchy. Bumble wants... honestly it depends who you ask. We'll tailor your bio to the app—so you're not using Hinge answers on Tinder and wondering why it feels off.
+        </p>
+        <div class="absolute bottom-0 left-0 w-0 h-px bg-brand-accent group-hover:w-full transition-all duration-1000"></div>
+      </div>
+      <div class="relative group">
+        <div class="absolute inset-0 bg-gradient-to-bl from-brand-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 -m-8 rounded-3xl"></div>
+        <h2 class="text-3xl font-serif text-brand-accent mb-8 uppercase tracking-wide flex items-center">
+          <span class="w-12 h-px bg-brand-muted mr-6 group-hover:w-20 transition-all duration-700"></span>
+          CONVERSATION STARTERS
+        </h2>
+        <p class="text-base font-light leading-relaxed text-brand-primary/70">
+          The best bios give people something to message about. A controversial opinion about pineapple on pizza. A weird hobby. A question that's actually interesting. We'll plant those hooks.
+        </p>
+        <div class="absolute bottom-0 left-0 w-0 h-px bg-brand-accent group-hover:w-full transition-all duration-1000"></div>
+      </div>
+    </div>
+
+    <!-- 三陷阱区块 - 带有编号的高级列表 -->
+    <div class="mb-40 relative">
+      <h2 class="text-4xl md:text-5xl font-serif text-brand-accent mb-16 uppercase tracking-wide text-center">
+        BIO MISTAKES WE SEE<br />
+        <span class="text-xl font-light text-brand-muted block mt-4 tracking-normal">(and how we fix them)</span>
+      </h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- 陷阱1 -->
+        <div class="group relative p-10 bg-white/50 backdrop-blur-sm border border-brand-muted/10 hover:border-brand-accent/30 transition-all duration-700 hover:translate-y-[-8px]">
+          <span class="absolute -top-6 left-8 text-8xl font-serif text-brand-accent/10 group-hover:text-brand-accent/20 transition-colors">01</span>
+          <h3 class="text-2xl font-serif text-brand-accent mb-4 relative z-10">The Generic List</h3>
+          <p class="text-sm font-light text-brand-primary/60 leading-relaxed relative z-10">"I love food, travel, and good coffee." Cool, so does everyone in Sydney. We'll dig deeper—what kind of food? Where did you travel? What's your actual coffee order?</p>
+          <div class="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-brand-accent to-transparent group-hover:w-full transition-all duration-700"></div>
+        </div>
+        <!-- 陷阱2 -->
+        <div class="group relative p-10 bg-white/50 backdrop-blur-sm border border-brand-muted/10 hover:border-brand-accent/30 transition-all duration-700 hover:translate-y-[-8px]">
+          <span class="absolute -top-6 left-8 text-8xl font-serif text-brand-accent/10 group-hover:text-brand-accent/20 transition-colors">02</span>
+          <h3 class="text-2xl font-serif text-brand-accent mb-4 relative z-10">The Negativity</h3>
+          <p class="text-sm font-light text-brand-primary/60 leading-relaxed relative z-10">"Not looking for hookups." "Swipe left if..." It reads as exhausting before anyone's even met you. We'll flip it to positive—say what you *do* want.</p>
+          <div class="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-brand-accent to-transparent group-hover:w-full transition-all duration-700"></div>
+        </div>
+        <!-- 陷阱3 -->
+        <div class="group relative p-10 bg-white/50 backdrop-blur-sm border border-brand-muted/10 hover:border-brand-accent/30 transition-all duration-700 hover:translate-y-[-8px]">
+          <span class="absolute -top-6 left-8 text-8xl font-serif text-brand-accent/10 group-hover:text-brand-accent/20 transition-colors">03</span>
+          <h3 class="text-2xl font-serif text-brand-accent mb-4 relative z-10">The Blank Space</h3>
+          <p class="text-sm font-light text-brand-primary/60 leading-relaxed relative z-10">Nothing? Really? You're making them work so hard. Even a little something—a joke, a question, a weird fact—gives them a reason to start the conversation.</p>
+          <div class="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-brand-accent to-transparent group-hover:w-full transition-all duration-700"></div>
+        </div>
+      </div>
+      <!-- 技术说明 -->
+      <div class="mt-16 p-8 bg-gradient-to-r from-brand-accent/10 to-transparent border-l-4 border-brand-accent rounded-r-2xl">
+        <p class="text-sm font-mono text-brand-primary/80 leading-relaxed">
+          Quick truth: Hinge prompts with specific details get way more responses. "I'm looking for someone who..." is forgettable. "I'm looking for someone who will go halves on a nice bottle of wine and then argue about whether the 2019 was better than the 2021" actually says something about you.
+        </p>
+      </div>
+    </div>
+
+    <!-- 体验区块 - 双栏布局 -->
+    <div class="grid md:grid-cols-2 gap-20 mb-40">
+      <!-- HINGE PROMPTS -->
+      <div class="relative group">
+        <div class="sticky top-8">
+          <h2 class="text-3xl font-serif text-brand-accent mb-10 uppercase tracking-wide">
+            <span class="block text-sm font-light text-brand-muted mb-3 tracking-[0.3em]">01 — HINGE</span>
+            PROMPTS THAT ACTUALLY WORK
+          </h2>
+          <div class="space-y-6">
+            <p class="text-base font-light leading-relaxed text-brand-primary/70">
+              Hinge prompts are basically mini-essays. Most people either write something boring or try too hard to be funny.
+            </p>
+            <p class="text-base font-light leading-relaxed text-brand-primary/70 italic pl-6 border-l-2 border-brand-accent/30">
+              We'll find prompts that suit your personality and answers that make someone want to respond. "I'll fall for you if..." becomes a real thing, not a cliché.
+            </p>
+            <p class="text-base font-light leading-relaxed text-brand-primary/70">
+              Three prompts, three chances to show who you are. Let's make them count.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- TINDER & BUMBLE -->
+      <div class="relative group">
+        <div class="sticky top-8">
+          <h2 class="text-3xl font-serif text-brand-accent mb-10 uppercase tracking-wide">
+            <span class="block text-sm font-light text-brand-muted mb-3 tracking-[0.3em]">02 — TINDER/BUMBLE</span>
+            SHORT, SWEET, SMART
+          </h2>
+          <div class="space-y-6">
+            <p class="text-base font-light leading-relaxed text-brand-primary/70">
+              Less space means every word counts. We'll write bios that are:
+            </p>
+            <ul class="space-y-4 text-base font-light">
+              <li class="flex items-start group/item">
+                <span class="w-2 h-2 rounded-full bg-brand-accent mt-2 mr-4 group-hover/item:scale-150 transition-transform"></span>
+                <span class="text-brand-primary/70">Short enough to read in one glance</span>
+              </li>
+              <li class="flex items-start group/item">
+                <span class="w-2 h-2 rounded-full bg-brand-accent mt-2 mr-4 group-hover/item:scale-150 transition-transform"></span>
+                <span class="text-brand-primary/70">Funny without trying too hard</span>
+              </li>
+              <li class="flex items-start group/item">
+                <span class="w-2 h-2 rounded-full bg-brand-accent mt-2 mr-4 group-hover/item:scale-150 transition-transform"></span>
+                <span class="text-brand-primary/70">Specific enough to stand out</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 自然修图区块 - 宽幅设计，改为BIO主题 -->
+    <div class="mb-40 relative py-24 px-8 bg-gradient-to-br from-brand-dark via-brand-dark/95 to-brand-dark -mx-8 text-white">
+      <div class="absolute inset-0 overflow-hidden">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-brand-accent/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-brand-accent/5 rounded-full blur-3xl"></div>
+      </div>
+      <div class="max-w-4xl mx-auto text-center relative">
+        <h2 class="text-4xl md:text-5xl font-serif text-white mb-8 uppercase tracking-wide">
+          GIVE THEM SOMETHING TO WORK WITH
+        </h2>
+        <div class="w-24 h-px bg-gradient-to-r from-transparent via-brand-accent to-transparent mx-auto mb-8"></div>
+        <p class="text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto text-white/80">
+          Most people don't message because they don't know what to say. A good bio fixes that. It hands them an opening line on a silver platter. "I saw you're into that thing I'm also into—tell me more." That's the goal.
+        </p>
+      </div>
+    </div>
+
+    <!-- Experience Modules Grid -->
+    <div class="mb-40">
+      <h2 class="text-3xl md:text-4xl font-serif text-brand-accent mb-16 text-center uppercase tracking-wide">
+        HOW IT WORKS
+      </h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        {serviceData.experienceModules.map((module, index) => (
+          <div class="group relative overflow-hidden rounded-sm bg-white/50 backdrop-blur-sm border border-brand-muted/10 hover:border-brand-accent/30 transition-all duration-700 hover:translate-y-[-8px]">
+            <div class="aspect-[4/5] overflow-hidden">
+              <img 
+                src={module.image} 
+                alt={module.imageAlt}
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            </div>
+            <div class="p-8">
+              <h3 class="text-xl font-serif text-brand-accent mb-4">{module.title}</h3>
+              <p class="text-sm font-light text-brand-primary/70 leading-relaxed mb-4">{module.description}</p>
+              <p class="text-xs font-mono text-brand-muted/60 italic">{module.caption}</p>
+            </div>
+            <div class="absolute top-4 right-4 text-6xl font-serif text-brand-accent/10 group-hover:text-brand-accent/20 transition-colors">
+              {(index + 1).toString().padStart(2, '0')}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Packages Section -->
+    <Packages />
+
+    <!-- FAQ Section -->
+    <div class="mb-40 mt-40">
+      <h2 class="text-3xl md:text-4xl font-serif text-brand-accent mb-16 text-center uppercase tracking-wide">
+        YOU'VE GOT QUESTIONS
+      </h2>
+      <div class="max-w-3xl mx-auto space-y-6">
+        {serviceData.faq.map((item, index) => (
+          <div class="group border-b border-brand-muted/10 pb-6">
+            <details class="group">
+              <summary class="flex justify-between items-center cursor-pointer list-none">
+                <h3 class="text-lg font-serif text-brand-accent group-hover:text-brand-accent/80 transition-colors">
+                  <span class="inline-block w-8 text-sm font-mono text-brand-muted">{index + 1}.</span>
+                  {item.question}
+                </h3>
+                <Icon name="lucide:chevron-down" class="w-5 h-5 text-brand-muted group-open:rotate-180 transition-transform" />
+              </summary>
+              <p class="mt-4 text-sm font-light text-brand-primary/70 leading-relaxed pl-8">
+                {item.answer}
+              </p>
+            </details>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- 结尾区块 - 强有力的召唤 -->
+    <div class="text-center relative">
+      <div class="absolute inset-0 flex items-center justify-center opacity-5">
+        <span class="text-[12vw] font-serif text-brand-accent whitespace-nowrap">WORDS • WORDS • WORDS</span>
+      </div>
+      <h2 class="text-5xl md:text-7xl font-serif text-brand-accent mb-8 uppercase tracking-tight relative">
+        SAY IT<br />
+        <span class="italic font-light text-brand-muted relative inline-block group">
+          BETTER
+          <span class="absolute -bottom-4 left-1/2 -translate-x-1/2 w-0 h-px bg-brand-accent group-hover:w-full transition-all duration-700"></span>
+        </span>
+      </h2>
+      <p class="text-base font-light text-brand-primary/60 max-w-xl mx-auto mb-16 relative">
+        You've got the photos. Now let's give them something to say back.
+      </p>
+      
+      <!-- 高级按钮 -->
+      <a href="/booking" class="group relative inline-flex items-center justify-center px-12 py-6 bg-transparent border border-brand-accent/30 hover:border-brand-accent rounded-full overflow-hidden transition-all duration-500">
+        <span class="absolute inset-0 w-0 bg-brand-accent/10 group-hover:w-full transition-all duration-500"></span>
+        <span class="relative flex items-center gap-4">
+          <span class="text-xs tracking-[0.3em] uppercase font-light text-brand-accent group-hover:tracking-[0.4em] transition-all">
+            Write my bio
+          </span>
+          <Icon name="lucide:arrow-right" class="w-4 h-4 text-brand-accent group-hover:translate-x-2 transition-transform" />
+        </span>
+      </a>
+      
+      <!-- 装饰元素 -->
+      <div class="mt-24 flex justify-center items-center gap-4">
+        <span class="w-16 h-px bg-gradient-to-l from-brand-accent/30 to-transparent"></span>
+        <div class="flex space-x-3">
+          <span class="w-2 h-2 rounded-full bg-brand-accent/30 animate-pulse"></span>
+          <span class="w-2 h-2 rounded-full bg-brand-muted/30"></span>
+          <span class="w-2 h-2 rounded-full bg-brand-accent/30 animate-pulse animation-delay-300"></span>
+        </div>
+        <span class="w-16 h-px bg-gradient-to-r from-brand-accent/30 to-transparent"></span>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<!-- 样式 -->
+<style is:global>
+  /* 字体导入 */
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap');
+  
+  /* 自定义字体 - 如果Kudryashev不可用，回退到Georgia */
+  @font-face {
+    font-family: 'Kudryashev';
+    src: local('Georgia'), local('Times New Roman'), serif;
+    font-display: swap;
+  }
+
+  :root {
+    --brand-dark: #0A0A0A;
+    --brand-primary: #1A1A1A;
+    --brand-accent: #34041A;
+    --brand-muted: #6B4E5E;
+    --brand-bg: #FDFAF7;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--brand-bg);
+    color: var(--brand-primary);
+  }
+
+  /* 自定义动画 */
+  @keyframes kenBurns {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); }
+  }
+
+  @keyframes titleSlideUp {
+    0% { transform: translateY(100%); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes widthGrow {
+    0% { width: 0; opacity: 0; }
+    100% { width: 6rem; opacity: 1; }
+  }
+
+  .animate-ken-burns {
+    animation: kenBurns 20s ease-out forwards;
+  }
+
+  .animate-title-slide-up {
+    animation: titleSlideUp 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 1s ease forwards;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-width-grow {
+    animation: widthGrow 1s ease forwards;
+  }
+
+  .animation-delay-200 {
+    animation-delay: 0.2s;
+  }
+
+  .animation-delay-300 {
+    animation-delay: 0.3s;
+  }
+
+  .animation-delay-400 {
+    animation-delay: 0.4s;
+  }
+
+  .animation-delay-500 {
+    animation-delay: 0.5s;
+  }
+
+  .animation-delay-700 {
+    animation-delay: 0.7s;
+  }
+
+  /* 首字下沉样式 */
+  .dropcap::first-letter {
+    font-size: 4.5em;
+    float: left;
+    line-height: 0.8;
+    margin-right: 0.2em;
+    color: var(--brand-accent);
+    font-family: 'Kudryashev', 'Georgia', serif;
+    font-weight: 400;
+  }
+
+  /* 自定义滚动条 */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--brand-bg);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--brand-muted);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--brand-accent);
+  }
+
+  /* 文本选择样式 */
+  ::selection {
+    background: rgba(52, 4, 26, 0.15);
+    color: var(--brand-accent);
+  }
+
+  /* 平滑滚动 */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* 响应式调整 */
+  @media (max-width: 768px) {
+    .dropcap::first-letter {
+      font-size: 3.5em;
+    }
+  }
+</style>

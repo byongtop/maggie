@@ -1,0 +1,179 @@
+---
+/**
+ * Gallery.astro - 动态分类作品集
+ * 功能：支持分类过滤、瀑布流感布局、Unsplash 占位图
+ */
+const categories = ["ALL", "PORTRAIT", "LIFESTYLE", "BUSINESS"];
+
+const galleryItems = [
+  {
+    category: "PORTRAIT",
+    title: "Noir Mood",
+    slug: "noir-mood",
+    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=800",
+    span: "md:col-span-1 md:row-span-1"
+  },
+  {
+    category: "LIFESTYLE",
+    title: "Urban Silence",
+    slug: "urban-silence",
+    image: "https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?auto=format&fit=crop&q=80&w=800",
+    span: "md:col-span-1 md:row-span-2"
+  },
+  {
+    category: "BUSINESS",
+    title: "The Visionary",
+    slug: "the-visionary",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800",
+    span: "md:col-span-1 md:row-span-1"
+  },
+  {
+    category: "PORTRAIT",
+    title: "Soft Light",
+    slug: "soft-light",
+    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=800",
+    span: "md:col-span-1 md:row-span-1"
+  },
+  {
+    category: "LIFESTYLE",
+    title: "Golden Hour",
+    slug: "golden-hour",
+    image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=800",
+    span: "md:col-span-2 md:row-span-1"
+  },
+  {
+    category: "BUSINESS",
+    title: "Architectural Mind",
+    slug: "architectural-mind",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=800",
+    span: "md:col-span-1 md:row-span-1"
+  }
+];
+---
+
+<section class="py-24 bg-white overflow-hidden">
+  <div class="max-w-7xl mx-auto px-8">
+    
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
+      <div>
+        <p class="text-brand-accent text-[10px] tracking-[0.5em] uppercase mb-4">Portfolio</p>
+        <h2 class="text-4xl md:text-5xl font-serif text-brand-dark uppercase tracking-tight">
+          Selected <span class="italic font-light opacity-60">Fragments</span>
+        </h2>
+      </div>
+
+      <div class="flex flex-wrap gap-6 md:gap-10 border-b border-gray-100 pb-2">
+        {categories.map((cat) => (
+          <button
+            class="filter-btn group relative text-[10px] tracking-[0.3em] uppercase font-medium text-brand-dark/40 hover:text-brand-dark transition-colors duration-500 pb-2"
+            data-filter={cat}
+          >
+            {cat}
+            <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-brand-accent transition-all duration-500 group-hover:w-full"></span>
+            <span class={`active-line absolute bottom-0 left-0 w-full h-[1.5px] bg-brand-accent scale-x-0 transition-transform duration-500 origin-left`}></span>
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <div class="gallery-grid grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px] md:auto-rows-[400px]">
+      {galleryItems.map((item) => (
+        <div 
+          class={`gallery-item group relative overflow-hidden bg-gray-100 ${item.span}`}
+          data-category={item.category}
+        >
+          <div class="absolute inset-0 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none p-4">
+             <div class="absolute top-4 left-4 w-4 h-4 border-t border-l border-white/50"></div>
+             <div class="absolute bottom-4 right-4 w-4 h-4 border-b border-r border-white/50"></div>
+          </div>
+
+          <img 
+            src={item.image} 
+            alt={item.title}
+            class="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 ease-out"
+            loading="lazy"
+          />
+
+          <div class="absolute inset-0 bg-brand-dark/40 opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10 flex flex-col justify-end p-8">
+            <p class="text-white/60 text-[9px] tracking-[0.3em] uppercase mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-700">
+              {item.category}
+            </p>
+            <h3 class="text-white text-xl font-serif italic tracking-wide transform translate-y-4 group-hover:translate-y-0 transition-transform duration-700 delay-75">
+              {item.title}
+            </h3>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* 初始进入动画 */
+  .gallery-item {
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* 隐藏状态 */
+  .gallery-item.hidden-item {
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+    position: absolute; /* 避免占据网格空间 */
+    visibility: hidden;
+  }
+
+  /* 激活状态的按钮样式 */
+  .filter-btn.active {
+    color: #34041A; /* brand-dark */
+  }
+  .filter-btn.active .active-line {
+    scale-x: 1;
+  }
+</style>
+
+<script>
+  function initGallery() {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+
+    // 默认激活 "ALL"
+    const defaultBtn = document.querySelector('[data-filter="ALL"]');
+    if (defaultBtn) defaultBtn.classList.add('active');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
+
+        // 1. 更新按钮状态
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // 2. 过滤逻辑
+        galleryItems.forEach(item => {
+          const itemCat = item.getAttribute('data-category');
+          
+          // 使用简单的 CSS 类控制显示隐藏
+          // 注意：在 Grid 布局中，完全隐藏建议使用 display: none 或调整 Grid 结构
+          // 这里为了动效，我们配合 opacity 和缩放
+          if (filter === 'ALL' || itemCat === filter) {
+            item.style.display = 'block';
+            setTimeout(() => {
+              item.classList.remove('hidden-item');
+            }, 10);
+          } else {
+            item.classList.add('hidden-item');
+            setTimeout(() => {
+              item.style.display = 'none';
+            }, 600); // 等待动画结束
+          }
+        });
+      });
+    });
+  }
+
+  // 适配 Astro View Transitions
+  document.addEventListener('astro:page-load', initGallery);
+  // 初次加载
+  initGallery();
+</script>

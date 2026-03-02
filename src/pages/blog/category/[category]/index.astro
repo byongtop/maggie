@@ -1,0 +1,19 @@
+---
+// src/pages/blog/category/[category]/index.astro
+// 重定向到第一页
+
+export const prerender = true;
+
+const { category } = Astro.params;
+const url = `/blog/category/${category}/1`;
+---
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="refresh" content={`0; url=${url}`} />
+  </head>
+  <body>
+    <p>Redirecting to <a href={url}>page 1</a>...</p>
+  </body>
+</html>

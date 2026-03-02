@@ -22,14 +22,14 @@ const testimonials = [
 ];
 ---
 
-<section class="py-32 md:py-48 px-8 md:px-20 bg-brand-dark relative overflow-hidden text-brand-on-dark">
+<section class="py-24 md:py-32 px-8 md:px-20 bg-brand-dark relative overflow-hidden text-brand-on-dark">
   <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none">
-    <span class="text-[80px] md:text-[120px] font-serif italic text-brand-on-dark/[0.015] leading-none tracking-[0.2em] uppercase">
-      Voices
+    <span class="text-[80px] md:text-[120px] font-serif italic text-brand-on-dark/[0.09] leading-none tracking-[0.2em] uppercase">
+      Testimonials
     </span>
   </div>
 
-  <div class="max-w-4xl mx-auto text-center relative z-20">
+  <div class="max-w-7xl mx-auto text-center relative z-20">
     <div class="font-serif text-4xl md:text-5xl text-brand-muted opacity-20 mb-10 select-none">
       “
     </div>
@@ -39,7 +39,7 @@ const testimonials = [
         {testimonials.map((item) => (
           <div class="swiper-slide flex flex-col items-center">
             {/* 核心修改：字号缩小至 text-base 到 text-xl，增加 tracking-wide 和 leading-relaxed */}
-            <blockquote class="text-base md:text-lg lg:text-xl font-serif font-light leading-[2] italic mb-16 tracking-widest max-w-2xl opacity-90">
+            <blockquote class="text-base md:text-lg lg:text-xl font-serif font-light leading-[2] italic mb-16 tracking-widest max-w-2xl mx-auto opacity-90 text-center">                
               {item.quote}
             </blockquote>
             

@@ -1,0 +1,271 @@
+---
+// src/pages/blog/[page].astro
+// Blog Paginated List Page
+import '../../styles/global.css'; 
+
+import { getCollection } from 'astro:content';
+import Layout from "../../layouts/Layout.astro";
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { Icon } from 'astro-icon/components';
+
+export async function getStaticPaths() {
+  // 在函数内部定义常量
+  const POSTS_PER_PAGE = 9;  // 移到函数内部
+  
+  const allPosts = await getCollection('blog');
+  
+  // 按发布日期排序（最新的在前）
+  const sortedPosts = allPosts.sort((a, b) => 
+    new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+  );
+  
+  // 计算总页数
+  const totalPages = Math.ceil(sortedPosts.length / POSTS_PER_PAGE);
+  
+  // 生成每一页的路径
+  const paths = [];
+  
+  for (let i = 1; i <= totalPages; i++) {
+    paths.push({
+      params: { page: i.toString() },
+      props: { 
+        page: i,
+        totalPages,
+        posts: sortedPosts.slice((i - 1) * POSTS_PER_PAGE, i * POSTS_PER_PAGE)
+      },
+    });
+  }
+  
+  return paths;
+}
+
+interface Props {
+  page: number;
+  totalPages: number;
+  posts: any[];
+}
+
+const { page, totalPages, posts } = Astro.props;
+
+// 分类颜色映射（复用）
+const categoryColors = {
+  'Photography Tips & Guides': 'bg-blue-50 text-blue-700 border-blue-200',
+  'Success Stories': 'bg-green-50 text-green-700 border-green-200',
+  'Dating Insights': 'bg-purple-50 text-purple-700 border-purple-200',
+  'Behind the Scenes': 'bg-amber-50 text-amber-700 border-amber-200'
+};
+
+---
+
+<Layout 
+  title={`Blog - Page ${page} | ROSE IS ROSE`}
+  description="Stories, tips and insights from Sydney's premier dating photography studio."
+>
+  <Header />
+
+  <!-- Hero Section -->
+  <section class="relative pt-40 pb-20 md:pt-48 md:pb-24 bg-brand-dark text-white overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute inset-0 bg-[url('/assets/images/grid-pattern.svg')] bg-repeat"></div>
+    </div>
+    
+    <!-- Gradient Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-b from-brand-dark via-brand-dark/95 to-brand-dark"></div>
+    
+    <div class="container relative z-10 mx-auto px-6 max-w-4xl text-center">
+      <h1 class="text-5xl md:text-7xl font-serif mb-6">THE JOURNAL</h1>
+      <div class="w-24 h-px bg-brand-accent mx-auto mb-6"></div>
+      <p class="text-lg text-white/70 max-w-2xl mx-auto font-light">
+        Stories, tips and insights from behind the lens
+      </p>
+    </div>
+  </section>
+
+  <!-- Blog Grid -->
+  <main class="bg-brand-bg">
+    <section class="max-w-7xl mx-auto px-6 py-20 md:py-24">
+      
+      <!-- Posts Grid -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 gap-y-12">
+        {posts.map((post) => (
+          <a 
+            href={`/blog/${post.slug}`}
+            class="group block"
+          >
+            <article class="h-full flex flex-col">
+              <!-- Image -->
+              <div class="aspect-[4/3] overflow-hidden bg-brand-dark/5 mb-5">
+                {post.data.image ? (
+                  <img 
+                    src={post.data.image} 
+                    alt={post.data.title}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                ) : (
+                  <div class="w-full h-full flex items-center justify-center bg-brand-accent/5">
+                    <span class="text-brand-muted/30 font-serif text-6xl">R</span>
+                  </div>
+                )}
+              </div>
+              
+              <!-- Meta -->
+              <div class="flex items-center gap-3 mb-3">
+                <span class={`text-[10px] tracking-[0.2em] uppercase px-3 py-1 rounded-full border ${categoryColors[post.data.category]}`}>
+                  {post.data.category}
+                </span>
+                <span class="text-xs text-brand-muted/60">
+                  {new Date(post.data.pubDate).toLocaleDateString('en-AU', {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric'
+                  })}
+                </span>
+              </div>
+              
+              <!-- Title -->
+              <h2 class="text-xl font-serif text-brand-accent mb-3 group-hover:underline decoration-1 underline-offset-4 transition-all">
+                {post.data.title}
+              </h2>
+              
+              <!-- Description -->
+              <p class="text-sm text-brand-primary/60 font-light leading-relaxed line-clamp-3">
+                {post.data.description}
+              </p>
+              
+              <!-- Read More -->
+              <div class="mt-4 flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase text-brand-muted group-hover:text-brand-accent transition-colors">
+                <span>Read More</span>
+                <Icon name="lucide:arrow-right" class="w-3 h-3" />
+              </div>
+            </article>
+          </a>
+        ))}
+      </div>
+
+      <!-- Pagination -->
+      {totalPages > 1 && (
+        <div class="mt-20 flex justify-center items-center gap-2">
+          <!-- Previous Page -->
+          {page > 1 ? (
+            <a 
+              href={page === 2 ? '/blog' : `/blog/${page - 1}`}
+              class="w-10 h-10 rounded-full border border-brand-muted/20 hover:border-brand-accent flex items-center justify-center text-brand-primary/60 hover:text-brand-accent transition-colors"
+            >
+              <Icon name="lucide:chevron-left" class="w-4 h-4" />
+            </a>
+          ) : (
+            <span class="w-10 h-10 rounded-full border border-brand-muted/10 flex items-center justify-center text-brand-muted/30 cursor-not-allowed">
+              <Icon name="lucide:chevron-left" class="w-4 h-4" />
+            </span>
+          )}
+
+          {/* Page Numbers */}
+          <div class="flex items-center gap-1">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+              p === page ? (
+                <span 
+                  key={p}
+                  class="w-10 h-10 rounded-full bg-brand-accent text-white flex items-center justify-center text-sm font-mono"
+                >
+                  {p}
+                </span>
+              ) : (
+                <a 
+                  key={p}
+                  href={p === 1 ? '/blog' : `/blog/${p}`}
+                  class="w-10 h-10 rounded-full border border-brand-muted/20 hover:border-brand-accent flex items-center justify-center text-brand-primary/60 hover:text-brand-accent transition-colors text-sm font-mono"
+                >
+                  {p}
+                </a>
+              )
+            ))}
+          </div>
+
+          <!-- Next Page -->
+          {page < totalPages ? (
+            <a 
+              href={`/blog/${page + 1}`}
+              class="w-10 h-10 rounded-full border border-brand-muted/20 hover:border-brand-accent flex items-center justify-center text-brand-primary/60 hover:text-brand-accent transition-colors"
+            >
+              <Icon name="lucide:chevron-right" class="w-4 h-4" />
+            </a>
+          ) : (
+            <span class="w-10 h-10 rounded-full border border-brand-muted/10 flex items-center justify-center text-brand-muted/30 cursor-not-allowed">
+              <Icon name="lucide:chevron-right" class="w-4 h-4" />
+            </span>
+          )}
+        </div>
+      )}
+
+      <!-- Page Info (optional) -->
+      {totalPages > 1 && (
+        <p class="text-center text-xs text-brand-muted/50 mt-6 font-mono">
+          Page {page} of {totalPages}
+        </p>
+      )}
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style is:global>
+  /* 字体导入 */
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap');
+  
+  @font-face {
+    font-family: 'Kudryashev';
+    src: local('Georgia'), local('Times New Roman'), serif;
+    font-display: swap;
+  }
+
+  :root {
+    --brand-dark: #0A0A0A;
+    --brand-primary: #1A1A1A;
+    --brand-accent: #34041A;
+    --brand-muted: #6B4E5E;
+    --brand-bg: #FDFAF7;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--brand-bg);
+    color: var(--brand-primary);
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* 自定义滚动条 */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--brand-bg);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--brand-muted);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--brand-accent);
+  }
+
+  ::selection {
+    background: rgba(52, 4, 26, 0.15);
+    color: var(--brand-accent);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+</style>

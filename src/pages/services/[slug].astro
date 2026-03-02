@@ -1,0 +1,158 @@
+---
+// src/pages/services/[...slug].astro
+import '../../styles/global.css'; 
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Packages from '../../components/Packages2.astro';
+import ContactCTA from '../../components/ContactCTA2.astro';
+
+export async function getStaticPaths() {
+  const serviceEntries = await getCollection('services');
+  return serviceEntries.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+if (!entry) return Astro.redirect('/404');
+
+const { Content } = await entry.render();
+// --- 修正：正确的解构方式 ---
+const { data } = entry; 
+---
+
+<Layout title={data.seo.metaTitle}>
+  <Header />
+  
+<section class="min-h-[85vh] flex items-center bg-brand-bg pt-20 bg-cover bg-center relative" style={`background-image: url(${data.heroImage});`}>
+    <div class="max-w-7xl mx-auto px-6 py-16 text-center bg-brand-bg/60 backdrop-blur-sm p-12 md:p-16 shadow-inner border border-brand-muted/10">
+      <span class="text-brand-muted uppercase tracking-[0.4em] text-xs font-medium inline-block pb-3 border-b border-brand-muted/20 mb-6">
+        SERVICE NO. {data.no}
+      </span>
+      
+      <h1 class="font-serif text-5xl md:text-7xl text-brand-accent mt-4 mb-4 leading-[1.1] tracking-[-0.02em] uppercase">
+        {data.h1Title}
+      </h1>
+      
+      <p class="text-lg md:text-2xl max-w-3xl mx-auto mt-6 mb-10 text-brand-primary/80 font-light leading-relaxed relative pl-8 md:pl-12 border-l border-brand-muted/20 text-left dropcap">
+        <span class="float-left text-7xl md:text-8xl font-serif text-brand-accent mr-4 mt-2">I</span>
+        {data.desc}
+      </p>
+    </div>
+  </section>
+
+<section class="bg-brand-bg py-24 md:py-32">
+  <div class="max-w-7xl mx-auto px-6">
+    {/* 标题 - 极简 */}
+    <div class="text-center mb-24">
+      <span class="block w-12 h-[1px] bg-brand-muted/30 mx-auto mb-8"></span>
+      <h2 class="font-serif text-3xl text-brand-accent uppercase tracking-[0.3em] font-light">
+        Included in this Package
+      </h2>
+      <span class="block w-12 h-[1px] bg-brand-muted/30 mx-auto mt-8"></span>
+    </div>
+
+    {/* 画廊网格 - 两列布局 */}
+    <div class="grid md:grid-cols-2 gap-px bg-brand-muted/10">
+      {data.features.map((feature: string, index: number) => (
+        <>
+          {/* 左侧特性（带索引） */}
+          <div class="bg-brand-bg p-12 group hover:bg-brand-accent/5 transition-all duration-700 relative overflow-hidden">
+            {/* 背景装饰 */}
+            <span class="absolute -right-4 -top-4 text-8xl font-serif text-brand-accent/5 group-hover:text-brand-accent/10 transition-all duration-700">
+              {(index + 1).toString().padStart(2, '0')}
+            </span>
+            
+            {/* 内容 */}
+            <div class="relative z-10">
+              <span class="text-2xl text-brand-muted/20 block mb-6">✦</span>
+              <p class="text-lg text-brand-primary font-light leading-relaxed">
+                {feature}
+              </p>
+              {/* 悬停时出现的线条 */}
+              <div class="absolute bottom-0 left-0 w-0 h-[1px] bg-brand-muted group-hover:w-full transition-all duration-1000"></div>
+            </div>
+          </div>
+
+          {/* 右侧留白或装饰 - 如果是奇数项，添加装饰 */}
+          {index === 0 && (
+            <div class="hidden md:block bg-brand-bg p-12 border-l border-brand-muted/10">
+              <div class="h-full flex items-end justify-end">
+                <span class="text-3xl text-brand-muted/10 rotate-90">✦✦✦</span>
+              </div>
+            </div>
+          )}
+        </>
+      ))}
+    </div>
+
+    {/* 极简脚注 */}
+    <div class="mt-16 text-right">
+      <p class="text-[10px] tracking-[0.5em] text-brand-muted/30 uppercase">
+        * all features are curated for your narrative
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="bg-brand-dark text-brand-on-dark py-24">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="relative mb-32">
+            <h2 class="font-serif text-5xl text-center text-brand-on-dark relative z-10 tracking-[-0.02em]">The Experience</h2>
+            <div class="absolute left-1/2 -translate-x-1/2 bottom-0 w-16 h-[1px] bg-brand-on-dark/20"></div>
+        </div>
+        
+        {data.experienceModules?.map((module: any, index: number) => (
+          <div class={`flex flex-col gap-12 mb-32 md:gap-20 md:items-center ${index % 2 !== 0 ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
+            
+            <div class="flex-1 space-y-4">
+              <span class="text-brand-on-dark/40 font-mono text-sm tracking-wider">0{index + 1}</span>
+              <h3 class="font-serif text-3xl text-brand-on-dark uppercase tracking-wide leading-tight">{module.title}</h3>
+              <div class="w-12 h-[1px] bg-brand-on-dark/20 my-6"></div>
+              <p class="text-brand-on-dark/70 font-light leading-relaxed text-lg">{module.description}</p>
+            </div>
+            
+            <div class="flex-1 group">
+              <div class="relative overflow-hidden">
+                <img 
+                  src={module.image} 
+                  alt={module.imageAlt} 
+                  class="rounded-sm shadow-md grayscale-[10%] group-hover:grayscale-0 transition-all duration-700 w-full h-auto object-cover scale-100 group-hover:scale-[1.02] transition-transform duration-1000"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+              </div>
+              <p class="text-sm text-brand-on-dark/50 mt-4 italic font-light border-l-2 border-brand-on-dark/20 pl-4">{module.caption}</p>
+            </div>
+            
+          </div>
+        ))}
+        
+        <div class="w-full h-[1px] bg-brand-on-dark/10 mt-16"></div>
+    </div>
+  </section>
+
+  <!-- 悉尼文案高级艺术感排版 -->
+  <Content />
+
+  <section class="bg-brand-bg py-24 border-t border-brand-muted/20">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="font-serif text-4xl text-center mb-16 text-brand-accent">Frequently Asked Questions</h2>
+      <div class="space-y-12">
+        {data.faq?.map((item: any) => (
+          <div class="border-b border-brand-muted/20 pb-10">
+            <h3 class="text-2xl font-semibold text-brand-accent mb-4 font-serif uppercase tracking-tight">{item.question}</h3>
+            <p class="text-brand-primary/80 leading-relaxed font-light">{item.answer}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Packages />
+
+  <ContactCTA />
+  <Footer />
+</Layout>

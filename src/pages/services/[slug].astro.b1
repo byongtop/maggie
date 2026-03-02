@@ -1,0 +1,124 @@
+---
+// src/pages/services/[slug].astro
+import '../../styles/global.css';
+
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ContactCTA from '../../components/ContactCTA2.astro';
+
+// 1. 生成动态路径
+export async function getStaticPaths() {
+  const serviceEntries = await getCollection('services', ({ data }) => {
+    return data.isPublished !== false;
+  });
+  return serviceEntries.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+const { Content } = await entry.render();
+
+// 2. 构造 Google FAQ 结构化数据 (SEO 核心)
+const faqSchema = data.faq ? {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": data.faq.map(item => ({
+    "@type": "Question",
+    "name": item.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.answer
+    }
+  }))
+} : null;
+---
+
+<Layout 
+  title={data.seo.metaTitle} 
+  description={data.seo.metaDescription}
+  canonical={data.seo.canonicalURL}
+>
+  {faqSchema && (
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  )}
+
+  <Header />
+
+  <main class="bg-brand-bg pt-22 md:pt-28">
+    
+    <section class="relative h-[60vh] md:h-[70vh] flex items-center justify-center overflow-hidden">
+      <img 
+        src={data.heroImage} 
+        alt={data.seo.imageAlt}
+        class="absolute inset-0 w-full h-full object-cover scale-105 transition-transform duration-[5s] hover:scale-100"
+      />
+      <div class="absolute inset-0 bg-brand-dark/40 mix-blend-multiply"></div>
+      
+      <div class="relative z-10 text-center px-6 reveal-text">
+        <p class="text-brand-on-dark/80 text-[10px] tracking-[0.5em] uppercase mb-4 flex items-center justify-center">
+          <span class="w-8 h-[1px] bg-brand-on-dark/40 mr-4"></span>
+          {data.subtitle}
+        </p>
+        <h1 class="text-4xl md:text-6xl font-serif text-brand-on-dark leading-[1.1] max-w-4xl">
+          {data.h1Title}
+        </h1>
+      </div>
+      
+      <div class="absolute bottom-10 left-10 opacity-20 text-[10vw] font-serif italic text-brand-on-dark select-none">
+        {data.no}
+      </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-6 py-20 md:py-32">
+      
+      <div class="">
+          <Content />
+      </div>
+
+      {data.faq && (
+        <div class="mt-24 reveal-text border-t border-brand-muted/10 pt-24">
+          <h2 class="text-3xl font-serif text-brand-dark mb-16 italic text-center">Common Inquiries</h2>
+          <div class="grid md:grid-cols-2 gap-x-12 gap-y-10">
+            {data.faq.map((item) => (
+              <div class="border-b border-brand-muted/20 pb-6">
+                <h3 class="text-lg font-serif text-brand-accent mb-3 flex items-start gap-3">
+                  <span class="text-brand-muted opacity-50">Q.</span>
+                  {item.question}
+                </h3>
+                <p class="text-brand-primary/70 font-light leading-relaxed pl-8 text-sm">
+                  {item.answer}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </section>
+
+    <ContactCTA />
+  </main>
+
+  <Footer />
+</Layout>
+
+<script>
+  function initServiceDetail() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal-text, .reveal-service').forEach(el => observer.observe(el));
+  }
+
+  document.addEventListener('astro:page-load', initServiceDetail);
+  initServiceDetail();
+</script>

@@ -1,0 +1,18 @@
+---
+// src/pages/blog/index.astro
+// 这个文件只是重定向到第一页
+export const prerender = true;
+
+const page = 1;
+const url = `/blog/${page}`;
+---
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="refresh" content={`0; url=${url}`} />
+  </head>
+  <body>
+    <p>Redirecting to <a href={url}>blog page {page}</a>...</p>
+  </body>
+</html>

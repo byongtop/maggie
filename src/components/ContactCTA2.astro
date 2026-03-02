@@ -1,0 +1,59 @@
+---
+/**
+ * ContactCTA.astro
+ * 浅色背景风格的通用转化模块
+ */
+---
+
+<section class="py-24 md:py-32 bg-brand-bg text-center overflow-hidden">
+    <div class="max-w-4xl mx-auto px-6 reveal-text">
+        <span class="text-brand-muted text-[10px] tracking-[0.5em] uppercase mb-6 flex items-center justify-center">
+            <span class="w-8 h-[1px] bg-brand-muted/40 mr-4"></span>
+            Ready to Begin
+            <span class="w-8 h-[1px] bg-brand-muted/40 ml-4"></span>
+        </span>
+        <h2 class="text-4xl md:text-5xl font-serif text-brand-dark mb-8 tracking-tight">
+            Elevate Your <span class="italic font-light">First Impression</span>
+        </h2>
+        <p class="text-brand-primary/70 font-light mb-12 max-w-2xl mx-auto leading-relaxed text-base">
+            Book a consultation with us today and let's discuss how we can craft a visual identity that truly reflects your best self. Your narrative starts here.
+        </p>
+        <a 
+            href="/contact" 
+            class="inline-block bg-brand-accent text-brand-on-dark px-12 py-5 text-xs tracking-[0.2em] font-bold uppercase hover:bg-brand-muted transition-colors duration-300 shadow-xl"
+        >
+            Schedule Your Session
+        </a>
+    </div>
+</section>
+
+<style>
+  /* 动效在该组件内保持一致 */
+  .reveal-text {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal-text.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+
+<script>
+  function initCTAAnimation() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.reveal-text').forEach(el => observer.observe(el));
+  }
+
+  document.addEventListener('astro:page-load', initCTAAnimation);
+  initCTAAnimation();
+</script>

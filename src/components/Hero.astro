@@ -1,13 +1,13 @@
 ---
 /**
  * Hero.astro - 摄影重心平衡版
- * 修复：字号缩小，避免遮挡照片
+ * 修复：内容下移，优化垂直居中分布，避免遮挡
  * 图片：使用本地资源路径
  */
 import { Image } from 'astro:assets';
 
 // 导入本地图片
-import hero06 from '../assets/images/hero/06.jpg';
+import hero06 from '../assets/images/hero/05.jpg';
 import hero07 from '../assets/images/hero/07.jpg';
 import hero08 from '../assets/images/hero/08.jpg';
 
@@ -53,7 +53,7 @@ const slides = [
             />
           </div>
 
-          <div class="absolute inset-0 z-20 pt-32 md:pt-40 lg:pt-48">
+          <div class="absolute inset-0 z-20 flex items-start pt-[25vh] md:pt-[30vh]">
             <div class="max-w-7xl mx-auto px-10 md:px-24 w-full">
               <div class="slide-content max-w-2xl">
                 <div class="flex items-center space-x-4 mb-5 animate-element">
@@ -76,7 +76,7 @@ const slides = [
                 </p>
 
                 <div class="animate-element">
-                  <a href="/booking" class="group relative inline-flex items-center border border-[#F9F2E7]/20 px-10 py-4 transition-all duration-700 hover:border-[#F9F2E7]">
+                  <a href="/booking" class="group relative inline-flex items-center border border-[#F9F2E7]/20 px-10 py-4 transition-all duration-700 hover:border-[#F9F2E7] overflow-hidden">
                     <span class="relative z-10 text-[#F9F2E7] text-[10px] tracking-[0.4em] font-sans uppercase">Explore More</span>
                     <div class="absolute inset-0 bg-[#F9F2E7] translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-out"></div>
                     <span class="absolute inset-0 z-20 flex items-center justify-center text-[#34041A] text-[10px] tracking-[0.4em] font-sans uppercase translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-out">Explore More</span>
@@ -100,6 +100,9 @@ const slides = [
   import 'swiper/css/effect-fade';
 
   const initSwiper = () => {
+    const swiperEl = document.querySelector('.heroSwiper');
+    if (!swiperEl) return;
+
     new Swiper('.heroSwiper', {
       modules: [Pagination, Autoplay, EffectFade],
       effect: 'fade',
@@ -117,9 +120,7 @@ const slides = [
     });
   };
 
-  // 处理 Astro 视图过渡
   document.addEventListener('astro:page-load', initSwiper);
-  // 初次加载
   initSwiper();
 </script>
 

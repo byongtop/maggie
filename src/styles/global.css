@@ -1,6 +1,24 @@
 /* src/styles/global.css */
 @import "tailwindcss";
 
+/* 1. 引入常规对比度字体 */
+@font-face {
+  font-family: 'Kudryashev';
+  src: url('/assets/fonts/fonnts.com-Kudryashev_Display_Contrast_Sans.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 2. 引入极致对比度字体 */
+@font-face {
+  font-family: 'Kudryashev';
+  src: url('/assets/fonts/fonnts.com-Kudryashev_Display_Extra_Contrast_Sans.otf') format('opentype');
+  font-weight: 700; /* 将 Extra 版本设为粗体逻辑 */
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   /* 核心：#34041A (深红) 与 #F9F2E7 (羊绒米) 的深度整合 */
   
@@ -21,14 +39,18 @@
 
   /* 6. 反白文字：专门用于深红背景上的文字 */
   --color-brand-on-dark: #F9F2E7;
+
+  /* 3. 在 Tailwind 主题中定义新字体系列 */
+  --font-serif: 'Kudryashev', serif;
 }
 
 @layer base {
-body {
+  body {
     @apply bg-brand-bg text-brand-primary;
     margin: 0;
     /* 正文使用无衬线体，保持现代简约 */
     font-family: 'Inter', system-ui, sans-serif;
+
     -webkit-font-smoothing: antialiased;
     font-weight: 300;
     line-height: 1.6;
@@ -41,7 +63,7 @@ body {
 
   h1, h2, h3 {
     /* 标题默认使用深红，建立品牌识别度 */
-    @apply text-brand-accent font-light;
+    @apply text-brand-accent font-serif;
     letter-spacing: 0.05em; /* 摄影站建议字间距稍微拉开，更有留白感 */
     text-transform: uppercase;
   }

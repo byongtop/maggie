@@ -1,0 +1,305 @@
+---
+// src/pages/blog/[slug].astro
+// Blog Post Page - Individual Blog Article
+import '../../styles/global.css'; 
+
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Layout from "../../layouts/Layout.astro";
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { Icon } from 'astro-icon/components';
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection('blog');
+  return blogEntries.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<'blog'>;
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+
+// 格式化日期
+const formattedDate = new Date(data.pubDate).toLocaleDateString('en-AU', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+
+// 分类颜色映射
+const categoryColors = {
+  'Photography Tips & Guides': 'bg-blue-50 text-blue-700 border-blue-200',
+  'Success Stories': 'bg-green-50 text-green-700 border-green-200',
+  'Dating Insights': 'bg-purple-50 text-purple-700 border-purple-200',
+  'Behind the Scenes': 'bg-amber-50 text-amber-700 border-amber-200'
+};
+---
+
+<Layout 
+  title={data.seoTitle}
+  description={data.seoDescription}
+>
+  <Header />
+
+  <!-- Hero Section - Blog Post Header -->
+  <section class="relative pt-40 pb-20 md:pt-48 md:pb-24 bg-brand-dark text-white overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute inset-0 bg-[url('/assets/images/grid-pattern.svg')] bg-repeat"></div>
+    </div>
+    
+    <!-- Gradient Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-b from-brand-dark via-brand-dark/95 to-brand-dark"></div>
+    
+    <div class="container relative z-10 mx-auto px-6 max-w-4xl">
+      <!-- Category & Date -->
+      <div class="flex items-center gap-4 mb-6">
+        <span class={`text-xs tracking-[0.2em] uppercase px-4 py-2 rounded-full border ${categoryColors[data.category]}`}>
+          {data.category}
+        </span>
+        <span class="text-sm text-brand-muted/70">{formattedDate}</span>
+      </div>
+      
+      <!-- Title -->
+      <h1 class="text-4xl md:text-6xl lg:text-7xl font-serif mb-6 leading-[1.1] text-[#F9F2E7]">
+        {data.title}
+      </h1>
+      
+      <!-- Description -->
+      <p class="text-lg md:text-xl text-white/70 max-w-3xl font-light leading-relaxed">
+        {data.description}
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Content Section -->
+  <main class="bg-brand-bg">
+    <section class="max-w-7xl mx-auto px-6 py-20 md:py-32">
+      
+      <!-- Featured Image (if exists) -->
+      {data.image && (
+        <div class="mb-16 max-w-5xl mx-auto">
+          <div class="aspect-[16/9] overflow-hidden rounded-sm">
+            <img 
+              src={data.image} 
+              alt={data.title}
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <p class="text-xs text-brand-muted/60 mt-3 text-center italic">{data.title}</p>
+        </div>
+      )}
+
+      <!-- Content Blocks -->
+      {data.contentBlocks && data.contentBlocks.length > 0 ? (
+        <div class="max-w-4xl mx-auto space-y-16">
+          {data.contentBlocks.map((block, index) => (
+            <div class={`grid md:grid-cols-2 gap-8 md:gap-12 items-center ${
+              block.layout === 'right' ? '' : 'md:[&>div:first-child]:order-last'
+            }`}>
+              
+              <!-- Text Block -->
+              <div class={`prose prose-lg max-w-none ${
+                block.layout === 'full' ? 'md:col-span-2' : ''
+              }`}>
+                <div class="text-brand-primary/80 font-light leading-relaxed space-y-4" set:html={block.text} />
+              </div>
+
+              <!-- Image Block (if exists and not full width) -->
+              {block.image && block.layout !== 'full' && (
+                <div class="relative group">
+                  <div class="aspect-[4/5] overflow-hidden rounded-sm">
+                    <img 
+                      src={block.image} 
+                      alt={block.imageAlt || 'Blog image'}
+                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                  </div>
+                  {block.imageAlt && (
+                    <p class="text-xs text-brand-muted/60 mt-3 italic">{block.imageAlt}</p>
+                  )}
+                </div>
+              )}
+
+              <!-- Full width image (if layout is 'full' and image exists) -->
+              {block.image && block.layout === 'full' && (
+                <div class="md:col-span-2 my-8">
+                  <div class="aspect-[16/9] overflow-hidden rounded-sm">
+                    <img 
+                      src={block.image} 
+                      alt={block.imageAlt || 'Blog image'}
+                      class="w-full h-full object-cover"
+                    />
+                  </div>
+                  {block.imageAlt && (
+                    <p class="text-xs text-brand-muted/60 mt-3 text-center italic">{block.imageAlt}</p>
+                  )}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      ) : (
+        <!-- Fallback if no content blocks - use markdown content -->
+        <article class="prose prose-lg max-w-4xl mx-auto font-light">
+          <slot />
+        </article>
+      )}
+
+      <!-- Navigation between posts (optional) -->
+      <div class="max-w-4xl mx-auto mt-24 pt-12 border-t border-brand-muted/10">
+        <div class="flex justify-between items-center">
+          <a href="/blog" class="group flex items-center gap-3 text-brand-primary/60 hover:text-brand-accent transition-colors">
+            <Icon name="lucide:arrow-left" class="w-4 h-4" />
+            <span class="text-xs tracking-[0.2em] uppercase">Back to Blog</span>
+          </a>
+          
+          <div class="flex gap-4">
+            <button class="w-10 h-10 rounded-full border border-brand-muted/20 hover:border-brand-accent flex items-center justify-center text-brand-primary/60 hover:text-brand-accent transition-colors">
+              <Icon name="lucide:twitter" class="w-4 h-4" />
+            </button>
+            <button class="w-10 h-10 rounded-full border border-brand-muted/20 hover:border-brand-accent flex items-center justify-center text-brand-primary/60 hover:text-brand-accent transition-colors">
+              <Icon name="lucide:linkedin" class="w-4 h-4" />
+            </button>
+            <button class="w-10 h-10 rounded-full border border-brand-muted/20 hover:border-brand-accent flex items-center justify-center text-brand-primary/60 hover:text-brand-accent transition-colors">
+              <Icon name="lucide:facebook" class="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style is:global>
+  /* 字体导入 */
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap');
+  
+  /* 自定义字体 - 如果Kudryashev不可用，回退到Georgia */
+  @font-face {
+    font-family: 'Kudryashev';
+    src: local('Georgia'), local('Times New Roman'), serif;
+    font-display: swap;
+  }
+
+  :root {
+    --brand-dark: #0A0A0A;
+    --brand-primary: #1A1A1A;
+    --brand-accent: #34041A;
+    --brand-muted: #6B4E5E;
+    --brand-bg: #FDFAF7;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--brand-bg);
+    color: var(--brand-primary);
+  }
+
+  /* Prose styles for blog content */
+  .prose {
+    color: var(--brand-primary);
+    font-size: 1.125rem;
+    line-height: 1.8;
+  }
+
+  .prose h2 {
+    font-family: 'Kudryashev', 'Georgia', serif;
+    font-size: 2rem;
+    color: var(--brand-accent);
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+
+  .prose h3 {
+    font-family: 'Kudryashev', 'Georgia', serif;
+    font-size: 1.5rem;
+    color: var(--brand-accent);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 400;
+  }
+
+  .prose p {
+    margin-bottom: 1.5rem;
+    color: var(--brand-primary/80);
+  }
+
+  .prose a {
+    color: var(--brand-accent);
+    text-decoration: underline;
+    text-decoration-color: var(--brand-muted/30);
+    text-underline-offset: 4px;
+    transition: all 0.3s;
+  }
+
+  .prose a:hover {
+    text-decoration-color: var(--brand-accent);
+  }
+
+  .prose blockquote {
+    border-left: 3px solid var(--brand-accent);
+    padding-left: 1.5rem;
+    font-style: italic;
+    color: var(--brand-muted);
+    margin: 2rem 0;
+  }
+
+  .prose ul, .prose ol {
+    margin: 1.5rem 0;
+    padding-left: 1.5rem;
+  }
+
+  .prose li {
+    margin-bottom: 0.5rem;
+  }
+
+  .prose img {
+    border-radius: 4px;
+    margin: 2rem 0;
+  }
+
+  .prose strong {
+    color: var(--brand-accent);
+    font-weight: 500;
+  }
+
+  /* 自定义滚动条 */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--brand-bg);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--brand-muted);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--brand-accent);
+  }
+
+  /* 文本选择样式 */
+  ::selection {
+    background: rgba(52, 4, 26, 0.15);
+    color: var(--brand-accent);
+  }
+
+  /* 平滑滚动 */
+  html {
+    scroll-behavior: smooth;
+  }
+</style>
