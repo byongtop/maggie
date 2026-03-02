@@ -2,29 +2,25 @@
 // src/pages/blog/category/[category]/index.astro
 // 重定向到第一页
 
+import { getCollection } from 'astro:content';
+
 export async function getStaticPaths() {
-  // 从博客文章中提取所有分类
-  // 方法1：如果你使用内容集合 (Content Collections)
-  const blogCollection = await Astro.glob('../../../../content/blog/*.md');
-  // 或者如果使用 getCollection: const posts = await getCollection('blog');
+  // 获取博客文章集合
+  const posts = await getCollection('blog');
   
   // 提取所有唯一的分类
-  const categories = [...new Set(blogCollection.map(post => {
-    // 根据你的 frontmatter 结构调整
-    return post.frontmatter?.category || post.category || 'uncategorized';
+  const categories = [...new Set(posts.map(post => {
+    return post.data.category || 'uncategorized';
   }))];
   
-  // 为每个分类生成路径
+  // 如果没有任何分类，返回一个默认值
+  if (categories.length === 0) {
+    return [{ params: { category: 'all' } }];
+  }
+  
   return categories.map(category => ({
     params: { category }
   }));
-  
-  // 如果你还没有博客数据，也可以先硬编码一些分类用于测试
-  // return [
-  //   { params: { category: 'technology' } },
-  //   { params: { category: 'design' } },
-  //   { params: { category: 'news' } }
-  // ];
 }
 
 const { category } = Astro.params;
