@@ -62,10 +62,9 @@
   }
 
   h1, h2, h3 {
-    /* 标题默认使用深红，建立品牌识别度 */
+/*     标题默认使用深红，建立品牌识别度
     @apply text-brand-accent font-serif;
-    letter-spacing: 0.05em; /* 摄影站建议字间距稍微拉开，更有留白感 */
-    text-transform: uppercase;
+     */
   }
 
   /* 针对图片展示的全局平滑 */

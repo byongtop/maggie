@@ -47,31 +47,27 @@ const categoryColors = {
   <Header />
 
   <!-- Hero Section - Blog Post Header -->
-  <section class="relative pt-40 pb-20 md:pt-48 md:pb-24 bg-brand-dark text-white overflow-hidden">
-    <!-- Background Pattern -->
-    <div class="absolute inset-0 opacity-10">
-      <div class="absolute inset-0 bg-[url('/assets/images/grid-pattern.svg')] bg-repeat"></div>
+  <section class="relative min-h-[60vh] flex items-center pt-32 pb-20 bg-brand-dark text-white overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 opacity-10 bg-[url('/assets/images/grid-pattern.svg')] bg-repeat"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-brand-dark/50 via-brand-dark to-brand-dark"></div>
     </div>
     
-    <!-- Gradient Overlay -->
-    <div class="absolute inset-0 bg-gradient-to-b from-brand-dark via-brand-dark/95 to-brand-dark"></div>
-    
     <div class="container relative z-10 mx-auto px-6 max-w-4xl">
-      <!-- Category & Date -->
-      <div class="flex items-center gap-4 mb-6">
-        <span class={`text-xs tracking-[0.2em] uppercase px-4 py-2 rounded-full border ${categoryColors[data.category]}`}>
+      <div class="flex items-center gap-4 mb-8">
+        <span class={`text-[10px] tracking-[0.2em] uppercase px-4 py-2 rounded-full border ${categoryColors[data.category] || 'border-white/20'}`}>
           {data.category}
         </span>
-        <span class="text-sm text-brand-muted/70">{formattedDate}</span>
+        <span class="text-xs tracking-widest text-white/50">{formattedDate}</span>
       </div>
       
-      <!-- Title -->
-      <h1 class="text-4xl md:text-6xl lg:text-7xl font-serif mb-6 leading-[1.1] text-[#F9F2E7]">
-        {data.title}
-      </h1>
+<h1 class="text-5xl md:text-7xl font-serif mb-8 leading-[1.1] normal-case">
+  {data.title}
+</h1>
       
-      <!-- Description -->
-      <p class="text-lg md:text-xl text-white/70 max-w-3xl font-light leading-relaxed">
+      <div class="w-20 h-px bg-brand-muted/30 mb-8"></div>
+
+      <p class="text-lg md:text-xl text-white/70 max-w-2xl font-light leading-relaxed">
         {data.description}
       </p>
     </div>

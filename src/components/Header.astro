@@ -26,7 +26,7 @@ const navLinks = [
     name: 'BLOG', 
     href: '/blog',
     children: [
-      { name: 'Photography Tips & Guides', href: '/blog/category/photography-tips-&-guides' },
+      { name: 'Photography Tips & Guides', href: '/blog/category/photography-tips-guides' },
       { name: 'Success Stories', href: '/blog/category/success-stories' },
       { name: 'Dating Insights', href: '/blog/category/dating-insights' },
       { name: 'Behind the Scenes', href: '/blog/category/behind-the-scenes' }
@@ -126,6 +126,14 @@ const initialBackground = isTransparentPage
     id="mobile-menu"
     class="fixed inset-0 bg-brand-dark flex flex-col pt-32 px-10 overflow-y-auto translate-x-full transition-transform duration-500 z-[9999]"
   >
+    <!-- CLOSE BUTTON -->
+    <button
+      id="mobile-close"
+      class="absolute top-8 right-8 text-brand-on-dark text-3xl font-light"
+      aria-label="Close Menu"
+    >
+      ×
+   </button>
     <nav class="flex flex-col space-y-2">
       {navLinks.map((link) => (
         <div class="border-b border-brand-on-dark/5 py-4">
@@ -172,8 +180,9 @@ const initialBackground = isTransparentPage
     border-color: var(--color-brand-muted);
   }
 
+  /* 修复 Tailwind v4 变量写法 */
   #mobile-menu.active {
-    transform: translateX(0);
+    --tw-translate-x: 0;
   }
 
   .hamburger-line.open:nth-child(1) {
@@ -196,61 +205,75 @@ const initialBackground = isTransparentPage
 </style>
 
 <script>
-  if (!window.__HEADER_INITIALIZED__) {
-    window.__HEADER_INITIALIZED__ = true;
+  function setupHeader() {
+    const header = document.getElementById('main-header');
+    if (!header) return;
 
-    function setupHeader() {
-      const header = document.getElementById('main-header');
-      if (!header) return;
+    const isTransparent = header.dataset.transparent === 'true';
 
-      const isTransparent = header.dataset.transparent === 'true';
-
-      function handleScroll() {
-        if (isTransparent) {
-          // 透明页面：滚动超过 80px 才添加背景
-          if (window.scrollY > 80) {
-            header.classList.add('scrolled');
-            header.classList.remove('bg-transparent', 'border-transparent');
-          } else {
-            header.classList.remove('scrolled');
-            header.classList.add('bg-transparent', 'border-transparent');
-          }
-        } else {
-          // 非透明页面：始终有背景
+    function handleScroll() {
+      if (isTransparent) {
+        if (window.scrollY > 80) {
           header.classList.add('scrolled');
           header.classList.remove('bg-transparent', 'border-transparent');
+        } else {
+          header.classList.remove('scrolled');
+          header.classList.add('bg-transparent', 'border-transparent');
         }
+      } else {
+        header.classList.add('scrolled');
+        header.classList.remove('bg-transparent', 'border-transparent');
       }
+    }
 
-      // 初始化
-      handleScroll();
-      
-      // 监听滚动
-      window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll);
 
-      // 移动端菜单逻辑
-      const toggle = document.getElementById('menu-toggle');
-      const menu = document.getElementById('mobile-menu');
-      const lines = document.querySelectorAll('.hamburger-line');
-      
-      if (toggle && menu) {
-        toggle.onclick = () => {
-          const active = menu.classList.toggle('active');
-          lines.forEach(l => l.classList.toggle('open'));
-          document.body.style.overflow = active ? 'hidden' : '';
-        };
-      }
+    const toggle = document.getElementById('menu-toggle');
+    const menu = document.getElementById('mobile-menu');
+    const lines = document.querySelectorAll('.hamburger-line');
+    const closeBtn = document.getElementById('mobile-close');
 
-      // 子菜单逻辑
-      document.querySelectorAll('.submenu-trigger').forEach(btn => {
-        btn.onclick = () => {
-          const submenu = btn.parentElement.nextElementSibling;
-          submenu?.classList.toggle('open');
-        };
+    if (toggle && menu) {
+      toggle.onclick = null;
+
+      toggle.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const active = menu.classList.toggle('active');
+        lines.forEach(l => l.classList.toggle('open'));
+        document.body.style.overflow = active ? 'hidden' : '';
       });
     }
 
-    document.addEventListener('astro:page-load', setupHeader);
+    if (closeBtn && menu) {
+      closeBtn.addEventListener('click', function () {
+        menu.classList.remove('active');
+        lines.forEach(l => l.classList.remove('open'));
+        document.body.style.overflow = '';
+      });
+    }
+
+    document.querySelectorAll('.submenu-trigger').forEach(btn => {
+      btn.onclick = null;
+
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const submenu = this.parentElement.nextElementSibling;
+        submenu?.classList.toggle('open');
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', setupHeader);
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupHeader);
+  } else {
     setupHeader();
   }
 </script>

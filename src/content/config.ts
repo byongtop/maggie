@@ -77,8 +77,8 @@ const blogCollection = defineCollection({
     })).optional(),
     // ----------------------------
 
-    seoTitle: z.string().max(600), 
-    seoDescription: z.string().max(1600),
+    seoTitle: z.string, 
+    seoDescription: z.string,
   }),
 });
 

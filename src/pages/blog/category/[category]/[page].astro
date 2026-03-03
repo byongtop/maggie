@@ -1,17 +1,13 @@
 ---
-// src/pages/blog/category/[category].astro
-// Blog Category Paginated List Page
-
-import '../../../styles/global.css'; 
+// src/pages/blog/category/[category]/[page].astro
+import '../../../../styles/global.css'; 
 
 import { getCollection } from 'astro:content';
-import Layout from "../../../layouts/Layout.astro";
-import Header from '../../../components/Header.astro';
-import Footer from '../../../components/Footer.astro';
+import Layout from "../../../../layouts/Layout.astro";
+import Header from '../../../../components/Header.astro';
+import Footer from '../../../../components/Footer.astro';
 import { Icon } from 'astro-icon/components';
 
-// 定义每页文章数量
-const POSTS_PER_PAGE = 9;
 
 // 分类显示名称映射
 const categoryDisplayNames: Record<string, string> = {
@@ -29,18 +25,42 @@ const categoryDescriptions: Record<string, string> = {
   'Behind the Scenes': 'A peek behind the lens—what happens on shoot day, how we work, and why we love it.'
 };
 
+// 分类颜色映射
+const categoryColors: Record<string, string> = {
+  'Photography Tips & Guides': 'bg-blue-50 text-blue-700 border-blue-200',
+  'Success Stories': 'bg-green-50 text-green-700 border-green-200',
+  'Dating Insights': 'bg-purple-50 text-purple-700 border-purple-200',
+  'Behind the Scenes': 'bg-amber-50 text-amber-700 border-amber-200'
+};
+
 export async function getStaticPaths() {
-  const allPosts = await getCollection('blog');
+  const POSTS_PER_PAGE = 9;
+
+  // ✅ 将 slug 映射定义在函数内部
+  const categorySlugs: Record<string, string> = {
+    'Photography Tips & Guides': 'photography-tips-guides',
+    'Success Stories': 'success-stories',
+    'Dating Insights': 'dating-insights',
+    'Behind the Scenes': 'behind-the-scenes'
+  };
+
+  // 反向映射，用于从 slug 获取原始分类名
+  const slugsToCategory: Record<string, string> = {
+    'photography-tips-guides': 'Photography Tips & Guides',
+    'success-stories': 'Success Stories',
+    'dating-insights': 'Dating Insights',
+    'behind-the-scenes': 'Behind the Scenes'
+  };
   
-  // 获取所有存在的分类
-  const categories = [...new Set(allPosts.map(post => post.data.category))];
+  const allPosts = await getCollection('blog');
   
   const paths = [];
   
-  for (const category of categories) {
-    // 过滤出该分类的文章并按时间排序
+  // 遍历所有分类
+  for (const [categoryName, slug] of Object.entries(categorySlugs)) {
+    // 过滤出该分类的文章
     const categoryPosts = allPosts
-      .filter(post => post.data.category === category)
+      .filter(post => post.data.category === categoryName)
       .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime());
     
     // 计算总页数
@@ -50,12 +70,11 @@ export async function getStaticPaths() {
     for (let i = 1; i <= totalPages; i++) {
       paths.push({
         params: { 
-          // 使用 slug 化的分类名称作为 URL
-          category: category.toLowerCase().replace(/\s+/g, '-'),
-          page: i.toString() // 这里需要配合在 astro.config.mjs 中的配置
+          category: slug,
+          page: i.toString() 
         },
         props: {
-          category,
+          category: categoryName,
           page: i,
           totalPages,
           posts: categoryPosts.slice((i - 1) * POSTS_PER_PAGE, i * POSTS_PER_PAGE)
@@ -71,18 +90,11 @@ interface Props {
   category: string;
   page: number;
   totalPages: number;
-  posts: any[]; // 建议定义具体类型
+  posts: any[];
 }
 
 const { category, page, totalPages, posts } = Astro.props;
 
-// 分类颜色映射
-const categoryColors: Record<string, string> = {
-  'Photography Tips & Guides': 'bg-blue-50 text-blue-700 border-blue-200',
-  'Success Stories': 'bg-green-50 text-green-700 border-green-200',
-  'Dating Insights': 'bg-purple-50 text-purple-700 border-purple-200',
-  'Behind the Scenes': 'bg-amber-50 text-amber-700 border-amber-200'
-};
 ---
 
 <Layout 

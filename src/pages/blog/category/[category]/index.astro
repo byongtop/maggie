@@ -1,29 +1,23 @@
 ---
 // src/pages/blog/category/[category]/index.astro
-// 重定向到第一页
-
-import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-  // 获取博客文章集合
-  const posts = await getCollection('blog');
-  
-  // 提取所有唯一的分类
-  const categories = [...new Set(posts.map(post => {
-    return post.data.category || 'uncategorized';
-  }))];
-  
-  // 如果没有任何分类，返回一个默认值
-  if (categories.length === 0) {
-    return [{ params: { category: 'all' } }];
-  }
-  
-  return categories.map(category => ({
-    params: { category }
+  // ✅ 将映射定义在函数内部
+  const categoryToSlug: Record<string, string> = {
+    'Photography Tips & Guides': 'photography-tips-guides',
+    'Success Stories': 'success-stories',
+    'Dating Insights': 'dating-insights',
+    'Behind the Scenes': 'behind-the-scenes'
+  };
+
+  // 只返回实际存在的 slug
+  return Object.values(categoryToSlug).map(slug => ({
+    params: { category: slug }
   }));
 }
 
 const { category } = Astro.params;
+// 直接使用 slug 构建 URL
 const url = `/blog/category/${category}/1`;
 ---
 
