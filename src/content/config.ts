@@ -34,6 +34,5 @@ const blogCollection = defineCollection({
 });
 
 export const collections = {
-  'services': services,
   'blog': blogCollection,
 };
