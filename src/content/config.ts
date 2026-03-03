@@ -28,8 +28,8 @@ const blogCollection = defineCollection({
     })).optional(),
     // ----------------------------
 
-    seoTitle: z.string, 
-    seoDescription: z.string,
+    seoTitle: z.string(),
+    seoDescription: z.string(),
   }),
 });
 
