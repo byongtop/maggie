@@ -6,7 +6,7 @@ import icon from 'astro-icon';
 
 // https://astro.build/config
 export default defineConfig({
-  // Vite 插件配置，用于支持 Tailwind CSS v4
+  // Vite 插件配置，用于支持 Tailwind CSS v4  
   vite: {
     plugins: [tailwindcss()],
   },
