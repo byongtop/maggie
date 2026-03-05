@@ -29,18 +29,11 @@
 颜色系统 (Brand Palette)：
 在编写 HTML 结构和 Tailwind 类名时，严禁使用 Tailwind 默认的颜色类（如 bg-blue-500, text-gray-700 等）。请务必且只能使用以下自定义的 brand 颜色系列：
 
-主要背景 (brand-bg): #F9F7F2 (用于全站背景、输入框背景等)
-用法示例： bg-brand-bg
-深色/对比 (brand-contrast): #2D2926 (用于标题、深色按钮、深色页脚等)
-用法示例： bg-brand-contrast, text-brand-contrast
-正文文本 (brand-primary): #4A4540 (用于所有普通段落、正文描述)
-用法示例： text-brand-primary
-柔和中性色 (brand-muted): #E5E0D8 (用于边框、分割线、浅色卡片背景)
-用法示例： bg-brand-muted, border-brand-muted
-强调色/链接 (brand-accent): #8C7355 (用于主行动按钮、链接、高亮文字)
-用法示例： bg-brand-accent, text-brand-accent, border-brand-accent
-
-编码要求：
+主要背景 (brand-bg): #F9F7F2 (用于全站背景、输入框背景等) 用法示例： bg-brand-bg
+深色/对比 (brand-contrast): #2D2926 (用于标题、深色按钮、深色页脚等) 用法示例： bg-brand-contrast, text-brand-contrast
+正文文本 (brand-primary): #4A4540 (用于所有普通段落、正文描述) 用法示例： text-brand-primary
+柔和中性色 (brand-muted): #E5E0D8 (用于边框、分割线、浅色卡片背景) 用法示例： bg-brand-muted, border-brand-muted
+强调色/链接 (brand-accent): #8C7355 (用于主行动按钮、链接、高亮文字) 用法示例： bg-brand-accent, text-brand-accent, border-brand-accent
 
 默认样式：在生成组件时，请自动应用 text-brand-primary 作为默认字体颜色。
 
@@ -182,6 +175,8 @@ body {
 }
 
 ----------------------------------------------------------------------------
+将所有文案内容提取到 Frontmatter 的 data 变量中，在页面中做适当的备注以便上别人看懂
+
 ----------------------------------------------------------------------------
 ----------------------------------------------------------------------------
 ----------------------------------------------------------------------------

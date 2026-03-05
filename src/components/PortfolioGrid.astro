@@ -1,43 +1,61 @@
 ---
-// PortfolioGrid.astro
-// 模拟作品数据，实际可以从 content collections 读取
-const projects = [
-  { src: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e', title: 'Nature Light', size: 'large' },
-  { src: 'https://images.unsplash.com/photo-1493863641943-9b68992a8d07', title: 'Pure Soul', size: 'small' },
-  { src: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e', title: 'Portrait Study', size: 'small' },
-  { src: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e', title: 'Earth Tones', size: 'medium' },
-  { src: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f', title: 'Minimalist Fashion', size: 'medium' },
-  { src: 'https://images.unsplash.com/photo-1505330622279-bf7d7fc918f4', title: 'Studio Still Life', size: 'small' },
-  { src: 'https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85', title: 'Geometric Silence', size: 'medium' },
-  { src: 'https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81', title: 'Traveler Memories', size: 'medium' },
+/**
+ * PortfolioGrid.astro - 瀑布流作品集模块 (ROSE IS ROSE 专供版)
+ * 核心色值：#F9F2E7 (背景), #34041A (文字/遮罩)
+ * 功能：Masonry 布局 + PhotoSwipe 交互
+ */
 
+const projects = [
+  { src: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e', title: 'Nature Light' },
+  { src: 'https://images.unsplash.com/photo-1493863641943-9b68992a8d07', title: 'Pure Soul' },
+  { src: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e', title: 'Portrait Study' },
+  { src: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e', title: 'Earth Tones' },
+  { src: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f', title: 'Minimalist Fashion' },
+  { src: 'https://images.unsplash.com/photo-1505330622279-bf7d7fc918f4', title: 'Studio Still Life' },
+  { src: 'https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85', title: 'Geometric Silence' },
+  { src: 'https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81', title: 'Traveler Memories' },
 ];
 ---
 
-<section class="py-24 bg-brand-bg">
+<section class="py-24 md:py-40 bg-[#F9F2E7]">
   <div class="max-w-7xl mx-auto px-6">
-    <h2 class="text-brand-contrast text-3xl font-serif italic mb-16 text-center">Selected Works</h2>
+    <div class="mb-20 text-center reveal-up">
+      <p class="text-[#8C7355] text-[10px] tracking-[0.6em] uppercase mb-4 font-bold">The Collection</p>
+      <h2 class="text-[#34041A] text-4xl md:text-6xl font-serif italic font-light tracking-tight">Selected Works</h2>
+    </div>
     
     <div id="gallery" class="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
-      {projects.map((project) => (
+      {projects.map((project, index) => (
         <a 
           href={project.src} 
           data-pswp-width="1600" 
           data-pswp-height="1200" 
           target="_blank"
-          class="block overflow-hidden rounded-sm group relative cursor-zoom-in"
+          class="block overflow-hidden rounded-sm group relative cursor-zoom-in reveal-item"
+          style={`transition-delay: ${index * 0.1}s`}
         >
+          {/* 图片核心层 */}
           <img 
             src={project.src} 
             alt={project.title}
-            class="w-full h-auto object-cover grayscale-[0.2] contrast-90 transition-all duration-1000 ease-out group-hover:scale-105 group-hover:grayscale-0 group-hover:contrast-100"
+            class="w-full h-auto object-cover grayscale-[0.2] contrast-[0.95] transition-all duration-[1.5s] cubic-bezier(0.16, 1, 0.3, 1) group-hover:scale-110 group-hover:grayscale-0 group-hover:contrast-[1.05]"
             loading="lazy"
           />
           
-          <div class="absolute inset-0 bg-brand-contrast/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
-            <p class="text-brand-bg text-sm tracking-widest uppercase font-light translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-              {project.title}
-            </p>
+          {/* 悬停信息层：使用深红渐变覆盖 */}
+          <div class="absolute inset-0 bg-gradient-to-t from-[#34041A]/60 via-[#34041A]/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700 flex items-end p-8">
+            <div class="flex flex-col transform translate-y-4 group-hover:translate-y-0 transition-transform duration-700">
+              <span class="text-[#F9F2E7]/60 text-[9px] tracking-[0.3em] uppercase mb-1">Portfolio Series</span>
+              <p class="text-[#F9F2E7] text-sm tracking-[0.2em] uppercase font-light">
+                {project.title}
+              </p>
+            </div>
+          </div>
+
+          {/* 四角对焦装饰（仅悬停显示） */}
+          <div class="absolute inset-0 z-20 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-1000 p-4">
+             <div class="absolute top-4 left-4 w-4 h-4 border-t border-l border-[#F9F2E7]/30 transition-all duration-700 group-hover:m-2"></div>
+             <div class="absolute bottom-4 right-4 w-4 h-4 border-b border-r border-[#F9F2E7]/30 transition-all duration-700 group-hover:m-2"></div>
           </div>
         </a>
       ))}
@@ -49,22 +67,79 @@ const projects = [
   import PhotoSwipeLightbox from 'photoswipe/lightbox';
   import 'photoswipe/style.css';
 
-  const lightbox = new PhotoSwipeLightbox({
-    gallery: '#gallery',
-    children: 'a',
-    pswpModule: () => import('photoswipe'),
-    // 自定义转场动画时间
-    showHideAnimationType: 'zoom',
+  // 初始化灯箱
+  const initLightbox = () => {
+    const lightbox = new PhotoSwipeLightbox({
+      gallery: '#gallery',
+      children: 'a',
+      pswpModule: () => import('photoswipe'),
+      paddingFn: (viewportSize) => {
+        return {
+          top: 30, bottom: 30, left: 30, right: 30
+        };
+      },
+      showHideAnimationType: 'zoom', // 缩放转场，更符合摄影质感
+    });
+
+    lightbox.init();
+  };
+
+  // 处理滚动展示动效
+  const initReveal = () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal-up, .reveal-item').forEach(el => observer.observe(el));
+  };
+
+  // 兼容 Astro 生命周期
+  document.addEventListener('astro:page-load', () => {
+    initLightbox();
+    initReveal();
   });
-  lightbox.init();
+  
+  // 初次加载
+  initLightbox();
+  initReveal();
 </script>
 
-<style>
-  /* 针对 Aether 风格微调 PhotoSwipe 样式 */
-  :global(.pswp__bg) {
-    background: #2D2926 !important; /* 使用 brand-contrast 做预览背景 */
+<style is:global>
+  /* PhotoSwipe 视觉定制：适配 ROSE IS ROSE 深色背景 */
+  .pswp__bg {
+    background: #34041A !important; 
   }
-  :global(.pswp__img) {
-    background: #F9F7F2; /* 预加载时的底色 */
+  
+  .pswp__img {
+    background: #F9F2E7; /* 占位色 */
+  }
+
+  /* 基础进入动画 */
+  .reveal-up, .reveal-item {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  .reveal-up.active, .reveal-item.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* 移动端间距微调 */
+  @media (max-width: 768px) {
+    #gallery {
+      column-gap: 1.5rem;
+    }
+    .space-y-8 > :not([hidden]) ~ :not([hidden]) {
+      --tw-space-y-reverse: 0;
+      margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
+      margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
+    }
   }
 </style>

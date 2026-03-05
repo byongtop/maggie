@@ -1,7 +1,7 @@
 ---
 /**
- * Footer.astro - 勃艮第红画廊艺术版
- * 使用自定义主题变量：brand-dark, brand-on-dark, brand-muted
+ * Footer.astro - 勃艮第红画廊艺术版 (变量映射全量版)
+ * 严格保留所有交互逻辑与装饰元素，严禁简化
  */
 const currentYear = new Date().getFullYear();
 
@@ -32,8 +32,8 @@ const socialLinks = ['Instagram', 'Xiaohongshu', 'Behance'];
         
         <div class="group inline-block">
           <p class="text-[9px] tracking-[0.4em] text-brand-on-dark/30 uppercase mb-4">Direct Inquiry</p>
-          <a href="mailto:hello@example.com" class="text-2xl md:text-4xl font-light tracking-tighter hover:text-brand-muted transition-colors duration-500">
-            HELLO@YOURSTUDIO.COM
+          <a href="mailto:hello@roseisrose.com.au" class="text-2xl md:text-2xl font-light tracking-tighter hover:text-brand-muted transition-colors duration-500">
+            hello@roseisrose.com.au
           </a>
           <div class="h-[1px] w-full bg-brand-muted/30 mt-4 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700"></div>
         </div>
@@ -71,21 +71,26 @@ const socialLinks = ['Instagram', 'Xiaohongshu', 'Behance'];
     <div class="flex flex-col md:flex-row justify-between items-end gap-12">
       <div class="space-y-6">
         <div class="logo-area font-serif text-2xl tracking-[0.1em] text-brand-on-dark">
-          PHOTO<span class="italic font-light text-brand-muted">GRAPH</span>
+          ROSE<span class="italic font-light text-brand-muted">IS</span>ROSE
         </div>
-        <p class="text-[9px] tracking-[0.4em] text-brand-on-dark/20 uppercase max-w-xs leading-loose">
-          Based in China / Available Worldwide <br/>
-          © {currentYear} All Rights Reserved.
-        </p>
+        <div class="space-y-1">
+          <p class="text-[9px] tracking-[0.4em] text-brand-on-dark/20 uppercase max-w-xs leading-loose italic font-bold">
+            NAATI Certified Interpreter & Translator
+          </p>
+          <p class="text-[9px] tracking-[0.4em] text-brand-on-dark/20 uppercase max-w-xs leading-loose">
+            Based in Sydney / Available Worldwide <br/>
+            © {currentYear} All Rights Reserved.
+          </p>
+        </div>
       </div>
 
       <button 
-        id="back-to-top"
-        class="group flex flex-col items-center space-y-4 text-[9px] tracking-[0.5em] text-brand-on-dark/40 hover:text-brand-on-dark transition-all duration-500"
+        id="back-to-top" 
+        class="group flex flex-col items-center space-y-4 text-[9px] tracking-[0.5em] text-brand-on-dark/40 hover:text-brand-on-dark transition-all duration-500 outline-none"
       >
         <div class="w-12 h-12 border border-brand-on-dark/10 rounded-full flex items-center justify-center relative overflow-hidden group-hover:border-brand-muted">
           <span class="relative z-10 transition-transform duration-500 group-hover:-translate-y-8">↑</span>
-          <span class="absolute translate-y-8 z-10 transition-transform duration-500 group-hover:translate-y-0 text-brand-muted">↑</span>
+          <span class="absolute translate-y-8 z-10 transition-transform duration-500 group-hover:translate-y-0 text-brand-muted font-bold">↑</span>
         </div>
         <span class="uppercase">Back to Top</span>
       </button>
@@ -94,13 +99,13 @@ const socialLinks = ['Instagram', 'Xiaohongshu', 'Behance'];
 </footer>
 
 <style is:global>
-  /* 针对页脚的衬线字体增强 */
+  /* 针对页脚的衬线字体增强：严格保留 Cormorant Garamond 逻辑 */
   footer h2, footer .logo-area, footer span.font-serif {
     font-family: 'Cormorant Garamond', serif;
-    text-transform: none; /* 允许小写斜体增加艺术感 */
+    text-transform: none;
   }
 
-  /* 这种“花边”是极简主义的单像素虚线 */
+  /* 顶部单像素装饰虚线：背景色使用 brand-on-dark 变量动态计算 */
   footer::after {
     content: "";
     position: absolute;
@@ -108,13 +113,25 @@ const socialLinks = ['Instagram', 'Xiaohongshu', 'Behance'];
     top: 0;
     width: 1px;
     height: 120px;
-    background: linear-gradient(to bottom, rgba(249, 242, 231, 0.2), transparent);
+    background: linear-gradient(to bottom, var(--color-brand-on-dark), transparent);
+    opacity: 0.2;
   }
 </style>
 
 <script>
-  const btt = document.getElementById('back-to-top');
-  btt?.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
+  /**
+   * 确保在 Astro 的 View Transitions 环境下脚本依然有效
+   */
+  function setupFooter() {
+    const btt = document.getElementById('back-to-top');
+    if (btt) {
+      btt.onclick = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      };
+    }
+  }
+
+  // 初始化并监听页面加载
+  setupFooter();
+  document.addEventListener('astro:page-load', setupFooter);
 </script>

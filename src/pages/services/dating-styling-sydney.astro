@@ -1,60 +1,115 @@
 ---
 // src/pages/services/dating-styling-sydney.astro
-// Dating Styling & Hair Sydney - roseisrose Service Page
+// Dating Styling & Hair Sydney - ROSE IS ROSE Service Page
 
 import '../../styles/global.css'; 
-
 import Layout from "../../layouts/Layout.astro";
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import Packages from '../../components/Packages2.astro';
-
 import { Icon } from 'astro-icon/components';
 
-// 页面元数据
-const serviceData = {
-  level: "1",
-  no: "02",
-  title: "DATING STYLING & HAIR",
-  subtitle: "Look Like You, But Make It Sydney",
-  h1Title: "Sydney Dating Styling: Look Effortless, Feel Confident, Actually Enjoy Your Photos",
-  desc: "Great dating photos start with great styling. We'll help you look like the best version of you—without feeling like you're wearing a costume.",
-  image: "/assets/images/stefan-stefancik-QXevDflbl8A-unsplash.jpg",
-  heroImage: "/assets/images/andrey-zvyagintsev-x0c6vTO5ibA-unsplash.jpg",
-  features: [
-    "Pre-shoot styling consultation (in-person or Zoom)",
-    "Professional hair & makeup for camera",
-    "Wardrobe curation from your closet (or shopping help)",
-    "Sydney-specific styling tips—what works in Bondi vs The Rocks",
-    "Touch-up kit for during the shoot"
-  ],
-  order: 2,
+/**
+ * 页面常量配置 - 集中管理所有文案与元数据
+ */
+const pageContent = {
+  // 基础信息
+  info: {
+    level: "1",
+    no: "02",
+    title: "DATING STYLING & HAIR",
+    subtitle: "Look Like You, But Make It Sydney",
+    h1Title: "Sydney Dating Styling: Look Effortless, Feel Confident, Actually Enjoy Your Photos",
+    desc: "Great dating photos start with great styling. We'll help you look like the best version of you—without feeling like you're wearing a costume.",
+    heroImage: "/assets/images/andrey-zvyagintsev-x0c6vTO5ibA-unsplash.jpg",
+  },
+  
+  // SEO 优化
   seo: {
     metaTitle: "Dating Stylist Sydney | Dating Hair & Makeup Sydney | ROSE IS ROSE",
     metaDescription: "Looking for a dating stylist in Sydney? Professional hair, makeup and styling for your dating profile photos. Natural, confident, and totally you. Book your session.",
     keywords: "dating stylist Sydney, dating hair Sydney, dating makeup Sydney, stylist for dating photos Sydney, dating profile stylist, Sydney hair and makeup for photoshoot, natural makeup Sydney",
     imageAlt: "Professional hair and makeup styling for dating photos in Sydney"
   },
-  isPublished: true,
-  faq: [
+
+  // 叙事区块
+  narrative: {
+    badge: "Look good, feel good",
+    mainHeading: "THE STYLING",
+    italicHeading: "DIFFERENCE",
+    subHeading: "WHY STYLING MATTERS FOR DATING PHOTOS",
+    quote: "You know that feeling when you look at a photo and think \"I actually look good\"? It's not magic. It's styling that works with the camera, not against it.",
+    quoteSide: "We're not here to give you a makeover. We're here to help you show up as the best version of you—hair doing what it should, clothes fitting right, skin looking like skin. The camera will do the rest.",
+  },
+
+  // 核心价值主张
+  strategy: [
     {
-      question: "Do I really need a stylist for dating photos?",
-      answer: "Honestly? You don't *need* one. But if you want to look at your photos and think 'damn, I look good' instead of 'why does my hair always do that thing'—then yeah, it helps. We're not here to make you look like someone else. We're here to make sure your best features actually show up on camera."
+      title: "CAMERA-READY, NOT STAGE-READY",
+      text: "There's a difference between looking good in real life and looking good on camera. We know that difference. Too much makeup? Washed out. Wrong colour shirt? Blends into the background. We'll help you get it right—without looking like you tried too hard."
     },
     {
-      question: "I never wear makeup. Will it look weird?",
-      answer: "Nope—because we're not doing 'makeup makeup.' Think of it as 'you, but with the good lighting already built in.' Camera flash can wash people out. A light hand with the right products just makes you look like you had an amazing night's sleep. Which, let's be real, is a good look on anyone."
-    },
-    {
-      question: "What if I don't know what to wear?",
-      answer: "That's literally our job. We'll go through your wardrobe with you (or come shopping if needed) and figure out what works. Colours that pop against Sydney's skyline? Yes. That shirt with the weird stain? Maybe not."
-    },
-    {
-      question: "How long does styling take?",
-      answer: "Hair and makeup is about 60-90 minutes—we're not rushing, but we're also not doing red carpet glam. Wardrobe we can figure out beforehand. The whole point is you show up relaxed, not stressed about whether your collar's sitting right."
+      title: "SYDNEY LIGHT, SYDNEY VIBE",
+      text: "Bondi light is different from CBD light. Morning shoots need different prep than golden hour. We'll style you for where we're shooting, when we're shooting, and who you're trying to attract."
     }
   ],
-  experienceModules: [
+
+  // 错误避雷区
+  mistakes: {
+    title: "STYLING MISTAKES WE SEE",
+    subtitle: "(and how we fix them)",
+    list: [
+      {
+        no: "01",
+        title: "The \"Too Much\" Makeup",
+        desc: "Foundation that's too heavy. Contour that shows. We do sheer, breathable, skin-like—so you look like you, just with really good skin."
+      },
+      {
+        no: "02",
+        title: "The Wrong Colours",
+        desc: "That olive shirt that disappears against the harbour? Not ideal. We'll help you find colours that make you pop against Sydney's famous blue and gold."
+      },
+      {
+        no: "03",
+        title: "The \"Set and Forget\" Hair",
+        desc: "Hair that doesn't move looks stiff. Sydney's breezy. We do hair that moves with you—wind-friendly, natural, and still photo-ready."
+      }
+    ],
+    techNote: "Quick truth: Camera flash reflects off certain makeup ingredients in ways you can't see in the mirror. We use products that photograph well—so what looks good in person also looks good on screen. Small detail, big difference."
+  },
+
+  // 核心体验模块
+  experience: {
+    wardrobe: {
+      no: "01",
+      label: "WARDROBE",
+      title: "WHAT'S ALREADY IN YOUR CLOSET",
+      p1: "Chances are, you already own clothes that would look great on camera. We just need to find them.",
+      p2: "We'll do a video call or in-person wardrobe edit—pulling out what works, figuring out what's missing, and making a plan.",
+      p3: "Need something new? We can help with that too—whether it's a shopping trip or just links to buy online. No pressure, no hard sell."
+    },
+    beauty: {
+      no: "02",
+      label: "BEAUTY",
+      title: "THE MORNING OF",
+      p1: "Show up. Sit down. Let someone else do the work for once.",
+      p2: "Hair that moves, not helmet-hair",
+      p3: "Makeup that enhances, not hides",
+      p4: "Touch-up kit for during the shoot",
+      items: [
+        "Hair that moves, not helmet-hair",
+        "Makeup that enhances, not hides",
+        "Touch-up kit for during the shoot"
+      ]
+    },
+    travel: {
+      title: "STYLE THAT TRAVELS",
+      desc: "We might shoot at three different spots in one session—The Rocks, then Circular Quay, then a rooftop bar. Your styling needs to work everywhere. We'll make sure your hair survives the wind, your makeup lasts through the golden hour glow, and your outfits transition like you're changing scenes in a movie. Because you are."
+    }
+  },
+
+  // Swiper/Experience 详情
+  modules: [
     {
       title: "Hair that moves (because you move)",
       description: "Sydney's windy. Your hair should still look good. We do 'movement, not sculpture'—so you look natural, not like you just walked out of a hairspray commercial.",
@@ -76,497 +131,228 @@ const serviceData = {
       imageAlt: "Wardrobe styling for Sydney dating photos",
       caption: "Sydney casual, but make it intentional."
     }
-  ]
+  ],
+
+  // FAQ
+  faq: [
+    {
+      question: "Do I really need a stylist for dating photos?",
+      answer: "Honestly? You don't *need* one. But if you want to look at your photos and think 'damn, I look good' instead of 'why does my hair always do that thing'—then yeah, it helps."
+    },
+    {
+      question: "I never wear makeup. Will it look weird?",
+      answer: "Nope—because we're not doing 'makeup makeup.' Think of it as 'you, but with the good lighting already built in.' We just make you look like you had an amazing night's sleep."
+    }
+  ],
+
+  // 底部 CTA
+  cta: {
+    heading: "LOOK GOOD",
+    italic: "FEEL GOOD",
+    desc: "When you look in the mirror and think \"yeah, I'd date me\"—that's when the magic happens. Let's get you there.",
+    button: "Book your styling"
+  }
 };
 ---
 
 <Layout 
-  title={serviceData.seo.metaTitle}
-  description={serviceData.seo.metaDescription}
+  title={pageContent.seo.metaTitle}
+  description={pageContent.seo.metaDescription}
 >
   <Header />
   
-  <!-- Hero Section with Parallax Effect -->
-  <section class="relative h-screen min-h-[800px] flex items-center justify-center overflow-hidden">
-    <!-- Dynamic Background with Overlay -->
+  <section class="relative h-screen min-h-[800px] flex items-center justify-center overflow-hidden bg-brand-dark">
     <div class="absolute inset-0 z-0">
       <div class="absolute inset-0 bg-gradient-to-b from-brand-dark/90 via-brand-dark/70 to-brand-dark/90 z-10"></div>
-      <div class="absolute inset-0 bg-[url('/assets/images/grid-pattern.svg')] opacity-5 z-20"></div>
-      <img 
-        src={serviceData.heroImage} 
-        alt="Sydney Dating Styling" 
-        class="w-full h-full object-cover animate-ken-burns"
-      />
+      <img src={pageContent.info.heroImage} alt={pageContent.seo.imageAlt} class="w-full h-full object-cover animate-ken-burns opacity-60" />
     </div>
 
-    <!-- Hero Content -->
-    <div class="container relative z-30 mx-auto px-6 text-center">
-      <!-- Floating Badge -->
-      <div class="inline-flex items-center gap-3 px-6 py-3 bg-white/5 backdrop-blur-xl rounded-full border border-white/10 mb-8 animate-float">
+    <div class="container relative z-30 mx-auto px-6 text-center reveal-on-scroll">
+      <div class="inline-flex items-center gap-3 px-6 py-3 bg-brand-offwhite/5 backdrop-blur-xl rounded-full border border-brand-offwhite/10 mb-8 animate-float">
         <span class="w-2 h-2 rounded-full bg-brand-accent animate-pulse"></span>
-        <span class="text-xs tracking-[0.3em] text-white/80 font-light uppercase">{serviceData.subtitle}</span>
-        <span class="text-white/40 mx-2">•</span>
-        <span class="text-xs font-mono text-white/60">Look good, feel good</span>
+        <span class="text-xs tracking-[0.3em] text-brand-offwhite/80 font-light uppercase">{pageContent.info.subtitle}</span>
+        <span class="text-brand-offwhite/40 mx-2">•</span>
+        <span class="text-xs font-mono text-brand-offwhite/60">{pageContent.narrative.badge}</span>
       </div>
 
-      <!-- Main Title with Split Animation -->
-      <h1 class="text-7xl md:text-9xl font-serif text-white mb-6 leading-[0.9] tracking-tight">
-        <span class="block overflow-hidden">
-          <span class="block animate-title-slide-up">DATING</span>
-        </span>
-        <span class="block overflow-hidden">
-          <span class="block animate-title-slide-up animation-delay-200">STYLING</span>
-        </span>
-        <span class="block overflow-hidden">
-          <span class="block animate-title-slide-up animation-delay-400">& HAIR</span>
-        </span>
+      <h1 class="text-7xl md:text-9xl font-serif text-brand-offwhite mb-6 leading-[0.9] tracking-tight uppercase">
+        DATING<br/>STYLING<br/><span class="text-brand-muted">& HAIR</span>
       </h1>
 
-      <!-- Gradient Line -->
-      <div class="w-24 h-px mx-auto mb-8 bg-gradient-to-r from-transparent via-brand-accent to-transparent animate-width-grow"></div>
+      <div class="w-24 h-px mx-auto mb-8 bg-gradient-to-r from-transparent via-brand-accent to-transparent"></div>
 
-      <!-- Description -->
-      <p class="text-lg md:text-xl text-white/70 max-w-2xl mx-auto font-light leading-relaxed mb-12 animate-fade-in animation-delay-500">
-        {serviceData.desc}
+      <p class="text-lg md:text-xl text-brand-offwhite/70 max-w-2xl mx-auto font-light leading-relaxed mb-12">
+        {pageContent.info.desc}
       </p>
 
-      <!-- CTA Buttons -->
-      <div class="flex flex-col sm:flex-row gap-6 justify-center items-center animate-fade-in animation-delay-700">
-        <a href="/booking" class="group relative px-10 py-5 bg-brand-accent text-white overflow-hidden rounded-2xl">
-          <span class="absolute inset-0 w-0 bg-white/20 group-hover:w-full transition-all duration-500"></span>
-          <span class="relative flex items-center gap-3 text-sm tracking-[0.3em] uppercase font-light">
-            Let's get styled
-            <Icon name="lucide:arrow-right" class="w-4 h-4 group-hover:translate-x-2 transition-transform" />
-          </span>
-        </a>
-        <a href="#story" class="group flex items-center gap-3 text-white/70 hover:text-white transition-colors">
-          <span class="w-12 h-px bg-white/30 group-hover:w-16 group-hover:bg-brand-accent transition-all"></span>
-          <span class="text-xs tracking-[0.3em] uppercase font-light">Why it matters</span>
-        </a>
-      </div>
-
-      <!-- Scroll Indicator -->
-      <div class="absolute bottom-12 left-1/2 -translate-x-1/2">
-        <a href="#story" class="flex flex-col items-center gap-3 text-white/40 hover:text-white/60 transition-colors">
-          <span class="text-xs tracking-[0.2em] uppercase font-light rotate-90 mb-4">Scroll</span>
-          <div class="w-px h-16 bg-gradient-to-b from-white/20 to-transparent"></div>
+      <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+        <a href="/booking" class="btn-brand">
+          Let's get styled
+          <Icon name="lucide:arrow-right" class="w-4 h-4" />
         </a>
       </div>
     </div>
   </section>
 
-  <!-- Main Content Section -->
   <main class="bg-brand-bg">
-  <section id="story" class="max-w-7xl mx-auto px-8 py-32 md:py-40 bg-brand-bg text-brand-primary relative">
-    <!-- Background Decorative Elements -->
-    <div class="absolute inset-0 overflow-hidden pointer-events-none">
-      <div class="absolute top-40 -left-20 w-80 h-80 bg-brand-accent/5 rounded-full blur-3xl"></div>
-      <div class="absolute bottom-40 -right-20 w-96 h-96 bg-brand-accent/5 rounded-full blur-3xl"></div>
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('/assets/images/pattern.png')] opacity-[0.02]"></div>
-    </div>
-
-    <!-- 主标题 - 大留白，强对比 -->
-    <div class="mb-32 relative">
-      <div class="absolute -top-20 left-0 text-[15vw] font-serif text-brand-accent/5 leading-none select-none pointer-events-none whitespace-nowrap">
-        STYLE • STYLE • STYLE
-      </div>
-      <h2 class="text-6xl md:text-8xl font-serif text-brand-accent leading-[0.9] tracking-[-0.03em] uppercase relative">
-        THE STYLING<br />
-        <span class="italic font-light text-brand-muted relative inline-block group">
-          DIFFERENCE
-          <span class="absolute -bottom-4 left-0 w-0 h-px bg-brand-accent group-hover:w-full transition-all duration-1000"></span>
-        </span>
-      </h2>
-      <p class="text-xs md:text-sm text-brand-muted/70 tracking-[0.3em] uppercase mt-12 font-sans relative pl-8 before:absolute before:left-0 before:top-1/2 before:w-6 before:h-px before:bg-brand-muted/30">
-        WHY STYLING MATTERS FOR DATING PHOTOS
-      </p>
-    </div>
-
-    <!-- 引言段落 - 优雅的首字下沉和视差效果 -->
-    <div class="mb-32 relative group">
-      <div class="absolute -left-8 top-0 text-[12rem] font-serif text-brand-accent/10 leading-none select-none pointer-events-none group-hover:text-brand-accent/20 transition-colors duration-700">
-        "
-      </div>
-      <div class="relative pl-16">
-        <p class="text-lg md:text-2xl font-light leading-relaxed text-brand-primary/80 mb-8 dropcap">
-          <span class="text-8xl float-left font-serif text-brand-accent mr-6 mt-2 leading-[0.8]">Y</span>
-          ou know that feeling when you look at a photo and think "I actually look good"? It's not magic. It's styling that works with the camera, not against it.
-        </p>
-        <p class="text-lg md:text-xl font-light leading-relaxed text-brand-primary/70 pl-8 border-l-2 border-brand-accent/30 italic">
-          We're not here to give you a makeover. We're here to help you show up as the best version of you—hair doing what it should, clothes fitting right, skin looking like skin. The camera will do the rest.
-        </p>
-      </div>
-    </div>
-
-    <!-- 战略叙事区块 - 网格布局增加层次 -->
-    <div class="grid md:grid-cols-2 gap-20 mb-32">
-      <div class="relative group">
-        <div class="absolute inset-0 bg-gradient-to-br from-brand-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 -m-8 rounded-3xl"></div>
-        <h2 class="text-3xl font-serif text-brand-accent mb-8 uppercase tracking-wide flex items-center">
-          <span class="w-12 h-px bg-brand-muted mr-6 group-hover:w-20 transition-all duration-700"></span>
-          CAMERA-READY, NOT STAGE-READY
+    <section id="story" class="max-w-7xl mx-auto px-8 py-32 md:py-40 text-brand-text relative">
+      <div class="mb-32 relative reveal-on-scroll">
+        <div class="absolute -top-20 left-0 text-[15vw] font-serif text-brand-accent/5 leading-none select-none pointer-events-none whitespace-nowrap uppercase">
+          STYLE • STYLE • STYLE
+        </div>
+        <h2 class="text-6xl md:text-8xl font-serif text-brand-accent leading-[0.9] tracking-[-0.03em] uppercase relative">
+          {pageContent.narrative.mainHeading}<br />
+          <span class="italic font-light text-brand-muted">{pageContent.narrative.italicHeading}</span>
         </h2>
-        <p class="text-base font-light leading-relaxed text-brand-primary/70 relative">
-          There's a difference between looking good in real life and looking good on camera. We know that difference. Too much makeup? Washed out. Wrong colour shirt? Blends into the background. We'll help you get it right—without looking like you tried too hard.
+        <p class="text-xs md:text-sm text-brand-muted tracking-[0.3em] uppercase mt-12 pl-8 border-l border-brand-muted/30 relative">
+          {pageContent.narrative.subHeading}
         </p>
-        <div class="absolute bottom-0 left-0 w-0 h-px bg-brand-accent group-hover:w-full transition-all duration-1000"></div>
       </div>
-      <div class="relative group">
-        <div class="absolute inset-0 bg-gradient-to-bl from-brand-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 -m-8 rounded-3xl"></div>
-        <h2 class="text-3xl font-serif text-brand-accent mb-8 uppercase tracking-wide flex items-center">
-          <span class="w-12 h-px bg-brand-muted mr-6 group-hover:w-20 transition-all duration-700"></span>
-          SYDNEY LIGHT, SYDNEY VIBE
+
+      <div class="mb-32 relative reveal-on-scroll pl-16">
+        <div class="absolute -left-8 top-0 text-[12rem] font-serif text-brand-accent/10 leading-none">"</div>
+        <div class="relative">
+          <p class="text-lg md:text-2xl font-light leading-relaxed text-brand-text mb-8">
+            {pageContent.narrative.quote}
+          </p>
+          <p class="text-lg md:text-xl font-light leading-relaxed text-brand-text/70 pl-8 border-l-2 border-brand-accent/30 italic">
+            {pageContent.narrative.quoteSide}
+          </p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-20 mb-40 reveal-on-scroll">
+        {pageContent.strategy.map(item => (
+          <div class="relative group">
+            <h2 class="text-3xl font-serif text-brand-accent mb-8 uppercase tracking-wide flex items-center">
+              <span class="w-12 h-px bg-brand-muted/40 mr-6 group-hover:w-20 transition-all duration-700"></span>
+              {item.title}
+            </h2>
+            <p class="text-base font-light leading-relaxed text-brand-text/70">{item.text}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mb-40 relative reveal-on-scroll">
+        <h2 class="text-4xl md:text-5xl font-serif text-brand-accent mb-16 uppercase tracking-wide text-center">
+          {pageContent.mistakes.title}<br />
+          <span class="text-xl font-light text-brand-muted block mt-4 tracking-normal">{pageContent.mistakes.subtitle}</span>
         </h2>
-        <p class="text-base font-light leading-relaxed text-brand-primary/70">
-          Bondi light is different from CBD light. Morning shoots need different prep than golden hour. We'll style you for where we're shooting, when we're shooting, and who you're trying to attract.
-        </p>
-        <div class="absolute bottom-0 left-0 w-0 h-px bg-brand-accent group-hover:w-full transition-all duration-1000"></div>
+        <div class="grid md:grid-cols-3 gap-8">
+          {pageContent.mistakes.list.map(m => (
+            <div class="group relative p-10 bg-white/50 border border-brand-muted/10 hover:border-brand-accent transition-all duration-700">
+              <span class="absolute -top-6 left-8 text-8xl font-serif text-brand-accent/10 group-hover:text-brand-accent/20 transition-colors">{m.no}</span>
+              <h3 class="text-2xl font-serif text-brand-accent mb-4 relative z-10 uppercase">{m.title}</h3>
+              <p class="text-sm font-light text-brand-text/60 leading-relaxed relative z-10">{m.desc}</p>
+            </div>
+          ))}
+        </div>
+        <div class="mt-16 p-8 bg-brand-accent/5 border-l-4 border-brand-accent">
+          <p class="text-sm font-mono text-brand-text/80 leading-relaxed italic">{pageContent.mistakes.techNote}</p>
+        </div>
       </div>
-    </div>
 
-    <!-- 三陷阱区块 - 带有编号的高级列表 -->
-    <div class="mb-40 relative">
-      <h2 class="text-4xl md:text-5xl font-serif text-brand-accent mb-16 uppercase tracking-wide text-center">
-        STYLING MISTAKES WE SEE<br />
-        <span class="text-xl font-light text-brand-muted block mt-4 tracking-normal">(and how we fix them)</span>
-      </h2>
-      <div class="grid md:grid-cols-3 gap-8">
-        <!-- 陷阱1 -->
-        <div class="group relative p-10 bg-white/50 backdrop-blur-sm border border-brand-muted/10 hover:border-brand-accent/30 transition-all duration-700 hover:translate-y-[-8px]">
-          <span class="absolute -top-6 left-8 text-8xl font-serif text-brand-accent/10 group-hover:text-brand-accent/20 transition-colors">01</span>
-          <h3 class="text-2xl font-serif text-brand-accent mb-4 relative z-10">The "Too Much" Makeup</h3>
-          <p class="text-sm font-light text-brand-primary/60 leading-relaxed relative z-10">Foundation that's too heavy. Contour that shows. We do sheer, breathable, skin-like—so you look like you, just with really good skin.</p>
-          <div class="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-brand-accent to-transparent group-hover:w-full transition-all duration-700"></div>
-        </div>
-        <!-- 陷阱2 -->
-        <div class="group relative p-10 bg-white/50 backdrop-blur-sm border border-brand-muted/10 hover:border-brand-accent/30 transition-all duration-700 hover:translate-y-[-8px]">
-          <span class="absolute -top-6 left-8 text-8xl font-serif text-brand-accent/10 group-hover:text-brand-accent/20 transition-colors">02</span>
-          <h3 class="text-2xl font-serif text-brand-accent mb-4 relative z-10">The Wrong Colours</h3>
-          <p class="text-sm font-light text-brand-primary/60 leading-relaxed relative z-10">That olive shirt that disappears against the harbour? Not ideal. We'll help you find colours that make you pop against Sydney's famous blue and gold.</p>
-          <div class="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-brand-accent to-transparent group-hover:w-full transition-all duration-700"></div>
-        </div>
-        <!-- 陷阱3 -->
-        <div class="group relative p-10 bg-white/50 backdrop-blur-sm border border-brand-muted/10 hover:border-brand-accent/30 transition-all duration-700 hover:translate-y-[-8px]">
-          <span class="absolute -top-6 left-8 text-8xl font-serif text-brand-accent/10 group-hover:text-brand-accent/20 transition-colors">03</span>
-          <h3 class="text-2xl font-serif text-brand-accent mb-4 relative z-10">The "Set and Forget" Hair</h3>
-          <p class="text-sm font-light text-brand-primary/60 leading-relaxed relative z-10">Hair that doesn't move looks stiff. Sydney's breezy. We do hair that moves with you—wind-friendly, natural, and still photo-ready.</p>
-          <div class="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-brand-accent to-transparent group-hover:w-full transition-all duration-700"></div>
-        </div>
-      </div>
-      <!-- 技术说明 -->
-      <div class="mt-16 p-8 bg-gradient-to-r from-brand-accent/10 to-transparent border-l-4 border-brand-accent rounded-r-2xl">
-        <p class="text-sm font-mono text-brand-primary/80 leading-relaxed">
-          Quick truth: Camera flash reflects off certain makeup ingredients in ways you can't see in the mirror. We use products that photograph well—so what looks good in person also looks good on screen. Small detail, big difference.
-        </p>
-      </div>
-    </div>
-
-    <!-- 体验区块 - 双栏布局 -->
-    <div class="grid md:grid-cols-2 gap-20 mb-40">
-      <!-- WARDROBE CONSULTING -->
-      <div class="relative group">
-        <div class="sticky top-8">
+      <div class="grid md:grid-cols-2 gap-20 mb-40 reveal-on-scroll">
+        <div class="relative">
           <h2 class="text-3xl font-serif text-brand-accent mb-10 uppercase tracking-wide">
-            <span class="block text-sm font-light text-brand-muted mb-3 tracking-[0.3em]">01 — WARDROBE</span>
-            WHAT'S ALREADY IN YOUR CLOSET
+            <span class="block text-sm font-light text-brand-muted mb-3 tracking-[0.3em]">{pageContent.experience.wardrobe.no} — {pageContent.experience.wardrobe.label}</span>
+            {pageContent.experience.wardrobe.title}
           </h2>
-          <div class="space-y-6">
-            <p class="text-base font-light leading-relaxed text-brand-primary/70">
-              Chances are, you already own clothes that would look great on camera. We just need to find them.
-            </p>
-            <p class="text-base font-light leading-relaxed text-brand-primary/70 italic pl-6 border-l-2 border-brand-accent/30">
-              We'll do a video call or in-person wardrobe edit—pulling out what works, figuring out what's missing, and making a plan.
-            </p>
-            <p class="text-base font-light leading-relaxed text-brand-primary/70">
-              Need something new? We can help with that too—whether it's a shopping trip or just links to buy online. No pressure, no hard sell.
-            </p>
+          <div class="space-y-6 text-brand-text/70 font-light leading-relaxed">
+            <p>{pageContent.experience.wardrobe.p1}</p>
+            <p class="italic pl-6 border-l-2 border-brand-accent/30">{pageContent.experience.wardrobe.p2}</p>
+            <p>{pageContent.experience.wardrobe.p3}</p>
           </div>
         </div>
-      </div>
-      <!-- HAIR & MAKEUP -->
-      <div class="relative group">
-        <div class="sticky top-8">
+        <div class="relative">
           <h2 class="text-3xl font-serif text-brand-accent mb-10 uppercase tracking-wide">
-            <span class="block text-sm font-light text-brand-muted mb-3 tracking-[0.3em]">02 — BEAUTY</span>
-            THE MORNING OF
+            <span class="block text-sm font-light text-brand-muted mb-3 tracking-[0.3em]">{pageContent.experience.beauty.no} — {pageContent.experience.beauty.label}</span>
+            {pageContent.experience.beauty.title}
           </h2>
           <div class="space-y-6">
-            <p class="text-base font-light leading-relaxed text-brand-primary/70">
-              Show up. Sit down. Let someone else do the work for once.
-            </p>
-            <ul class="space-y-4 text-base font-light">
-              <li class="flex items-start group/item">
-                <span class="w-2 h-2 rounded-full bg-brand-accent mt-2 mr-4 group-hover/item:scale-150 transition-transform"></span>
-                <span class="text-brand-primary/70">Hair that moves, not helmet-hair</span>
-              </li>
-              <li class="flex items-start group/item">
-                <span class="w-2 h-2 rounded-full bg-brand-accent mt-2 mr-4 group-hover/item:scale-150 transition-transform"></span>
-                <span class="text-brand-primary/70">Makeup that enhances, not hides</span>
-              </li>
-              <li class="flex items-start group/item">
-                <span class="w-2 h-2 rounded-full bg-brand-accent mt-2 mr-4 group-hover/item:scale-150 transition-transform"></span>
-                <span class="text-brand-primary/70">Touch-up kit for during the shoot</span>
-              </li>
+            <p class="text-brand-text/70 font-light">{pageContent.experience.beauty.p1}</p>
+            <ul class="space-y-4 text-brand-text/70 font-light">
+              {pageContent.experience.beauty.items.map(item => (
+                <li class="flex items-start">
+                  <span class="w-1.5 h-1.5 rounded-full bg-brand-accent mt-2 mr-4"></span>
+                  <span>{item}</span>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- 自然修图区块 - 宽幅设计，但改为STYLING主题 -->
-    <div class="mb-40 relative py-24 px-8 bg-gradient-to-br from-brand-dark via-brand-dark/95 to-brand-dark -mx-8 text-white">
-      <div class="absolute inset-0 overflow-hidden">
-        <div class="absolute top-0 right-0 w-96 h-96 bg-brand-accent/5 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-0 left-0 w-96 h-96 bg-brand-accent/5 rounded-full blur-3xl"></div>
-      </div>
-      <div class="max-w-4xl mx-auto text-center relative">
-        <h2 class="text-4xl md:text-5xl font-serif text-white mb-8 uppercase tracking-wide">
-          STYLE THAT TRAVELS
-        </h2>
-        <div class="w-24 h-px bg-gradient-to-r from-transparent via-brand-accent to-transparent mx-auto mb-8"></div>
-        <p class="text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto text-white/80">
-          We might shoot at three different spots in one session—The Rocks, then Circular Quay, then a rooftop bar. Your styling needs to work everywhere. We'll make sure your hair survives the wind, your makeup lasts through the golden hour glow, and your outfits transition like you're changing scenes in a movie. Because you are.
-        </p>
-      </div>
-    </div>
-
-    <!-- Experience Modules Grid -->
-    <div class="mb-40">
-      <h2 class="text-3xl md:text-4xl font-serif text-brand-accent mb-16 text-center uppercase tracking-wide">
-        THE STYLING EXPERIENCE
-      </h2>
-      <div class="grid md:grid-cols-3 gap-8">
-        {serviceData.experienceModules.map((module, index) => (
-          <div class="group relative overflow-hidden rounded-sm bg-white/50 backdrop-blur-sm border border-brand-muted/10 hover:border-brand-accent/30 transition-all duration-700 hover:translate-y-[-8px]">
-            <div class="aspect-[4/5] overflow-hidden">
-              <img 
-                src={module.image} 
-                alt={module.imageAlt}
-                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+      <div class="mb-40 reveal-on-scroll">
+        <h2 class="text-3xl md:text-4xl font-serif text-brand-accent mb-16 text-center uppercase tracking-wide">THE STYLING EXPERIENCE</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          {pageContent.modules.map((module, index) => (
+            <div class="group relative bg-white/50 border border-brand-muted/10 hover:border-brand-accent/30 transition-all duration-700">
+              <div class="aspect-[4/5] overflow-hidden">
+                <img src={module.image} alt={module.imageAlt} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" />
+              </div>
+              <div class="p-8 relative">
+                <span class="absolute top-4 right-8 text-4xl font-serif text-brand-accent/10">{(index+1).toString().padStart(2, '0')}</span>
+                <h3 class="text-xl font-serif text-brand-accent mb-4 uppercase">{module.title}</h3>
+                <p class="text-sm font-light text-brand-text/70 leading-relaxed mb-4">{module.description}</p>
+                <p class="text-xs font-mono text-brand-muted/60 italic">{module.caption}</p>
+              </div>
             </div>
-            <div class="p-8">
-              <h3 class="text-xl font-serif text-brand-accent mb-4">{module.title}</h3>
-              <p class="text-sm font-light text-brand-primary/70 leading-relaxed mb-4">{module.description}</p>
-              <p class="text-xs font-mono text-brand-muted/60 italic">{module.caption}</p>
-            </div>
-            <div class="absolute top-4 right-4 text-6xl font-serif text-brand-accent/10 group-hover:text-brand-accent/20 transition-colors">
-              {(index + 1).toString().padStart(2, '0')}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-
-    <!-- Packages Section -->
-    <Packages />
-
-    <!-- FAQ Section -->
-    <div class="mb-40 mt-40">
-      <h2 class="text-3xl md:text-4xl font-serif text-brand-accent mb-16 text-center uppercase tracking-wide">
-        YOU'VE GOT QUESTIONS
-      </h2>
-      <div class="max-w-3xl mx-auto space-y-6">
-        {serviceData.faq.map((item, index) => (
-          <div class="group border-b border-brand-muted/10 pb-6">
-            <details class="group">
-              <summary class="flex justify-between items-center cursor-pointer list-none">
-                <h3 class="text-lg font-serif text-brand-accent group-hover:text-brand-accent/80 transition-colors">
-                  <span class="inline-block w-8 text-sm font-mono text-brand-muted">{index + 1}.</span>
-                  {item.question}
-                </h3>
-                <Icon name="lucide:chevron-down" class="w-5 h-5 text-brand-muted group-open:rotate-180 transition-transform" />
-              </summary>
-              <p class="mt-4 text-sm font-light text-brand-primary/70 leading-relaxed pl-8">
-                {item.answer}
-              </p>
-            </details>
-          </div>
-        ))}
-      </div>
-    </div>
-
-    <!-- 结尾区块 - 强有力的召唤 -->
-    <div class="text-center relative">
-      <div class="absolute inset-0 flex items-center justify-center opacity-5">
-        <span class="text-[12vw] font-serif text-brand-accent whitespace-nowrap">STYLE • STYLE • STYLE</span>
-      </div>
-      <h2 class="text-5xl md:text-7xl font-serif text-brand-accent mb-8 uppercase tracking-tight relative">
-        LOOK GOOD<br />
-        <span class="italic font-light text-brand-muted relative inline-block group">
-          FEEL GOOD
-          <span class="absolute -bottom-4 left-1/2 -translate-x-1/2 w-0 h-px bg-brand-accent group-hover:w-full transition-all duration-700"></span>
-        </span>
-      </h2>
-      <p class="text-base font-light text-brand-primary/60 max-w-xl mx-auto mb-16 relative">
-        When you look in the mirror and think "yeah, I'd date me"—that's when the magic happens. Let's get you there.
-      </p>
-      
-      <!-- 高级按钮 -->
-      <a href="/booking" class="group relative inline-flex items-center justify-center px-12 py-6 bg-transparent border border-brand-accent/30 hover:border-brand-accent rounded-full overflow-hidden transition-all duration-500">
-        <span class="absolute inset-0 w-0 bg-brand-accent/10 group-hover:w-full transition-all duration-500"></span>
-        <span class="relative flex items-center gap-4">
-          <span class="text-xs tracking-[0.3em] uppercase font-light text-brand-accent group-hover:tracking-[0.4em] transition-all">
-            Book your styling
-          </span>
-          <Icon name="lucide:arrow-right" class="w-4 h-4 text-brand-accent group-hover:translate-x-2 transition-transform" />
-        </span>
-      </a>
-      
-      <!-- 装饰元素 -->
-      <div class="mt-24 flex justify-center items-center gap-4">
-        <span class="w-16 h-px bg-gradient-to-l from-brand-accent/30 to-transparent"></span>
-        <div class="flex space-x-3">
-          <span class="w-2 h-2 rounded-full bg-brand-accent/30 animate-pulse"></span>
-          <span class="w-2 h-2 rounded-full bg-brand-muted/30"></span>
-          <span class="w-2 h-2 rounded-full bg-brand-accent/30 animate-pulse animation-delay-300"></span>
+          ))}
         </div>
-        <span class="w-16 h-px bg-gradient-to-r from-brand-accent/30 to-transparent"></span>
       </div>
-    </div>
-  </section>
+
+      <Packages />
+
+      <div class="mb-40 mt-40 reveal-on-scroll">
+        <h2 class="text-3xl md:text-4xl font-serif text-brand-accent mb-16 text-center uppercase tracking-wide">STYLING QUESTIONS</h2>
+        <div class="max-w-3xl mx-auto space-y-6">
+          {pageContent.faq.map((item, index) => (
+            <div class="border-b border-brand-muted/10 pb-6">
+              <details class="group">
+                <summary class="flex justify-between items-center cursor-pointer list-none">
+                  <h3 class="text-lg font-serif text-brand-accent group-hover:opacity-70 transition-opacity">
+                    <span class="inline-block w-8 text-sm font-mono text-brand-muted">{(index + 1).toString().padStart(2, '0')}</span>
+                    {item.question}
+                  </h3>
+                  <Icon name="lucide:chevron-down" class="w-5 h-5 text-brand-muted group-open:rotate-180 transition-transform" />
+                </summary>
+                <p class="mt-4 text-sm font-light text-brand-text/70 leading-relaxed pl-8">{item.answer}</p>
+              </details>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="text-center py-20 relative reveal-on-scroll">
+        <h2 class="text-5xl md:text-7xl font-serif text-brand-accent mb-8 uppercase tracking-tight relative z-10">
+          {pageContent.cta.heading}<br />
+          <span class="italic font-light text-brand-muted">{pageContent.cta.italic}</span>
+        </h2>
+        <p class="text-base font-light text-brand-text/60 max-w-xl mx-auto mb-16 relative z-10">{pageContent.cta.desc}</p>
+        <a href="/booking" class="btn-brand">
+          {pageContent.cta.button}
+          <Icon name="lucide:arrow-right" class="w-4 h-4" />
+        </a>
+      </div>
+    </section>
   </main>
 
   <Footer />
 </Layout>
 
-<!-- 样式 -->
-<style is:global>
-  /* 字体导入 */
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap');
-  
-  /* 自定义字体 - 如果Kudryashev不可用，回退到Georgia */
-  @font-face {
-    font-family: 'Kudryashev';
-    src: local('Georgia'), local('Times New Roman'), serif;
-    font-display: swap;
-  }
+<script>
+  function initReveal() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
 
-  :root {
-    --brand-dark: #0A0A0A;
-    --brand-primary: #1A1A1A;
-    --brand-accent: #34041A;
-    --brand-muted: #6B4E5E;
-    --brand-bg: #FDFAF7;
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
   }
-
-  body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--brand-bg);
-    color: var(--brand-primary);
-  }
-
-  /* 自定义动画 */
-  @keyframes kenBurns {
-    0% { transform: scale(1); }
-    100% { transform: scale(1.1); }
-  }
-
-  @keyframes titleSlideUp {
-    0% { transform: translateY(100%); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
-  }
-
-  @keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-  }
-
-  @keyframes widthGrow {
-    0% { width: 0; opacity: 0; }
-    100% { width: 6rem; opacity: 1; }
-  }
-
-  .animate-ken-burns {
-    animation: kenBurns 20s ease-out forwards;
-  }
-
-  .animate-title-slide-up {
-    animation: titleSlideUp 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-  }
-
-  .animate-fade-in {
-    animation: fadeIn 1s ease forwards;
-  }
-
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
-
-  .animate-width-grow {
-    animation: widthGrow 1s ease forwards;
-  }
-
-  .animation-delay-200 {
-    animation-delay: 0.2s;
-  }
-
-  .animation-delay-300 {
-    animation-delay: 0.3s;
-  }
-
-  .animation-delay-400 {
-    animation-delay: 0.4s;
-  }
-
-  .animation-delay-500 {
-    animation-delay: 0.5s;
-  }
-
-  .animation-delay-700 {
-    animation-delay: 0.7s;
-  }
-
-  /* 首字下沉样式 */
-  .dropcap::first-letter {
-    font-size: 4.5em;
-    float: left;
-    line-height: 0.8;
-    margin-right: 0.2em;
-    color: var(--brand-accent);
-    font-family: 'Kudryashev', 'Georgia', serif;
-    font-weight: 400;
-  }
-
-  /* 自定义滚动条 */
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: var(--brand-bg);
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: var(--brand-muted);
-    border-radius: 4px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--brand-accent);
-  }
-
-  /* 文本选择样式 */
-  ::selection {
-    background: rgba(52, 4, 26, 0.15);
-    color: var(--brand-accent);
-  }
-
-  /* 平滑滚动 */
-  html {
-    scroll-behavior: smooth;
-  }
-
-  /* 响应式调整 */
-  @media (max-width: 768px) {
-    .dropcap::first-letter {
-      font-size: 3.5em;
-    }
-  }
-</style>
+  document.addEventListener('astro:page-load', initReveal);
+  initReveal();
+</script>

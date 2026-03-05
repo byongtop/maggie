@@ -1,10 +1,12 @@
 ---
 /**
- * Header.astro — SPA Safe Production Version
+ * Header.astro — ROSE IS ROSE 高级生产版
+ * 1. 适配 Astro View Transitions (SPA 路由安全)
+ * 2. 动态透明度逻辑：首页/服务页初始透明，滚动后变色
+ * 3. 核心色值：#34041A (深红), #F9F2E7 (羊绒米)
  */
 
 const pathname = Astro.url.pathname;
-//const isHomePage = pathname === '/';
 // 精确匹配需要透明背景的页面
 const isTransparentPage = pathname === '/' || pathname.startsWith('/services/');
 
@@ -15,10 +17,10 @@ const navLinks = [
     href: '/services',
     children: [
       { name: 'Sydney Dating Portraits', href: '/services/sydney-dating-photography' },
-      { name: 'Dating Styling & Hair Sydney', href: '/services/dating-styling-sydney' },
-      { name: 'Dating Wardrobe Consulting Sydney', href: '/services/dating-wardrobe-sydney' },
-      { name: 'Dating Bio Writing Sydney', href: '/services/dating-bio-writing-sydney' },
-      { name: 'Dating App Strategy Sydney', href: '/services/dating-app-strategy-sydney' }
+      { name: 'Dating Styling & Hair', href: '/services/dating-styling-sydney' },
+      { name: 'Wardrobe Consulting', href: '/services/dating-wardrobe-sydney' },
+      { name: 'Dating Bio Writing', href: '/services/dating-bio-writing-sydney' },
+      { name: 'Dating App Strategy', href: '/services/dating-app-strategy-sydney' }
     ]
   },
   { name: 'ABOUT', href: '/about' },
@@ -26,70 +28,65 @@ const navLinks = [
     name: 'BLOG', 
     href: '/blog',
     children: [
-      { name: 'Photography Tips & Guides', href: '/blog/category/photography-tips-guides' },
+      { name: 'Photography Guides', href: '/blog/category/photography-tips-guides' },
       { name: 'Success Stories', href: '/blog/category/success-stories' },
-      { name: 'Dating Insights', href: '/blog/category/dating-insights' },
-      { name: 'Behind the Scenes', href: '/blog/category/behind-the-scenes' }
+      { name: 'Dating Insights', href: '/blog/category/dating-insights' }
     ]
   },
   { name: 'CONTACT', href: '/contact' },
 ];
 
-// 初始背景：首页或服务页面为透明，其他页面为深色
-const initialBackground = isTransparentPage
+// 初始状态类名
+const initialClasses = isTransparentPage
   ? 'bg-transparent border-transparent'
-  : 'bg-brand-dark border-brand-muted/20';
+  : 'bg-[#34041A] border-[#F9F2E7]/10';
 ---
 
 <header
   id="main-header"
-  data-transparent={isTransparentPage}
-  class={`fixed top-0 left-0 w-full z-[100] transition-all duration-700 border-b ${initialBackground}`}
+  data-transparent={isTransparentPage ? "true" : "false"}
+  class={`fixed top-0 left-0 w-full z-[100] transition-all duration-700 border-b ${initialClasses}`}
 >
-  <div
-    class="max-w-7xl mx-auto px-6 md:px-12 h-16 md:h-20 flex items-center justify-between relative z-[110]"
-  >
+  <div class="max-w-7xl mx-auto px-6 md:px-12 h-20 flex items-center justify-between relative z-[110]">
 
-    <!-- LOGO -->
-    <a href="/" class="group flex flex-col items-start no-underline">
+    <a href="/" class="group flex flex-col items-start no-underline transition-transform duration-500 hover:scale-[1.02]">
       <div class="flex items-baseline">
-        <span class="text-2xl md:text-3xl font-serif font-semibold tracking-tight text-brand-on-dark">
+        <span class="text-2xl md:text-3xl font-serif font-semibold tracking-tight text-[#F9F2E7]">
           ROSE
         </span>
-        <span class="mx-2 text-[10px] tracking-[0.3em] text-brand-on-dark/70">
+        <span class="mx-2 text-[9px] tracking-[0.4em] text-[#F9F2E7]/60 font-mono">
           IS
         </span>
-        <span class="text-2xl md:text-3xl font-serif font-light italic text-brand-on-dark/90">
+        <span class="text-2xl md:text-3xl font-serif font-light italic text-[#F9F2E7]/90">
           ROSE
         </span>
       </div>
-      <div class="mt-1 flex items-center space-x-2">
-        <span class="h-[0.5px] w-4 bg-brand-muted/60"></span>
-        <span class="text-[8px] tracking-[0.5em] uppercase text-brand-on-dark/60">
+      <div class="mt-1 flex items-center space-x-2 overflow-hidden">
+        <span class="h-[0.5px] w-4 bg-[#8C7355] transform -translate-x-full group-hover:translate-x-0 transition-transform duration-700"></span>
+        <span class="text-[7px] md:text-[8px] tracking-[0.5em] uppercase text-[#F9F2E7]/50 font-sans">
           Identity & Narrative Portrait
         </span>
       </div>
     </a>
 
-    <!-- DESKTOP NAV -->
-    <nav class="hidden md:flex items-center space-x-10 h-full">
+    <nav class="hidden lg:flex items-center space-x-12 h-full">
       {navLinks.map((link) => (
         <div class="relative h-full flex items-center group">
           <a
             href={link.href}
-            class="text-[11px] tracking-[0.3em] font-semibold uppercase text-brand-on-dark hover:text-brand-muted transition"
+            class="text-[10px] tracking-[0.4em] font-bold uppercase text-[#F9F2E7] hover:text-[#8C7355] transition-colors duration-300"
           >
             {link.name}
-            {link.children && <span class="ml-2 text-[7px] opacity-60">▼</span>}
+            {link.children && <span class="ml-2 text-[6px] opacity-40 group-hover:rotate-180 inline-block transition-transform">▼</span>}
           </a>
 
           {link.children && (
-            <div class="absolute top-full left-1/2 -translate-x-1/2 w-80 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 pt-2">
-              <div class="bg-brand-dark border border-brand-muted/20 shadow-xl py-4">
+            <div class="absolute top-[80%] left-0 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:top-full transition-all duration-500 pt-4">
+              <div class="bg-[#34041A] border border-[#F9F2E7]/10 shadow-2xl py-6 backdrop-blur-lg bg-opacity-95">
                 {link.children.map((child) => (
                   <a
                     href={child.href}
-                    class="block px-8 py-3 text-[10px] tracking-[0.2em] uppercase font-bold text-brand-on-dark/70 hover:text-white hover:bg-white/5 transition"
+                    class="block px-8 py-3.5 text-[9px] tracking-[0.2em] uppercase font-bold text-[#F9F2E7]/60 hover:text-[#F9F2E7] hover:bg-white/5 transition-all"
                   >
                     {child.name}
                   </a>
@@ -102,59 +99,45 @@ const initialBackground = isTransparentPage
 
       <a
         href="/booking"
-        class="px-8 py-2.5 border border-brand-on-dark/40 text-brand-on-dark text-[10px] tracking-[0.3em] font-bold hover:bg-brand-on-dark hover:text-brand-dark transition"
+        class="px-10 py-3 bg-transparent border border-[#F9F2E7]/30 text-[#F9F2E7] text-[10px] tracking-[0.4em] font-bold hover:bg-[#F9F2E7] hover:text-[#34041A] transition-all duration-500"
       >
-        BOOKING
+        BOOK NOW
       </a>
     </nav>
 
-    <!-- MOBILE TOGGLE -->
     <button
       id="menu-toggle"
-      class="md:hidden flex flex-col justify-center items-end space-y-1.5 p-2 z-[120]"
+      class="lg:hidden flex flex-col justify-center items-end space-y-2 p-3 z-[120] cursor-pointer"
       aria-label="Toggle Menu"
     >
-      <span class="hamburger-line w-6 h-[1.5px] bg-brand-on-dark transition"></span>
-      <span class="hamburger-line w-6 h-[1.5px] bg-brand-on-dark transition"></span>
-      <span class="hamburger-line w-6 h-[1.5px] bg-brand-on-dark transition"></span>
+      <span class="hamburger-line w-8 h-[1px] bg-[#F9F2E7] transition-all duration-500"></span>
+      <span class="hamburger-line w-5 h-[1px] bg-[#F9F2E7] transition-all duration-500"></span>
+      <span class="hamburger-line w-8 h-[1px] bg-[#F9F2E7] transition-all duration-500"></span>
     </button>
 
   </div>
 
-  <!-- MOBILE MENU -->
   <div
     id="mobile-menu"
-    class="fixed inset-0 bg-brand-dark flex flex-col pt-32 px-10 overflow-y-auto translate-x-full transition-transform duration-500 z-[9999]"
+    class="fixed inset-0 bg-[#34041A] flex flex-col pt-32 px-12 overflow-y-auto translate-x-full transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] z-[999]"
   >
-    <!-- CLOSE BUTTON -->
-    <button
-      id="mobile-close"
-      class="absolute top-8 right-8 text-brand-on-dark text-3xl font-light"
-      aria-label="Close Menu"
-    >
-      ×
-   </button>
-    <nav class="flex flex-col space-y-2">
+    <nav class="flex flex-col space-y-6">
       {navLinks.map((link) => (
-        <div class="border-b border-brand-on-dark/5 py-4">
+        <div class="border-b border-[#F9F2E7]/5 py-4">
           <div class="flex items-center justify-between">
-            <a href={link.href} class="text-3xl font-serif tracking-widest text-brand-on-dark uppercase font-bold">
+            <a href={link.href} class="text-4xl font-serif tracking-widest text-[#F9F2E7] uppercase font-light italic">
               {link.name}
             </a>
-
             {link.children && (
-              <button class="submenu-trigger text-brand-on-dark text-2xl">＋</button>
+              <button class="submenu-trigger text-[#F9F2E7] text-2xl p-2 opacity-40">＋</button>
             )}
           </div>
 
           {link.children && (
-            <div class="mobile-submenu overflow-hidden max-h-0 opacity-0 transition-all duration-500">
-              <div class="flex flex-col space-y-4 mt-6 ml-4 border-l border-brand-on-dark/20 pl-6 pb-2">
+            <div class="mobile-submenu overflow-hidden max-h-0 opacity-0 transition-all duration-700 ease-in-out">
+              <div class="flex flex-col space-y-5 mt-8 ml-2 border-l border-[#8C7355]/30 pl-8 pb-4">
                 {link.children.map((child) => (
-                  <a
-                    href={child.href}
-                    class="text-xs tracking-[0.3em] uppercase font-bold text-brand-on-dark/60"
-                  >
+                  <a href={child.href} class="text-[11px] tracking-[0.4em] uppercase font-bold text-[#F9F2E7]/40">
                     {child.name}
                   </a>
                 ))}
@@ -163,117 +146,94 @@ const initialBackground = isTransparentPage
           )}
         </div>
       ))}
-
-      <a
-        href="/booking"
-        class="mt-12 text-sm tracking-[0.5em] bg-brand-on-dark text-brand-dark py-5 text-center font-bold uppercase"
-      >
-        Book Now
+      <a href="/booking" class="mt-16 bg-[#F9F2E7] text-[#34041A] py-6 text-center text-xs tracking-[0.6em] font-bold uppercase hover:bg-opacity-90 transition-all">
+        START YOUR STORY
       </a>
     </nav>
   </div>
 </header>
 
 <style>
+  /* 滚动后的样式：强制应用深红背景 */
   #main-header.scrolled {
-    background-color: var(--color-brand-accent);
-    border-color: var(--color-brand-muted);
+    background-color: #34041A !important;
+    border-color: rgba(249, 242, 231, 0.1) !important;
+    height: 4.5rem; /* 滚动后稍微缩小高度 */
   }
 
-  /* 修复 Tailwind v4 变量写法 */
-  #mobile-menu.active {
-    --tw-translate-x: 0;
-  }
+  /* 汉堡菜单动画 */
+  #menu-toggle.open .hamburger-line:nth-child(1) { transform: translateY(9px) rotate(45deg); width: 2rem; }
+  #menu-toggle.open .hamburger-line:nth-child(2) { opacity: 0; }
+  #menu-toggle.open .hamburger-line:nth-child(3) { transform: translateY(-9px) rotate(-45deg); width: 2rem; }
 
-  .hamburger-line.open:nth-child(1) {
-    transform: translateY(6px) rotate(45deg);
-  }
+  /* 移动端菜单激活 */
+  #mobile-menu.active { transform: translateX(0); }
 
-  .hamburger-line.open:nth-child(2) {
-    opacity: 0;
-  }
-
-  .hamburger-line.open:nth-child(3) {
-    transform: translateY(-6px) rotate(-45deg);
-  }
-
+  /* 子菜单展开 */
   .mobile-submenu.open {
-    max-height: 500px;
+    max-height: 800px;
     opacity: 1;
-    margin-top: 1rem;
   }
 </style>
 
 <script>
-  function setupHeader() {
+  function initHeader() {
     const header = document.getElementById('main-header');
-    if (!header) return;
-
-    const isTransparent = header.dataset.transparent === 'true';
-
-    function handleScroll() {
-      if (isTransparent) {
-        if (window.scrollY > 80) {
-          header.classList.add('scrolled');
-          header.classList.remove('bg-transparent', 'border-transparent');
-        } else {
-          header.classList.remove('scrolled');
-          header.classList.add('bg-transparent', 'border-transparent');
-        }
-      } else {
-        header.classList.add('scrolled');
-        header.classList.remove('bg-transparent', 'border-transparent');
-      }
-    }
-
-    handleScroll();
-    window.removeEventListener('scroll', handleScroll);
-    window.addEventListener('scroll', handleScroll);
-
     const toggle = document.getElementById('menu-toggle');
     const menu = document.getElementById('mobile-menu');
-    const lines = document.querySelectorAll('.hamburger-line');
-    const closeBtn = document.getElementById('mobile-close');
+    
+    if (!header || !toggle || !menu) return;
 
-    if (toggle && menu) {
-      toggle.onclick = null;
+    const isTransparentConfig = header.getAttribute('data-transparent') === 'true';
 
-      toggle.addEventListener('click', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
+    // 1. 处理滚动逻辑
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+        if (isTransparentConfig) {
+          header.classList.remove('bg-transparent', 'border-transparent');
+          header.classList.add('bg-[#34041A]');
+        }
+      } else {
+        header.classList.remove('scrolled');
+        if (isTransparentConfig) {
+          header.classList.remove('bg-[#34041A]');
+          header.classList.add('bg-transparent', 'border-transparent');
+        }
+      }
+    };
 
-        const active = menu.classList.toggle('active');
-        lines.forEach(l => l.classList.toggle('open'));
-        document.body.style.overflow = active ? 'hidden' : '';
-      });
-    }
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // 初始化状态
 
-    if (closeBtn && menu) {
-      closeBtn.addEventListener('click', function () {
-        menu.classList.remove('active');
-        lines.forEach(l => l.classList.remove('open'));
-        document.body.style.overflow = '';
-      });
-    }
+    // 2. 移动端菜单开关
+    toggle.onclick = () => {
+      const isOpen = menu.classList.toggle('active');
+      toggle.classList.toggle('open');
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    };
 
+    // 3. 移动端子菜单折叠
     document.querySelectorAll('.submenu-trigger').forEach(btn => {
-      btn.onclick = null;
-
-      btn.addEventListener('click', function (e) {
+      btn.onclick = (e) => {
         e.preventDefault();
-        e.stopPropagation();
+        const submenu = btn.parentElement?.nextElementSibling;
+        const isOpen = submenu?.classList.toggle('open');
+        (btn as HTMLElement).innerText = isOpen ? '－' : '＋';
+      };
+    });
 
-        const submenu = this.parentElement.nextElementSibling;
-        submenu?.classList.toggle('open');
-      });
+    // 4. 点击链接后自动关闭菜单 (针对 SPA 路由)
+    menu.querySelectorAll('a').forEach(link => {
+      link.onclick = () => {
+        menu.classList.remove('active');
+        toggle.classList.remove('open');
+        document.body.style.overflow = '';
+      };
     });
   }
 
-  document.addEventListener('astro:page-load', setupHeader);
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupHeader);
-  } else {
-    setupHeader();
-  }
+  // 生命周期管理：兼容 Astro View Transitions
+  document.addEventListener('astro:page-load', initHeader);
+  initHeader();
 </script>

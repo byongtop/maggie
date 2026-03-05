@@ -1,9 +1,8 @@
 ---
 /**
- * Gallery.astro - 紧凑画廊艺术版
- * 1. 移除松散留白，采用紧凑的 Grid 布局
- * 2. 增强取景框与边框的联系，形成“底片切片”感
- * 3. PhotoSwipe v5 高级集成
+ * Gallery.astro - 紧凑画廊艺术版 (ROSE IS ROSE 2.0)
+ * 核心色值：#F9F2E7 (主背景), #34041A (深红), #8C7355 (金棕辅助)
+ * 特色：底片实验室风格 / 12列网格 / 参数化交互
  */
 const works = [
   { src: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e', w: 1200, h: 1600, title: 'Abstract Light', category: 'Portrait', span: 'md:col-span-8' },
@@ -17,17 +16,20 @@ const works = [
 ];
 ---
 
-<section class="py-20 bg-brand-bg px-4 md:px-10">
-  <div class="max-w-7xl mx-auto ">
+<section class="py-24 bg-[#F9F2E7] px-4 md:px-10 overflow-hidden">
+  <div class="max-w-7xl mx-auto">
     
-    <div class="mb-16 flex items-end justify-between border-b-2 border-brand-accent pb-6">
-      <h2 class="text-4xl md:text-6xl font-serif font-black text-brand-accent tracking-tighter uppercase leading-none">
-        Selected <span class="italic font-light">Archive</span>
+    <div class="mb-20 flex items-end justify-between border-b-[3px] border-[#34041A] pb-8 reveal-up">
+      <h2 class="text-5xl md:text-8xl font-serif font-black text-[#34041A] tracking-tighter uppercase leading-[0.8]">
+        Selected <span class="italic font-extralight opacity-40 lowercase">Archive</span>
       </h2>
-      <span class="text-brand-accent text-[10px] tracking-[0.4em] font-mono hidden md:block">INDEX: PORTFOLIO_V2.0</span>
+      <div class="text-right hidden md:block">
+        <span class="block text-[#34041A] text-[10px] tracking-[0.5em] font-mono font-bold uppercase">Index: Portfolio_V2.0</span>
+        <span class="block text-[#8C7355] text-[9px] tracking-[0.3em] font-mono mt-1 opacity-70">SYDNEY / 2026.03</span>
+      </div>
     </div>
 
-    <div id="gallery" class="max-w-7xl mx-auto pswp-gallery grid grid-cols-1 md:grid-cols-12 gap-4">
+    <div id="gallery" class="pswp-gallery grid grid-cols-1 md:grid-cols-12 gap-5 auto-rows-auto">
       {works.map((work, index) => (
         <div class={`portfolio-item reveal-item relative group overflow-hidden ${work.span}`}>
           
@@ -36,30 +38,31 @@ const works = [
             data-pswp-width={work.w} 
             data-pswp-height={work.h} 
             target="_blank"
-            class="block relative aspect-square md:aspect-video w-full h-full bg-brand-dark overflow-hidden"
+            class="block relative aspect-square md:aspect-video lg:aspect-auto w-full h-full bg-[#34041A] overflow-hidden"
           >
-            <div class="absolute inset-0 z-30 pointer-events-none p-6 md:p-10 opacity-60 group-hover:opacity-100 transition-opacity">
-              <div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-brand-on-dark transition-all duration-500 group-hover:m-2"></div>
-              <div class="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-brand-on-dark transition-all duration-500 group-hover:m-2"></div>
-              <div class="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-brand-on-dark transition-all duration-500 group-hover:m-2"></div>
-              <div class="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-brand-on-dark transition-all duration-500 group-hover:m-2"></div>
+            <div class="absolute inset-0 z-30 pointer-events-none p-6 md:p-8 opacity-40 group-hover:opacity-100 transition-all duration-700">
+              <div class="absolute top-0 left-0 w-10 h-10 border-t border-l border-[#F9F2E7] transition-all duration-500 group-hover:m-2"></div>
+              <div class="absolute top-0 right-0 w-10 h-10 border-t border-r border-[#F9F2E7] transition-all duration-500 group-hover:m-2"></div>
+              <div class="absolute bottom-0 left-0 w-10 h-10 border-b border-l border-[#F9F2E7] transition-all duration-500 group-hover:m-2"></div>
+              <div class="absolute bottom-0 right-0 w-10 h-10 border-b border-r border-[#F9F2E7] transition-all duration-500 group-hover:m-2"></div>
             </div>
 
-            <div class="absolute top-6 left-8 z-30 overflow-hidden">
-              <p class="text-[9px] font-mono text-brand-on-dark/50 uppercase tracking-widest bg-brand-accent/30 backdrop-blur-sm px-2 py-1 translate-x-[-110%] group-hover:translate-x-0 transition-transform duration-500">
-                SCENE_{index + 1} / F2.8
+            <div class="absolute top-8 left-10 z-30 overflow-hidden">
+              <p class="text-[9px] font-mono text-[#F9F2E7] uppercase tracking-[0.2em] bg-[#34041A]/60 backdrop-blur-md px-3 py-1.5 translate-x-[-120%] group-hover:translate-x-0 transition-transform duration-700 ease-out border-l-2 border-[#8C7355]">
+                SCENE_{String(index + 1).padStart(2, '0')} / F2.8
               </p>
             </div>
 
             <img 
               src={work.src} 
               alt={work.title}
-              class="portfolio-img w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
+              class="portfolio-img w-full h-full object-cover grayscale-[40%] contrast-110 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-[2s] ease-in-out"
+              loading="lazy"
             />
 
-            <div class="absolute inset-0 bg-brand-accent/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 flex flex-col justify-end p-8">
-               <span class="text-[10px] text-brand-on-dark tracking-[0.3em] uppercase mb-1">{work.category}</span>
-               <h3 class="text-brand-on-dark text-xl font-serif italic">{work.title}</h3>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#34041A] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700 z-20 flex flex-col justify-end p-10">
+               <span class="text-[10px] text-[#8C7355] tracking-[0.4em] uppercase font-bold mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-700">{work.category}</span>
+               <h3 class="text-[#F9F2E7] text-2xl font-serif italic tracking-tighter transform translate-y-4 group-hover:translate-y-0 transition-transform duration-700 delay-75">{work.title}</h3>
             </div>
           </a>
         </div>
@@ -69,22 +72,26 @@ const works = [
 </section>
 
 <style is:global>
-  /* 引入 PhotoSwipe 样式 */
   @import "photoswipe/dist/photoswipe.css";
 
   .reveal-item {
     opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(30px);
+    transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .reveal-item.active {
     opacity: 1;
     transform: translateY(0);
   }
 
-  /* 适配品牌色 */
+  /* 品牌化 PhotoSwipe 界面 */
   .pswp {
-    --pswp-bg: #34041A;
+    --pswp-bg: #34041A; /* 使用核心深红色作为预览背景 */
+    --pswp-placeholder-bg: #F9F2E7;
+  }
+  
+  .pswp__img {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
   }
 </style>
 
@@ -96,18 +103,24 @@ const works = [
       gallery: '#gallery',
       children: 'a',
       pswpModule: () => import('photoswipe'),
+      // 增加缩放动画的平滑度
+      showHideAnimationType: 'zoom',
     });
     lightbox.init();
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('active');
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
       });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.reveal-item').forEach(el => observer.observe(el));
+    document.querySelectorAll('.reveal-item, .reveal-up').forEach(el => observer.observe(el));
   }
 
-  initGallery();
+  // 适配 Astro View Transitions
   document.addEventListener('astro:page-load', initGallery);
+  initGallery();
 </script>

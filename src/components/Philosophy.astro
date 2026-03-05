@@ -1,103 +1,114 @@
 ---
 /**
- * Philosophy.astro - 创作理念模块
- * 适配色：brand-bg (#F9F2E7), brand-dark (#34041A), brand-muted (#8C7355)
+ * Philosophy.astro - 创作理念模块 (ROSE IS ROSE)
+ * 核心色值：#F9F2E7 (背景), #34041A (文字), #8C7355 (辅助/装饰)
+ * 适配：Tailwind CSS v4 & Astro 
  */
 import { Image } from 'astro:assets';
-import philImg from '../assets/images/hero/06.jpg'; // 建议换成一张摄影师工作照或富有情绪的特写
+import philImg from '../assets/images/hero/06.jpg'; // 建议使用 Maggie 工作照或极具情绪感的作品
 
 const philosophy = {
   title: "Dating Profile Photography for the Discerning Sydney-sider",
   subtitle: "The Art of Being Seen",
   content: [
-    "Welcome to Rose Is Rose, a refined dating profile photography experience based in Sydney. Rose Is Rose helps you present your most magnetic self — effortlessly natural, quietly confident, and undeniably attractive.",
-    "Your dating profile is more than a photo; it’s your personal brand, your energy, your story in a single glance. Through thoughtful styling, guided posing, and a relaxed yet empowering studio experience, we create images that spark curiosity, invite connection, and elevate your presence online.",
-    "At Rose Is Rose, we don't just take photos — we shape first impressions that open doors to meaningful conversations and extraordinary connections. Here’s what you can expect from your Rose Is Rose experience."
+    "Welcome to Rose Is Rose, a refined dating profile photography experience based in Sydney. We help you present your most magnetic self — effortlessly natural, quietly confident, and undeniably attractive.",
+    "Your dating profile is more than a photo; it’s your personal brand, your energy, your story in a single glance. Through thoughtful styling, guided posing, and an empowering studio experience, we create images that spark curiosity and invite connection.",
+    "At Rose Is Rose, we don't just take photos — we shape first impressions that open doors to meaningful conversations and extraordinary connections."
   ],
   signature: "Maggie / Lead Photographer"
 };
 ---
 
-<main class="py-24 md:py-32 px-8 md:px-20 bg-brand-bg overflow-hidden relative">
-
+<section class="py-24 md:py-36 px-8 md:px-20 bg-[#F9F2E7] overflow-hidden relative min-h-screen flex items-center">
+  <div class="absolute top-20 right-[-5%] pointer-events-none select-none hidden lg:block opacity-[0.03]">
+    <span class="text-[18vw] font-serif italic text-[#34041A] tracking-tighter">Aesthetic</span>
+  </div>
 
   <div class="max-w-7xl mx-auto">
     <div class="flex flex-col lg:flex-row items-center gap-16 lg:gap-32">
       
       <div class="relative w-full lg:w-5/12 reveal-left">
-        {/* 图片后方的装饰方块 */}
-        <div class="absolute -top-6 -left-6 w-32 h-40 border border-brand-muted/20 -z-10"></div>
-        <div class="absolute -bottom-6 -right-6 w-full h-full bg-brand-dark/5 -z-20"></div>
+        {/* 装饰边框 */}
+        <div class="absolute -top-8 -left-8 w-32 h-48 border border-[#8C7355]/20 -z-10"></div>
+        <div class="absolute -bottom-8 -right-8 w-full h-full bg-[#34041A]/5 -z-20"></div>
         
-        <div class="overflow-hidden bg-brand-muted aspect-[3/4] relative">
+        <div class="overflow-hidden bg-[#8C7355]/10 aspect-[3/4] relative shadow-2xl">
           <Image 
             src={philImg} 
             alt="The art of portrait photography" 
-            class="w-full h-full object-cover grayscale-[15%] contrast-[1.1] hover:scale-105 transition-transform duration-[2s] ease-out"
+            class="w-full h-full object-cover grayscale-[20%] contrast-[1.05] hover:scale-105 transition-transform duration-[3s] ease-out"
           />
-          {/* 图片上的光影涂层 */}
-          <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/10 to-transparent pointer-events-none"></div>
+          {/* 氛围遮罩层 */}
+          <div class="absolute inset-0 bg-gradient-to-t from-[#34041A]/20 to-transparent pointer-events-none"></div>
         </div>
         
-        <p class="mt-8 text-[9px] tracking-[0.5em] text-brand-muted uppercase font-bold flex items-center">
-          <span class="w-6 h-[1px] bg-brand-muted/40 mr-4"></span>
+        <p class="mt-12 text-[10px] tracking-[0.6em] text-[#8C7355] uppercase font-semibold flex items-center">
+          <span class="w-10 h-[1px] bg-[#8C7355]/40 mr-6"></span>
           The Essence of Connection
         </p>
       </div>
 
       <div class="w-full lg:w-7/12 flex flex-col items-start reveal-right">
-        <div class="absolute top-4 left-10 pointer-events-none select-none hidden md:block opacity-[0.1]">
-          <span class="text-[100px] font-serif italic text-brand-dark tracking-tighter">Aesthetic</span>
-        </div>
-        <span class="text-brand-muted text-[10px] tracking-[0.6em] uppercase mb-8 font-semibold">
+        <span class="text-[#8C7355] text-[10px] tracking-[0.6em] uppercase mb-10 font-bold">
           {philosophy.subtitle}
         </span>
         
-        <h2 class="text-3xl md:text-5xl lg:text-6xl font-serif text-brand-dark leading-[1.15] mb-12 tracking-tight">
+        <h2 class="text-4xl md:text-5xl lg:text-7xl font-serif text-[#34041A] leading-[1.1] mb-14 tracking-tight">
           {philosophy.title.split(' ').map((word, i) => (
-            i === 2 ? <span class="italic font-light opacity-80">{word} </span> : <span>{word} </span>
+            // 特意给特定单词增加斜体样式增强节奏感
+            (i === 2 || i === 6) ? <span class="italic font-light opacity-80 block md:inline">{word} </span> : <span>{word} </span>
           ))}
         </h2>
 
-        <div class="space-y-10 max-w-lg">
+        <div class="space-y-12 max-w-xl">
           {philosophy.content.map((para) => (
-            <p class="text-brand-primary/80 text-sm md:text-base leading-[2] font-light tracking-wide">
+            <p class="text-[#3C3835]/90 text-base md:text-lg leading-[2.1] font-light tracking-wide">
               {para}
             </p>
           ))}
         </div>
 
-        {/* 签名档 */}
-        <div class="mt-20 flex items-center space-x-8 group">
+        <div class="mt-20 flex items-center space-x-10 group cursor-default">
           <div class="relative">
-             <div class="w-16 h-[1px] bg-brand-dark group-hover:w-24 transition-all duration-700"></div>
+             <div class="w-20 h-[1px] bg-[#34041A] group-hover:w-32 transition-all duration-1000 ease-in-out"></div>
           </div>
-          <span class="text-[10px] tracking-[0.4em] text-brand-dark uppercase font-bold italic">
-            {philosophy.signature}
-          </span>
+          <div class="flex flex-col">
+            <span class="text-[11px] tracking-[0.5em] text-[#34041A] uppercase font-bold italic">
+              {philosophy.signature}
+            </span>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</main>
+</section>
 
 <style is:global>
+  /* 左右滑入动效 */
   .reveal-left {
     opacity: 0;
-    transform: translateX(-40px);
-    transition: all 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateX(-60px);
+    transition: all 2s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
   }
   
   .reveal-right {
     opacity: 0;
-    transform: translateX(40px);
-    transition: all 1.8s cubic-bezier(0.16, 1, 0.3, 1);
-    transition-delay: 0.3s;
+    transform: translateX(60px);
+    transition: all 2s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: 0.4s;
+    will-change: transform, opacity;
   }
 
   .reveal-left.active, .reveal-right.active {
     opacity: 1;
     transform: translateX(0);
+  }
+
+  /* 针对中文字体渲染的微调（如果是中英文混合） */
+  .font-serif {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 </style>
 
@@ -107,13 +118,16 @@ const philosophy = {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('active');
+          // 触发一次后停止观察
+          observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.2 });
+    }, { threshold: 0.15 });
 
     document.querySelectorAll('.reveal-left, .reveal-right').forEach(el => observer.observe(el));
   };
 
-  observePhilosophy();
+  // 初始化并兼容 Astro 视图转换
   document.addEventListener('astro:page-load', observePhilosophy);
+  observePhilosophy();
 </script>

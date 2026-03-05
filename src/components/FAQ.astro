@@ -1,7 +1,7 @@
 ---
 /**
- * FAQ.astro - 艺术重构版
- * 风格：法式极简 / 艺术画报感
+ * FAQ.astro - 艺术重构版 (ROSE IS ROSE)
+ * 风格：法式极简 / 艺术画报感 / 极致丝滑交互
  */
 const faqs = [
   {
@@ -27,65 +27,65 @@ const faqs = [
 ];
 ---
 
-<section class="py-24 bg-brand-bg px-6 md:px-20 relative overflow-hidden">
+<section class="py-32 bg-[#F9F2E7] px-6 md:px-20 relative overflow-hidden text-[#3C3835]">
   
-  <div class="absolute left-100 top-40 text-[15vw] font-serif italic text-brand-accent/[0.09] pointer-events-none leading-none select-none">
+  <div class="absolute left-[-5%] top-40 text-[18vw] font-serif italic text-[#34041A]/[0.03] pointer-events-none leading-none select-none">
     Essence
   </div>
 
-  <div class="max-w-7xl mx-auto">
+  <div class="max-w-7xl mx-auto relative z-10">
     
-    <div class="w-full h-[0.5px] bg-brand-accent/20 mb-20"></div>
+    <div class="w-full h-[0.5px] bg-[#34041A]/10 mb-24"></div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 md:gap-24">
       
       <div class="lg:col-span-4">
         <div class="lg:sticky lg:top-40">
-          <p class="text-[10px] tracking-[0.8em] text-brand-accent/50 uppercase mb-8 font-medium">
+          <p class="text-[10px] tracking-[0.8em] text-[#8C7355] uppercase mb-10 font-medium">
             Perspective / 004
           </p>
-          <h2 class="text-5xl md:text-7xl font-serif font-extralight text-brand-accent leading-[0.85] tracking-tighter uppercase">
+          <h2 class="text-6xl md:text-8xl font-serif font-extralight text-[#34041A] leading-[0.8] tracking-tighter uppercase">
             The <br />
-            <span class="italic opacity-40 ml-12 lowercase">Journal</span> <br />
+            <span class="italic opacity-30 ml-12 lowercase font-light">Journal</span> <br />
             <span class="ml-4">Faq</span>
           </h2>
           
-          <div class="mt-20 hidden lg:block">
-             <div class="w-px h-32 bg-gradient-to-b from-brand-accent/40 to-transparent mx-auto"></div>
+          <div class="mt-24 hidden lg:block">
+             <div class="w-px h-40 bg-gradient-to-b from-[#8C7355]/40 to-transparent"></div>
           </div>
         </div>
       </div>
 
       <div class="lg:col-span-8">
         {faqs.map((faq) => (
-          <div class="faq-item border-b border-brand-accent/10 group overflow-hidden">
+          <div class="faq-item border-b border-[#34041A]/10 group transition-all duration-700">
             <button 
-              class="faq-trigger w-full py-14 flex items-start justify-between text-left focus:outline-none transition-all duration-700 group-hover:pl-4"
+              class="faq-trigger w-full py-16 flex items-start justify-between text-left focus:outline-none transition-all duration-700 hover:pl-6"
               aria-expanded="false"
             >
-              <div class="flex gap-8 md:gap-16 items-start">
-                <span class="font-mono text-[9px] text-brand-accent/30 mt-3 tracking-tighter italic">
+              <div class="flex gap-10 md:gap-20 items-start">
+                <span class="font-mono text-[10px] text-[#8C7355]/40 mt-3 tracking-tighter">
                   ({faq.num})
                 </span>
-                <h3 class="faq-question text-2xl md:text-4xl font-serif font-light text-brand-accent/90 tracking-tight leading-snug transition-all duration-700">
+                <h3 class="faq-question text-2xl md:text-4xl font-serif font-light text-[#34041A]/90 tracking-tight leading-[1.2] transition-all duration-700">
                   {faq.question}
                 </h3>
               </div>
 
-              <div class="relative w-10 h-10 mt-1 shrink-0 flex items-center justify-center transition-transform duration-700 icon-box">
-                 <div class="absolute w-6 h-[0.5px] bg-brand-accent/40"></div>
-                 <div class="absolute h-6 w-[0.5px] bg-brand-accent/40 vertical-bar transition-transform duration-700"></div>
-                 <div class="absolute inset-0 border border-brand-accent/5 rounded-full scale-50 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-700"></div>
+              <div class="relative w-12 h-12 mt-1 shrink-0 flex items-center justify-center transition-transform duration-700 icon-box">
+                 <div class="absolute w-6 h-[0.5px] bg-[#34041A]/30"></div>
+                 <div class="absolute h-6 w-[0.5px] bg-[#34041A]/30 vertical-bar transition-transform duration-700"></div>
+                 <div class="absolute inset-0 border border-[#34041A]/5 rounded-full scale-50 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-700"></div>
               </div>
             </button>
 
-            <div class="faq-content max-h-0 opacity-0 transition-all duration-1000 ease-[cubic-bezier(0.19,1,0.22,1)]">
-              <div class="pb-16 pl-20 md:pl-32 max-w-3xl">
-                <p class="text-brand-accent/70 text-lg md:text-xl leading-relaxed font-serif italic tracking-wide">
+            <div class="faq-content max-h-0 opacity-0 transition-all duration-1000 ease-[cubic-bezier(0.19,1,0.22,1)] overflow-hidden">
+              <div class="pb-20 pl-24 md:pl-44 max-w-3xl">
+                <p class="text-[#3C3835]/80 text-xl md:text-2xl leading-relaxed font-serif italic tracking-wide">
                   "{faq.answer}"
                 </p>
                 
-                <div class="mt-8 h-px w-12 bg-brand-accent/20"></div>
+                <div class="mt-10 h-px w-16 bg-[#8C7355]/30"></div>
               </div>
             </div>
           </div>
@@ -98,29 +98,31 @@ const faqs = [
 <style is:global>
   /* 极致顺滑的展开逻辑 */
   .faq-item.is-active .faq-content {
-    max-height: 1000px;
+    max-height: 800px;
     opacity: 1;
-    margin-top: -1rem; /* 紧凑修正 */
+    margin-top: 0;
   }
 
   .faq-item.is-active .faq-question {
     font-style: italic;
-    color: #34041A; /* 展开后加深颜色 */
-    transform: translateX(10px);
+    color: #34041A;
+    transform: translateX(20px);
   }
 
+  /* 加号变横线动画 */
   .faq-item.is-active .vertical-bar {
-    transform: rotate(90deg) scaleX(0); /* 变横线 */
+    transform: rotate(90deg) scaleY(0);
   }
 
+  /* 整体旋转 */
   .faq-item.is-active .icon-box {
     transform: rotate(180deg);
   }
 
-  /* 字体渲染优化 */
+  /* 针对中文字符的微调（如果之后加入中文） */
   .faq-question {
     -webkit-font-smoothing: antialiased;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
   }
 </style>
 
@@ -134,13 +136,12 @@ const faqs = [
       trigger?.addEventListener('click', () => {
         const isCurrentlyActive = item.classList.contains('is-active');
 
-        // 关闭所有已打开的 (独占模式，更具高级感)
+        // 排他模式：点击一个时关闭其他，保持页面整洁
         items.forEach(i => {
           i.classList.remove('is-active');
           i.querySelector('.faq-trigger')?.setAttribute('aria-expanded', 'false');
         });
 
-        // 如果之前没开，现在开启
         if (!isCurrentlyActive) {
           item.classList.add('is-active');
           trigger.setAttribute('aria-expanded', 'true');
@@ -149,7 +150,7 @@ const faqs = [
     });
   }
 
-  // 兼容 Astro 视图切换
+  // 确保在 Astro 的不同生命周期下都能运行
   setupFAQ();
   document.addEventListener('astro:page-load', setupFAQ);
 </script>

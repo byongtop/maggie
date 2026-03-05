@@ -1,0 +1,109 @@
+---
+import '../../styles/global.css';
+
+
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import ContactCTA2 from '../../components/ContactCTA2.astro';
+
+// 模拟的服务数据，正式环境建议使用 Astro Content Collections
+const services = [
+  {
+    title: "Lifestyle Portraits",
+    description: "Capture the authentic you in natural settings. Beyond static poses, we curate narratives that reflect your personality and lifestyle for social media and dating profiles.",
+    href: "/services/lifestyle",
+    icon: "01"
+  },
+  {
+    title: "Dating Strategy & Styling",
+    description: "Not just photography, but a complete visual overhaul. Strategic advice on wardrobe, posing, and image positioning to magnetize the right connections.",
+    href: "/services/dating",
+    icon: "02"
+  },
+  {
+    title: "Corporate Identity",
+    description: "Professional narrative portraiture for leaders and professionals who need to blend competence with approachable authenticity in a digital world.",
+    href: "/services/corporate",
+    icon: "03"
+  }
+];
+---
+
+<Layout title="Services | ROSE IS ROSE - Narrative Portraiture">
+  <Header />
+  
+  <main class="bg-brand-bg pt-20 md:pt-28">
+    
+    <section class="py-20 md:py-32 relative overflow-hidden">
+      <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+        <p class="text-brand-muted text-[10px] tracking-[0.5em] uppercase mb-4 flex items-center reveal-text">
+            <span class="w-8 h-[1px] bg-brand-muted/40 mr-4"></span>
+            Elevate Your Image
+        </p>
+        <h1 class="text-5xl md:text-7xl font-serif leading-[0.9] text-brand-dark mb-10 max-w-4xl reveal-text">
+            NARRATIVE <span class="italic font-light opacity-80">SERVICES</span>
+        </h1>
+        <p class="text-brand-primary/80 font-light text-lg max-w-2xl reveal-text">
+            Tailored visual storytelling designed to magnetize connection and build authentic personal brands in Shanghai and beyond.
+        </p>
+      </div>
+    </section>
+
+    <section class="pb-32">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 reveal-service">
+                {services.map(service => (
+                    <ServiceCard {...service} />
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <ContactCTA2 />
+
+  </main>
+  
+  <Footer />
+</Layout>
+
+<style is:global>
+  /* 动效样式复用 About 页面的 reveal-text/reveal-service */
+  .reveal-text {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal-text.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-service {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal-service.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+
+<script>
+  function initScrollAnimation() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal-text, .reveal-service').forEach(el => observer.observe(el));
+  }
+  document.addEventListener('astro:page-load', initScrollAnimation);
+  initScrollAnimation();
+</script>

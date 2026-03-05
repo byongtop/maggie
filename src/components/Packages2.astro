@@ -1,12 +1,13 @@
 ---
 /**
  * Packages.astro - 阶梯式摄影套餐模块 (Dark Mode Version)
+ * 核心色值：#34041A (深红底色), #F9F2E7 (羊绒米文字), #8C7355 (金棕辅助)
  */
 const packages = [
   {
     name: "ESSENTIAL",
     alias: "初见系列",
-    price: "¥1,980",
+    price: "$380",
     duration: "1.5 Hours",
     retouched: "12 Photos",
     original: "All Included",
@@ -18,7 +19,7 @@ const packages = [
   {
     name: "NARRATIVE",
     alias: "叙事系列",
-    price: "¥3,680",
+    price: "$680",
     duration: "3 Hours",
     retouched: "25 Photos",
     original: "All Included",
@@ -30,7 +31,7 @@ const packages = [
   {
     name: "COLLECTOR",
     alias: "私人订制",
-    price: "¥6,880",
+    price: "$1,280",
     duration: "Full Day",
     retouched: "50 Photos",
     original: "All Included",
@@ -42,50 +43,46 @@ const packages = [
 ];
 ---
 
-<section class="py-24 md:py-32 bg-brand-dark text-brand-on-dark overflow-hidden">
+<section class="py-24 md:py-36 bg-[#34041A] text-[#F9F2E7] overflow-hidden">
   <div class="max-w-7xl mx-auto px-8 md:px-12">
     
-    <!-- 标题区域 -->
-    <div class="mb-20 text-center">
-      <p class="text-brand-muted text-[10px] tracking-[0.5em] uppercase mb-4 reveal-up">Investment</p>
-      <h2 class="text-4xl md:text-6xl font-serif text-brand-on-dark leading-tight reveal-up">
-        CURATED <span class="italic font-light text-brand-on-dark/80">PACKAGES</span>
+    <div class="mb-24 text-center">
+      <p class="text-[#8C7355] text-[10px] tracking-[0.6em] uppercase mb-6 reveal-up">The Investment</p>
+      <h2 class="text-5xl md:text-7xl font-serif text-[#F9F2E7] leading-tight reveal-up uppercase">
+        Curated <span class="italic font-light opacity-60 lowercase">Packages</span>
       </h2>
-      <div class="w-12 h-[1px] bg-brand-muted/30 mx-auto mt-8 reveal-up"></div>
+      <div class="w-16 h-[0.5px] bg-[#F9F2E7]/20 mx-auto mt-10 reveal-up"></div>
     </div>
 
-    <!-- 卡片网格 -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
       {packages.map((pkg, index) => (
         <div 
-          class={`reveal-card group relative p-10 bg-[#4A1A2A] border transition-all duration-700 ease-out 
+          class={`reveal-card group relative p-10 md:p-12 transition-all duration-1000 ease-out 
           ${pkg.isPopular 
-            ? 'scale-105 z-10 border-brand-muted/50' 
-            : 'mt-0 lg:mt-8 border-brand-on-dark/10'}
-          hover:border-brand-muted/70 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)]`}
+            ? 'scale-105 z-10 border border-[#F9F2E7]/30 bg-[#4A1A2A]' 
+            : 'mt-0 lg:mt-10 border border-[#F9F2E7]/10 bg-[#3C0B21]'}
+          hover:border-[#F9F2E7]/50 hover:-translate-y-3 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.6)]`}
         >
           {pkg.isPopular && (
-            <div class="absolute top-0 right-10 -translate-y-1/2 bg-brand-muted text-brand-dark px-4 py-1 text-[9px] tracking-[0.3em] font-bold uppercase">
+            <div class="absolute top-0 right-10 -translate-y-1/2 bg-[#F9F2E7] text-[#34041A] px-5 py-1.5 text-[9px] tracking-[0.3em] font-bold uppercase">
               Recommended
             </div>
           )}
 
-          <!-- 头部区域 -->
-          <div class="mb-12 border-b border-brand-on-dark/10 pb-8">
-            <div class="flex justify-between items-start mb-4">
+          <div class="mb-14 border-b border-[#F9F2E7]/10 pb-10">
+            <div class="flex justify-between items-baseline mb-6">
               <div>
-                <h3 class="text-2xl font-serif text-brand-on-dark tracking-wider mb-1 uppercase font-medium">{pkg.name}</h3>
-                <span class="text-[10px] text-brand-muted tracking-[0.4em] uppercase font-light">{pkg.alias}</span>
+                <h3 class="text-3xl font-serif text-[#F9F2E7] tracking-wider mb-2 uppercase font-medium">{pkg.name}</h3>
+                <span class="text-[10px] text-[#8C7355] tracking-[0.4em] uppercase font-light">{pkg.alias}</span>
               </div>
-              <span class="text-xl font-serif text-brand-on-dark">{pkg.price}</span>
+              <span class="text-2xl font-serif text-[#F9F2E7]">{pkg.price}</span>
             </div>
-            <p class="text-xs text-brand-on-dark/70 leading-relaxed font-sans font-light">
+            <p class="text-[13px] text-[#F9F2E7]/70 leading-relaxed font-sans font-light italic">
               {pkg.description}
             </p>
           </div>
 
-          <!-- 规格参数 -->
-          <div class="grid grid-cols-2 gap-y-6 mb-12">
+          <div class="grid grid-cols-2 gap-y-8 mb-14">
             {[
               { label: 'Duration', value: pkg.duration },
               { label: 'Retouched', value: pkg.retouched },
@@ -93,76 +90,68 @@ const packages = [
               { label: 'Originals', value: pkg.original }
             ].map(item => (
               <div class="flex flex-col">
-                <span class="text-[9px] text-brand-muted/80 uppercase tracking-widest mb-1">{item.label}</span>
-                <span class="text-xs text-brand-on-dark font-sans font-bold uppercase tracking-wide">{item.value}</span>
+                <span class="text-[9px] text-[#8C7355] uppercase tracking-widest mb-2 opacity-80">{item.label}</span>
+                <span class="text-[13px] text-[#F9F2E7] font-mono font-bold uppercase tracking-tight">{item.value}</span>
               </div>
             ))}
           </div>
 
-          <!-- 特性列表 -->
-          <ul class="space-y-4 mb-14">
+          <ul class="space-y-5 mb-16">
             {pkg.features.map(feature => (
-              <li class="flex items-center text-[12px] text-brand-on-dark/80 font-light tracking-wide">
-                <span class="w-1 h-1 rounded-full bg-brand-muted mr-3"></span>
+              <li class="flex items-center text-[12px] text-[#F9F2E7]/80 font-light tracking-wide">
+                <span class="w-1 h-1 rounded-full bg-[#8C7355] mr-4"></span>
                 {feature}
               </li>
             ))}
           </ul>
 
-          <!-- 按钮 -->
           <a 
             href="/booking" 
-            class={`block w-full text-center py-5 text-[10px] tracking-[0.5em] uppercase transition-all duration-500 border
+            class={`block w-full text-center py-6 text-[10px] tracking-[0.5em] uppercase transition-all duration-700 border
             ${pkg.isPopular 
-              ? 'bg-brand-on-dark text-brand-dark border-brand-on-dark hover:bg-transparent hover:text-brand-on-dark' 
-              : 'bg-transparent text-brand-on-dark border-brand-on-dark/30 hover:border-brand-on-dark hover:bg-brand-on-dark/5'}`}
+              ? 'bg-[#F9F2E7] text-[#34041A] border-[#F9F2E7] hover:bg-transparent hover:text-[#F9F2E7]' 
+              : 'bg-transparent text-[#F9F2E7] border-[#F9F2E7]/30 hover:border-[#F9F2E7] hover:bg-[#F9F2E7]/5'}`}
           >
             Choose Package
           </a>
           
-          <!-- 背景序号 -->
-          <span class="absolute bottom-6 right-8 text-[6rem] font-serif italic text-brand-on-dark/[0.03] pointer-events-none select-none group-hover:text-brand-muted/10 transition-colors duration-700 leading-none">
+          <span class="absolute bottom-6 right-8 text-[7rem] font-serif italic text-[#F9F2E7]/[0.03] pointer-events-none select-none group-hover:text-[#F9F2E7]/[0.08] transition-all duration-1000 leading-none">
             0{index + 1}
           </span>
         </div>
       ))}
     </div>
 
-    <!-- 脚注 -->
-    <div class="mt-20 text-center reveal-up">
-      <p class="text-[10px] text-brand-on-dark/40 tracking-[0.2em] uppercase font-sans">
-        * Additional hours and retouching available upon request. <br class="md:hidden" /> Travel fees may apply for outside Shanghai.
+    <div class="mt-24 text-center reveal-up">
+      <p class="text-[10px] text-[#F9F2E7]/40 tracking-[0.2em] uppercase font-sans leading-loose">
+        * Additional hours and retouching available upon request. <br class="hidden md:block" /> 
+        Travel fees may apply for locations outside the Sydney metropolitan area.
       </p>
     </div>
   </div>
 </section>
 
 <style is:global>
-  /* 模块整体进入动效 */
   .reveal-up {
     opacity: 0;
     transform: translateY(40px);
     transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-    will-change: transform, opacity;
   }
   .reveal-up.active {
     opacity: 1;
     transform: translateY(0);
   }
 
-  /* 卡片序列进入动效 */
   .reveal-card {
     opacity: 0;
     transform: translateY(60px);
-    transition: all 1s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease;
-    will-change: transform, opacity, box-shadow;
+    transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.6s ease, border-color 0.6s ease;
   }
   .reveal-card.active {
     opacity: 1;
     transform: translateY(0);
   }
 
-  /* 延迟动效 */
   .reveal-card:nth-child(2) { transition-delay: 0.2s; }
   .reveal-card:nth-child(3) { transition-delay: 0.4s; }
 </style>
@@ -176,16 +165,11 @@ const packages = [
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1, rootMargin: '50px' });
+    }, { threshold: 0.05 });
 
     document.querySelectorAll('.reveal-up, .reveal-card').forEach(el => observer.observe(el));
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initPackages);
-  } else {
-    initPackages();
-  }
-  
   document.addEventListener('astro:page-load', initPackages);
+  initPackages();
 </script>

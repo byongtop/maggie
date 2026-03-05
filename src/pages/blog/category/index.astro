@@ -1,6 +1,7 @@
 ---
 // src/pages/blog/category/index.astro
-// 显示所有分类的概览页面
+// Display all categories overview page - ROSE IS ROSE
+// 集中管理与展示博客全部分类的导览页
 
 import '../../../styles/global.css';
 import { getCollection } from 'astro:content';
@@ -9,205 +10,181 @@ import Header from '../../../components/Header.astro';
 import Footer from '../../../components/Footer.astro';
 import { Icon } from 'astro-icon/components';
 
-// 分类配置
-const categoryConfig: Record<string, {
-  displayName: string;
-  description: string;
-  color: string;
-  icon?: string;
-  slug: string;
-}> = {
-  'Photography Tips & Guides': {
-    displayName: 'Photography Tips & Guides',
-    description: 'Expert advice on lighting, posing, and getting the perfect shot for your dating profile.',
-    color: 'bg-blue-50 text-blue-700 border-blue-200',
-    slug: 'photography-tips-guides'
+// ==========================================
+// 页面静态配置与文案 (Data Configuration)
+// ==========================================
+const categoryIndexData = {
+  seo: {
+    title: "Journal Collections | ROSE IS ROSE",
+    description: "Explore our photography insights, success stories, and dating strategy guides by category."
   },
-  'Success Stories': {
-    displayName: 'Success Stories',
-    description: 'Real stories from real clients who found love (or at least great dates) after their session.',
-    color: 'bg-green-50 text-green-700 border-green-200',
-    slug: 'success-stories'
+  hero: {
+    badge: "COLLECTIONS",
+    title: "THE CATEGORIES",
+    subtitle: "Curated content to help you navigate the art of visual presence and modern connection."
   },
-  'Dating Insights': {
-    displayName: 'Dating Insights',
-    description: 'Thoughts on modern dating in Sydney—the apps, the spots, the whole scene.',
-    color: 'bg-purple-50 text-purple-700 border-purple-200',
-    slug: 'dating-insights'
+  ui: {
+    backLink: "Back to all stories",
+    viewAllLink: "View all posts",
+    browseText: "Browse Category",
+    postSuffix: "Stories"
   },
-  'Behind the Scenes': {
-    displayName: 'Behind the Scenes',
-    description: 'A peek behind the lens—what happens on shoot day, how we work, and why we love it.',
-    color: 'bg-amber-50 text-amber-700 border-amber-200',
-    slug: 'behind-the-scenes'
+  // 核心分类配置：集中管理 Slug, 描述与样式
+  categoryConfig: {
+    'Photography Tips & Guides': {
+      slug: 'photography-tips-guides',
+      description: 'Expert advice on lighting, posing, and crafting a visual narrative that resonates.',
+      style: 'border-[#8C7355]/30 text-[#8C7355]'
+    },
+    'Success Stories': {
+      slug: 'success-stories',
+      description: 'Documented transformations of our clients and their journeys toward authentic connection.',
+      style: 'border-[#34041A]/30 text-[#34041A]'
+    },
+    'Dating Insights': {
+      slug: 'dating-insights',
+      description: 'Strategic analysis of the modern dating landscape in Sydney and beyond.',
+      style: 'border-[#34041A]/30 text-[#34041A]'
+    },
+    'Behind the Scenes': {
+      slug: 'behind-the-scenes',
+      description: 'An intimate look at our creative process, studio culture, and the "Rose is Rose" philosophy.',
+      style: 'border-[#8C7355]/30 text-[#8C7355]'
+    }
   }
 };
 
-// 获取每类文章的数量
+// 获取分类统计数据
 const allPosts = await getCollection('blog');
 const categoryCounts: Record<string, number> = {};
 
 allPosts.forEach(post => {
   const category = post.data.category;
-  categoryCounts[category] = (categoryCounts[category] || 0) + 1;
+  if (category) {
+    categoryCounts[category] = (categoryCounts[category] || 0) + 1;
+  }
 });
+
+const categoryEntries = Object.entries(categoryIndexData.categoryConfig);
 ---
 
 <Layout 
-  title="Blog Categories | ROSE IS ROSE"
-  description="Browse our blog posts by category - Photography Tips, Success Stories, Dating Insights, and Behind the Scenes"
+  title={categoryIndexData.seo.title}
+  description={categoryIndexData.seo.description}
 >
   <Header />
 
-  {/* 页面标题区 */}
-  <section class="relative pt-40 pb-20 md:pt-48 md:pb-24 bg-brand-dark text-white overflow-hidden">
-    <div class="absolute inset-0 opacity-10">
-      <div class="absolute inset-0 bg-[url('/assets/images/grid-pattern.svg')] bg-repeat"></div>
+  <section class="relative pt-40 pb-20 md:pt-56 md:pb-28 bg-[#34041A] text-[#F9F2E7] overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 opacity-[0.03] bg-[url('/assets/images/grid-pattern.svg')] bg-repeat"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#34041A]/20 to-[#34041A]"></div>
     </div>
     
-    <div class="absolute inset-0 bg-gradient-to-b from-brand-dark via-brand-dark/95 to-brand-dark"></div>
-    
-    <div class="container relative z-10 mx-auto px-6 max-w-4xl text-center">
-      <div class="flex justify-center mb-6">
-        <span class="text-xs tracking-[0.2em] uppercase px-4 py-2 rounded-full border bg-white/10 text-white border-white/20">
-          EXPLORE
-        </span>
-      </div>
-      
-      <h1 class="text-5xl md:text-7xl font-serif mb-6">Categories</h1>
-      <div class="w-24 h-px bg-brand-accent mx-auto mb-6"></div>
-      <p class="text-lg text-white/70 max-w-2xl mx-auto font-light">
-        Browse our blog posts by topic—find the content that matters most to you
+    <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10 text-center reveal-on-scroll">
+      <span class="text-[10px] tracking-[0.5em] text-[#8C7355] block mb-6 uppercase font-medium">
+        {categoryIndexData.hero.badge}
+      </span>
+      <h1 class="text-6xl md:text-9xl font-serif mb-8 tracking-tighter leading-none">
+        {categoryIndexData.hero.title}
+      </h1>
+      <div class="w-20 h-px bg-[#8C7355]/40 mx-auto mb-8 animate-width-grow"></div>
+      <p class="text-lg text-[#F9F2E7]/70 max-w-2xl mx-auto font-light italic leading-relaxed">
+        {categoryIndexData.hero.subtitle}
       </p>
     </div>
   </section>
 
-  {/* 分类列表 */}
-  <main class="bg-brand-bg">
-    <section class="max-w-7xl mx-auto px-6 py-20 md:py-24">
+  <main class="bg-[#F9F2E7]">
+    <section class="max-w-7xl mx-auto px-6 py-20 md:py-32">
       
-      <div class="flex justify-center mb-16">
+      <div class="flex justify-center mb-20 reveal-on-scroll">
         <a 
-          href="/blog"
-          class="text-xs tracking-[0.2em] uppercase text-brand-muted hover:text-brand-accent transition-colors flex items-center gap-2"
+          href="/blog" 
+          class="text-[10px] tracking-[0.3em] uppercase text-[#3C3835]/40 hover:text-[#34041A] transition-all flex items-center gap-3 group"
         >
-          <Icon name="lucide:arrow-left" class="w-3 h-3" />
-          Back to All Posts
+          <Icon name="lucide:arrow-left" class="w-3 h-3 group-hover:-translate-x-1 transition-transform" />
+          <span class="border-b border-transparent group-hover:border-[#34041A]/20 pb-1">
+            {categoryIndexData.ui.backLink}
+          </span>
         </a>
       </div>
 
-      <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-        {Object.entries(categoryConfig).map(([categoryName, config]) => {
-          const postCount = categoryCounts[categoryName] || 0;
+      <div class="grid md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
+        {categoryEntries.map(([name, config], index) => {
+          const count = categoryCounts[name] || 0;
           
           return (
             <a 
               href={`/blog/category/${config.slug}`}
-              class="group block bg-white rounded-2xl border border-brand-muted/10 hover:border-brand-accent/20 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 overflow-hidden"
+              class="group relative block bg-white border border-[#34041A]/5 hover:border-[#34041A]/20 transition-all duration-700 p-10 md:p-12 shadow-sm hover:shadow-2xl reveal-on-scroll"
+              style={`transition-delay: ${index * 100}ms`}
             >
-              <div class="p-8">
-                {/* 分类标签 */}
-                <div class="flex items-center justify-between mb-6">
-                  <span class={`text-xs tracking-[0.2em] uppercase px-4 py-2 rounded-full border ${config.color}`}>
-                    {config.displayName}
-                  </span>
-                  <span class="text-sm text-brand-muted/60 font-mono">
-                    {postCount} {postCount === 1 ? 'post' : 'posts'}
-                  </span>
-                </div>
-
-                {/* 分类描述 */}
-                <p class="text-brand-primary/70 font-light leading-relaxed mb-6">
-                  {config.description}
-                </p>
-
-                {/* 浏览链接 */}
-                <div class="flex items-center justify-between">
-                  <span class="text-xs tracking-[0.2em] uppercase text-brand-muted group-hover:text-brand-accent transition-colors">
-                    Browse Category
-                  </span>
-                  <div class="w-8 h-8 rounded-full bg-brand-accent/5 group-hover:bg-brand-accent flex items-center justify-center transition-colors">
-                    <Icon name="lucide:arrow-right" class="w-4 h-4 text-brand-accent group-hover:text-white transition-colors" />
-                  </div>
-                </div>
+              <div class="flex items-center justify-between mb-8">
+                <span class={`text-[10px] tracking-[0.2em] uppercase px-4 py-2 border ${config.style} backdrop-blur-sm`}>
+                  {name}
+                </span>
+                <span class="text-[10px] tracking-widest text-[#3C3835]/30 uppercase font-medium">
+                  {count} {categoryIndexData.ui.postSuffix}
+                </span>
               </div>
 
-              {/* 装饰性元素 */}
-              <div class="h-1 w-0 group-hover:w-full bg-brand-accent transition-all duration-700"></div>
+              <p class="text-[#3C3835]/70 font-light leading-relaxed mb-12 text-lg italic pr-6 group-hover:text-[#3C3835] transition-colors duration-500">
+                {config.description}
+              </p>
+
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                  <span class="text-[10px] tracking-[0.4em] uppercase text-[#34041A] font-medium">
+                    {categoryIndexData.ui.browseText}
+                  </span>
+                  <div class="w-8 h-px bg-[#8C7355] group-hover:w-16 transition-all duration-500 ease-in-out"></div>
+                </div>
+                
+                <div class="w-12 h-12 rounded-full border border-[#34041A]/5 group-hover:bg-[#34041A] group-hover:text-[#F9F2E7] flex items-center justify-center transition-all duration-500 ease-out transform group-hover:rotate-[-45deg]">
+                  <Icon name="lucide:arrow-right" class="w-5 h-5" />
+                </div>
+              </div>
+              
+              <div class="absolute bottom-0 left-0 h-[2px] w-0 bg-[#34041A] group-hover:w-full transition-all duration-700 ease-in-out"></div>
             </a>
           );
         })}
       </div>
 
-      {/* 如果没有文章 */}
-      {Object.keys(categoryConfig).length === 0 && (
-        <div class="text-center py-20">
-          <p class="text-brand-muted/60">No categories found.</p>
-        </div>
-      )}
-
-      {/* 返回博客首页 */}
-      <div class="text-center mt-20">
+      <div class="text-center mt-32 reveal-on-scroll">
         <a 
-          href="/blog"
-          class="inline-flex items-center gap-3 text-sm tracking-[0.2em] uppercase text-brand-muted hover:text-brand-accent transition-colors group"
+          href="/blog" 
+          class="inline-flex items-center gap-6 text-[11px] tracking-[0.5em] uppercase text-[#34041A] group font-medium"
         >
-          <span>View All Posts</span>
-          <Icon name="lucide:arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          <span class="relative py-2">
+            {categoryIndexData.ui.viewAllLink}
+            <span class="absolute bottom-0 left-0 w-full h-[1px] bg-[#34041A]/10 group-hover:bg-[#34041A] transition-all duration-500"></span>
+          </span>
+          <div class="w-10 h-10 rounded-full bg-[#34041A]/5 group-hover:bg-[#34041A] flex items-center justify-center transition-all duration-500">
+             <Icon name="lucide:arrow-right" class="w-4 h-4 group-hover:text-[#F9F2E7] transition-colors" />
+          </div>
         </a>
       </div>
+
     </section>
   </main>
 
   <Footer />
 </Layout>
 
-<style is:global>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap');
+<script>
+  function initReveal() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+  }
   
-  @font-face {
-    font-family: 'Kudryashev';
-    src: local('Georgia'), local('Times New Roman'), serif;
-    font-display: swap;
-  }
-
-  :root {
-    --brand-dark: #0A0A0A;
-    --brand-primary: #1A1A1A;
-    --brand-accent: #34041A;
-    --brand-muted: #6B4E5E;
-    --brand-bg: #FDFAF7;
-  }
-
-  body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--brand-bg);
-    color: var(--brand-primary);
-  }
-
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: var(--brand-bg);
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: var(--brand-muted);
-    border-radius: 4px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--brand-accent);
-  }
-
-  ::selection {
-    background: rgba(52, 4, 26, 0.15);
-    color: var(--brand-accent);
-  }
-
-  html {
-    scroll-behavior: smooth;
-  }
-</style>
+  document.addEventListener('astro:page-load', initReveal);
+  initReveal();
+</script>

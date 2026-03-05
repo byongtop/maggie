@@ -1,59 +1,100 @@
 ---
 // src/pages/services/dating-app-strategy-sydney.astro
-// Dating App Strategy Sydney - roseisrose Service Page
-
 import '../../styles/global.css'; 
-
 import Layout from "../../layouts/Layout.astro";
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import Packages from '../../components/Packages2.astro';
-
 import { Icon } from 'astro-icon/components';
 
-// 页面元数据
+/**
+ * 完全无删减的内容变量
+ */
 const serviceData = {
   level: "1",
   no: "05",
   title: "DATING APP STRATEGY",
   subtitle: "Swipe Smarter, Not Harder",
   h1Title: "Sydney Dating App Strategy: Stop Wasting Time, Start Getting Matches That Matter",
+  heroBadgeMono: "No more mindless swiping",
+  heroTitleRow1: "APP",
+  heroTitleRow2: "STRATEGY",
+  ctaText: "Fix my strategy",
+  ctaSecondary: "Tell me more",
   desc: "Tinder, Hinge, Bumble—they're all different games. We'll teach you how to play each one. Less mindless swiping, more actual dates with people you actually want to meet.",
-  image: "/assets/images/stefan-stefancik-QXevDflbl8A-unsplash.jpg",
   heroImage: "/assets/images/andrey-zvyagintsev-x0c6vTO5ibA-unsplash.jpg",
-  features: [
-    "90-min deep dive: audit your current profile",
-    "App-by-app strategy (Tinder vs Hinge vs Bumble)",
-    "Who to swipe right on (and who to skip)",
-    "Opening lines that actually get replies",
-    "Spotting red flags before you waste your time"
-  ],
-  order: 5,
-  seo: {
-    metaTitle: "Dating App Strategist Sydney | Tinder Hinge Bumble Coach | ROSE IS ROSE",
-    metaDescription: "Need a dating app strategist in Sydney? We'll help you master Tinder, Hinge and Bumble—from profile setup to opening lines to spotting red flags. More matches, less stress.",
-    keywords: "dating app strategist Sydney, dating app coach Sydney, Tinder strategy Sydney, Hinge strategy Sydney, Bumble strategy Sydney, dating profile consultant Sydney, how to get more matches Sydney",
-    imageAlt: "Dating app strategy session in Sydney"
-  },
-  isPublished: true,
-  faq: [
+  
+  // Story Section
+  storyBgText: "SWIPE • SWIPE • SWIPE",
+  storyTitleMain: "SWIPE",
+  storyTitleItalic: "SMARTER",
+  storyTagline: "WHY STRATEGY BEATS LUCK EVERY TIME",
+  storyIntroDropcap: "H",
+  storyIntroText: "ere's the thing about dating apps: most people treat them like a slot machine. Just keep swiping and hope something good happens.",
+  storyIntroQuote: "But the people who actually get dates? They have a system. They know which photos work, what to write, who to swipe on, and how to move from match to meet-up. That's not luck—that's strategy. And you can learn it.",
+  
+  // Strategy Blocks
+  strategyBlocks: [
     {
-      question: "Isn't dating apps just... luck?",
-      answer: "Nope. There's a reason some people get tons of matches and others don't. It's not looks—it's strategy. Which photos you lead with, what you write, who you swipe on, how you message. We'll teach you the system. The luck part? That's just showing up."
+      title: "QUALITY OVER QUANTITY",
+      text: "69% of Aussie Gen Z users are more likely to engage with verified profiles [citation:5]. But it's not just about the blue tick. It's about knowing who to swipe on—and who to skip. We'll help you spot the people who are actually worth your time."
     },
     {
-      question: "Tinder, Hinge and Bumble are so different. Help?",
-      answer: "They really are. Hinge is for prompts and personality. Tinder is faster, more visual. Bumble puts women in the driver's seat. We'll break down each one and help you figure out which app suits you best—and how to use each one right."
-    },
-    {
-      question: "I get matches but no replies. What's wrong?",
-      answer: "Classic problem. Your photos are working, but your openers aren't. 'Hey' doesn't cut it. We'll give you opening lines that are easy, natural, and actually get conversations started—without feeling like a pickup artist."
-    },
-    {
-      question: "How do I spot catfish and scammers?",
-      answer: "We'll show you the red flags. Profiles that are too perfect? Reluctance to meet? Always 'working overseas'? We've seen it all. You'll know what to look for so you don't waste your time—or worse [citation:2]."
+      title: "STOP WASTING TIME",
+      text: "The average person spends hours a week on apps. Hours. We'll help you cut that down—better targeting, better openers, faster path to \"let's grab a drink in Surry Hills.\" More dates, less screen time."
     }
   ],
+
+  // Mistakes Section
+  mistakeTitle: "STRATEGY MISTAKES WE SEE",
+  mistakeSubtitle: "(and how we fix them)",
+  mistakes: [
+    {
+      no: "01",
+      title: "Swiping on Everyone",
+      desc: "If you swipe right on everyone, the algorithm gets confused. It doesn't know what you actually like. We'll teach you to swipe with intention—so the app shows you more of who you actually want."
+    },
+    {
+      no: "02",
+      title: "The 'Hey' Opener",
+      desc: "You match. You message \"hey.\" They don't reply. Shocking, right? We'll give you openers that are easy, natural, and actually start conversations—without feeling like a cheesy pick-up line."
+    },
+    {
+      no: "03",
+      title: "Stuck in the App",
+      desc: "Some people just... never meet. They chat for weeks, maybe months, and nothing happens. We'll help you move it offline—because the goal isn't a good texter, it's a good date."
+    }
+  ],
+  statText: "Quick stat: During summer \"peak season\" (December to Valentine's Day), Tinder sees 2.1 million more messages sent per day than average [citation:10]. The busy period is real. We'll help you make the most of it.",
+
+  // Trust & Safety
+  trustModules: [
+    {
+      label: "01 — SAFETY",
+      title: "SPOT THE SCAMMERS",
+      content: "About 40% of Australians using dating apps have been exposed to scammers [citation:2]. Not fun. We'll teach you the red flags:",
+      list: [
+        "Love-bombing way too fast",
+        "Always an excuse not to meet",
+        "Photos that look too perfect (reverse image search is your friend)",
+        "Any request for money—ever"
+      ]
+    },
+    {
+      label: "02 — TRUST",
+      title: "GET VERIFIED, GET MATCHES",
+      content: "66% of Aussie Gen Z users say seeing a verification badge makes them feel more confident swiping [citation:5]. We'll show you how to get verified on each app—and why it matters.",
+      italicContent: "Tinder's ID + Photo Verification is a two-step process: video selfie + government ID. Once you've got the blue checkmark, you're officially a Verified QT [citation:5].",
+      closing: "More trust = more matches. Simple."
+    }
+  ],
+
+  // Wide Callout
+  wideCalloutTitle: "FROM MATCH TO MEET-UP",
+  wideCalloutText: "The goal isn't a full inbox. It's a Friday night drink at somewhere like The Rover in Surry Hills, or a Saturday afternoon walk from Bondi to Bronte. We'll help you get there—without the awkward \"so... when should we meet?\" text paralysis.",
+
+  // Process
+  processTitle: "HOW IT WORKS",
   experienceModules: [
     {
       title: "The Profile Audit",
@@ -76,7 +117,42 @@ const serviceData = {
       imageAlt: "From match to date strategy",
       caption: "Texting is just a means to an end."
     }
-  ]
+  ],
+
+  // FAQ
+  faqTitle: "YOU'VE GOT QUESTIONS",
+  faq: [
+    {
+      question: "Isn't dating apps just... luck?",
+      answer: "Nope. There's a reason some people get tons of matches and others don't. It's not looks—it's strategy. Which photos you lead with, what you write, who you swipe on, how you message. We'll teach you the system. The luck part? That's just showing up."
+    },
+    {
+      question: "Tinder, Hinge and Bumble are so different. Help?",
+      answer: "They really are. Hinge is for prompts and personality. Tinder is faster, more visual. Bumble puts women in the driver's seat. We'll break down each one and help you figure out which app suits you best—and how to use each one right."
+    },
+    {
+      question: "I get matches but no replies. What's wrong?",
+      answer: "Classic problem. Your photos are working, but your openers aren't. 'Hey' doesn't cut it. We'll give you opening lines that are easy, natural, and actually get conversations started—without feeling like a pickup artist."
+    },
+    {
+      question: "How do I spot catfish and scammers?",
+      answer: "We'll show you the red flags. Profiles that are too perfect? Reluctance to meet? Always 'working overseas'? We've seen it all. You'll know what to look for so you don't waste your time—or worse [citation:2]."
+    }
+  ],
+
+  // Outro
+  outroBgText: "MATCH • MATCH • MATCH",
+  outroTitleMain: "STOP SWIPING",
+  outroTitleItalic: "START MEETING",
+  outroDesc: "Let's turn all that screen time into actual dates with actual people you actually like.",
+  outroCta: "Book your strategy session",
+
+  // SEO
+  seo: {
+    metaTitle: "Dating App Strategist Sydney | Tinder Hinge Bumble Coach | ROSE IS ROSE",
+    metaDescription: "Need a dating app strategist in Sydney? We'll help you master Tinder, Hinge and Bumble—from profile setup to opening lines to spotting red flags. More matches, less stress.",
+    imageAlt: "Dating app strategy session in Sydney"
+  }
 };
 ---
 
@@ -86,488 +162,212 @@ const serviceData = {
 >
   <Header />
   
-  <!-- Hero Section with Parallax Effect -->
-  <section class="relative h-screen min-h-[800px] flex items-center justify-center overflow-hidden">
-    <!-- Dynamic Background with Overlay -->
+  <section class="relative h-screen min-h-[800px] flex items-center justify-center overflow-hidden bg-brand-dark">
     <div class="absolute inset-0 z-0">
-      <div class="absolute inset-0 bg-gradient-to-b from-brand-dark/90 via-brand-dark/70 to-brand-dark/90 z-10"></div>
-      <div class="absolute inset-0 bg-[url('/assets/images/grid-pattern.svg')] opacity-5 z-20"></div>
-      <img 
-        src={serviceData.heroImage} 
-        alt="Sydney Dating App Strategy" 
-        class="w-full h-full object-cover animate-ken-burns"
-      />
+      <div class="absolute inset-0 bg-gradient-to-b from-brand-dark/90 via-brand-dark/60 to-brand-dark/90 z-10"></div>
+      <img src={serviceData.heroImage} alt={serviceData.seo.imageAlt} class="w-full h-full object-cover opacity-60 animate-ken-burns" />
     </div>
 
-    <!-- Hero Content -->
-    <div class="container relative z-30 mx-auto px-6 text-center">
-      <!-- Floating Badge -->
-      <div class="inline-flex items-center gap-3 px-6 py-3 bg-white/5 backdrop-blur-xl rounded-full border border-white/10 mb-8 animate-float">
+    <div class="container relative z-30 mx-auto px-6 text-center reveal-on-scroll">
+      <div class="inline-flex items-center gap-3 px-6 py-3 bg-brand-on-dark/5 backdrop-blur-xl rounded-full border border-brand-on-dark/10 mb-8 animate-float">
         <span class="w-2 h-2 rounded-full bg-brand-accent animate-pulse"></span>
-        <span class="text-xs tracking-[0.3em] text-white/80 font-light uppercase">{serviceData.subtitle}</span>
-        <span class="text-white/40 mx-2">•</span>
-        <span class="text-xs font-mono text-white/60">No more mindless swiping</span>
+        <span class="text-xs tracking-[0.3em] text-brand-on-dark/80 font-light uppercase">{serviceData.subtitle}</span>
+        <span class="text-brand-on-dark/40 mx-2">•</span>
+        <span class="text-xs font-mono text-brand-on-dark/60">{serviceData.heroBadgeMono}</span>
       </div>
 
-      <!-- Main Title with Split Animation -->
-      <h1 class="text-7xl md:text-9xl font-serif text-white mb-6 leading-[0.9] tracking-tight">
-        <span class="block overflow-hidden">
-          <span class="block animate-title-slide-up">APP</span>
-        </span>
-        <span class="block overflow-hidden">
-          <span class="block animate-title-slide-up animation-delay-200">STRATEGY</span>
-        </span>
+      <h1 class="text-7xl md:text-9xl font-serif text-brand-on-dark mb-6 leading-[0.9] tracking-tight uppercase">
+        {serviceData.heroTitleRow1}<br/>
+        {serviceData.heroTitleRow2}
       </h1>
 
-      <!-- Gradient Line -->
-      <div class="w-24 h-px mx-auto mb-8 bg-gradient-to-r from-transparent via-brand-accent to-transparent animate-width-grow"></div>
+      <div class="w-24 h-px mx-auto mb-8 bg-gradient-to-r from-transparent via-brand-accent to-transparent"></div>
 
-      <!-- Description -->
-      <p class="text-lg md:text-xl text-white/70 max-w-2xl mx-auto font-light leading-relaxed mb-12 animate-fade-in animation-delay-500">
+      <p class="text-lg md:text-xl text-brand-on-dark/70 max-w-2xl mx-auto font-light leading-relaxed mb-12">
         {serviceData.desc}
       </p>
 
-      <!-- CTA Buttons -->
-      <div class="flex flex-col sm:flex-row gap-6 justify-center items-center animate-fade-in animation-delay-700">
-        <a href="/booking" class="group relative px-10 py-5 bg-brand-accent text-white overflow-hidden rounded-2xl">
-          <span class="absolute inset-0 w-0 bg-white/20 group-hover:w-full transition-all duration-500"></span>
-          <span class="relative flex items-center gap-3 text-sm tracking-[0.3em] uppercase font-light">
-            Fix my strategy
-            <Icon name="lucide:arrow-right" class="w-4 h-4 group-hover:translate-x-2 transition-transform" />
-          </span>
+      <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+        <a href="/booking" class="btn-brand">
+          {serviceData.ctaText}
+          <Icon name="lucide:arrow-right" class="w-4 h-4" />
         </a>
-        <a href="#story" class="group flex items-center gap-3 text-white/70 hover:text-white transition-colors">
-          <span class="w-12 h-px bg-white/30 group-hover:w-16 group-hover:bg-brand-accent transition-all"></span>
-          <span class="text-xs tracking-[0.3em] uppercase font-light">Tell me more</span>
-        </a>
-      </div>
-
-      <!-- Scroll Indicator -->
-      <div class="absolute bottom-12 left-1/2 -translate-x-1/2">
-        <a href="#story" class="flex flex-col items-center gap-3 text-white/40 hover:text-white/60 transition-colors">
-          <span class="text-xs tracking-[0.2em] uppercase font-light rotate-90 mb-4">Scroll</span>
-          <div class="w-px h-16 bg-gradient-to-b from-white/20 to-transparent"></div>
+        <a href="#story" class="group flex items-center gap-3 text-brand-on-dark/70 hover:text-brand-on-dark transition-colors">
+          <span class="w-12 h-px bg-brand-on-dark/30 group-hover:w-16 group-hover:bg-brand-accent transition-all"></span>
+          <span class="text-xs tracking-[0.3em] uppercase font-light">{serviceData.ctaSecondary}</span>
         </a>
       </div>
     </div>
   </section>
 
-  <!-- Main Content Section -->
   <main class="bg-brand-bg">
-  <section id="story" class="max-w-7xl mx-auto px-8 py-32 md:py-40 bg-brand-bg text-brand-primary relative">
-    <!-- Background Decorative Elements -->
-    <div class="absolute inset-0 overflow-hidden pointer-events-none">
-      <div class="absolute top-40 -left-20 w-80 h-80 bg-brand-accent/5 rounded-full blur-3xl"></div>
-      <div class="absolute bottom-40 -right-20 w-96 h-96 bg-brand-accent/5 rounded-full blur-3xl"></div>
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('/assets/images/pattern.png')] opacity-[0.02]"></div>
-    </div>
-
-    <!-- 主标题 - 大留白，强对比 -->
-    <div class="mb-32 relative">
-      <div class="absolute -top-20 left-0 text-[15vw] font-serif text-brand-accent/5 leading-none select-none pointer-events-none whitespace-nowrap">
-        SWIPE • SWIPE • SWIPE
-      </div>
-      <h2 class="text-6xl md:text-8xl font-serif text-brand-accent leading-[0.9] tracking-[-0.03em] uppercase relative">
-        SWIPE<br />
-        <span class="italic font-light text-brand-muted relative inline-block group">
-          SMARTER
-          <span class="absolute -bottom-4 left-0 w-0 h-px bg-brand-accent group-hover:w-full transition-all duration-1000"></span>
-        </span>
-      </h2>
-      <p class="text-xs md:text-sm text-brand-muted/70 tracking-[0.3em] uppercase mt-12 font-sans relative pl-8 before:absolute before:left-0 before:top-1/2 before:w-6 before:h-px before:bg-brand-muted/30">
-        WHY STRATEGY BEATS LUCK EVERY TIME
-      </p>
-    </div>
-
-    <!-- 引言段落 - 优雅的首字下沉和视差效果 -->
-    <div class="mb-32 relative group">
-      <div class="absolute -left-8 top-0 text-[12rem] font-serif text-brand-accent/10 leading-none select-none pointer-events-none group-hover:text-brand-accent/20 transition-colors duration-700">
-        "
-      </div>
-      <div class="relative pl-16">
-        <p class="text-lg md:text-2xl font-light leading-relaxed text-brand-primary/80 mb-8 dropcap">
-          <span class="text-8xl float-left font-serif text-brand-accent mr-6 mt-2 leading-[0.8]">H</span>
-          ere's the thing about dating apps: most people treat them like a slot machine. Just keep swiping and hope something good happens.
-        </p>
-        <p class="text-lg md:text-xl font-light leading-relaxed text-brand-primary/70 pl-8 border-l-2 border-brand-accent/30 italic">
-          But the people who actually get dates? They have a system. They know which photos work, what to write, who to swipe on, and how to move from match to meet-up. That's not luck—that's strategy. And you can learn it.
-        </p>
-      </div>
-    </div>
-
-    <!-- 战略叙事区块 - 网格布局增加层次 -->
-    <div class="grid md:grid-cols-2 gap-20 mb-32">
-      <div class="relative group">
-        <div class="absolute inset-0 bg-gradient-to-br from-brand-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 -m-8 rounded-3xl"></div>
-        <h2 class="text-3xl font-serif text-brand-accent mb-8 uppercase tracking-wide flex items-center">
-          <span class="w-12 h-px bg-brand-muted mr-6 group-hover:w-20 transition-all duration-700"></span>
-          QUALITY OVER QUANTITY
+    <section id="story" class="max-w-7xl mx-auto px-8 py-32 md:py-40 bg-brand-bg text-brand-primary relative">
+      <div class="mb-32 relative reveal-on-scroll">
+        <div class="absolute -top-20 left-0 text-[10vw] font-serif text-brand-accent/5 leading-none select-none pointer-events-none whitespace-nowrap">
+          {serviceData.storyBgText}
+        </div>
+        <h2 class="text-6xl md:text-8xl font-serif text-brand-accent leading-[0.9] tracking-[-0.03em] uppercase relative">
+          {serviceData.storyTitleMain}<br />
+          <span class="italic font-light text-brand-muted">{serviceData.storyTitleItalic}</span>
         </h2>
-        <p class="text-base font-light leading-relaxed text-brand-primary/70 relative">
-          69% of Aussie Gen Z users are more likely to engage with verified profiles [citation:5]. But it's not just about the blue tick. It's about knowing who to swipe on—and who to skip. We'll help you spot the people who are actually worth your time.
+        <p class="text-xs md:text-sm text-brand-muted/70 tracking-[0.3em] uppercase mt-12 pl-8 border-l border-brand-muted/30">
+          {serviceData.storyTagline}
         </p>
-        <div class="absolute bottom-0 left-0 w-0 h-px bg-brand-accent group-hover:w-full transition-all duration-1000"></div>
       </div>
-      <div class="relative group">
-        <div class="absolute inset-0 bg-gradient-to-bl from-brand-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 -m-8 rounded-3xl"></div>
-        <h2 class="text-3xl font-serif text-brand-accent mb-8 uppercase tracking-wide flex items-center">
-          <span class="w-12 h-px bg-brand-muted mr-6 group-hover:w-20 transition-all duration-700"></span>
-          STOP WASTING TIME
-        </h2>
-        <p class="text-base font-light leading-relaxed text-brand-primary/70">
-          The average person spends hours a week on apps. Hours. We'll help you cut that down—better targeting, better openers, faster path to "let's grab a drink in Surry Hills." More dates, less screen time.
-        </p>
-        <div class="absolute bottom-0 left-0 w-0 h-px bg-brand-accent group-hover:w-full transition-all duration-1000"></div>
-      </div>
-    </div>
 
-    <!-- 三陷阱区块 - 带有编号的高级列表 -->
-    <div class="mb-40 relative">
-      <h2 class="text-4xl md:text-5xl font-serif text-brand-accent mb-16 uppercase tracking-wide text-center">
-        STRATEGY MISTAKES WE SEE<br />
-        <span class="text-xl font-light text-brand-muted block mt-4 tracking-normal">(and how we fix them)</span>
-      </h2>
-      <div class="grid md:grid-cols-3 gap-8">
-        <!-- 陷阱1 -->
-        <div class="group relative p-10 bg-white/50 backdrop-blur-sm border border-brand-muted/10 hover:border-brand-accent/30 transition-all duration-700 hover:translate-y-[-8px]">
-          <span class="absolute -top-6 left-8 text-8xl font-serif text-brand-accent/10 group-hover:text-brand-accent/20 transition-colors">01</span>
-          <h3 class="text-2xl font-serif text-brand-accent mb-4 relative z-10">Swiping on Everyone</h3>
-          <p class="text-sm font-light text-brand-primary/60 leading-relaxed relative z-10">If you swipe right on everyone, the algorithm gets confused. It doesn't know what you actually like. We'll teach you to swipe with intention—so the app shows you more of who you actually want.</p>
-          <div class="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-brand-accent to-transparent group-hover:w-full transition-all duration-700"></div>
-        </div>
-        <!-- 陷阱2 -->
-        <div class="group relative p-10 bg-white/50 backdrop-blur-sm border border-brand-muted/10 hover:border-brand-accent/30 transition-all duration-700 hover:translate-y-[-8px]">
-          <span class="absolute -top-6 left-8 text-8xl font-serif text-brand-accent/10 group-hover:text-brand-accent/20 transition-colors">02</span>
-          <h3 class="text-2xl font-serif text-brand-accent mb-4 relative z-10">The 'Hey' Opener</h3>
-          <p class="text-sm font-light text-brand-primary/60 leading-relaxed relative z-10">You match. You message "hey." They don't reply. Shocking, right? We'll give you openers that are easy, natural, and actually start conversations—without feeling like a cheesy pick-up line.</p>
-          <div class="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-brand-accent to-transparent group-hover:w-full transition-all duration-700"></div>
-        </div>
-        <!-- 陷阱3 -->
-        <div class="group relative p-10 bg-white/50 backdrop-blur-sm border border-brand-muted/10 hover:border-brand-accent/30 transition-all duration-700 hover:translate-y-[-8px]">
-          <span class="absolute -top-6 left-8 text-8xl font-serif text-brand-accent/10 group-hover:text-brand-accent/20 transition-colors">03</span>
-          <h3 class="text-2xl font-serif text-brand-accent mb-4 relative z-10">Stuck in the App</h3>
-          <p class="text-sm font-light text-brand-primary/60 leading-relaxed relative z-10">Some people just... never meet. They chat for weeks, maybe months, and nothing happens. We'll help you move it offline—because the goal isn't a good texter, it's a good date.</p>
-          <div class="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-brand-accent to-transparent group-hover:w-full transition-all duration-700"></div>
+      <div class="mb-32 relative reveal-on-scroll">
+        <div class="absolute -left-8 top-0 text-[12rem] font-serif text-brand-accent/5 leading-none">"</div>
+        <div class="relative pl-16">
+          <p class="text-lg md:text-2xl font-light leading-relaxed text-brand-primary/80 mb-8">
+            <span class="text-8xl float-left font-serif text-brand-accent mr-6 mt-2 leading-[0.8]">{serviceData.storyIntroDropcap}</span>
+            {serviceData.storyIntroText}
+          </p>
+          <p class="text-lg md:text-xl font-light leading-relaxed text-brand-primary/70 pl-8 border-l-2 border-brand-accent/30 italic">
+            {serviceData.storyIntroQuote}
+          </p>
         </div>
       </div>
-      <!-- 技术说明 -->
-      <div class="mt-16 p-8 bg-gradient-to-r from-brand-accent/10 to-transparent border-l-4 border-brand-accent rounded-r-2xl">
-        <p class="text-sm font-mono text-brand-primary/80 leading-relaxed">
-          Quick stat: During summer "peak season" (December to Valentine's Day), Tinder sees 2.1 million more messages sent per day than average [citation:10]. The busy period is real. We'll help you make the most of it.
-        </p>
-      </div>
-    </div>
 
-    <!-- 体验区块 - 双栏布局 -->
-    <div class="grid md:grid-cols-2 gap-20 mb-40">
-      <!-- SPOTTING RED FLAGS -->
-      <div class="relative group">
-        <div class="sticky top-8">
-          <h2 class="text-3xl font-serif text-brand-accent mb-10 uppercase tracking-wide">
-            <span class="block text-sm font-light text-brand-muted mb-3 tracking-[0.3em]">01 — SAFETY</span>
-            SPOT THE SCAMMERS
-          </h2>
-          <div class="space-y-6">
-            <p class="text-base font-light leading-relaxed text-brand-primary/70">
-              About 40% of Australians using dating apps have been exposed to scammers [citation:2]. Not fun. We'll teach you the red flags:
-            </p>
-            <ul class="space-y-4 text-base font-light">
-              <li class="flex items-start group/item">
-                <span class="w-2 h-2 rounded-full bg-brand-accent mt-2 mr-4 group-hover/item:scale-150 transition-transform"></span>
-                <span class="text-brand-primary/70">Love-bombing way too fast</span>
-              </li>
-              <li class="flex items-start group/item">
-                <span class="w-2 h-2 rounded-full bg-brand-accent mt-2 mr-4 group-hover/item:scale-150 transition-transform"></span>
-                <span class="text-brand-primary/70">Always an excuse not to meet</span>
-              </li>
-              <li class="flex items-start group/item">
-                <span class="w-2 h-2 rounded-full bg-brand-accent mt-2 mr-4 group-hover/item:scale-150 transition-transform"></span>
-                <span class="text-brand-primary/70">Photos that look too perfect (reverse image search is your friend)</span>
-              </li>
-              <li class="flex items-start group/item">
-                <span class="w-2 h-2 rounded-full bg-brand-accent mt-2 mr-4 group-hover/item:scale-150 transition-transform"></span>
-                <span class="text-brand-primary/70">Any request for money—ever</span>
-              </li>
-            </ul>
+      <div class="grid md:grid-cols-2 gap-20 mb-32 reveal-on-scroll">
+        {serviceData.strategyBlocks.map((block) => (
+          <div class="relative group">
+            <h2 class="text-3xl font-serif text-brand-accent mb-8 uppercase tracking-wide flex items-center">
+              <span class="w-12 h-px bg-brand-muted mr-6 group-hover:w-20 transition-all duration-700"></span>
+              {block.title}
+            </h2>
+            <p class="text-base font-light leading-relaxed text-brand-primary/70">{block.text}</p>
           </div>
-        </div>
+        ))}
       </div>
-      <!-- VERIFICATION & TRUST -->
-      <div class="relative group">
-        <div class="sticky top-8">
-          <h2 class="text-3xl font-serif text-brand-accent mb-10 uppercase tracking-wide">
-            <span class="block text-sm font-light text-brand-muted mb-3 tracking-[0.3em]">02 — TRUST</span>
-            GET VERIFIED, GET MATCHES
-          </h2>
-          <div class="space-y-6">
-            <p class="text-base font-light leading-relaxed text-brand-primary/70">
-              66% of Aussie Gen Z users say seeing a verification badge makes them feel more confident swiping [citation:5]. We'll show you how to get verified on each app—and why it matters.
-            </p>
-            <p class="text-base font-light leading-relaxed text-brand-primary/70 italic pl-6 border-l-2 border-brand-accent/30">
-              Tinder's ID + Photo Verification is a two-step process: video selfie + government ID. Once you've got the blue checkmark, you're officially a Verified QT [citation:5].
-            </p>
-            <p class="text-base font-light leading-relaxed text-brand-primary/70">
-              More trust = more matches. Simple.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- 自然修图区块 - 宽幅设计，改为STRATEGY主题 -->
-    <div class="mb-40 relative py-24 px-8 bg-gradient-to-br from-brand-dark via-brand-dark/95 to-brand-dark -mx-8 text-white">
-      <div class="absolute inset-0 overflow-hidden">
-        <div class="absolute top-0 right-0 w-96 h-96 bg-brand-accent/5 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-0 left-0 w-96 h-96 bg-brand-accent/5 rounded-full blur-3xl"></div>
-      </div>
-      <div class="max-w-4xl mx-auto text-center relative">
-        <h2 class="text-4xl md:text-5xl font-serif text-white mb-8 uppercase tracking-wide">
-          FROM MATCH TO MEET-UP
+      <div class="mb-40 relative reveal-on-scroll">
+        <h2 class="text-4xl md:text-5xl font-serif text-brand-accent mb-16 uppercase tracking-wide text-center">
+          {serviceData.mistakeTitle}<br />
+          <span class="text-xl font-light text-brand-muted block mt-4 tracking-normal">{serviceData.mistakeSubtitle}</span>
         </h2>
-        <div class="w-24 h-px bg-gradient-to-r from-transparent via-brand-accent to-transparent mx-auto mb-8"></div>
-        <p class="text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto text-white/80">
-          The goal isn't a full inbox. It's a Friday night drink at somewhere like The Rover in Surry Hills, or a Saturday afternoon walk from Bondi to Bronte. We'll help you get there—without the awkward "so... when should we meet?" text paralysis.
-        </p>
+        <div class="grid md:grid-cols-3 gap-8">
+          {serviceData.mistakes.map((mistake) => (
+            <div class="group relative p-10 bg-white/50 border border-brand-dark/5 hover:border-brand-accent/30 transition-all duration-700">
+              <span class="absolute -top-6 left-8 text-8xl font-serif text-brand-accent/10 group-hover:text-brand-accent/20 transition-colors">{mistake.no}</span>
+              <h3 class="text-2xl font-serif text-brand-accent mb-4 relative z-10">{mistake.title}</h3>
+              <p class="text-sm font-light text-brand-primary/60 leading-relaxed relative z-10">{mistake.desc}</p>
+              <div class="absolute bottom-0 left-0 w-0 h-[2px] bg-brand-accent group-hover:w-full transition-all duration-700"></div>
+            </div>
+          ))}
+        </div>
+        <div class="mt-16 p-8 bg-brand-accent/5 border-l-4 border-brand-accent">
+          <p class="text-sm font-mono text-brand-primary/80 leading-relaxed">{serviceData.statText}</p>
+        </div>
       </div>
-    </div>
 
-    <!-- Experience Modules Grid -->
-    <div class="mb-40">
-      <h2 class="text-3xl md:text-4xl font-serif text-brand-accent mb-16 text-center uppercase tracking-wide">
-        HOW IT WORKS
-      </h2>
-      <div class="grid md:grid-cols-3 gap-8">
-        {serviceData.experienceModules.map((module, index) => (
-          <div class="group relative overflow-hidden rounded-sm bg-white/50 backdrop-blur-sm border border-brand-muted/10 hover:border-brand-accent/30 transition-all duration-700 hover:translate-y-[-8px]">
-            <div class="aspect-[4/5] overflow-hidden">
-              <img 
-                src={module.image} 
-                alt={module.imageAlt}
-                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            </div>
-            <div class="p-8">
-              <h3 class="text-xl font-serif text-brand-accent mb-4">{module.title}</h3>
-              <p class="text-sm font-light text-brand-primary/70 leading-relaxed mb-4">{module.description}</p>
-              <p class="text-xs font-mono text-brand-muted/60 italic">{module.caption}</p>
-            </div>
-            <div class="absolute top-4 right-4 text-6xl font-serif text-brand-accent/10 group-hover:text-brand-accent/20 transition-colors">
-              {(index + 1).toString().padStart(2, '0')}
+      <div class="grid md:grid-cols-2 gap-20 mb-40 reveal-on-scroll">
+        {serviceData.trustModules.map((module) => (
+          <div class="relative group">
+            <h2 class="text-3xl font-serif text-brand-accent mb-10 uppercase tracking-wide">
+              <span class="block text-sm font-light text-brand-muted mb-3 tracking-[0.3em]">{module.label}</span>
+              {module.title}
+            </h2>
+            <div class="space-y-6">
+              <p class="text-base font-light leading-relaxed text-brand-primary/70">{module.content}</p>
+              {module.list && (
+                <ul class="space-y-4 text-base font-light">
+                  {module.list.map((item) => (
+                    <li class="flex items-start">
+                      <span class="w-1.5 h-1.5 rounded-full bg-brand-accent mt-2 mr-4"></span>
+                      <span class="text-brand-primary/70">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {module.italicContent && (
+                <p class="text-base font-light leading-relaxed text-brand-primary/70 italic pl-6 border-l-2 border-brand-accent/30">{module.italicContent}</p>
+              )}
+              {module.closing && (
+                <p class="text-base font-light leading-relaxed text-brand-primary/70">{module.closing}</p>
+              )}
             </div>
           </div>
         ))}
       </div>
-    </div>
 
-    <!-- Packages Section -->
-    <Packages />
-
-    <!-- FAQ Section -->
-    <div class="mb-40 mt-40">
-      <h2 class="text-3xl md:text-4xl font-serif text-brand-accent mb-16 text-center uppercase tracking-wide">
-        YOU'VE GOT QUESTIONS
-      </h2>
-      <div class="max-w-3xl mx-auto space-y-6">
-        {serviceData.faq.map((item, index) => (
-          <div class="group border-b border-brand-muted/10 pb-6">
-            <details class="group">
-              <summary class="flex justify-between items-center cursor-pointer list-none">
-                <h3 class="text-lg font-serif text-brand-accent group-hover:text-brand-accent/80 transition-colors">
-                  <span class="inline-block w-8 text-sm font-mono text-brand-muted">{index + 1}.</span>
-                  {item.question}
-                </h3>
-                <Icon name="lucide:chevron-down" class="w-5 h-5 text-brand-muted group-open:rotate-180 transition-transform" />
-              </summary>
-              <p class="mt-4 text-sm font-light text-brand-primary/70 leading-relaxed pl-8">
-                {item.answer}
-              </p>
-            </details>
-          </div>
-        ))}
+      <div class="mb-40 relative py-24 px-8 bg-brand-dark -mx-8 text-brand-on-dark reveal-on-scroll text-center">
+        <h2 class="text-4xl md:text-5xl font-serif mb-8 uppercase tracking-wide">{serviceData.wideCalloutTitle}</h2>
+        <div class="w-24 h-px bg-brand-muted/30 mx-auto mb-8"></div>
+        <p class="text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto opacity-80">{serviceData.wideCalloutText}</p>
       </div>
-    </div>
 
-    <!-- 结尾区块 - 强有力的召唤 -->
-    <div class="text-center relative">
-      <div class="absolute inset-0 flex items-center justify-center opacity-5">
-        <span class="text-[12vw] font-serif text-brand-accent whitespace-nowrap">MATCH • MATCH • MATCH</span>
-      </div>
-      <h2 class="text-5xl md:text-7xl font-serif text-brand-accent mb-8 uppercase tracking-tight relative">
-        STOP SWIPING<br />
-        <span class="italic font-light text-brand-muted relative inline-block group">
-          START MEETING
-          <span class="absolute -bottom-4 left-1/2 -translate-x-1/2 w-0 h-px bg-brand-accent group-hover:w-full transition-all duration-700"></span>
-        </span>
-      </h2>
-      <p class="text-base font-light text-brand-primary/60 max-w-xl mx-auto mb-16 relative">
-        Let's turn all that screen time into actual dates with actual people you actually like.
-      </p>
-      
-      <!-- 高级按钮 -->
-      <a href="/booking" class="group relative inline-flex items-center justify-center px-12 py-6 bg-transparent border border-brand-accent/30 hover:border-brand-accent rounded-full overflow-hidden transition-all duration-500">
-        <span class="absolute inset-0 w-0 bg-brand-accent/10 group-hover:w-full transition-all duration-500"></span>
-        <span class="relative flex items-center gap-4">
-          <span class="text-xs tracking-[0.3em] uppercase font-light text-brand-accent group-hover:tracking-[0.4em] transition-all">
-            Book your strategy session
-          </span>
-          <Icon name="lucide:arrow-right" class="w-4 h-4 text-brand-accent group-hover:translate-x-2 transition-transform" />
-        </span>
-      </a>
-      
-      <!-- 装饰元素 -->
-      <div class="mt-24 flex justify-center items-center gap-4">
-        <span class="w-16 h-px bg-gradient-to-l from-brand-accent/30 to-transparent"></span>
-        <div class="flex space-x-3">
-          <span class="w-2 h-2 rounded-full bg-brand-accent/30 animate-pulse"></span>
-          <span class="w-2 h-2 rounded-full bg-brand-muted/30"></span>
-          <span class="w-2 h-2 rounded-full bg-brand-accent/30 animate-pulse animation-delay-300"></span>
+      <div class="mb-40 reveal-on-scroll">
+        <h2 class="text-3xl md:text-4xl font-serif text-brand-accent mb-16 text-center uppercase tracking-wide">{serviceData.processTitle}</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          {serviceData.experienceModules.map((module, index) => (
+            <div class="group relative bg-white/50 border border-brand-dark/5 hover:border-brand-accent/30 transition-all duration-700">
+              <div class="aspect-[4/5] overflow-hidden">
+                <img src={module.image} alt={module.imageAlt} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" />
+              </div>
+              <div class="p-8 relative">
+                <span class="absolute top-4 right-8 text-4xl font-serif text-brand-accent/10">{(index+1).toString().padStart(2, '0')}</span>
+                <h3 class="text-xl font-serif text-brand-accent mb-4">{module.title}</h3>
+                <p class="text-sm font-light text-brand-primary/70 leading-relaxed mb-4">{module.description}</p>
+                <p class="text-xs font-mono text-brand-muted/60 italic">{module.caption}</p>
+              </div>
+            </div>
+          ))}
         </div>
-        <span class="w-16 h-px bg-gradient-to-r from-brand-accent/30 to-transparent"></span>
       </div>
-    </div>
-  </section>
+
+      <Packages />
+
+      <div class="mb-40 mt-40 reveal-on-scroll">
+        <h2 class="text-3xl md:text-4xl font-serif text-brand-accent mb-16 text-center uppercase tracking-wide">{serviceData.faqTitle}</h2>
+        <div class="max-w-3xl mx-auto space-y-6">
+          {serviceData.faq.map((item, index) => (
+            <div class="border-b border-brand-muted/10 pb-6">
+              <details class="group">
+                <summary class="flex justify-between items-center cursor-pointer list-none">
+                  <h3 class="text-lg font-serif text-brand-accent">
+                    <span class="inline-block w-8 text-sm font-mono text-brand-muted">{index + 1}.</span>
+                    {item.question}
+                  </h3>
+                  <Icon name="lucide:chevron-down" class="w-5 h-5 text-brand-muted group-open:rotate-180 transition-transform" />
+                </summary>
+                <p class="mt-4 text-sm font-light text-brand-primary/70 leading-relaxed pl-8">{item.answer}</p>
+              </details>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="text-center relative py-20 reveal-on-scroll">
+        <div class="absolute inset-0 flex items-center justify-center opacity-5 select-none pointer-events-none">
+          <span class="text-[12vw] font-serif text-brand-accent whitespace-nowrap">{serviceData.outroBgText}</span>
+        </div>
+        <h2 class="text-5xl md:text-7xl font-serif text-brand-accent mb-8 uppercase tracking-tight relative">
+          {serviceData.outroTitleMain}<br />
+          <span class="italic font-light text-brand-muted">{serviceData.outroTitleItalic}</span>
+        </h2>
+        <p class="text-base font-light text-brand-primary/60 max-w-xl mx-auto mb-16 relative">{serviceData.outroDesc}</p>
+        <a href="/booking" class="btn-brand">
+          {serviceData.outroCta}
+        </a>
+      </div>
+    </section>
   </main>
 
   <Footer />
 </Layout>
 
-<!-- 样式 -->
-<style is:global>
-  /* 字体导入 */
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap');
-  
-  /* 自定义字体 - 如果Kudryashev不可用，回退到Georgia */
-  @font-face {
-    font-family: 'Kudryashev';
-    src: local('Georgia'), local('Times New Roman'), serif;
-    font-display: swap;
-  }
+<script>
+  function initReveal() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
 
-  :root {
-    --brand-dark: #0A0A0A;
-    --brand-primary: #1A1A1A;
-    --brand-accent: #34041A;
-    --brand-muted: #6B4E5E;
-    --brand-bg: #FDFAF7;
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
   }
-
-  body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--brand-bg);
-    color: var(--brand-primary);
-  }
-
-  /* 自定义动画 */
-  @keyframes kenBurns {
-    0% { transform: scale(1); }
-    100% { transform: scale(1.1); }
-  }
-
-  @keyframes titleSlideUp {
-    0% { transform: translateY(100%); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
-  }
-
-  @keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-  }
-
-  @keyframes widthGrow {
-    0% { width: 0; opacity: 0; }
-    100% { width: 6rem; opacity: 1; }
-  }
-
-  .animate-ken-burns {
-    animation: kenBurns 20s ease-out forwards;
-  }
-
-  .animate-title-slide-up {
-    animation: titleSlideUp 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-  }
-
-  .animate-fade-in {
-    animation: fadeIn 1s ease forwards;
-  }
-
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
-
-  .animate-width-grow {
-    animation: widthGrow 1s ease forwards;
-  }
-
-  .animation-delay-200 {
-    animation-delay: 0.2s;
-  }
-
-  .animation-delay-300 {
-    animation-delay: 0.3s;
-  }
-
-  .animation-delay-400 {
-    animation-delay: 0.4s;
-  }
-
-  .animation-delay-500 {
-    animation-delay: 0.5s;
-  }
-
-  .animation-delay-700 {
-    animation-delay: 0.7s;
-  }
-
-  /* 首字下沉样式 */
-  .dropcap::first-letter {
-    font-size: 4.5em;
-    float: left;
-    line-height: 0.8;
-    margin-right: 0.2em;
-    color: var(--brand-accent);
-    font-family: 'Kudryashev', 'Georgia', serif;
-    font-weight: 400;
-  }
-
-  /* 自定义滚动条 */
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: var(--brand-bg);
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: var(--brand-muted);
-    border-radius: 4px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--brand-accent);
-  }
-
-  /* 文本选择样式 */
-  ::selection {
-    background: rgba(52, 4, 26, 0.15);
-    color: var(--brand-accent);
-  }
-
-  /* 平滑滚动 */
-  html {
-    scroll-behavior: smooth;
-  }
-
-  /* 响应式调整 */
-  @media (max-width: 768px) {
-    .dropcap::first-letter {
-      font-size: 3.5em;
-    }
-  }
-</style>
+  document.addEventListener('astro:page-load', initReveal);
+  initReveal();
+</script>

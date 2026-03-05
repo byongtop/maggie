@@ -1,86 +1,159 @@
 ---
 // src/pages/blog/categories.astro
-// All Categories Overview
+// Blog Categories Overview - ROSE IS ROSE
+// 展示所有博客分类及其说明的页面
 
 import '../../styles/global.css'; 
-
 import { getCollection } from 'astro:content';
 import Layout from "../../layouts/Layout.astro";
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { Icon } from 'astro-icon/components';
 
-const allPosts = await getCollection('blog');
+// ==========================================
+// 页面静态文案与分类配置 (Static Data)
+// ==========================================
+const categoryPageData = {
+  seo: {
+    title: "Blog Collections | ROSE IS ROSE",
+    description: "Browse our visual narratives by topic—photography tips, success stories, and modern dating insights in Sydney."
+  },
+  hero: {
+    badge: "COLLECTIONS",
+    title: "CATEGORIES",
+    subtitle: "Navigate through our curated insights on identity, presence, and the art of the portrait."
+  },
+  ui: {
+    postCountSuffix: "stories",
+    ctaText: "Browse Category"
+  },
+  // 分类详情配置：如果 content 集合中出现了新的分类，这里可以手动补充描述和样式
+  categoryMeta: {
+    'Photography Tips & Guides': {
+      description: 'Expert advice on lighting, posing, and the subtle art of visual storytelling.',
+      style: 'border-[#8C7355]/30 text-[#8C7355]'
+    },
+    'Success Stories': {
+      description: 'Real-world transformations and the impact of a curated visual identity.',
+      style: 'border-[#34041A]/30 text-[#34041A]'
+    },
+    'Dating Insights': {
+      description: 'Strategic thoughts on modern connection and dating culture in Sydney.',
+      style: 'border-[#34041A]/30 text-[#34041A]'
+    },
+    'Behind the Scenes': {
+      description: 'A glimpse into our creative process, from the studio to the final edit.',
+      style: 'border-[#8C7355]/30 text-[#8C7355]'
+    }
+  }
+};
 
-// 统计每个分类的文章数量
-const categories = allPosts.reduce((acc, post) => {
+// 获取所有文章并进行分类统计
+const allPosts = await getCollection('blog');
+const categoryCounts = allPosts.reduce((acc, post) => {
   const category = post.data.category;
-  acc[category] = (acc[category] || 0) + 1;
+  if (category) {
+    acc[category] = (acc[category] || 0) + 1;
+  }
   return acc;
 }, {} as Record<string, number>);
 
-const categoryDisplayNames = {
-  'Photography Tips & Guides': 'Photography Tips & Guides',
-  'Success Stories': 'Success Stories',
-  'Dating Insights': 'Dating Insights',
-  'Behind the Scenes': 'Behind the Scenes'
-};
-
-const categoryDescriptions = {
-  'Photography Tips & Guides': 'Expert advice on lighting, posing, and getting the perfect shot.',
-  'Success Stories': 'Real stories from real clients.',
-  'Dating Insights': 'Thoughts on modern dating in Sydney.',
-  'Behind the Scenes': 'A peek behind the lens.'
-};
-
-const categoryColors = {
-  'Photography Tips & Guides': 'bg-blue-50 text-blue-700 border-blue-200',
-  'Success Stories': 'bg-green-50 text-green-700 border-green-200',
-  'Dating Insights': 'bg-purple-50 text-purple-700 border-purple-200',
-  'Behind the Scenes': 'bg-amber-50 text-amber-700 border-amber-200'
-};
+// 获取当前存在的全部分类键名
+const categoryKeys = Object.keys(categoryCounts);
 ---
 
 <Layout 
-  title="Blog Categories | ROSE IS ROSE"
-  description="Browse our blog by category—photography tips, success stories, dating insights and behind the scenes."
+  title={categoryPageData.seo.title}
+  description={categoryPageData.seo.description}
 >
   <Header />
 
-  <section class="pt-40 pb-20 md:pt-48 md:pb-24 bg-brand-dark text-white">
-    <div class="container mx-auto px-6 text-center">
-      <h1 class="text-5xl md:text-7xl font-serif mb-6">CATEGORIES</h1>
-      <div class="w-24 h-px bg-brand-accent mx-auto mb-6"></div>
-      <p class="text-lg text-white/70 max-w-2xl mx-auto font-light">
-        Browse by topic—find what you're looking for
+  <section class="relative pt-40 pb-20 md:pt-56 md:pb-28 bg-[#34041A] text-[#F9F2E7] overflow-hidden">
+    <div class="absolute inset-0 z-0">
+       <div class="absolute inset-0 opacity-[0.03] bg-[url('/assets/images/grid-pattern.svg')] bg-repeat"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#34041A]/20 to-[#34041A]"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10 text-center reveal-on-scroll">
+      <span class="text-[10px] tracking-[0.5em] text-[#8C7355] block mb-6 uppercase font-medium">
+        {categoryPageData.hero.badge}
+      </span>
+      <h1 class="text-6xl md:text-9xl font-serif mb-8 tracking-tighter">
+        {categoryPageData.hero.title}
+      </h1>
+      <div class="w-20 h-px bg-[#8C7355]/40 mx-auto mb-8"></div>
+      <p class="text-lg text-[#F9F2E7]/70 max-w-2xl mx-auto font-light italic leading-relaxed">
+        {categoryPageData.hero.subtitle}
       </p>
     </div>
   </section>
 
-  <main class="bg-brand-bg py-20">
-    <div class="max-w-5xl mx-auto px-6">
-      <div class="grid md:grid-cols-2 gap-8">
-        {Object.entries(categories).map(([category, count]) => (
-          <a 
-            href={`/blog/category/${category.toLowerCase().replace(/\s+/g, '-')}`}
-            class="group block p-8 bg-white border border-brand-muted/10 hover:border-brand-accent/30 transition-all duration-500"
-          >
-            <div class="flex justify-between items-start mb-4">
-              <span class={`text-xs tracking-[0.2em] uppercase px-4 py-2 rounded-full border ${categoryColors[category]}`}>
-                {categoryDisplayNames[category]}
-              </span>
-              <span class="text-sm font-mono text-brand-muted/60">{count} posts</span>
-            </div>
-            <p class="text-brand-primary/60 font-light mb-6">{categoryDescriptions[category]}</p>
-            <div class="flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-brand-muted group-hover:text-brand-accent transition-colors">
-              <span>Browse Category</span>
-              <Icon name="lucide:arrow-right" class="w-3 h-3" />
-            </div>
-          </a>
-        ))}
+  <main class="bg-[#F9F2E7] py-24 md:py-32">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 gap-8 md:gap-12">
+        {categoryKeys.map((catKey, index) => {
+          const meta = categoryPageData.categoryMeta[catKey] || { 
+            description: 'Explore our latest stories and visual insights.', 
+            style: 'border-[#3C3835]/20 text-[#3C3835]' 
+          };
+          
+          return (
+            <a 
+              href={`/blog/category/${catKey.toLowerCase().replace(/\s+/g, '-')}`}
+              class="group relative block p-10 md:p-12 bg-white border border-[#34041A]/5 hover:border-[#34041A]/20 transition-all duration-700 ease-out shadow-sm hover:shadow-xl reveal-on-scroll"
+              style={`transition-delay: ${index * 100}ms`}
+            >
+              <div class="absolute top-0 right-0 p-6 opacity-[0.02] group-hover:opacity-10 transition-opacity duration-700">
+                <Icon name="lucide:layers" class="w-24 h-24" />
+              </div>
+
+              <div class="relative z-10">
+                <div class="flex justify-between items-start mb-8">
+                  <span class={`text-[10px] tracking-[0.2em] uppercase px-4 py-2 border ${meta.style} backdrop-blur-sm transition-colors duration-500`}>
+                    {catKey}
+                  </span>
+                  <span class="text-[10px] tracking-widest text-[#3C3835]/40 uppercase font-medium">
+                    {categoryCounts[catKey]} {categoryPageData.ui.postCountSuffix}
+                  </span>
+                </div>
+
+                <p class="text-[#3C3835]/70 font-light mb-10 text-lg leading-relaxed italic pr-8 group-hover:text-[#3C3835] transition-colors duration-500">
+                  {meta.description}
+                </p>
+
+                <div class="flex items-center gap-4">
+                  <span class="text-[10px] tracking-[0.4em] uppercase text-[#34041A] font-medium">
+                    {categoryPageData.ui.ctaText}
+                  </span>
+                  <div class="w-8 h-px bg-[#8C7355] group-hover:w-16 transition-all duration-500"></div>
+                  <Icon name="lucide:arrow-right" class="w-3 h-3 text-[#34041A] -translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500" />
+                </div>
+              </div>
+
+              <div class="absolute bottom-0 left-0 h-0.5 bg-[#34041A] w-0 group-hover:w-full transition-all duration-700 ease-in-out"></div>
+            </a>
+          );
+        })}
       </div>
     </div>
   </main>
 
   <Footer />
 </Layout>
+
+<script>
+  function initReveal() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+  }
+  
+  document.addEventListener('astro:page-load', initReveal);
+  initReveal();
+</script>

@@ -8,30 +8,27 @@ import InitialLoader from '../components/InitialLoader.astro';
 import Hero from '../components/Hero.astro';
 import SelectedWorks from '../components/SelectedWorks.astro';
 import Services from '../components/Services.astro';
-import Packages from '../components/Packages.astro';
-
+import Packages from '../components/Packages2.astro';
 import Gallery from '../components/Gallery.astro';
-
 import Process from '../components/Process.astro';
-
 import Testimonials from '../components/Testimonials.astro';
 import Philosophy from '../components/Philosophy.astro';
 import FAQ from '../components/FAQ.astro';
 import BlogPreview from '../components/BlogPreview.astro';
 import ContactCTA from '../components/ContactCTA.astro';
-
+import { SITE_METADATA, THEME } from '../site-info';
 
 
 ---
 
-<Layout>
+<Layout title={SITE_METADATA.defaultTitle} description={SITE_METADATA.defaultDescription} ogImage = "/og-image.jpg">
   <InitialLoader />
 
-  <h1 class="sr-only">Your Name | Minimalist Portrait & Lifestyle Photographer in Shanghai</h1>
-  
-  <Header />
   
   <section class="page-content">
+    <h1 class="sr-only">Your Name | Minimalist Portrait & Lifestyle Photographer in Shanghai</h1>
+    <Header />
+    
     <Hero />
     <Philosophy />
     <Services />
@@ -43,9 +40,9 @@ import ContactCTA from '../components/ContactCTA.astro';
     <FAQ />
     <BlogPreview />
     <ContactCTA />
+    <Footer />
   </section>
 
-  <Footer />
 </Layout>
 
 <style is:global>

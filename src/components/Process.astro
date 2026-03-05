@@ -1,8 +1,8 @@
 ---
 /**
- * Process.astro - 深色情绪版
- * 视觉特征：背景 #34041A，内浮巨大水印文字，金铜色交互
- * 修改点：优化上下边距为 py-24/py-32，标题强化为纯白色确保对比度
+ * Process.astro - 深色情绪版 (ROSE IS ROSE)
+ * 核心色值：#34041A (深红背景), #F9F2E7 (反白), #8C7355 (金铜装饰)
+ * 风格：画报排版 / 极简线条 / 沉浸式动效
  */
 const steps = [
   { 
@@ -38,71 +38,75 @@ const steps = [
 ];
 ---
 
-<section class="py-24 md:py-32 bg-[#34041A] px-8 md:px-20 relative overflow-hidden text-[#F9F2E7]">
+<section class="py-24 md:py-40 bg-[#34041A] px-8 md:px-20 relative overflow-hidden text-[#F9F2E7]">
   
   <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0">
-    <span class="text-[15vw] font-serif italic text-[#F9F2E7]/[0.02] uppercase tracking-tighter leading-none">
+    <span class="text-[20vw] font-serif italic text-[#F9F2E7]/[0.02] uppercase tracking-tighter leading-none">
       Flow
     </span>
   </div>
 
   <div class="max-w-7xl mx-auto relative z-10">
-    <div class="mb-32 flex flex-col md:flex-row items-baseline gap-6">
-      <h2 class="text-4xl md:text-6xl font-serif italic font-light tracking-tight text-white">
+    <div class="mb-32 flex flex-col md:flex-row items-baseline gap-8">
+      <h2 class="text-5xl md:text-7xl font-serif italic font-light tracking-tighter text-white">
         The <span class="not-italic font-medium">Creation</span>
       </h2>
       <div class="h-[1px] flex-1 bg-[#F9F2E7]/10 hidden md:block"></div>
-      <p class="text-[10px] tracking-[0.5em] text-[#8C7355] uppercase">
+      <p class="text-[10px] tracking-[0.6em] text-[#8C7355] uppercase font-bold">
         Step by Step Guide
       </p>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-x-12 gap-y-24">
       {steps.map((step, index) => (
-        <div class="group relative reveal-step" style={`transition-delay: ${index * 100}ms`}>
-          <div class="mb-10 inline-block">
-            <span class="text-xs font-sans tracking-[0.4em] text-[#8C7355] block mb-2">STEP</span>
-            <span class="text-4xl font-serif italic text-[#F9F2E7] opacity-40 group-hover:opacity-100 group-hover:text-[#8C7355] transition-all duration-700">
+        <div class="group relative reveal-step" style={`transition-delay: ${index * 150}ms`}>
+          {/* 步骤编号 */}
+          <div class="mb-12 inline-block">
+            <span class="text-[10px] font-sans tracking-[0.5em] text-[#8C7355] block mb-3 font-bold">PHASE</span>
+            <span class="text-5xl font-serif italic text-[#F9F2E7] opacity-30 group-hover:opacity-100 group-hover:text-[#8C7355] transition-all duration-1000 ease-out">
               {step.no}
             </span>
           </div>
 
-          <div class="space-y-6">
-            <div class="space-y-2">
-              <h3 class="text-xs md:text-sm tracking-[0.3em] font-bold text-[#F9F2E7] uppercase">
+          <div class="space-y-8">
+            <div class="space-y-3">
+              <h3 class="text-xs md:text-[13px] tracking-[0.4em] font-bold text-[#F9F2E7] uppercase leading-tight">
                 {step.title}
               </h3>
-              <div class="w-8 h-[1px] bg-[#8C7355] group-hover:w-full transition-all duration-1000 origin-left"></div>
-              <p class="text-[10px] text-[#F9F2E7]/40 tracking-[0.2em]">
+              <div class="w-10 h-[0.5px] bg-[#8C7355] group-hover:w-full transition-all duration-1000 cubic-bezier(0.19, 1, 0.22, 1) origin-left"></div>
+              <p class="text-[11px] text-[#F9F2E7]/40 tracking-[0.3em] font-medium">
                 {step.subtitle}
               </p>
             </div>
             
-            <p class="text-xs leading-[2.2] text-[#F9F2E7]/60 font-light tracking-wide">
+            <p class="text-[13px] leading-[2.2] text-[#F9F2E7]/60 font-light tracking-wide italic">
               {step.desc}
             </p>
           </div>
+
+          <div class="absolute -inset-8 bg-[#8C7355]/5 opacity-0 group-hover:opacity-100 rounded-full blur-3xl transition-opacity duration-1000 -z-10"></div>
         </div>
       ))}
     </div>
   </div>
 
-  <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+  <div class="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
 </section>
 
 <style is:global>
-  /* 流程入场动画 */
+  /* 入场动画逻辑 */
   .reveal-step {
     opacity: 0;
-    transform: translateY(30px);
-    transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(40px);
+    transition: all 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
   }
   .reveal-step.active {
     opacity: 1;
     transform: translateY(0);
   }
 
-  /* 针对中文字体的高级感处理 */
+  /* 针对中英文字体渲染优化 */
   .reveal-step p {
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -110,18 +114,20 @@ const steps = [
 </style>
 
 <script>
-  function initProcessAnimation() {
+  const initProcess = () => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('active');
+          observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.15 });
 
     document.querySelectorAll('.reveal-step').forEach(el => observer.observe(el));
-  }
+  };
 
-  initProcessAnimation();
-  document.addEventListener('astro:page-load', initProcessAnimation);
+  // 兼容 Astro 视图转换
+  document.addEventListener('astro:page-load', initProcess);
+  initProcess();
 </script>

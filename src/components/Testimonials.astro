@@ -1,36 +1,37 @@
 ---
 /**
- * Testimonials.astro - 字体微调精致版
- * 修复：缩小了 quote 字体，增强了空气感和呼吸感
+ * Testimonials.astro - 字体微调精致版 (ROSE IS ROSE)
+ * 核心设计：小字号、高行间距、电影感 Fade 转场
+ * 色值：#34041A (背景), #F9F2E7 (文字), #8C7355 (强调)
  */
 const testimonials = [
   {
     quote: "Maggie 不仅仅是在拍照，她捕捉到了我连自己都没察觉到的那份自信。在社交软件上使用这组照片后，我感受到了前所未有的正向反馈。",
     author: "ZHAN LIU",
-    location: "Tech Entrepreneur, Shanghai"
+    location: "Tech Entrepreneur, Sydney"
   },
   {
     quote: "光影的处理极具电影感。以前我觉得面对镜头很尴尬，但在 Maggie 的引导下，一切都变得自然而有张力。这是一次审视自我的过程。",
     author: "ELENA WANG",
-    location: "Creative Producer"
+    location: "Creative Producer, Darlinghurst"
   },
   {
     quote: "在这个看脸的时代，Maggie 帮我拍出了‘脸’之后的故事。那种磁场和质感是任何滤镜都无法模拟的，专业度满分。",
     author: "KEVIN GAO",
-    location: "Finance Director"
+    location: "Finance Director, Barangaroo"
   }
 ];
 ---
 
-<section class="py-24 md:py-32 px-8 md:px-20 bg-brand-dark relative overflow-hidden text-brand-on-dark">
-  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none">
-    <span class="text-[80px] md:text-[120px] font-serif italic text-brand-on-dark/[0.09] leading-none tracking-[0.2em] uppercase">
+<section class="py-24 md:py-40 px-8 md:px-20 bg-[#34041A] relative overflow-hidden text-[#F9F2E7]">
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none z-0">
+    <span class="text-[10vw] md:text-[12vw] font-serif italic text-[#F9F2E7]/[0.04] leading-none tracking-[0.2em] uppercase whitespace-nowrap">
       Testimonials
     </span>
   </div>
 
-  <div class="max-w-7xl mx-auto text-center relative z-20">
-    <div class="font-serif text-4xl md:text-5xl text-brand-muted opacity-20 mb-10 select-none">
+  <div class="max-w-5xl mx-auto text-center relative z-20">
+    <div class="font-serif text-5xl md:text-6xl text-[#8C7355] opacity-30 mb-12 select-none leading-none">
       “
     </div>
 
@@ -38,17 +39,16 @@ const testimonials = [
       <div class="swiper-wrapper">
         {testimonials.map((item) => (
           <div class="swiper-slide flex flex-col items-center">
-            {/* 核心修改：字号缩小至 text-base 到 text-xl，增加 tracking-wide 和 leading-relaxed */}
-            <blockquote class="text-base md:text-lg lg:text-xl font-serif font-light leading-[2] italic mb-16 tracking-widest max-w-2xl mx-auto opacity-90 text-center">                
+            <blockquote class="text-[15px] md:text-[17px] lg:text-[19px] font-serif font-light leading-[2.4] italic mb-16 tracking-[0.12em] max-w-2xl mx-auto opacity-80 text-center px-4 md:px-0">                
               {item.quote}
             </blockquote>
             
             <div class="flex flex-col items-center">
-              <div class="w-8 h-[1px] bg-brand-muted/30 mb-6"></div>
-              <cite class="not-italic text-[10px] tracking-[0.5em] text-brand-on-dark font-medium uppercase mb-2">
+              <div class="w-10 h-[0.5px] bg-[#8C7355]/40 mb-8"></div>
+              <cite class="not-italic text-[10px] tracking-[0.5em] text-[#F9F2E7] font-bold uppercase mb-3">
                 {item.author}
               </cite>
-              <span class="text-[8px] tracking-[0.3em] text-brand-on-dark/30 uppercase font-sans">
+              <span class="text-[9px] tracking-[0.3em] text-[#8C7355] uppercase font-sans font-medium">
                 {item.location}
               </span>
             </div>
@@ -56,26 +56,66 @@ const testimonials = [
         ))}
       </div>
 
-      <div class="flex justify-center items-center space-x-10 mt-16">
-        <button class="ts-prev text-brand-muted hover:text-brand-on-dark transition-all duration-500 cursor-pointer p-2">
-          <svg width="30" height="10" viewBox="0 0 40 12" fill="none" class="stroke-current opacity-40 hover:opacity-100">
-            <path d="M40 6H1M1 6L6 1M1 6L6 11" stroke-width="1"/>
+      <div class="flex justify-center items-center space-x-12 mt-20">
+        <button class="ts-prev group cursor-pointer p-2 outline-none">
+          <svg width="45" height="12" viewBox="0 0 45 12" fill="none" class="stroke-[#F9F2E7] opacity-30 group-hover:opacity-100 group-hover:-translate-x-2 transition-all duration-500">
+            <path d="M45 6H1M1 6L7 1M1 6L7 11" stroke-width="0.75"/>
           </svg>
         </button>
         
-        <div class="ts-pagination !w-auto !relative text-[9px] tracking-[0.4em] text-brand-on-dark/20 font-sans"></div>
+        <div class="ts-pagination !w-auto !relative text-[10px] tracking-[0.4em] text-[#F9F2E7]/20 font-mono"></div>
         
-        <button class="ts-next text-brand-muted hover:text-brand-on-dark transition-all duration-500 cursor-pointer p-2">
-          <svg width="30" height="10" viewBox="0 0 40 12" fill="none" class="stroke-current opacity-40 hover:opacity-100">
-            <path d="M0 6H39M39 6L34 1M39 6L34 11" stroke-width="1"/>
+        <button class="ts-next group cursor-pointer p-2 outline-none">
+          <svg width="45" height="12" viewBox="0 0 45 12" fill="none" class="stroke-[#F9F2E7] opacity-30 group-hover:opacity-100 group-hover:translate-x-2 transition-all duration-500">
+            <path d="M0 6H44M44 6L38 1M44 6L38 11" stroke-width="0.75"/>
           </svg>
         </button>
       </div>
     </div>
   </div>
 
-  <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(140,115,85,0.05)_0%,transparent_70%)] pointer-events-none"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(140,115,85,0.08)_0%,transparent_75%)] pointer-events-none"></div>
 </section>
+
+<style is:global>
+  /* Swiper 分页符样式定制 */
+  .ts-pagination .swiper-pagination-current {
+    color: #8C7355;
+    font-weight: bold;
+  }
+  
+  .testimonialSwiper blockquote {
+    -webkit-font-smoothing: antialiased;
+    word-break: break-word;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* 入场动画：模糊 -> 清晰 + 位移 */
+  .testimonialSwiper .swiper-slide-active blockquote {
+    animation: testimonialReveal 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes testimonialReveal {
+    from {
+      filter: blur(10px);
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    to {
+      filter: blur(0);
+      opacity: 0.85;
+      transform: translateY(0);
+    }
+  }
+
+  /* 针对 Swiper Fade 模式的层级修正 */
+  .testimonialSwiper .swiper-slide {
+    pointer-events: none;
+  }
+  .testimonialSwiper .swiper-slide-active {
+    pointer-events: auto;
+  }
+</style>
 
 <script>
   import Swiper from 'swiper';
@@ -89,9 +129,9 @@ const testimonials = [
       effect: 'fade',
       fadeEffect: { crossFade: true },
       loop: true,
-      speed: 2000,
+      speed: 1500, // 平滑转场
       autoplay: {
-        delay: 6000,
+        delay: 8000, // 给用户足够的时间阅读精细的小字
         disableOnInteraction: false,
       },
       navigation: {
@@ -107,37 +147,7 @@ const testimonials = [
     });
   }
 
-  initTestimonials();
+  // 确保在 Astro 的不同生命周期中正确初始化
   document.addEventListener('astro:page-load', initTestimonials);
+  initTestimonials();
 </script>
-
-<style is:global>
-  .ts-pagination .swiper-pagination-current {
-    color: #F9F2E7;
-    font-weight: 400;
-  }
-  
-  .testimonialSwiper blockquote {
-    -webkit-font-smoothing: antialiased;
-    word-break: break-word;
-    /* 增加文本渲染的优雅度 */
-    text-rendering: optimizeLegibility;
-  }
-
-  .testimonialSwiper .swiper-slide-active blockquote {
-    animation: testimonialReveal 3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  @keyframes testimonialReveal {
-    from {
-      filter: blur(8px);
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      filter: blur(0);
-      opacity: 0.9;
-      transform: translateY(0);
-    }
-  }
-</style>
