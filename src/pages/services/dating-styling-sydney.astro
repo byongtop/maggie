@@ -9,6 +9,19 @@ import Footer from '../../components/Footer.astro';
 import Packages from '../../components/Packages2.astro';
 import { Icon } from 'astro-icon/components';
 
+const serviceData = {
+  name: "Sydney Dating Photography",
+  description: "Professional dating profile portraits in Sydney",
+  providerName: "ROSE IS ROSE",
+  areaServed: ["Sydney", "Bondi", "Manly", "Parramatta"],
+  priceRange: "$$-$$$"
+};
+
+const breadcrumbs = [
+  { name: "Home", item: "/" },
+  { name: "Services", item: "/services" },
+  { name: "Dating Photography", item: "/services/sydney-dating-photography" }
+];
 /**
  * 页面常量配置 - 集中管理所有文案与元数据
  */
@@ -127,7 +140,7 @@ const pageContent = {
     {
       title: "Wardrobe that actually fits the vibe",
       description: "Bondi beach shoot? Different outfit than CBD rooftop. We'll help you match your clothes to your location, your personality, and the kind of person you're trying to attract.",
-      image: "/assets/images/florian-marette-LEDfhIf_c7E-unsplash.jpg",
+      image: "/assets/images/photo/giovanna-knollseisen-CA4OaE7f500-unsplash.jpg",
       imageAlt: "Wardrobe styling for Sydney dating photos",
       caption: "Sydney casual, but make it intentional."
     }
@@ -158,37 +171,52 @@ const pageContent = {
 <Layout 
   title={pageContent.seo.metaTitle}
   description={pageContent.seo.metaDescription}
+  ogImage="/images/dating-photography.jpg"
+  pageType="service"
+  service={serviceData}
+  breadcrumbs={breadcrumbs}
 >
   <Header />
   
-  <section class="relative h-screen min-h-[800px] flex items-center justify-center overflow-hidden bg-brand-dark">
+  <section class="relative h-screen min-h-[800px] flex items-center justify-center overflow-hidden bg-[#34041A]">
     <div class="absolute inset-0 z-0">
-      <div class="absolute inset-0 bg-gradient-to-b from-brand-dark/90 via-brand-dark/70 to-brand-dark/90 z-10"></div>
-      <img src={pageContent.info.heroImage} alt={pageContent.seo.imageAlt} class="w-full h-full object-cover animate-ken-burns opacity-60" />
+      <div class="absolute inset-0 bg-gradient-to-b from-[#34041A]/90 via-[#34041A]/70 to-[#34041A]/90 z-10"></div>
+      <img 
+        src={pageContent.info.heroImage} 
+        alt={pageContent.seo.imageAlt} 
+        class="w-full h-full object-cover animate-ken-burns opacity-60"
+      />
     </div>
 
     <div class="container relative z-30 mx-auto px-6 text-center reveal-on-scroll">
-      <div class="inline-flex items-center gap-3 px-6 py-3 bg-brand-offwhite/5 backdrop-blur-xl rounded-full border border-brand-offwhite/10 mb-8 animate-float">
-        <span class="w-2 h-2 rounded-full bg-brand-accent animate-pulse"></span>
-        <span class="text-xs tracking-[0.3em] text-brand-offwhite/80 font-light uppercase">{pageContent.info.subtitle}</span>
-        <span class="text-brand-offwhite/40 mx-2">•</span>
+      <div class="inline-flex items-center gap-3 px-6 py-3 bg-white/5 backdrop-blur-xl rounded-full border border-white/10 mb-8 animate-float">
+        <span class="w-2 h-2 rounded-full bg-[#8C7355] animate-pulse"></span>
+        <span class="text-xs tracking-[0.3em] text-[#F9F2E7]/80 font-light uppercase">{pageContent.info.subtitle}</span>
         <span class="text-xs font-mono text-brand-offwhite/60">{pageContent.narrative.badge}</span>
       </div>
 
-      <h1 class="text-7xl md:text-9xl font-serif text-brand-offwhite mb-6 leading-[0.9] tracking-tight uppercase">
-        DATING<br/>STYLING<br/><span class="text-brand-muted">& HAIR</span>
+      <h1 class="text-5xl md:text-8xl font-serif text-white mb-6 leading-[1.2] tracking-tight uppercase">
+        <span class="block overflow-hidden">
+          <span class="block animate-title-slide-up">DATING STYLING</span>
+        </span>
+        <span class="block overflow-hidden">
+          <span class="block animate-title-slide-up animation-delay-200 text-[#8C7355]">& HAIR</span>
+        </span>
       </h1>
 
-      <div class="w-24 h-px mx-auto mb-8 bg-gradient-to-r from-transparent via-brand-accent to-transparent"></div>
+      <div class="w-24 h-px mx-auto mb-8 bg-[#8C7355] animate-width-grow"></div>
 
-      <p class="text-lg md:text-xl text-brand-offwhite/70 max-w-2xl mx-auto font-light leading-relaxed mb-12">
+      <p class="text-lg md:text-xl text-white/70 max-w-2xl mx-auto font-light leading-relaxed mb-12 animate-fade-in animation-delay-500">
         {pageContent.info.desc}
       </p>
 
-      <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-        <a href="/booking" class="btn-brand">
-          Let's get styled
-          <Icon name="lucide:arrow-right" class="w-4 h-4" />
+      <div class="flex flex-col sm:flex-row gap-6 justify-center items-center animate-fade-in animation-delay-700">
+        <a href="/booking" class="group relative px-10 py-5 bg-[#8C7355] text-[#F9F2E7] overflow-hidden rounded-2xl transition-all hover:scale-105 active:scale-95">
+          <span class="absolute inset-0 w-0 bg-white/20 group-hover:w-full transition-all duration-500"></span>
+          <span class="relative flex items-center gap-3 text-sm tracking-[0.3em] uppercase font-light">
+            Fix my wardrobe
+            <Icon name="lucide:arrow-right" class="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+          </span>
         </a>
       </div>
     </div>
@@ -197,8 +225,8 @@ const pageContent = {
   <main class="bg-brand-bg">
     <section id="story" class="max-w-7xl mx-auto px-8 py-32 md:py-40 text-brand-text relative">
       <div class="mb-32 relative reveal-on-scroll">
-        <div class="absolute -top-20 left-0 text-[15vw] font-serif text-brand-accent/5 leading-none select-none pointer-events-none whitespace-nowrap uppercase">
-          STYLE • STYLE • STYLE
+        <div class="absolute -top-20 left-0 text-[9vw] font-serif text-brand-accent/5 leading-none select-none pointer-events-none whitespace-nowrap uppercase">
+          STYLE • STYLE
         </div>
         <h2 class="text-6xl md:text-8xl font-serif text-brand-accent leading-[0.9] tracking-[-0.03em] uppercase relative">
           {pageContent.narrative.mainHeading}<br />

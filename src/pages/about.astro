@@ -9,6 +9,53 @@ import { Image } from 'astro:assets';
 import philImg from '../assets/images/hero/06.jpg'; 
 import '../styles/global.css';
 
+// 关于页面的数据
+const aboutData = {
+  name: "Rose",
+  title: "Portrait Photographer",
+  experience: "8+ years",
+  location: "Sydney",
+  specialties: ["Dating Portraits", "Professional Headshots", "Personal Branding"],
+  socialLinks: {
+    instagram: "https://instagram.com/roseisrose",
+    pinterest: "https://pinterest.com/roseisrose",
+    linkedin: "https://linkedin.com/in/roseisrose"
+  }
+};
+
+// 面包屑导航
+const breadcrumbs = [
+  { name: "Home", item: "/" },
+  { name: "About", item: "/about" }
+];
+
+// 自定义 Schema - 添加更详细的个人信息
+const customSchemas = [
+  {
+    "@type": "Person",
+    "name": "Rose",
+    "description": "Professional portrait photographer specializing in dating and personal branding photography in Sydney.",
+    "image": "https://roseisrose.com.au/images/rose-portrait.jpg",
+    "jobTitle": "Portrait Photographer",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "ROSE IS ROSE"
+    },
+    "sameAs": [
+      "https://instagram.com/roseisrose",
+      "https://pinterest.com/roseisrose",
+      "https://linkedin.com/in/roseisrose"
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Sydney",
+      "addressRegion": "NSW",
+      "addressCountry": "AU"
+    },
+    "knowsAbout": ["Photography", "Portrait Photography", "Dating Profile Photography"]
+  }
+];
+
 const pageData = {
   seo: {
     title: "Our Philosophy & Story | ROSE IS ROSE - Narrative Portraiture",
@@ -45,7 +92,14 @@ const pageData = {
 };
 ---
 
-<Layout title={pageData.seo.title}>
+<Layout
+  title="About Rose | ROSE IS ROSE Portrait Photography"
+  description="Meet Rose, Sydney's premier portrait photographer specializing in dating profiles, personal branding, and professional headshots."
+  ogImage="/images/about-rose.jpg"
+  pageType="about"
+  breadcrumbs={breadcrumbs}
+  schemas={customSchemas}
+>
   <Header />
   
   <main class="bg-brand-bg pt-28 md:pt-36">

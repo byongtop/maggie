@@ -9,6 +9,21 @@ import Packages from '../../components/Packages2.astro';
 
 import { Icon } from 'astro-icon/components';
 
+const serviceD = {
+  name: "Sydney Dating Photography",
+  description: "Professional dating profile portraits in Sydney",
+  providerName: "ROSE IS ROSE",
+  areaServed: ["Sydney", "Bondi", "Manly", "Parramatta"],
+  priceRange: "$$-$$$"
+};
+
+const breadcrumbs = [
+  { name: "Home", item: "/" },
+  { name: "Services", item: "/services" },
+  { name: "Dating Photography", item: "/services/sydney-dating-photography" }
+];
+
+
 // 页面所有文本内容 (保持你原有的所有数据，不做任何删减)
 const serviceData = {
   seo: {
@@ -32,7 +47,7 @@ const serviceData = {
   },
 
   story: {
-    bgText: "MATCH • MATCH • MATCH",
+    bgText: "MATCH • MATCH",
     titleMain: "THE SYDNEY",
     titleItalic: "DIFFERENCE",
     kicker: "WHY YOUR DATING PROFILE NEEDS A LOCAL",
@@ -120,7 +135,7 @@ const serviceData = {
     {
       title: "Golden hour, every hour (okay just one)",
       description: "That one hour when Sydney looks like a movie set. We'll chase the light, you'll look like the main character. Simple.",
-      image: "/assets/images/florian-marette-LEDfhIf_c7E-unsplash.jpg",
+      image: "/assets/images/photo/giovanna-knollseisen-CA4OaE7f500-unsplash.jpg",
       imageAlt: "Sydney golden hour",
       caption: "No filter needed, but we'll add one anyway."
     }
@@ -147,7 +162,7 @@ const serviceData = {
   ],
 
   footerCta: {
-    bgText: "SWIPE • SWIPE • SWIPE",
+    bgText: "SWIPE • SWIPE",
     titleLine1: "YOUR STORY",
     titleLine2: "STARTS HERE",
     desc: "Sydney's full of stories. Let's make yours one that gets told. (And swiped right on.)",
@@ -159,6 +174,10 @@ const serviceData = {
 <Layout 
   title={serviceData.seo.metaTitle}
   description={serviceData.seo.metaDescription}
+  ogImage="/images/dating-photography.jpg"
+  pageType="service"
+  service={serviceD}
+  breadcrumbs={breadcrumbs}
 >
   <Header />
   
@@ -176,8 +195,8 @@ const serviceData = {
         <span class="text-xs font-mono text-brand-on-dark/60">{serviceData.hero.locationTag}</span>
       </div>
 
-      <h1 class="text-7xl md:text-9xl font-serif text-brand-on-dark mb-6 leading-[0.9] tracking-tight uppercase">
-        {serviceData.hero.titleLine1}<br/>
+      <h1 class="text-5xl md:text-8xl font-serif text-brand-on-dark mb-6 leading-[0.9] tracking-tight uppercase">
+        {serviceData.hero.titleLine1} 
         {serviceData.hero.titleLine2}<br/>
         {serviceData.hero.titleLine3}
       </h1>
@@ -189,9 +208,11 @@ const serviceData = {
       </p>
 
       <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-        <a href="/booking" class="btn-brand">
-          {serviceData.hero.ctaPrimary}
-          <Icon name="lucide:arrow-right" class="w-4 h-4" />
+        <a href="/contact" class="btn-brand px-12 py-6 min-w-[200px] justify-center">
+          <span class="inline-flex items-center gap-2">
+            {serviceData.hero.ctaPrimary}
+            <Icon name="lucide:arrow-right" class="w-4 h-4" />
+          </span>
         </a>
         <a href="#story" class="group flex items-center gap-3 text-brand-on-dark/70 hover:text-brand-on-dark transition-colors">
           <span class="w-12 h-px bg-brand-on-dark/30 group-hover:w-16 group-hover:bg-brand-accent transition-all"></span>
@@ -204,7 +225,7 @@ const serviceData = {
   <main class="bg-brand-bg">
     <section id="story" class="max-w-7xl mx-auto px-8 py-32 md:py-40 bg-brand-bg text-brand-primary relative">
       <div class="mb-32 relative reveal-on-scroll">
-        <div class="absolute -top-20 left-0 text-[10vw] font-serif text-brand-accent/5 leading-none select-none pointer-events-none whitespace-nowrap">
+        <div class="absolute -top-20 left-0 text-[9vw] font-serif text-brand-accent/5 leading-none select-none pointer-events-none whitespace-nowrap">
           {serviceData.story.bgText}
         </div>
         <h2 class="text-6xl md:text-8xl font-serif text-brand-accent leading-[0.9] tracking-[-0.03em] uppercase relative">

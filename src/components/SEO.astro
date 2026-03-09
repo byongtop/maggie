@@ -1,0 +1,519 @@
+---
+// src/components/SEO/SEO.astro
+import type { Props as LayoutProps } from "../layouts/Layout.astro";
+
+export interface Schema {
+  "@type": string;
+  [key: string]: any;
+}
+
+export interface Props extends LayoutProps {
+  // 页面类型（用于自动生成特定 Schema）
+  pageType?: "home" | "about" | "service" | "blog" | "contact" | "portfolio";
+  
+  // 自定义 Schema（单个）
+  schema?: Schema;
+  
+  // 多个 Schema（推荐）
+  schemas?: Schema[];
+  
+  // 是否包含基础 Schema（Organization, Website）
+  includeBaseSchemas?: boolean;
+  
+  // 面包屑导航
+  breadcrumbs?: {
+    name: string;
+    item: string;
+  }[];
+  
+  // 图片信息（用于 ImageObject Schema）
+  images?: {
+    url: string;
+    caption?: string;
+    description?: string;
+  }[];
+  
+  // 服务信息（用于服务页面）
+  service?: {
+    name: string;
+    description: string;
+    providerName: string;
+    areaServed: string[];
+    priceRange?: string;
+  };
+  
+  // 博客文章信息
+    // 博客文章数据
+  blogPost?: {
+    title: string;
+    description: string;
+    pubDate: Date;
+    category: string;
+    image?: string;
+    contentBlocks?: Array<{
+      image?: string;
+      imageAlt?: string;
+      text: string;
+      layout: 'left' | 'right' | 'full';
+    }>;
+    seoTitle: string;
+    seoDescription: string;
+  };
+  
+  // 博客列表数据
+  blogList?: {
+    title?: string;
+    description?: string;
+    category?: string; // 当前分类（如果是分类页面）
+    currentPage?: number; // 当前页码
+    totalPages?: number; // 总页数
+    posts: Array<{
+      title: string;
+      description: string;
+      pubDate: Date;
+      category: string;
+      image?: string;
+      slug: string;
+    }>;
+  };
+
+// 分页信息
+  pagination?: {
+    currentPage: number;
+    totalPages: number;
+    baseUrl: string;
+  };
+}
+
+
+const {
+  // Layout props
+  title,
+  description,
+  ogImage,
+  
+  // SEO specific props
+  pageType = "website",
+  schema,
+  schemas = [],
+  includeBaseSchemas = true,
+  breadcrumbs = [],
+  images = [],
+  service,
+  blogPost,
+  blogList,
+  
+  
+  // 网站信息
+  siteName = "ROSE IS ROSE",
+  siteUrl = Astro.site || "https://roseisrose.com.au",
+  twitterHandle = "@roseisrose",
+  locale = "en_AU",
+} = Astro.props;
+
+// 构建完整的 URL
+const canonicalURL = new URL(Astro.url.pathname, siteUrl);
+const imageURL = ogImage ? new URL(ogImage, siteUrl).toString() : "";
+
+// 1. 生成基础 Schema（组织/网站）
+const baseSchemas = [];
+
+if (includeBaseSchemas) {
+  // Organization Schema
+  baseSchemas.push({
+    "@type": "Organization",
+    "name": siteName,
+    "url": siteUrl,
+    "logo": `${siteUrl}/logo.png`,
+    "sameAs": [
+      "https://instagram.com/roseisrose",
+      "https://facebook.com/roseisrose",
+      "https://pinterest.com/roseisrose"
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Sydney",
+      "addressRegion": "NSW",
+      "addressCountry": "AU"
+    }
+  });
+
+  // Website Schema
+  baseSchemas.push({
+    "@type": "WebSite",
+    "name": siteName,
+    "url": siteUrl,
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": `${siteUrl}/search?q={search_term_string}`
+      },
+      "query-input": "required name=search_term_string"
+    }
+  });
+}
+
+// 2. 根据页面类型生成特定 Schema
+const pageTypeSchemas = [];
+
+switch (pageType) {
+  case "home":
+    pageTypeSchemas.push({
+      "@type": "LocalBusiness",
+      "name": siteName,
+      "description": description,
+      "url": siteUrl,
+      "telephone": "+61XXXXXXXXX",
+      "priceRange": "$$",
+      "openingHours": "Mo-Fr 09:00-17:00",
+      "image": imageURL,
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Sydney",
+        "addressRegion": "NSW",
+        "addressCountry": "AU"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "-33.8688",
+        "longitude": "151.2093"
+      }
+    });
+    break;
+
+  case "about":
+    pageTypeSchemas.push({
+      "@type": "ProfilePage",
+      "mainEntity": {
+        "@type": "Person",
+        "name": "Rose",
+        "description": description,
+        "image": imageURL,
+        "jobTitle": "Portrait Photographer",
+        "worksFor": {
+          "@type": "Organization",
+          "name": siteName
+        }
+      }
+    });
+    break;
+
+  case "service":
+    if (service) {
+      pageTypeSchemas.push({
+        "@type": "Service",
+        "name": service.name,
+        "description": service.description,
+        "provider": {
+          "@type": "Organization",
+          "name": service.providerName
+        },
+        "areaServed": service.areaServed.map(area => ({
+          "@type": "City",
+          "name": area
+        })),
+        "priceRange": service.priceRange || "$$"
+      });
+    }
+    break;
+
+case "blog":
+  if (blogPost) {
+    // 收集文章中的所有图片
+    const articleImages = [];
+    
+    // 添加特色图片
+    if (blogPost.image) {
+      articleImages.push(new URL(blogPost.image, siteUrl).toString());
+    }
+    
+    // 从内容块中提取图片
+    if (blogPost.contentBlocks) {
+      blogPost.contentBlocks.forEach(block => {
+        if (block.image) {
+          articleImages.push(new URL(block.image, siteUrl).toString());
+        }
+      });
+    }
+
+    // 计算阅读时间（可选）
+    const wordCount = blogPost.contentBlocks
+      ?.map(block => block.text.replace(/<[^>]*>/g, ''))
+      .join(' ')
+      .split(/\s+/)
+      .length || 0;
+    const readingTime = Math.ceil(wordCount / 200);
+
+    pageTypeSchemas.push({
+      "@type": "BlogPosting",
+      "headline": blogPost.seoTitle || blogPost.title,
+      "description": blogPost.seoDescription || blogPost.description,
+      "image": articleImages.length > 0 ? articleImages : undefined,
+      "datePublished": blogPost.pubDate.toISOString(),
+      "dateModified": blogPost.pubDate.toISOString(), // 如果有修改时间可以更新
+      "author": {
+        "@type": "Person",
+        "name": "Rose", // 或者从您的配置中读取
+        "url": `${siteUrl}/about`
+      },
+      "keywords": blogPost.category,
+      "articleSection": blogPost.category,
+      "wordCount": wordCount,
+      "timeRequired": `PT${readingTime}M`,
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": canonicalURL
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": siteName,
+        "logo": {
+          "@type": "ImageObject",
+          "url": `${siteUrl}/logo.png`
+        }
+      }
+    });
+  }
+  break;
+
+  case "portfolio":
+    pageTypeSchemas.push({
+      "@type": "ImageGallery",
+      "name": title,
+      "description": description,
+      "image": images.map(img => ({
+        "@type": "ImageObject",
+        "url": img.url,
+        "caption": img.caption,
+        "description": img.description
+      }))
+    });
+    break;
+
+  case "contact":
+    pageTypeSchemas.push({
+      "@type": "ContactPage",
+      "name": "Contact",
+      "description": description,
+      "mainEntity": {
+        "@type": "Organization",
+        "name": siteName,
+        "email": "hello@roseisrose.com.au",
+        "telephone": "+61XXXXXXXXX",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+61XXXXXXXXX",
+          "contactType": "customer service",
+          "availableLanguage": ["English"]
+        }
+      }
+    });
+    break;
+
+case "blog-list":
+  if (blogList) {
+    // Blog Schema
+    pageTypeSchemas.push({
+      "@type": "Blog",
+      "name": blogList.title || "ROSE IS ROSE Blog",
+      "description": blogList.description || "Photography tips, success stories, and dating insights",
+      "url": canonicalURL,
+      "blogPost": blogList.posts.map(post => ({
+        "@type": "BlogPosting",
+        "headline": post.title,
+        "description": post.description,
+        "url": `${siteUrl}/blog/${post.slug}`,
+        "datePublished": post.pubDate.toISOString(),
+        "image": post.image ? new URL(post.image, siteUrl).toString() : undefined
+      }))
+    });
+
+    // ItemList Schema for pagination
+    pageTypeSchemas.push({
+      "@type": "ItemList",
+      "itemListElement": blogList.posts.map((post, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "url": `${siteUrl}/blog/${post.slug}`
+      }))
+    });
+
+    // 如果有分类信息，添加 CollectionPage Schema
+    if (blogList.category) {
+      pageTypeSchemas.push({
+        "@type": "CollectionPage",
+        "name": `${blogList.category} | ROSE IS ROSE Blog`,
+        "description": `Articles about ${blogList.category} from ROSE IS ROSE`,
+        "mainEntity": {
+          "@type": "ItemList",
+          "itemListElement": blogList.posts.map((post, index) => ({
+            "@type": "ListItem",
+            "position": index + 1,
+            "item": {
+              "@type": "BlogPosting",
+              "url": `${siteUrl}/blog/${post.slug}`
+            }
+          }))
+        }
+      });
+    }
+  }
+  break;
+}
+
+// 3. 面包屑导航 Schema
+if (breadcrumbs.length > 0) {
+  pageTypeSchemas.push({
+    "@type": "BreadcrumbList",
+    "itemListElement": breadcrumbs.map((crumb, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": crumb.name,
+      "item": `${siteUrl}${crumb.item}`
+    }))
+  });
+}
+
+// 4. 合并所有 Schema
+const allSchemas = [
+  ...baseSchemas,
+  ...pageTypeSchemas,
+  ...(schema ? [schema] : []),
+  ...schemas
+];
+
+// 博客文章 Schema
+if (pageType === "blog" && blogPost) {
+  // 提取文章中的图片用于 Schema
+  const articleImages = [];
+  
+  // 添加特色图片
+  if (blogPost.image) {
+    articleImages.push(new URL(blogPost.image, siteUrl).toString());
+  }
+  
+  // 从内容块中提取图片
+  if (blogPost.contentBlocks) {
+    blogPost.contentBlocks.forEach(block => {
+      if (block.image) {
+        articleImages.push(new URL(block.image, siteUrl).toString());
+      }
+    });
+  }
+
+  // BlogPosting Schema
+  pageTypeSchemas.push({
+    "@type": "BlogPosting",
+    "headline": blogPost.seoTitle || blogPost.title,
+    "description": blogPost.seoDescription || blogPost.description,
+    "image": articleImages.length > 0 ? articleImages : undefined,
+    "datePublished": blogPost.pubDate.toISOString(),
+    "dateModified": blogPost.pubDate.toISOString(), // 如果有修改时间可以更新
+    "author": {
+      "@type": "Person",
+      "name": "Rose",
+      "url": `${siteUrl}/about`
+    },
+    "keywords": blogPost.category,
+    "articleSection": blogPost.category,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": canonicalURL
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": siteName,
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${siteUrl}/logo.png`
+      }
+    }
+  });
+
+  // 如果有内容块，可以创建更详细的 Article Section 标记
+  if (blogPost.contentBlocks && blogPost.contentBlocks.length > 0) {
+    const articleBody = blogPost.contentBlocks
+      .map(block => block.text.replace(/<[^>]*>/g, '')) // 移除 HTML 标签
+      .join(' ')
+      .substring(0, 500); // 限制长度
+
+    pageTypeSchemas.push({
+      "@type": "Article",
+      "articleBody": articleBody,
+      "wordCount": articleBody.split(/\s+/).length
+    });
+  }
+}
+
+// 博客列表页面 Schema
+if (pageType === "blog" && blogList) {
+  // Blog Schema
+  pageTypeSchemas.push({
+    "@type": "Blog",
+    "name": blogList.title || "ROSE IS ROSE Blog",
+    "description": blogList.description || "Photography tips, success stories, and dating insights",
+    "blogPost": blogList.posts.map(post => ({
+      "@type": "BlogPosting",
+      "headline": post.title,
+      "description": post.description,
+      "url": `${siteUrl}/blog/${post.slug}`,
+      "datePublished": post.pubDate.toISOString(),
+      "image": post.image ? new URL(post.image, siteUrl).toString() : undefined
+    }))
+  });
+
+  // ItemList Schema for pagination
+  pageTypeSchemas.push({
+    "@type": "ItemList",
+    "itemListElement": blogList.posts.map((post, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "url": `${siteUrl}/blog/${post.slug}`
+    }))
+  });
+}
+---
+
+<!-- 标准 Meta Tags -->
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Open Graph -->
+<meta property="og:type" content={pageType === "home" ? "website" : pageType} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+{ogImage && <meta property="og:image" content={imageURL} />}
+<meta property="og:site_name" content={siteName} />
+<meta property="og:locale" content={locale} />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={canonicalURL} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+{ogImage && <meta name="twitter:image" content={imageURL} />}
+<meta name="twitter:site" content={twitterHandle} />
+<meta name="twitter:creator" content={twitterHandle} />
+
+<!-- 结构化数据 (JSON-LD) -->
+{
+  allSchemas.map((schemaItem, index) => {
+    const fullSchema = {
+      "@context": "https://schema.org",
+      ...schemaItem
+    };
+    
+    return (
+      <script
+        type="application/ld+json"
+        set:html={JSON.stringify(fullSchema, null, 2)}
+        data-schema-index={index}
+        data-schema-type={schemaItem["@type"]}
+      />
+    );
+  })
+}

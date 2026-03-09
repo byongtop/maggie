@@ -2,12 +2,28 @@
 // src/pages/services/dating-wardrobe-sydney.astro
 // Dating Wardrobe Consulting Sydney - ROSE IS ROSE Service Page
 
-import '../../styles/global.css'; 
+import '../../styles/global.css';
 import Layout from "../../layouts/Layout.astro";
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import Packages from '../../components/Packages2.astro';
 import { Icon } from 'astro-icon/components';
+
+// 服务数据（用于SEO Schema）
+const serviceSEODetails = {
+  name: "Sydney Dating Wardrobe Consulting",
+  description: "Professional wardrobe consulting for dating profile photos in Sydney",
+  providerName: "ROSE IS ROSE",
+  areaServed: ["Sydney", "Bondi", "Manly", "Parramatta"],
+  priceRange: "$$-$$$"
+};
+
+// 面包屑导航
+const breadcrumbs = [
+  { name: "Home", item: "/" },
+  { name: "Services", item: "/services" },
+  { name: "Dating Wardrobe Consulting", item: "/services/dating-wardrobe-sydney" }
+];
 
 /**
  * 页面常量配置 - 集中管理所有文案与元数据
@@ -24,11 +40,12 @@ const serviceData = {
     desc: "Stop staring at your closet wondering what works. We'll help you figure out exactly what to wear—so you look confident, comfortable, and totally you.",
     heroImage: "/assets/images/andrey-zvyagintsev-x0c6vTO5ibA-unsplash.jpg",
   },
-  
+
   // SEO 优化
   seo: {
     metaTitle: "Dating Wardrobe Consultant Sydney | What to Wear for Dating Photos | ROSE IS ROSE",
     metaDescription: "Need a dating wardrobe consultant in Sydney? We'll help you choose outfits for your dating profile photos that look confident, natural, and totally you. Book your session.",
+    metaKeywords: "dating wardrobe consultant, dating photo outfits, what to wear for dating photos, Sydney wardrobe styling, dating profile styling"
   },
 
   // 叙事区块
@@ -121,7 +138,7 @@ const serviceData = {
     {
       title: "The Colour Guide",
       description: "Some colours pop against Sydney's blue sky and harbour. Some disappear. We'll show you which is which—so you stand out, not blend in.",
-      image: "/assets/images/florian-marette-LEDfhIf_c7E-unsplash.jpg",
+      image: "/assets/images/photo/giovanna-knollseisen-CA4OaE7f500-unsplash.jpg",
       imageAlt: "Colour palette for dating photos",
       caption: "Blue works. Grey? Maybe not."
     }
@@ -159,18 +176,23 @@ const serviceData = {
 };
 ---
 
-<Layout 
+<Layout
   title={serviceData.seo.metaTitle}
   description={serviceData.seo.metaDescription}
+  ogImage="/images/dating-wardrobe-og.jpg"
+  pageType="service"
+  service={serviceSEODetails}
+  breadcrumbs={breadcrumbs}
 >
   <Header />
-  
+
+  {/* Hero Section */}
   <section class="relative h-screen min-h-[800px] flex items-center justify-center overflow-hidden bg-[#34041A]">
     <div class="absolute inset-0 z-0">
       <div class="absolute inset-0 bg-gradient-to-b from-[#34041A]/90 via-[#34041A]/70 to-[#34041A]/90 z-10"></div>
-      <img 
-        src={serviceData.info.heroImage} 
-        alt="Sydney Wardrobe Consulting" 
+      <img
+        src={serviceData.info.heroImage}
+        alt="Sydney Wardrobe Consulting"
         class="w-full h-full object-cover animate-ken-burns opacity-60"
       />
     </div>
@@ -181,7 +203,7 @@ const serviceData = {
         <span class="text-xs tracking-[0.3em] text-[#F9F2E7]/80 font-light uppercase">{serviceData.info.subtitle}</span>
       </div>
 
-      <h1 class="text-7xl md:text-9xl font-serif text-white mb-6 leading-[0.9] tracking-tight uppercase">
+      <h1 class="text-5xl md:text-8xl font-serif text-white mb-6 leading-[1.2] tracking-tight uppercase">
         <span class="block overflow-hidden">
           <span class="block animate-title-slide-up">{serviceData.info.h1Title}</span>
         </span>
@@ -210,6 +232,7 @@ const serviceData = {
 
   <main class="bg-[#F9F2E7]">
     <section id="story" class="max-w-7xl mx-auto px-8 py-32 md:py-40 relative">
+      {/* Narrative Section */}
       <div class="mb-32 relative reveal-on-scroll">
         <div class="absolute -top-20 left-0 text-[15vw] font-serif text-[#34041A]/5 leading-none select-none pointer-events-none whitespace-nowrap uppercase">
           {serviceData.narrative.bgText}
@@ -226,6 +249,7 @@ const serviceData = {
         </p>
       </div>
 
+      {/* Quote Section */}
       <div class="mb-32 relative group pl-16 reveal-on-scroll">
         <div class="absolute -left-8 top-0 text-[12rem] font-serif text-[#34041A]/10 leading-none select-none pointer-events-none">"</div>
         <p class="text-lg md:text-2xl font-light leading-relaxed text-[#3C3835] mb-8">
@@ -236,8 +260,9 @@ const serviceData = {
         </p>
       </div>
 
+      {/* Strategies Grid */}
       <div class="grid md:grid-cols-2 gap-20 mb-32 reveal-on-scroll">
-        {serviceData.strategies.map(item => (
+        {serviceData.strategies.map((item) => (
           <div class="relative group">
             <h2 class="text-3xl font-serif text-[#34041A] mb-8 uppercase tracking-wide flex items-center">
               <span class="w-12 h-px bg-[#8C7355]/40 mr-6 group-hover:w-20 transition-all duration-700"></span>
@@ -250,13 +275,14 @@ const serviceData = {
         ))}
       </div>
 
+      {/* Mistakes Section */}
       <div class="mb-40 relative reveal-on-scroll">
         <h2 class="text-4xl md:text-5xl font-serif text-[#34041A] mb-16 uppercase tracking-wide text-center">
           {serviceData.mistakesTitle}<br />
           <span class="text-xl font-light text-[#8C7355] block mt-4 tracking-normal">{serviceData.mistakesSub}</span>
         </h2>
         <div class="grid md:grid-cols-3 gap-8">
-          {serviceData.mistakes.map(item => (
+          {serviceData.mistakes.map((item) => (
             <div class="group relative p-10 bg-white/50 backdrop-blur-sm border border-[#8C7355]/10 hover:border-[#34041A]/30 transition-all duration-700 hover:translate-y-[-8px]">
               <span class="absolute -top-6 left-8 text-8xl font-serif text-[#34041A]/10 group-hover:text-[#34041A]/20 transition-colors">{item.no}</span>
               <h3 class="text-2xl font-serif text-[#34041A] mb-4 relative z-10 uppercase">{item.title}</h3>
@@ -270,8 +296,9 @@ const serviceData = {
         </div>
       </div>
 
+      {/* Modes Section */}
       <div class="grid md:grid-cols-2 gap-20 mb-40 reveal-on-scroll">
-        {serviceData.modes.map(mode => (
+        {serviceData.modes.map((mode) => (
           <div class="relative group">
             <h2 class="text-3xl font-serif text-[#34041A] mb-10 uppercase tracking-wide">
               <span class="block text-sm font-light text-[#8C7355] mb-3 tracking-[0.3em]">{mode.step}</span>
@@ -283,7 +310,7 @@ const serviceData = {
               {mode.p3 && <p class="text-base font-light text-[#3C3835]/70">{mode.p3}</p>}
               {mode.list && (
                 <ul class="space-y-4 text-base font-light">
-                  {mode.list.map(li => (
+                  {mode.list.map((li) => (
                     <li class="flex items-start group/item">
                       <span class="w-1.5 h-1.5 rounded-full bg-[#34041A] mt-2 mr-4 group-hover/item:scale-150 transition-transform"></span>
                       <span class="text-[#3C3835]/70">{li}</span>
@@ -296,6 +323,7 @@ const serviceData = {
         ))}
       </div>
 
+      {/* Stress Free Section */}
       <div class="mb-40 relative py-24 px-8 bg-[#34041A] -mx-8 text-[#F9F2E7] reveal-on-scroll">
         <div class="max-w-4xl mx-auto text-center relative">
           <h2 class="text-4xl md:text-5xl font-serif text-white mb-8 uppercase tracking-wide">{serviceData.stressFree.title}</h2>
@@ -304,6 +332,7 @@ const serviceData = {
         </div>
       </div>
 
+      {/* Experience Modules */}
       <div class="mb-40 reveal-on-scroll">
         <h2 class="text-3xl md:text-4xl font-serif text-[#34041A] mb-16 text-center uppercase tracking-wide">HOW IT WORKS</h2>
         <div class="grid md:grid-cols-3 gap-8">
@@ -323,8 +352,10 @@ const serviceData = {
         </div>
       </div>
 
+      {/* Packages Component */}
       <Packages />
 
+      {/* FAQ Section */}
       <div class="mb-40 mt-40 reveal-on-scroll">
         <h2 class="text-3xl md:text-4xl font-serif text-[#34041A] mb-16 text-center uppercase tracking-wide">{serviceData.faqTitle}</h2>
         <div class="max-w-3xl mx-auto space-y-6">
@@ -345,13 +376,14 @@ const serviceData = {
         </div>
       </div>
 
+      {/* Footer CTA */}
       <div class="text-center py-20 relative reveal-on-scroll">
         <h2 class="text-5xl md:text-7xl font-serif text-[#34041A] mb-8 uppercase tracking-tight">
           {serviceData.footerCTA.titleLine1}<br />
           <span class="italic font-light text-[#8C7355]">{serviceData.footerCTA.titleLine2}</span>
         </h2>
         <p class="text-base font-light text-[#3C3835]/60 max-w-xl mx-auto mb-16">{serviceData.footerCTA.desc}</p>
-        <a href="/booking" class="btn-brand">
+        <a href="/booking" class="btn-brand inline-flex items-center gap-3">
           {serviceData.footerCTA.button}
           <Icon name="lucide:arrow-right" class="w-4 h-4" />
         </a>
@@ -362,6 +394,129 @@ const serviceData = {
   <Footer />
 </Layout>
 
+<style is:global>
+  /* 滚动揭幕动画 */
+  .reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal-on-scroll.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* 标题滑动动画 */
+  @keyframes titleSlideUp {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .animate-title-slide-up {
+    animation: titleSlideUp 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .animation-delay-200 {
+    animation-delay: 0.2s;
+  }
+
+  .animation-delay-500 {
+    animation-delay: 0.5s;
+  }
+
+  .animation-delay-700 {
+    animation-delay: 0.7s;
+  }
+
+  /* 宽度增长动画 */
+  @keyframes widthGrow {
+    from { width: 0; }
+    to { width: 6rem; }
+  }
+
+  .animate-width-grow {
+    animation: widthGrow 1.2s ease-out forwards;
+  }
+
+  /* 淡入动画 */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 1s ease-out forwards;
+  }
+
+  /* 浮动动画 */
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* 脉冲动画 */
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .animate-pulse {
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  /* Ken Burns 效果 */
+  @keyframes kenBurns {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
+  }
+
+  .animate-ken-burns {
+    animation: kenBurns 20s ease-out forwards;
+  }
+
+  /* 自定义滚动条 */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #F9F2E7;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #8C7355;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #34041A;
+  }
+
+  ::selection {
+    background: rgba(52, 4, 26, 0.15);
+    color: #34041A;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+</style>
+
 <script>
   function initReveal() {
     const observer = new IntersectionObserver((entries) => {
@@ -370,10 +525,18 @@ const serviceData = {
           entry.target.classList.add('active');
         }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
     document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
   }
+
+  // 兼容 Astro 的 View Transitions
   document.addEventListener('astro:page-load', initReveal);
-  initReveal();
+
+  // 页面加载时执行
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initReveal);
+  } else {
+    initReveal();
+  }
 </script>

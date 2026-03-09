@@ -16,7 +16,9 @@ import { Icon } from 'astro-icon/components';
 const categoryIndexData = {
   seo: {
     title: "Journal Collections | ROSE IS ROSE",
-    description: "Explore our photography insights, success stories, and dating strategy guides by category."
+    description: "Explore our photography insights, success stories, and dating strategy guides by category.",
+    ogImage: "/images/categories-index-og.jpg",
+    keywords: "photography categories, blog topics, dating insights, photography tips, success stories"
   },
   hero: {
     badge: "COLLECTIONS",
@@ -27,29 +29,38 @@ const categoryIndexData = {
     backLink: "Back to all stories",
     viewAllLink: "View all posts",
     browseText: "Browse Category",
-    postSuffix: "Stories"
+    postSuffix: "Stories",
+    metaDescription: "Browse all blog categories at ROSE IS ROSE: Photography Tips & Guides, Success Stories, Dating Insights, and Behind the Scenes. Find expert advice, real transformations, and strategic insights for your visual journey."
   },
   // 核心分类配置：集中管理 Slug, 描述与样式
   categoryConfig: {
     'Photography Tips & Guides': {
       slug: 'photography-tips-guides',
       description: 'Expert advice on lighting, posing, and crafting a visual narrative that resonates.',
-      style: 'border-[#8C7355]/30 text-[#8C7355]'
+      style: 'border-[#8C7355]/30 text-[#8C7355]',
+      ogImage: '/images/category-photography-tips.jpg',
+      longDescription: 'Master the art of portrait photography with our comprehensive guides. From lighting techniques to posing tips, learn how to capture authentic moments that tell your unique story.'
     },
     'Success Stories': {
       slug: 'success-stories',
       description: 'Documented transformations of our clients and their journeys toward authentic connection.',
-      style: 'border-[#34041A]/30 text-[#34041A]'
+      style: 'border-[#34041A]/30 text-[#34041A]',
+      ogImage: '/images/category-success-stories.jpg',
+      longDescription: 'Real stories of transformation from our clients. Discover how professional portraits have helped people find confidence, love, and success in both their personal and professional lives.'
     },
     'Dating Insights': {
       slug: 'dating-insights',
       description: 'Strategic analysis of the modern dating landscape in Sydney and beyond.',
-      style: 'border-[#34041A]/30 text-[#34041A]'
+      style: 'border-[#34041A]/30 text-[#34041A]',
+      ogImage: '/images/category-dating-insights.jpg',
+      longDescription: 'Navigate the modern dating world with our strategic insights. From profile optimization to understanding dating app algorithms, we share expert advice to help you make meaningful connections.'
     },
     'Behind the Scenes': {
       slug: 'behind-the-scenes',
       description: 'An intimate look at our creative process, studio culture, and the "Rose is Rose" philosophy.',
-      style: 'border-[#8C7355]/30 text-[#8C7355]'
+      style: 'border-[#8C7355]/30 text-[#8C7355]',
+      ogImage: '/images/category-behind-scenes.jpg',
+      longDescription: 'Go behind the lens with us. Explore our creative process, studio culture, and the philosophy that makes ROSE IS ROSE unique. See how we bring your visual story to life.'
     }
   }
 };
@@ -57,23 +68,122 @@ const categoryIndexData = {
 // 获取分类统计数据
 const allPosts = await getCollection('blog');
 const categoryCounts: Record<string, number> = {};
+const categoryFirstPosts: Record<string, any> = {};
 
 allPosts.forEach(post => {
   const category = post.data.category;
   if (category) {
     categoryCounts[category] = (categoryCounts[category] || 0) + 1;
+    
+    // 获取每个分类的最新文章（用于 Schema）
+    if (!categoryFirstPosts[category] || 
+        new Date(post.data.pubDate) > new Date(categoryFirstPosts[category].data.pubDate)) {
+      categoryFirstPosts[category] = post;
+    }
   }
 });
 
 const categoryEntries = Object.entries(categoryIndexData.categoryConfig);
+
+// ==========================================
+// SEO 数据结构
+// ==========================================
+
+// 面包屑导航
+const breadcrumbs = [
+  { name: "Home", item: "/" },
+  { name: "Blog", item: "/blog" },
+  { name: "Categories", item: "/blog/category" }
+];
+
+// 构建分类列表数据用于 Schema
+const categoryItems = categoryEntries.map(([name, config], index) => {
+  const count = categoryCounts[name] || 0;
+  const firstPost = categoryFirstPosts[name];
+  
+  return {
+    "@type": "ListItem",
+    "position": index + 1,
+    "item": {
+      "@type": "CollectionPage",
+      "name": name,
+      "description": config.description,
+      "url": `https://roseisrose.com.au/blog/category/${config.slug}`,
+      "numberOfItems": count,
+      ...(firstPost && {
+        "mainEntity": {
+          "@type": "BlogPosting",
+          "headline": firstPost.data.title,
+          "url": `https://roseisrose.com.au/blog/${firstPost.slug}`
+        }
+      })
+    }
+  };
+});
+
+// 自定义 Schema
+const customSchemas = [
+  // CollectionPage Schema for categories index
+  {
+    "@type": "CollectionPage",
+    "@id": "https://roseisrose.com.au/blog/category#collection",
+    "name": "Blog Categories | ROSE IS ROSE",
+    "description": categoryIndexData.ui.metaDescription,
+    "url": "https://roseisrose.com.au/blog/category",
+    "mainEntity": {
+      "@type": "ItemList",
+      "itemListElement": categoryItems,
+      "numberOfItems": categoryEntries.length
+    }
+  },
+  // Site Navigation Schema
+  {
+    "@type": "SiteNavigationElement",
+    "name": "Blog Categories",
+    "description": "Browse blog posts by category",
+    "url": "https://roseisrose.com.au/blog/category",
+    "hasPart": categoryEntries.map(([name, config]) => ({
+      "@type": "WebPage",
+      "name": name,
+      "url": `https://roseisrose.com.au/blog/category/${config.slug}`
+    }))
+  },
+  // WebSite Schema with search
+  {
+    "@type": "WebSite",
+    "name": "ROSE IS ROSE Blog",
+    "url": "https://roseisrose.com.au/blog",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://roseisrose.com.au/blog/search?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  }
+];
+
+// 构建分类描述字符串（用于 meta description）
+const categoryDescriptions = categoryEntries
+  .map(([name, config]) => {
+    const count = categoryCounts[name] || 0;
+    return `${name} (${count} ${count === 1 ? 'story' : 'stories'})`;
+  })
+  .join(' • ');
 ---
 
-<Layout 
+<Layout
   title={categoryIndexData.seo.title}
   description={categoryIndexData.seo.description}
+  ogImage={categoryIndexData.seo.ogImage}
+  pageType="website"
+  breadcrumbs={breadcrumbs}
+  schemas={customSchemas}
 >
   <Header />
 
+  {/* Hero Section */}
   <section class="relative pt-40 pb-20 md:pt-56 md:pb-28 bg-[#34041A] text-[#F9F2E7] overflow-hidden">
     <div class="absolute inset-0 z-0">
       <div class="absolute inset-0 opacity-[0.03] bg-[url('/assets/images/grid-pattern.svg')] bg-repeat"></div>
@@ -91,16 +201,51 @@ const categoryEntries = Object.entries(categoryIndexData.categoryConfig);
       <p class="text-lg text-[#F9F2E7]/70 max-w-2xl mx-auto font-light italic leading-relaxed">
         {categoryIndexData.hero.subtitle}
       </p>
+      
+      {/* 统计信息 */}
+      <div class="mt-12 flex flex-wrap justify-center gap-6 text-sm">
+        <div class="flex items-center gap-2">
+          <span class="w-1.5 h-1.5 bg-[#8C7355] rounded-full"></span>
+          <span class="text-[#F9F2E7]/60 text-xs tracking-wider">
+            {categoryEntries.length} Categories
+          </span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-1.5 h-1.5 bg-[#8C7355] rounded-full"></span>
+          <span class="text-[#F9F2E7]/60 text-xs tracking-wider">
+            {allPosts.length} Total Stories
+          </span>
+        </div>
+      </div>
     </div>
   </section>
 
   <main class="bg-[#F9F2E7]">
     <section class="max-w-7xl mx-auto px-6 py-20 md:py-32">
       
+      {/* 隐藏的 SEO 描述 */}
+      <div class="sr-only" aria-hidden="false">
+        <h2>Blog Categories at ROSE IS ROSE</h2>
+        <p>{categoryIndexData.ui.metaDescription}</p>
+        <p>Available categories with post counts: {categoryDescriptions}</p>
+        <ul>
+          {categoryEntries.map(([name, config]) => {
+            const count = categoryCounts[name] || 0;
+            return (
+              <li>
+                <strong>{name}:</strong> {count} {count === 1 ? 'story' : 'stories'} - {config.longDescription}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+
+      {/* 返回链接 */}
       <div class="flex justify-center mb-20 reveal-on-scroll">
         <a 
           href="/blog" 
           class="text-[10px] tracking-[0.3em] uppercase text-[#3C3835]/40 hover:text-[#34041A] transition-all flex items-center gap-3 group"
+          aria-label="Back to all blog posts"
         >
           <Icon name="lucide:arrow-left" class="w-3 h-3 group-hover:-translate-x-1 transition-transform" />
           <span class="border-b border-transparent group-hover:border-[#34041A]/20 pb-1">
@@ -109,59 +254,95 @@ const categoryEntries = Object.entries(categoryIndexData.categoryConfig);
         </a>
       </div>
 
-      <div class="grid md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
-        {categoryEntries.map(([name, config], index) => {
-          const count = categoryCounts[name] || 0;
-          
-          return (
-            <a 
-              href={`/blog/category/${config.slug}`}
-              class="group relative block bg-white border border-[#34041A]/5 hover:border-[#34041A]/20 transition-all duration-700 p-10 md:p-12 shadow-sm hover:shadow-2xl reveal-on-scroll"
-              style={`transition-delay: ${index * 100}ms`}
-            >
-              <div class="flex items-center justify-between mb-8">
-                <span class={`text-[10px] tracking-[0.2em] uppercase px-4 py-2 border ${config.style} backdrop-blur-sm`}>
-                  {name}
-                </span>
-                <span class="text-[10px] tracking-widest text-[#3C3835]/30 uppercase font-medium">
-                  {count} {categoryIndexData.ui.postSuffix}
-                </span>
-              </div>
-
-              <p class="text-[#3C3835]/70 font-light leading-relaxed mb-12 text-lg italic pr-6 group-hover:text-[#3C3835] transition-colors duration-500">
-                {config.description}
-              </p>
-
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-4">
-                  <span class="text-[10px] tracking-[0.4em] uppercase text-[#34041A] font-medium">
-                    {categoryIndexData.ui.browseText}
-                  </span>
-                  <div class="w-8 h-px bg-[#8C7355] group-hover:w-16 transition-all duration-500 ease-in-out"></div>
-                </div>
+      {/* 分类网格 */}
+      {categoryEntries.length > 0 ? (
+        <div class="grid md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
+          {categoryEntries.map(([name, config], index) => {
+            const count = categoryCounts[name] || 0;
+            const categoryUrl = `/blog/category/${config.slug}`;
+            const hasPosts = count > 0;
+            
+            return (
+              <a 
+                href={categoryUrl}
+                class={`group relative block bg-white border border-[#34041A]/5 hover:border-[#34041A]/20 transition-all duration-700 p-10 md:p-12 shadow-sm hover:shadow-2xl reveal-on-scroll ${!hasPosts ? 'opacity-50 pointer-events-none' : ''}`}
+                style={`transition-delay: ${index * 100}ms`}
+                aria-label={`Browse ${name} category${hasPosts ? ` with ${count} stories` : ' (coming soon)'}`}
+                aria-disabled={!hasPosts}
+              >
+                {/* Schema 微数据 */}
+                <meta itemProp="name" content={name} />
+                <meta itemProp="description" content={config.description} />
+                <meta itemProp="url" content={`https://roseisrose.com.au${categoryUrl}`} />
+                <meta itemProp="numberOfItems" content={count.toString()} />
                 
-                <div class="w-12 h-12 rounded-full border border-[#34041A]/5 group-hover:bg-[#34041A] group-hover:text-[#F9F2E7] flex items-center justify-center transition-all duration-500 ease-out transform group-hover:rotate-[-45deg]">
-                  <Icon name="lucide:arrow-right" class="w-5 h-5" />
+                {/* 装饰性背景 */}
+                <div class="absolute top-0 right-0 p-6 opacity-[0.02] group-hover:opacity-10 transition-opacity duration-700">
+                  <Icon name="lucide:layers" class="w-24 h-24" />
                 </div>
-              </div>
-              
-              <div class="absolute bottom-0 left-0 h-[2px] w-0 bg-[#34041A] group-hover:w-full transition-all duration-700 ease-in-out"></div>
-            </a>
-          );
-        })}
-      </div>
 
+                <div class="relative z-10">
+                  <div class="flex items-center justify-between mb-8">
+                    <span class={`text-[10px] tracking-[0.2em] uppercase px-4 py-2 border ${config.style} backdrop-blur-sm`}>
+                      {name}
+                    </span>
+                    <span class="text-[10px] tracking-widest text-[#3C3835]/30 uppercase font-medium">
+                      {count} {count === 1 ? 'Story' : categoryIndexData.ui.postSuffix}
+                    </span>
+                  </div>
+
+                  <p class="text-[#3C3835]/70 font-light leading-relaxed mb-12 text-lg italic pr-6 group-hover:text-[#3C3835] transition-colors duration-500">
+                    {config.description}
+                  </p>
+
+                  {hasPosts && (
+                    <>
+                      <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-4">
+                          <span class="text-[10px] tracking-[0.4em] uppercase text-[#34041A] font-medium">
+                            {categoryIndexData.ui.browseText}
+                          </span>
+                          <div class="w-8 h-px bg-[#8C7355] group-hover:w-16 transition-all duration-500 ease-in-out"></div>
+                        </div>
+                        
+                        <div class="w-12 h-12 rounded-full border border-[#34041A]/5 group-hover:bg-[#34041A] group-hover:text-[#F9F2E7] flex items-center justify-center transition-all duration-500 ease-out transform group-hover:rotate-[-45deg]">
+                          <Icon name="lucide:arrow-right" class="w-5 h-5" />
+                        </div>
+                      </div>
+                      
+                      <div class="absolute bottom-0 left-0 h-[2px] w-0 bg-[#34041A] group-hover:w-full transition-all duration-700 ease-in-out"></div>
+                    </>
+                  )}
+
+                  {!hasPosts && (
+                    <div class="mt-8 text-[#8C7355] text-xs tracking-wider italic">
+                      Coming soon
+                    </div>
+                  )}
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      ) : (
+        <div class="text-center py-20">
+          <p class="text-xl text-[#3C3835]/60">No categories found.</p>
+        </div>
+      )}
+
+      {/* 查看所有文章链接 */}
       <div class="text-center mt-32 reveal-on-scroll">
         <a 
           href="/blog" 
           class="inline-flex items-center gap-6 text-[11px] tracking-[0.5em] uppercase text-[#34041A] group font-medium"
+          aria-label="View all blog posts"
         >
           <span class="relative py-2">
             {categoryIndexData.ui.viewAllLink}
             <span class="absolute bottom-0 left-0 w-full h-[1px] bg-[#34041A]/10 group-hover:bg-[#34041A] transition-all duration-500"></span>
           </span>
           <div class="w-10 h-10 rounded-full bg-[#34041A]/5 group-hover:bg-[#34041A] flex items-center justify-center transition-all duration-500">
-             <Icon name="lucide:arrow-right" class="w-4 h-4 group-hover:text-[#F9F2E7] transition-colors" />
+            <Icon name="lucide:arrow-right" class="w-4 h-4 group-hover:text-[#F9F2E7] transition-colors" />
           </div>
         </a>
       </div>
@@ -172,6 +353,48 @@ const categoryEntries = Object.entries(categoryIndexData.categoryConfig);
   <Footer />
 </Layout>
 
+<style is:global>
+  /* 滚动揭幕动画 */
+  .reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  
+  .reveal-on-scroll.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* 标题宽度动画 */
+  @keyframes widthGrow {
+    from { width: 0; }
+    to { width: 5rem; }
+  }
+  
+  .animate-width-grow {
+    animation: widthGrow 1.2s ease-out forwards;
+  }
+
+  /* 分类卡片悬停效果 */
+  .group {
+    transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* 隐藏的 SEO 内容确保可访问但不可见 */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+</style>
+
 <script>
   function initReveal() {
     const observer = new IntersectionObserver((entries) => {
@@ -180,11 +403,18 @@ const categoryEntries = Object.entries(categoryIndexData.categoryConfig);
           entry.target.classList.add('active');
         }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
     document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
   }
   
+  // 兼容 Astro 的 View Transitions
   document.addEventListener('astro:page-load', initReveal);
-  initReveal();
+  
+  // 页面加载时执行
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initReveal);
+  } else {
+    initReveal();
+  }
 </script>

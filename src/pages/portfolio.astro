@@ -5,6 +5,11 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
+const breadcrumbs = [
+  { name: "Home", item: "/" },
+  { name: "Portfolio", item: "/portfolio" }
+];
+
 const portfolioData = {
   seo: {
     title: "Portfolio | ROSE IS ROSE - Dating & Narrative Portraiture",
@@ -68,7 +73,13 @@ const portfolioData = {
 };
 ---
 
-<Layout title={portfolioData.seo.title}>
+<Layout 
+  title="Portfolio | ROSE IS ROSE Photography"
+  description="Browse our portfolio of professional portraits in Sydney"
+  ogImage="/images/portfolio/featured.jpg"
+  pageType="portfolio"
+  breadcrumbs={breadcrumbs}
+>
   <Header />
 
   <section class="relative h-[65vh] flex items-end pb-24 bg-brand-dark overflow-hidden">

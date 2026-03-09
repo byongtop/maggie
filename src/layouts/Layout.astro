@@ -1,23 +1,39 @@
 ---
 // src/layouts/Layout.astro
+import SEO from "../components/SEO.astro";
 import "../styles/global.css";
 
-interface Props {
+export interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
+  pageType?: "home" | "about" | "service" | "blog" | "contact" | "portfolio";
+  schemas?: any[];
+  breadcrumbs?: any[];
+  service?: any;
+  article?: any;
+  images?: any[];
 }
 
 const {
   title = "Professional Portraits | Sydney Photography",
   description = "High-end image photography for dating and professional profiles in Sydney.",
-  ogImage = "/og-image.jpg",
+  //ogImage = "/og-image.jpg",
+  ogImage,
+  pageType = "website",
+  schemas = [],
+  breadcrumbs,
+  service,
+  article,
+  images,
 } = Astro.props;
 
 const canonicalURL = new URL(
   Astro.url.pathname,
   Astro.site || "https://roseisrose.com.au"
 );
+
+const imageURL = new URL(ogImage, Astro.url);
 ---
 
 <!doctype html>
@@ -34,11 +50,18 @@ const canonicalURL = new URL(
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
 
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={Astro.url} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(ogImage, Astro.url)} />
+    <SEO
+      {title}
+      {description}
+      {ogImage}
+      {pageType}
+      {schemas}
+      {breadcrumbs}
+      {service}
+      {article}
+      {images}
+    />
+    
   </head>
 
   <body>

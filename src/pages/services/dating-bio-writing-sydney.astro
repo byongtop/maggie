@@ -7,6 +7,20 @@ import Footer from '../../components/Footer.astro';
 import Packages from '../../components/Packages2.astro';
 import { Icon } from 'astro-icon/components';
 
+const serviceData = {
+  name: "Sydney Dating Photography",
+  description: "Professional dating profile portraits in Sydney",
+  providerName: "ROSE IS ROSE",
+  areaServed: ["Sydney", "Bondi", "Manly", "Parramatta"],
+  priceRange: "$$-$$$"
+};
+
+const breadcrumbs = [
+  { name: "Home", item: "/" },
+  { name: "Services", item: "/services" },
+  { name: "Dating Photography", item: "/services/sydney-dating-photography" }
+];
+
 /**
  * PAGE CONTENT CONFIGURATION
  * 完全无删减版 - 包含所有悉尼本地化细节与专业文案
@@ -109,7 +123,7 @@ const pageContent = {
     {
       title: "The Opener Strategy",
       description: "Here's a secret: a good bio gives them an easy way to message you. We'll plant little hooks—things to ask about, jokes to reference, opinions to debate. Suddenly, 'hey' turns into actual conversations.",
-      image: "/assets/images/florian-marette-LEDfhIf_c7E-unsplash.jpg",
+      image: "/assets/images/photo/giovanna-knollseisen-CA4OaE7f500-unsplash.jpg",
       imageAlt: "Dating profile strategy",
       caption: "Make it easy for them to start the chat."
     }
@@ -148,6 +162,10 @@ const pageContent = {
 <Layout 
   title={pageContent.seo.title}
   description={pageContent.seo.description}
+  ogImage="/images/dating-photography.jpg"
+  pageType="service"
+  service={serviceData}
+  breadcrumbs={breadcrumbs}
 >
   <Header />
   
@@ -165,7 +183,7 @@ const pageContent = {
         <span class="text-xs font-mono text-brand-on-dark/60">{pageContent.hero.tagline}</span>
       </div>
 
-      <h1 class="text-7xl md:text-9xl font-serif text-brand-on-dark mb-6 leading-[0.9] tracking-tight uppercase">
+      <h1 class="text-5xl md:text-8xl font-serif text-brand-on-dark mb-6 leading-[0.9] tracking-tight uppercase">
         {pageContent.hero.titleLine1}<br/>
         {pageContent.hero.titleLine2}
       </h1>
@@ -177,10 +195,13 @@ const pageContent = {
       </p>
 
       <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-        <a href="/booking" class="btn-brand">
-          {pageContent.hero.ctaText}
-          <Icon name="lucide:arrow-right" class="w-4 h-4" />
+        <a href="/contact" class="btn-brand px-12 py-6 min-w-[200px] justify-center">
+          <span class="inline-flex items-center gap-2">
+            {pageContent.hero.ctaText}
+            <Icon name="lucide:arrow-right" class="w-4 h-4" />
+          </span>
         </a>
+
       </div>
     </div>
   </section>

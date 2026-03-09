@@ -52,11 +52,43 @@ const formattedDate = new Date(data.pubDate).toLocaleDateString('en-AU', {
   month: 'long',
   day: 'numeric'
 });
+
+// 构建面包屑
+const breadcrumbs = [
+  { name: "Home", item: "/" },
+  { name: "Blog", item: "/blog" },
+  { name: data.title, item: `/blog/${data.slug}` },
+];
+
+// 提取所有图片用于 Schema
+const allImages = [data.image];
+if (data.contentBlocks) {
+  data.contentBlocks.forEach(block => {
+    if (block.image && !allImages.includes(block.image)) {
+      allImages.push(block.image);
+    }
+  });
+}
 ---
 
 <Layout 
   title={`${data.title} | ROSE IS ROSE Blog`}
   description={data.description}
+  ogImage={data.image}
+  pageType="blog"
+  blogPost={data}
+  breadcrumbs={breadcrumbs}
+  schemas={[
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": breadcrumbs.map((crumb, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "name": crumb.name,
+        "item": `https://roseisrose.com.au${crumb.item}`
+      }))
+    }
+  ]}
 >
   <Header />
 
