@@ -1,6 +1,6 @@
 ---
 // src/layouts/Layout.astro
-import '../styles/global.css';
+import "../styles/global.css";
 
 interface Props {
   title?: string;
@@ -8,14 +8,18 @@ interface Props {
   ogImage?: string;
 }
 
-const { 
-  title = "Professional Portraits | Sydney Photography", 
+const {
+  title = "Professional Portraits | Sydney Photography",
   description = "High-end image photography for dating and professional profiles in Sydney.",
-  ogImage = "/og-image.jpg"
+  ogImage = "/og-image.jpg",
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://example.com");
+const canonicalURL = new URL(
+  Astro.url.pathname,
+  Astro.site || "https://roseisrose.com.au"
+);
 ---
+
 <!doctype html>
 <html lang="en-AU">
   <head>
@@ -36,10 +40,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://example.
     <meta property="og:description" content={description} />
     <meta property="og:image" content={new URL(ogImage, Astro.url)} />
   </head>
-  
+
   <body>
     <slot />
-
-
   </body>
 </html>

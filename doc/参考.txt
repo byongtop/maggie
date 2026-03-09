@@ -14,5 +14,54 @@ Bio文案	Dating Bio Writing Sydney	Professional Dating Profile Bio Writer Sydne
 App策略	Dating App Strategy Sydney	Dating App Consultant & Profile Optimization Sydney
 
 
-写的太好了，能再帮我写Dating Styling & Hair Sydney的网页吗？与Sydney Dating Portraits的样式差不多，重点要覆盖SEO关键词，文字要优雅，语气要轻松一点儿，不要太死板机器人口气。要像好朋友一样的年轻人语气，不要删除任何模块和样式，我要完整版
+太好了，能再帮我写Dating App Strategy Sydney的网页吗？与Sydney Dating Portraits的样式差不多，重点要覆盖SEO关键词，文字要优雅，语气要轻松一点儿，不要太死板机器人口气。要像好朋友一样的年轻人语气，不要删除任何模块和样式，我要完整版
 
+
+交友网站相亲形象摄影网站的blog我分了以下几类：
+Photography Tips & Guides
+Success Stories
+Dating Insights
+Behind the Scenes
+
+
+blog文章
+
+3种最吸引人的男性形象照POSE
+着装指南：不同场景下的色彩搭配秘籍
+如何通过一张照片吸引对的人？——Jason的真实故事
+第一次约会如何判断TA是否是正缘？
+化妆师Maggie的一天：为客户量身定制妆容
+
+
+// Blog Schema - 侧重于内容营销与流量抓取
+const blogCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    pubDate: z.date(),
+    category: z.enum([
+      'Photography Tips & Guides',
+      'Success Stories',
+      'Dating Insights',
+      'Behind the Scenes'
+    ]),
+    image: z.string().optional(),
+    
+    // --- 核心改动：定义数组结构 ---
+    // 这里我们定义数组的每一项是一个对象，包含图片和内容块
+    contentBlocks: z.array(z.object({
+      image: z.string().optional(), // 可选图片
+      imageAlt: z.string().optional(),
+      text: z.string(), // HTML 字符串或纯文本
+      // 布局标识：例如 "left" 表示图左文右，"right" 表示文左图右
+      layout: z.enum(['left', 'right', 'full']).default('left'), 
+    })).optional(),
+    // ----------------------------
+
+    seoTitle: z.string().max(60), 
+    seoDescription: z.string().max(160),
+  }),
+});
+标题：化妆师Jessica的一天：为客户量身定制妆容
+要求：图片取自unsplash.com，重点要覆盖SEO关键词Sydney Dating Portraits，并链接到/services/sydney-dating-photography，先做Google 的 EEAT分析。文字要优雅，语气要轻松一点儿，不要太死板机器人口气。要像好朋友一样的年轻人语气，生成markdown格式英文版，我要完整版

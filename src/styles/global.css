@@ -5,16 +5,18 @@
    1. 字体定义 (Typography Definitions)
    ========================================== */
 @font-face {
-  font-family: 'Kudryashev';
-  src: url('/assets/fonts/fonnts.com-Kudryashev_Display_Contrast_Sans.otf') format('opentype');
+  font-family: "Kudryashev";
+  src: url("/assets/fonts/fonnts.com-Kudryashev_Display_Contrast_Sans.otf")
+    format("opentype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Kudryashev';
-  src: url('/assets/fonts/fonnts.com-Kudryashev_Display_Extra_Contrast_Sans.otf') format('opentype');
+  font-family: "Kudryashev";
+  src: url("/assets/fonts/fonnts.com-Kudryashev_Display_Extra_Contrast_Sans.otf")
+    format("opentype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -25,50 +27,23 @@
    ========================================== */
 @theme {
   /* 核心色彩系统 */
-  --color-brand-bg: #F9F2E7;           /* 羊绒米：主背景 */
-  --color-brand-dark: #34041A;         /* 深红：深色背景 & 核心强调 */
-  --color-brand-accent: #34041A;       /* 强调色：深红 */
-  --color-brand-primary: #3C3835;      /* 正文：深褐文本 */
-  --color-brand-muted: #8C7355;        /* 辅助：胡桃木色（分割线/次要字） */
-  --color-brand-on-dark: #F9F2E7;      /* 反白：深色背景上的文字 */
+  --color-brand-bg: #f9f2e7; /* 羊绒米：主背景 */
+  --color-brand-dark: #34041a; /* 深红：深色背景 & 核心强调 */
+  --color-brand-accent: #34041a; /* 强调色：深红 */
+  --color-brand-primary: #3c3835; /* 正文：深褐文本 */
+  --color-brand-muted: #8c7355; /* 辅助：胡桃木色（分割线/次要字） */
+  --color-brand-on-dark: #f9f2e7; /* 反白：深色背景上的文字 */
 
   /* 字体系统 */
-  --font-serif: 'Kudryashev', 'Cormorant Garamond', serif;
-  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-serif: "Kudryashev", "Cormorant Garamond", serif;
+  --font-sans: "Inter", system-ui, sans-serif;
 
   /* 动画曲线变量 */
   --expo-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* ==========================================
-   3. 强制滚动锁定逻辑 (Scroll Lock Logic)
-   ========================================== */
-
-/* 1. 初始锁定：仅在首页主动开启 is-loading 时生效 */
-body.is-loading {
-  overflow: hidden !important;
-  height: 100vh !important;
-  position: fixed !important;
-  width: 100%;
-}
-
-/* 2. 首页内容的初始隐藏：仅在锁定状态下隐藏 */
-body.is-loading .page-content {
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(20px);
-}
-
-/* 3. 进场动画定义 */
-.page-content {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-  transition: opacity 1.5s var(--expo-out), transform 1.5s var(--expo-out);
-}
-
-/* ==========================================
-   4. 基础全局样式 (Base Layer)
+   3. 基础全局样式 (Base Layer)
    ========================================== */
 @layer base {
   html {
@@ -87,43 +62,56 @@ body.is-loading .page-content {
   /* 品牌选中文本效果 */
   ::selection {
     background: rgba(52, 4, 26, 0.15);
-    color: #34041A;
+    color: #34041a;
   }
 
   /* 极致窄条滚动条 */
-  ::-webkit-scrollbar { 
-    width: 6px; 
+  ::-webkit-scrollbar {
+    width: 6px;
   }
-  ::-webkit-scrollbar-track { 
-    @apply bg-brand-bg; 
+  ::-webkit-scrollbar-track {
+    @apply bg-brand-bg;
   }
-  ::-webkit-scrollbar-thumb { 
-    @apply bg-brand-muted/40 rounded-full hover:bg-brand-accent transition-colors; 
+  ::-webkit-scrollbar-thumb {
+    @apply bg-brand-muted/40 rounded-full hover:bg-brand-accent transition-colors;
   }
 
   /* 摄影网站专属：全局图片叙事感处理 */
   img {
     @apply grayscale-[15%] transition-all duration-[1200ms] ease-[--expo-out];
   }
-  .group:hover img, img:hover {
+  .group:hover img,
+  img:hover {
     @apply grayscale-0 scale-[1.02];
   }
 }
 
 /* ==========================================
-   5. 专家级组件类 (Components Layer)
+   4. 专家级组件类 (Components Layer)
    ========================================== */
 @layer components {
   /* --- 布局容器 --- */
-  .section-padding { @apply py-20 md:py-32 lg:py-40; }
-  .container-wide { @apply max-w-7xl mx-auto px-6 md:px-12; }
-  .container-tight { @apply max-w-3xl mx-auto px-6; }
+  .section-padding {
+    @apply py-20 md:py-32 lg:py-40;
+  }
+  .container-wide {
+    @apply max-w-7xl mx-auto px-6 md:px-12;
+  }
+  .container-tight {
+    @apply max-w-3xl mx-auto px-6;
+  }
 
   /* --- 统一排版系统 --- */
-  .h-hero { @apply font-serif text-6xl md:text-9xl tracking-tighter leading-[0.9] text-brand-accent; }
-  .h-section { @apply font-serif text-4xl md:text-6xl tracking-tight text-brand-accent mb-10; }
-  .h-badge { @apply text-[10px] md:text-[11px] tracking-[0.5em] uppercase text-brand-muted block mb-6; }
-  
+  .h-hero {
+    @apply font-serif text-6xl md:text-9xl tracking-tighter leading-[0.9] text-brand-accent;
+  }
+  .h-section {
+    @apply font-serif text-4xl md:text-6xl tracking-tight text-brand-accent mb-10;
+  }
+  .h-badge {
+    @apply text-[10px] md:text-[11px] tracking-[0.5em] uppercase text-brand-muted block mb-6;
+  }
+
   /* --- 交互元素 --- */
   .btn-brand {
     @apply inline-block px-10 py-5 bg-brand-accent text-brand-on-dark text-[10px] tracking-[0.4em] uppercase 
@@ -140,38 +128,56 @@ body.is-loading .page-content {
   .prose-narrative {
     @apply text-lg leading-[1.8] text-brand-primary/90;
   }
-  .prose-narrative h2 { @apply font-serif text-3xl md:text-5xl text-brand-dark mt-16 mb-8; }
-  .prose-narrative p { @apply mb-8; }
+  .prose-narrative h2 {
+    @apply font-serif text-3xl md:text-5xl text-brand-dark mt-16 mb-8;
+  }
+  .prose-narrative p {
+    @apply mb-8;
+  }
   .drop-cap::first-letter {
     @apply float-left text-7xl font-serif pr-4 leading-[0.7] text-brand-dark mt-2;
+  }
+
+  /* --- 移动端菜单样式 --- */
+  .mobile-menu {
+    @apply fixed inset-0 bg-brand-dark flex flex-col pt-32 px-12 overflow-y-auto translate-x-full transition-transform duration-700 ease-[--expo-out] z-[999];
+  }
+
+  .mobile-menu.active {
+    transform: translateX(0);
+  }
+
+  .mobile-menu a {
+    @apply text-4xl font-serif tracking-widest text-brand-on-dark uppercase font-light italic;
+  }
+
+  .mobile-menu .submenu-trigger {
+    @apply text-brand-on-dark text-2xl p-2 opacity-40;
+  }
+
+  .mobile-menu .mobile-submenu {
+    @apply overflow-hidden max-h-0 opacity-0 transition-all duration-700 ease-in-out;
+  }
+
+  .mobile-menu .mobile-submenu.open {
+    @apply max-h-800 opacity-100;
   }
 }
 
 /* ==========================================
-   6. 首页进场动画 (Motion Logic)
+   5. 滚动揭幕动画 (Reveal on Scroll)
    ========================================== */
-/* 主体内容初始状态：完全不可见，位置微下移 */
-.page-content {
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(20px);
-  /* 使用 var() 引用主题中定义的贝塞尔曲线 */
-  transition: opacity 1.5s var(--expo-out), 
-              transform 1.5s var(--expo-out),
-              visibility 1.5s var(--expo-out);
-}
-
-/* 当 body 获得 .loaded 类（即点击按钮）后启动进场 */
-body.loaded .page-content {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-/* 滚动揭幕类：配合后续的 Intersection Observer 触发 active 类 */
 .reveal-on-scroll {
   @apply opacity-0 translate-y-8 transition-all duration-1000 ease-[--expo-out];
 }
 .reveal-on-scroll.active {
   @apply opacity-100 translate-y-0;
+}
+
+/* --- 动画曲线 --- */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

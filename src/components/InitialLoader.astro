@@ -1,17 +1,22 @@
 ---
 // src/components/InitialLoader.astro
 interface Props {
-  mode?: 'auto' | 'manual';
-  delayTime?: number; 
+  mode?: "auto" | "manual";
+  delayTime?: number;
 }
 
-const { mode = 'manual', delayTime = 4500 } = Astro.props;
+const { mode = "manual", delayTime = 4500 } = Astro.props;
 ---
 
-<div id="loader-overlay" class="loader-overlay" data-mode={mode} data-delay={delayTime}>
+<div
+  id="loader-overlay"
+  class="loader-overlay"
+  data-mode={mode}
+  data-delay={delayTime}
+>
   <div class="loader-bg">
-    <img 
-      src="https://images.unsplash.com/photo-1502323777036-f29e3972d82f?q=80&w=2500&auto=format&fit=crop" 
+    <img
+      src="https://images.unsplash.com/photo-1502323777036-f29e3972d82f?q=80&w=2500&auto=format&fit=crop"
       alt="Portrait Photography"
       id="loader-img"
     />
@@ -25,9 +30,11 @@ const { mode = 'manual', delayTime = 4500 } = Astro.props;
       <span class="loader-text">ROSE is ROSE</span>
       <p class="loader-subtext">PORTRAIT & LIFESTYLE</p>
       <div class="loader-line-bottom"></div>
-      
+
       <button id="loader-btn" class="loader-link-btn">
-        <span class="btn-text">{mode === 'manual' ? 'ENTER EXPERIENCE' : 'SKIP'}</span>
+        <span class="btn-text"
+          >{mode === "manual" ? "ENTER EXPERIENCE" : "SKIP"}</span
+        >
         <span class="btn-underline"></span>
       </button>
     </div>
@@ -47,9 +54,11 @@ const { mode = 'manual', delayTime = 4500 } = Astro.props;
     display: flex;
     justify-content: center;
     align-items: center;
-    opacity: 1; 
+    opacity: 1;
     visibility: visible;
-    transition: opacity 1.5s ease-in-out, visibility 1.5s;
+    transition:
+      opacity 1.5s ease-in-out,
+      visibility 1.5s;
   }
 
   .loader-overlay.fade-out {
@@ -81,7 +90,11 @@ const { mode = 'manual', delayTime = 4500 } = Astro.props;
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+    background: radial-gradient(
+      circle,
+      rgba(0, 0, 0, 0.3) 0%,
+      rgba(0, 0, 0, 0.7) 100%
+    );
     z-index: 1;
   }
 
@@ -162,51 +175,73 @@ const { mode = 'manual', delayTime = 4500 } = Astro.props;
   }
 
   /* 线条动画 */
-  .loader-line-top, .loader-line-bottom {
+  .loader-line-top,
+  .loader-line-bottom {
     height: 1px;
     background: rgba(255, 255, 255, 0.4);
     width: 0;
     margin: 0 auto;
   }
 
-  .loader-line-top { animation: expandLine 1.8s cubic-bezier(0.7, 0, 0.3, 1) forwards 0.4s; }
-  .loader-line-bottom { animation: expandLine 1.8s cubic-bezier(0.7, 0, 0.3, 1) forwards 0.6s; }
+  .loader-line-top {
+    animation: expandLine 1.8s cubic-bezier(0.7, 0, 0.3, 1) forwards 0.4s;
+  }
+  .loader-line-bottom {
+    animation: expandLine 1.8s cubic-bezier(0.7, 0, 0.3, 1) forwards 0.6s;
+  }
 
-  @keyframes movieScale { to { transform: scale(1.3); } }
-  @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-  @keyframes fadeInText { to { opacity: 0.7; } }
-  @keyframes expandLine { to { width: 120px; } }
+  @keyframes movieScale {
+    to {
+      transform: scale(1.3);
+    }
+  }
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes fadeInText {
+    to {
+      opacity: 0.7;
+    }
+  }
+  @keyframes expandLine {
+    to {
+      width: 120px;
+    }
+  }
 </style>
 
 <script>
   function initLoader() {
-    const loader = document.getElementById('loader-overlay');
-    const btn = document.getElementById('loader-btn');
+    const loader = document.getElementById("loader-overlay");
+    const btn = document.getElementById("loader-btn");
     if (!loader || !btn) return;
 
-    btn.addEventListener('click', () => {
+    btn.addEventListener("click", () => {
       // 1. 移除锁定类名（让 .page-content 变得可见）
-      document.body.classList.add('loaded');
-      
+      document.body.classList.add("loaded");
+
       // 2. 暴力重置样式，防止滚动条不显示
-      document.body.style.position = 'relative';
-      document.body.style.overflow = 'visible';
-      document.body.style.height = 'auto';
+      document.body.style.position = "relative";
+      document.body.style.overflow = "visible";
+      document.body.style.height = "auto";
 
       // 3. 加载器淡出动画
-      loader.classList.add('fade-out');
-      loader.style.pointerEvents = 'none';
+      loader.classList.add("fade-out");
+      loader.style.pointerEvents = "none";
 
       // 4. 彻底移除组件
       setTimeout(() => {
-        loader.style.display = 'none';
+        loader.style.display = "none";
       }, 1500);
     });
   }
 
   // 适配 Astro
-  window.addEventListener('load', initLoader);
-  document.addEventListener('astro:after-swap', initLoader);
+  window.addEventListener("load", initLoader);
+  document.addEventListener("astro:after-swap", initLoader);
 </script>
 
 <style>
@@ -216,15 +251,16 @@ const { mode = 'manual', delayTime = 4500 } = Astro.props;
 
   .loader-text {
     color: var(--color-brand-on-dark); /* #F9F2E7 */
-    font-family: 'Cormorant', serif;
+    font-family: "Cormorant", serif;
   }
 
   .loader-subtext {
-    color: var(--color-brand-on-dark); 
+    color: var(--color-brand-on-dark);
     opacity: 0.7; /* 通过透明度制造层次，而不是新颜色 */
   }
 
-  .loader-line-top, .loader-line-bottom {
+  .loader-line-top,
+  .loader-line-bottom {
     background: var(--color-brand-on-dark);
     opacity: 0.4;
   }
@@ -238,9 +274,11 @@ const { mode = 'manual', delayTime = 4500 } = Astro.props;
   }
 
   .loader-overlay.fade-out {
-  opacity: 0;
-  visibility: hidden; /* 必须有这行，彻底让它不接收点击 */
-  pointer-events: none; /* 加上这行，确保鼠标可以穿透它 */
-  transition: opacity 1.5s ease, visibility 1.5s;
-}
+    opacity: 0;
+    visibility: hidden; /* 必须有这行，彻底让它不接收点击 */
+    pointer-events: none; /* 加上这行，确保鼠标可以穿透它 */
+    transition:
+      opacity 1.5s ease,
+      visibility 1.5s;
+  }
 </style>
