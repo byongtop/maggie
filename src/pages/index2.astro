@@ -1,0 +1,148 @@
+---
+// index.astro - 旗舰级单文件版
+const navLinks = [
+  { name: '首页', href: '#home' },
+  { name: '客片欣赏', href: '#gallery' },
+  { name: '拍摄套餐', href: '#pricing' },
+  { name: '联系我们', href: '#contact' },
+];
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>PORTRAIT | 极简至臻</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --primary: #34041A;    /* 深红 */
+      --bg-cashmere: #F9F2E7; /* 羊绒米 */
+    }
+
+    /* 增强版：背景锁定防止抖动 */
+    .lock-scroll {
+      overflow: hidden;
+      touch-action: none;
+    }
+
+    /* 优雅的菜单入场动画 */
+    .menu-overlay {
+      clip-path: circle(0% at 90% 5%);
+      transition: clip-path 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+    .menu-overlay.active {
+      clip-path: circle(150% at 90% 5%);
+    }
+
+    /* 链接级联动画 */
+    .nav-link {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.4s ease;
+    }
+    .menu-overlay.active .nav-link {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body class="bg-[#F9F2E7] text-[#3C3835] antialiased">
+
+  <header class="fixed top-0 left-0 w-full h-20 z-[100] px-6 flex items-center justify-between border-b border-[#34041A]/5 bg-[#F9F2E7]/80 backdrop-blur-lg">
+    <div class="text-xl font-serif font-bold tracking-tighter text-[#34041A]">
+      PORTRAIT<span class="text-[#8C7355]">.</span>
+    </div>
+
+    <button 
+      id="menu-trigger" 
+      class="relative w-12 h-12 flex items-center justify-center z-[110] focus:outline-none"
+      aria-expanded="false"
+      aria-label="菜单"
+    >
+      <div class="relative w-6 h-5">
+        <span id="line-t" class="absolute top-0 left-0 w-full h-0.5 bg-[#34041A] transition-all duration-300"></span>
+        <span id="line-m" class="absolute top-1/2 -translate-y-1/2 left-0 w-full h-0.5 bg-[#34041A] transition-all duration-300"></span>
+        <span id="line-b" class="absolute bottom-0 left-0 w-full h-0.5 bg-[#34041A] transition-all duration-300"></span>
+      </div>
+    </button>
+  </header>
+
+  <div id="menu-portal" class="menu-overlay fixed inset-0 z-[105] bg-[#34041A] flex flex-col justify-center items-center">
+    <nav class="flex flex-col gap-6 text-center">
+      {navLinks.map((link, i) => (
+        <a 
+          href={link.href} 
+          class="nav-link text-[#F9F2E7] text-4xl font-serif tracking-widest hover:text-[#8C7355]"
+          style={`transition-delay: ${0.1 + i * 0.1}s`}
+        >
+          {link.name}
+        </a>
+      ))}
+      <div class="nav-link mt-8 w-12 h-px bg-[#8C7355] mx-auto" style="transition-delay: 0.5s"></div>
+      <p class="nav-link text-[#F9F2E7]/40 text-xs tracking-[0.3em] uppercase" style="transition-delay: 0.6s">
+        Custom Studio 2026
+      </p>
+    </nav>
+  </div>
+
+  <main class="pt-20">
+    <section class="h-[80vh] flex items-center justify-center bg-[#F9F2E7]">
+      <div class="text-center">
+        <h2 class="text-6xl font-serif text-[#34041A]">让照片<br/>替你说话</h2>
+        <p class="mt-4 text-[#8C7355] tracking-widest italic">Professional Portrait Service</p>
+      </div>
+    </section>
+  </main>
+
+  <script is:inline>
+    const btn = document.getElementById('menu-trigger');
+    const menu = document.getElementById('menu-portal');
+    const lineT = document.getElementById('line-t');
+    const lineM = document.getElementById('line-m');
+    const lineB = document.getElementById('line-b');
+
+    let isOpen = false;
+
+    function toggleMenu() {
+      isOpen = !isOpen;
+      
+      // 状态切换
+      btn.setAttribute('aria-expanded', isOpen);
+      menu.classList.toggle('active');
+      document.body.classList.toggle('lock-scroll');
+
+      // 按钮动画：变叉且变色
+      if (isOpen) {
+        lineT.style.transform = 'translateY(9px) rotate(45deg)';
+        lineT.style.backgroundColor = '#F9F2E7';
+        lineM.style.opacity = '0';
+        lineB.style.transform = 'translateY(-9px) rotate(-45deg)';
+        lineB.style.backgroundColor = '#F9F2E7';
+      } else {
+        lineT.style.transform = 'none';
+        lineT.style.backgroundColor = '#34041A';
+        lineM.style.opacity = '1';
+        lineB.style.transform = 'none';
+        lineB.style.backgroundColor = '#34041A';
+      }
+    }
+
+    btn.addEventListener('click', toggleMenu);
+
+    // 关键优化：点击链接关闭菜单
+    menu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        if(isOpen) toggleMenu();
+      });
+    });
+
+    // 关键优化：监听 ESC 键关闭
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen) toggleMenu();
+    });
+  </script>
+</body>
+</html>

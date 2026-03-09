@@ -6,63 +6,101 @@
 const currentYear = new Date().getFullYear();
 
 const navLinks = [
-  { id: '01', name: 'Works', href: '/works' },
-  { id: '02', name: 'Services', href: '/services' },
-  { id: '03', name: 'The Studio', href: '/about' },
-  { id: '04', name: 'Connect', href: '/contact' }
+  { id: "01", name: "Works", href: "/works" },
+  { id: "02", name: "Services", href: "/services" },
+  { id: "03", name: "The Studio", href: "/about" },
+  { id: "04", name: "Connect", href: "/contact" },
 ];
 
-const socialLinks = ['Instagram', 'Xiaohongshu', 'Behance'];
+const socialLinks = ["Instagram", "Xiaohongshu", "Behance"];
 ---
 
-<footer class="bg-brand-dark text-brand-on-dark pt-32 pb-12 px-8 md:px-20 relative overflow-hidden">
-  
-  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none opacity-[0.02]">
-    <span class="text-[30vw] font-serif italic whitespace-nowrap">AUTHENTIC</span>
+<footer
+  class="bg-brand-dark text-brand-on-dark pt-32 pb-12 px-8 md:px-20 relative overflow-hidden"
+>
+  <div
+    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none opacity-[0.02]"
+  >
+    <span class="text-[30vw] font-serif italic whitespace-nowrap"
+      >AUTHENTIC</span
+    >
   </div>
 
   <div class="max-w-7xl mx-auto relative z-10">
-    
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 mb-32 border-b border-brand-on-dark/10 pb-24">
-      <div class="space-y-10">
-        <h2 class="text-brand-on-dark text-3xl md:text-5xl font-serif lowercase italic leading-tight tracking-tight normal-case">
-          Ready to tell your <br/>
+    <div
+      class="grid grid-cols-1 lg:grid-cols-2 gap-20 mb-32 border-b border-brand-on-dark/10 pb-24"
+    >
+      <div class="space-y-20">
+        <p
+          class="text-brand-on-dark text-xl md:text-xl font-serif lowercase italic leading-tight tracking-tight normal-case"
+        >
+          Ready to tell your <br />
           <span class="text-brand-muted opacity-80">unspoken story</span>?
-        </h2>
-        
+        </p>
+
         <div class="group inline-block">
-          <p class="text-[9px] tracking-[0.4em] text-brand-on-dark/30 uppercase mb-4">Direct Inquiry</p>
-          <a href="mailto:hello@roseisrose.com.au" class="text-2xl md:text-2xl font-light tracking-tighter hover:text-brand-muted transition-colors duration-500">
+          <p
+            class="text-[9px] tracking-[0.4em] text-brand-on-dark/30 uppercase mb-4"
+          >
+            Direct Inquiry
+          </p>
+          <a
+            href="mailto:hello@roseisrose.com.au"
+            class="text-2xl md:text-2xl font-light tracking-tighter hover:text-brand-muted transition-colors duration-500"
+          >
             hello@roseisrose.com.au
           </a>
-          <div class="h-[1px] w-full bg-brand-muted/30 mt-4 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700"></div>
+          <div
+            class="h-[1px] w-full bg-brand-muted/30 mt-4 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700"
+          >
+          </div>
         </div>
       </div>
 
       <div class="grid grid-cols-2 gap-10">
         <div class="space-y-8">
-          <p class="text-[9px] tracking-[0.4em] text-brand-on-dark/30 uppercase">Navigation</p>
+          <p
+            class="text-[9px] tracking-[0.4em] text-brand-on-dark/30 uppercase"
+          >
+            Navigation
+          </p>
           <ul class="space-y-4">
-            {navLinks.map(link => (
-              <li class="group">
-                <a href={link.href} class="flex items-center space-x-3 text-xs tracking-[0.2em] uppercase hover:text-brand-muted transition-colors">
-                  <span class="text-[8px] text-brand-muted font-mono">{link.id}</span>
-                  <span>{link.name}</span>
-                </a>
-              </li>
-            ))}
+            {
+              navLinks.map((link) => (
+                <li class="group">
+                  <a
+                    href={link.href}
+                    class="flex items-center space-x-3 text-xs tracking-[0.2em] uppercase hover:text-brand-muted transition-colors"
+                  >
+                    <span class="text-[8px] text-brand-muted font-mono">
+                      {link.id}
+                    </span>
+                    <span>{link.name}</span>
+                  </a>
+                </li>
+              ))
+            }
           </ul>
         </div>
         <div class="space-y-8">
-          <p class="text-[9px] tracking-[0.4em] text-brand-on-dark/30 uppercase">Socials</p>
+          <p
+            class="text-[9px] tracking-[0.4em] text-brand-on-dark/30 uppercase"
+          >
+            Socials
+          </p>
           <ul class="space-y-4">
-            {socialLinks.map(name => (
-              <li>
-                <a href="#" class="text-xs tracking-[0.2em] uppercase hover:italic hover:text-brand-muted transition-all">
-                  {name}
-                </a>
-              </li>
-            ))}
+            {
+              socialLinks.map((name) => (
+                <li>
+                  <a
+                    href="#"
+                    class="text-xs tracking-[0.2em] uppercase hover:italic hover:text-brand-muted transition-all"
+                  >
+                    {name}
+                  </a>
+                </li>
+              ))
+            }
           </ul>
         </div>
       </div>
@@ -70,27 +108,41 @@ const socialLinks = ['Instagram', 'Xiaohongshu', 'Behance'];
 
     <div class="flex flex-col md:flex-row justify-between items-end gap-12">
       <div class="space-y-6">
-        <div class="logo-area font-serif text-2xl tracking-[0.1em] text-brand-on-dark">
+        <div
+          class="logo-area font-serif text-2xl tracking-[0.1em] text-brand-on-dark"
+        >
           ROSE<span class="italic font-light text-brand-muted">IS</span>ROSE
         </div>
         <div class="space-y-1">
-          <p class="text-[9px] tracking-[0.4em] text-brand-on-dark/20 uppercase max-w-xs leading-loose italic font-bold">
+          <p
+            class="text-[9px] tracking-[0.4em] text-brand-on-dark/20 uppercase max-w-xs leading-loose italic font-bold"
+          >
             NAATI Certified Interpreter & Translator
           </p>
-          <p class="text-[9px] tracking-[0.4em] text-brand-on-dark/20 uppercase max-w-xs leading-loose">
-            Based in Sydney / Available Worldwide <br/>
+          <p
+            class="text-[9px] tracking-[0.4em] text-brand-on-dark/20 uppercase max-w-xs leading-loose"
+          >
+            Based in Sydney / Available Worldwide <br />
             © {currentYear} All Rights Reserved.
           </p>
         </div>
       </div>
 
-      <button 
-        id="back-to-top" 
+      <button
+        id="back-to-top"
         class="group flex flex-col items-center space-y-4 text-[9px] tracking-[0.5em] text-brand-on-dark/40 hover:text-brand-on-dark transition-all duration-500 outline-none"
       >
-        <div class="w-12 h-12 border border-brand-on-dark/10 rounded-full flex items-center justify-center relative overflow-hidden group-hover:border-brand-muted">
-          <span class="relative z-10 transition-transform duration-500 group-hover:-translate-y-8">↑</span>
-          <span class="absolute translate-y-8 z-10 transition-transform duration-500 group-hover:translate-y-0 text-brand-muted font-bold">↑</span>
+        <div
+          class="w-12 h-12 border border-brand-on-dark/10 rounded-full flex items-center justify-center relative overflow-hidden group-hover:border-brand-muted"
+        >
+          <span
+            class="relative z-10 transition-transform duration-500 group-hover:-translate-y-8"
+            >↑</span
+          >
+          <span
+            class="absolute translate-y-8 z-10 transition-transform duration-500 group-hover:translate-y-0 text-brand-muted font-bold"
+            >↑</span
+          >
         </div>
         <span class="uppercase">Back to Top</span>
       </button>
@@ -100,8 +152,10 @@ const socialLinks = ['Instagram', 'Xiaohongshu', 'Behance'];
 
 <style is:global>
   /* 针对页脚的衬线字体增强：严格保留 Cormorant Garamond 逻辑 */
-  footer h2, footer .logo-area, footer span.font-serif {
-    font-family: 'Cormorant Garamond', serif;
+  footer h2,
+  footer .logo-area,
+  footer span.font-serif {
+    font-family: "Cormorant Garamond", serif;
     text-transform: none;
   }
 
@@ -113,7 +167,11 @@ const socialLinks = ['Instagram', 'Xiaohongshu', 'Behance'];
     top: 0;
     width: 1px;
     height: 120px;
-    background: linear-gradient(to bottom, var(--color-brand-on-dark), transparent);
+    background: linear-gradient(
+      to bottom,
+      var(--color-brand-on-dark),
+      transparent
+    );
     opacity: 0.2;
   }
 </style>
@@ -123,15 +181,15 @@ const socialLinks = ['Instagram', 'Xiaohongshu', 'Behance'];
    * 确保在 Astro 的 View Transitions 环境下脚本依然有效
    */
   function setupFooter() {
-    const btt = document.getElementById('back-to-top');
+    const btt = document.getElementById("back-to-top");
     if (btt) {
       btt.onclick = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: "smooth" });
       };
     }
   }
 
   // 初始化并监听页面加载
   setupFooter();
-  document.addEventListener('astro:page-load', setupFooter);
+  document.addEventListener("astro:page-load", setupFooter);
 </script>

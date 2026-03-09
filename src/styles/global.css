@@ -137,31 +137,6 @@
   .drop-cap::first-letter {
     @apply float-left text-7xl font-serif pr-4 leading-[0.7] text-brand-dark mt-2;
   }
-
-  /* --- 移动端菜单样式 --- */
-  .mobile-menu {
-    @apply fixed inset-0 bg-brand-dark flex flex-col pt-32 px-12 overflow-y-auto translate-x-full transition-transform duration-700 ease-[--expo-out] z-[999];
-  }
-
-  .mobile-menu.active {
-    transform: translateX(0);
-  }
-
-  .mobile-menu a {
-    @apply text-4xl font-serif tracking-widest text-brand-on-dark uppercase font-light italic;
-  }
-
-  .mobile-menu .submenu-trigger {
-    @apply text-brand-on-dark text-2xl p-2 opacity-40;
-  }
-
-  .mobile-menu .mobile-submenu {
-    @apply overflow-hidden max-h-0 opacity-0 transition-all duration-700 ease-in-out;
-  }
-
-  .mobile-menu .mobile-submenu.open {
-    @apply max-h-800 opacity-100;
-  }
 }
 
 /* ==========================================

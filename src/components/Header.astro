@@ -159,7 +159,7 @@ const initialClasses = isTransparentPage
 
   <div
     id="mobile-menu"
-    class="fixed inset-0 bg-[#34041A] flex flex-col pt-32 px-12 overflow-y-auto translate-x-full transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] z-[999] lg:hidden"
+    class="fixed inset-0 bg-[#34041A] flex-col pt-32 px-12 overflow-y-auto transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] z-[999] lg:hidden"
   >
     <nav class="flex flex-col space-y-6">
       {
@@ -211,7 +211,6 @@ const initialClasses = isTransparentPage
   #main-header.scrolled {
     background-color: #34041a !important;
     border-color: rgba(249, 242, 231, 0.1) !important;
-    height: 4.5rem; /* 滚动后稍微缩小高度 */
   }
 
   /* 汉堡菜单动画 */
@@ -227,18 +226,36 @@ const initialClasses = isTransparentPage
     width: 2rem;
   }
 
-  /* 移动端菜单激活 */
-  #mobile-menu.active {
-    transform: translateX(0);
+  /* 移动端菜单 - 完全重写，不使用内联类 */
+  #mobile-menu {
+    position: fixed !important;
+    inset: 0 !important;
+    background-color: #34041a !important;
+    padding-top: 8rem !important;
+    padding-left: 3rem !important;
+    padding-right: 3rem !important;
+    overflow-y: auto !important;
+    z-index: 999 !important;
+
+    /* 隐藏状态 */
+    display: none !important;
+    transform: none !important;
+    transition: none !important;
   }
 
-  /* 确保移动菜单在桌面端隐藏 */
-  #mobile-menu {
-    display: flex; /* 移动端显示 */
+  /* 移动端显示逻辑 - 只使用 active 类控制显示隐藏 */
+  @media (max-width: 1023px) {
+    #mobile-menu.active {
+      display: flex !important;
+    }
   }
+
   @media (min-width: 1024px) {
     #mobile-menu {
-      display: none; /* 桌面端隐藏 */
+      display: none !important;
+    }
+    #mobile-menu.active {
+      display: none !important;
     }
   }
 
@@ -256,6 +273,8 @@ const initialClasses = isTransparentPage
     const menu = document.getElementById("mobile-menu");
 
     if (!header || !toggle || !menu) return;
+
+    console.log("Header initialized", { header, toggle, menu }); // 调试日志
 
     const isTransparentConfig =
       header.getAttribute("data-transparent") === "true";
@@ -278,36 +297,87 @@ const initialClasses = isTransparentPage
     };
 
     window.addEventListener("scroll", handleScroll);
-    handleScroll(); // 初始化状态
+    handleScroll();
 
     // 2. 移动端菜单开关
-    toggle.onclick = () => {
-      const isOpen = menu.classList.toggle("active");
-      toggle.classList.toggle("open");
-      document.body.style.overflow = isOpen ? "hidden" : "";
+    toggle.onclick = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      console.log("Menu toggle clicked!");
+      console.log("Before toggle - menu classes:", menu.className);
+
+      const isOpen = menu.classList.contains("active");
+
+      if (!isOpen) {
+        // 打开菜单
+        menu.classList.add("active");
+        toggle.classList.add("open");
+        document.body.style.overflow = "hidden";
+        console.log("Menu opened");
+      } else {
+        // 关闭菜单
+        menu.classList.remove("active");
+        toggle.classList.remove("open");
+        document.body.style.overflow = "";
+        console.log("Menu closed");
+      }
+
+      console.log("After toggle - menu classes:", menu.className);
+      console.log("Menu display style:", window.getComputedStyle(menu).display);
     };
 
     // 3. 移动端子菜单折叠
     document.querySelectorAll(".submenu-trigger").forEach((btn) => {
       btn.onclick = (e) => {
         e.preventDefault();
+        e.stopPropagation();
+
         const submenu = btn.parentElement?.nextElementSibling;
-        const isOpen = submenu?.classList.toggle("open");
-        (btn as HTMLElement).innerText = isOpen ? "－" : "＋";
+        if (submenu) {
+          const isOpen = submenu.classList.contains("open");
+          if (!isOpen) {
+            submenu.classList.add("open");
+            btn.textContent = "－";
+          } else {
+            submenu.classList.remove("open");
+            btn.textContent = "＋";
+          }
+        }
       };
     });
 
-    // 4. 点击链接后自动关闭菜单 (针对 SPA 路由)
+    // 4. 点击链接后自动关闭菜单
     menu.querySelectorAll("a").forEach((link) => {
-      link.onclick = () => {
+      link.onclick = (e) => {
+        // 不阻止默认行为，让链接正常跳转
         menu.classList.remove("active");
         toggle.classList.remove("open");
         document.body.style.overflow = "";
       };
     });
+
+    // 5. 点击菜单外部关闭（可选）
+    document.addEventListener("click", (e) => {
+      if (window.innerWidth <= 1023) {
+        const isClickInside =
+          menu.contains(e.target) || toggle.contains(e.target);
+        if (!isClickInside && menu.classList.contains("active")) {
+          menu.classList.remove("active");
+          toggle.classList.remove("open");
+          document.body.style.overflow = "";
+        }
+      }
+    });
   }
 
-  // 生命周期管理：兼容 Astro View Transitions
+  // 生命周期管理
   document.addEventListener("astro:page-load", initHeader);
-  initHeader();
+
+  // 立即执行一次
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initHeader);
+  } else {
+    initHeader();
+  }
 </script>
