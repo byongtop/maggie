@@ -161,6 +161,29 @@ const initialClasses = isTransparentPage
     id="mobile-menu"
     class="fixed inset-0 bg-[#34041A] flex-col pt-32 px-12 overflow-y-auto transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] z-[999] lg:hidden"
   >
+    <!-- 修复关闭按钮：使用更具体的类名，避免被CSS覆盖 -->
+    <button
+      id="mobile-menu-close"
+      class="fixed top-6 right-6 w-12 h-12 flex items-center justify-center text-[#F9F2E7] hover:text-[#8C7355] transition-colors z-[1001] bg-[#34041A] border border-[#F9F2E7]/20 rounded-full hover:bg-[#F9F2E7] hover:text-[#34041A] group"
+      aria-label="Close Menu"
+      style="display: flex !important;"
+    >
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        class="transition-transform group-hover:rotate-90 duration-300"
+      >
+        <path
+          d="M18 6L6 18M6 6L18 18"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"></path>
+      </svg>
+    </button>
+
     <nav class="flex flex-col space-y-6">
       {
         navLinks.map((link) => (
@@ -264,6 +287,37 @@ const initialClasses = isTransparentPage
     max-height: 800px;
     opacity: 1;
   }
+
+  /* 关闭按钮样式 */
+  #mobile-menu-close {
+    /* 确保关闭按钮始终可见 */
+    display: flex !important;
+    position: fixed !important;
+    top: 1.5rem !important;
+    right: 1.5rem !important;
+    width: 3rem !important;
+    height: 3rem !important;
+    background-color: #34041a !important;
+    border: 1px solid rgba(249, 242, 231, 0.2) !important;
+    border-radius: 9999px !important;
+    z-index: 1001 !important;
+    cursor: pointer !important;
+  }
+
+  /* 悬停效果 */
+  #mobile-menu-close:hover {
+    background-color: #f9f2e7 !important;
+    border-color: #f9f2e7 !important;
+  }
+
+  #mobile-menu-close:hover svg {
+    color: #34041a !important;
+  }
+
+  /* 确保移动端菜单激活时关闭按钮显示 */
+  #mobile-menu.active #mobile-menu-close {
+    display: flex !important;
+  }
 </style>
 
 <script>
@@ -271,13 +325,33 @@ const initialClasses = isTransparentPage
     const header = document.getElementById("main-header");
     const toggle = document.getElementById("menu-toggle");
     const menu = document.getElementById("mobile-menu");
+    const closeButton = document.getElementById("mobile-menu-close");
 
-    if (!header || !toggle || !menu) return;
+    if (!header || !toggle || !menu) {
+      console.error("Required header elements not found");
+      return;
+    }
 
-    console.log("Header initialized", { header, toggle, menu }); // 调试日志
+    console.log("Header initialized", { header, toggle, menu, closeButton });
 
     const isTransparentConfig =
       header.getAttribute("data-transparent") === "true";
+
+    // 统一的关闭菜单函数
+    const closeMenu = () => {
+      menu.classList.remove("active");
+      toggle.classList.remove("open");
+      document.body.style.overflow = "";
+      console.log("Menu closed");
+    };
+
+    // 统一的打开菜单函数
+    const openMenu = () => {
+      menu.classList.add("active");
+      toggle.classList.add("open");
+      document.body.style.overflow = "hidden";
+      console.log("Menu opened");
+    };
 
     // 1. 处理滚动逻辑
     const handleScroll = () => {
@@ -299,7 +373,7 @@ const initialClasses = isTransparentPage
     window.addEventListener("scroll", handleScroll);
     handleScroll();
 
-    // 2. 移动端菜单开关
+    // 2. 移动端菜单开关（汉堡按钮）
     toggle.onclick = (e) => {
       e.preventDefault();
       e.stopPropagation();
@@ -309,25 +383,27 @@ const initialClasses = isTransparentPage
 
       const isOpen = menu.classList.contains("active");
 
-      if (!isOpen) {
-        // 打开菜单
-        menu.classList.add("active");
-        toggle.classList.add("open");
-        document.body.style.overflow = "hidden";
-        console.log("Menu opened");
+      if (isOpen) {
+        closeMenu();
       } else {
-        // 关闭菜单
-        menu.classList.remove("active");
-        toggle.classList.remove("open");
-        document.body.style.overflow = "";
-        console.log("Menu closed");
+        openMenu();
       }
 
       console.log("After toggle - menu classes:", menu.className);
       console.log("Menu display style:", window.getComputedStyle(menu).display);
     };
 
-    // 3. 移动端子菜单折叠
+    // 3. 关闭按钮事件
+    if (closeButton) {
+      closeButton.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log("Close button clicked");
+        closeMenu();
+      };
+    }
+
+    // 4. 移动端子菜单折叠
     document.querySelectorAll(".submenu-trigger").forEach((btn) => {
       btn.onclick = (e) => {
         e.preventDefault();
@@ -347,26 +423,31 @@ const initialClasses = isTransparentPage
       };
     });
 
-    // 4. 点击链接后自动关闭菜单
+    // 5. 点击链接后自动关闭菜单
     menu.querySelectorAll("a").forEach((link) => {
       link.onclick = (e) => {
         // 不阻止默认行为，让链接正常跳转
-        menu.classList.remove("active");
-        toggle.classList.remove("open");
-        document.body.style.overflow = "";
+        closeMenu();
       };
     });
 
-    // 5. 点击菜单外部关闭（可选）
+    // 6. 点击菜单外部关闭
     document.addEventListener("click", (e) => {
       if (window.innerWidth <= 1023) {
         const isClickInside =
-          menu.contains(e.target) || toggle.contains(e.target);
+          menu.contains(e.target) ||
+          toggle.contains(e.target) ||
+          (closeButton && closeButton.contains(e.target));
         if (!isClickInside && menu.classList.contains("active")) {
-          menu.classList.remove("active");
-          toggle.classList.remove("open");
-          document.body.style.overflow = "";
+          closeMenu();
         }
+      }
+    });
+
+    // 7. ESC键关闭
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && menu.classList.contains("active")) {
+        closeMenu();
       }
     });
   }
