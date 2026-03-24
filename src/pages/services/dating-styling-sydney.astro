@@ -1,6 +1,6 @@
 ---
 // src/pages/services/dating-styling-sydney.astro
-// Dating Styling & Hair Sydney - ROSE IS ROSE Service Page
+// Dating Photography Hair and Makeup Sydney - ROSE IS ROSE
 
 import '../../styles/global.css'; 
 import Layout from "../../layouts/Layout.astro";
@@ -9,320 +9,372 @@ import Footer from '../../components/Footer.astro';
 import Packages from '../../components/Packages2.astro';
 import { Icon } from 'astro-icon/components';
 
-const serviceData = {
-  name: "Sydney Dating Photography",
-  description: "Professional dating profile portraits in Sydney",
+// ✅ Schema: service name matches primary keyword
+const serviceSchema = {
+  name: "Dating Photography Hair and Makeup Sydney",
+  description: "Hair, makeup and wardrobe styling paired with dating profile photography in Sydney",
   providerName: "ROSE IS ROSE",
-  areaServed: ["Sydney", "Bondi", "Manly", "Parramatta"],
+  areaServed: ["Sydney", "Bondi", "Surry Hills", "CBD", "Parramatta"],
   priceRange: "$$-$$$"
 };
 
+// ✅ Breadcrumb: reflects actual URL structure, links back to photography page
 const breadcrumbs = [
   { name: "Home", item: "/" },
   { name: "Services", item: "/services" },
-  { name: "Dating Photography", item: "/services/sydney-dating-photography" }
+  { name: "Dating Profile Photography", item: "/services/sydney-dating-photography" },
+  { name: "Hair & Makeup", item: "/services/dating-styling-sydney" }
 ];
-/**
- * 页面常量配置 - 集中管理所有文案与元数据
- */
-const pageContent = {
-  // 基础信息
-  info: {
-    level: "1",
-    no: "02",
-    title: "DATING STYLING & HAIR",
-    subtitle: "Look Like You, But Make It Sydney",
-    h1Title: "Sydney Dating Styling: Look Effortless, Feel Confident, Actually Enjoy Your Photos",
-    desc: "Great dating photos start with great styling. We'll help you look like the best version of you—without feeling like you're wearing a costume.",
+
+const page = {
+
+  seo: {
+    // PRIMARY: "dating photography hair and makeup Sydney" — in title, front-loaded
+    metaTitle: "Dating Photography Hair and Makeup Sydney | Styling Add-On | ROSE IS ROSE",
+    // PRIMARY + secondary (dating makeover Sydney) in natural sentence
+    metaDescription: "Dating photography hair and makeup in Sydney — part of ROSE IS ROSE's profile photo sessions. Arrive as you are, leave looking like yourself on a very good day.",
+    keywords: "dating photography hair and makeup Sydney, hair and makeup for dating photos Sydney, dating makeover Sydney, dating photoshoot styling Sydney, dating profile photography styling Sydney, hair makeup photoshoot Sydney",
+    imageAlt: "Hair and makeup styling for dating profile photography in Sydney by ROSE IS ROSE"
+  },
+
+  hero: {
+    // ✅ SEO: sr-only span holds full keyword phrase as continuous text
+    h1Full: "Dating Photography Hair and Makeup Sydney",
+    titleLine1: "HAIR.",
+    titleLine2: "MAKEUP.",
+    titleLine3: "THEN PHOTOS.",
+    badge: "Dating Photography · Hair & Makeup · Sydney",
+    // Desc: direct, a little wry — not selling a transformation fantasy
+    desc: "Most people know roughly what they want to look like. They just need someone to help them actually get there before the camera comes out.",
+    ctaPrimary: "Add styling to my session",
+    ctaSecondary: "How it works",
     heroImage: "/assets/images/andrey-zvyagintsev-x0c6vTO5ibA-unsplash.jpg",
   },
-  
-  // SEO 优化
-  seo: {
-    metaTitle: "Dating Stylist Sydney | Dating Hair & Makeup Sydney | ROSE IS ROSE",
-    metaDescription: "Looking for a dating stylist in Sydney? Professional hair, makeup and styling for your dating profile photos. Natural, confident, and totally you. Book your session.",
-    keywords: "dating stylist Sydney, dating hair Sydney, dating makeup Sydney, stylist for dating photos Sydney, dating profile stylist, Sydney hair and makeup for photoshoot, natural makeup Sydney",
-    imageAlt: "Professional hair and makeup styling for dating photos in Sydney"
+
+  story: {
+    bgText: "STYLE • STYLE",
+    titleMain: "THE PART",
+    titleItalic: "NOBODY PLANS",
+    // Kicker: names the exact problem this page solves
+    kicker: "WHY GREAT PHOTOS START BEFORE THE CAMERA COMES OUT",
+    // Drop cap letter
+    quoteLetter: "E",
+    // Quote: real, specific, not inspirational-poster energy
+    quoteBody: "veryone shows up to their photo session thinking they'll sort out their hair \"on the day.\" And then the day arrives, Sydney's humid, the outfit they planned doesn't feel right anymore, and they spend the first twenty minutes of the shoot in their head instead of in the moment.",
+    quoteHighlight: "Hair and makeup done before we start isn't vanity. It's just one less thing to worry about — so the photo looks like you when you're relaxed, not you when you're stressed.",
   },
 
-  // 叙事区块
-  narrative: {
-    badge: "Look good, feel good",
-    mainHeading: "THE STYLING",
-    italicHeading: "DIFFERENCE",
-    subHeading: "WHY STYLING MATTERS FOR DATING PHOTOS",
-    quote: "You know that feeling when you look at a photo and think \"I actually look good\"? It's not magic. It's styling that works with the camera, not against it.",
-    quoteSide: "We're not here to give you a makeover. We're here to help you show up as the best version of you—hair doing what it should, clothes fitting right, skin looking like skin. The camera will do the rest.",
-  },
-
-  // 核心价值主张
-  strategy: [
+  whyItMatters: [
     {
-      title: "CAMERA-READY, NOT STAGE-READY",
-      text: "There's a difference between looking good in real life and looking good on camera. We know that difference. Too much makeup? Washed out. Wrong colour shirt? Blends into the background. We'll help you get it right—without looking like you tried too hard."
+      title: "THE CAMERA SEES EVERYTHING.",
+      // Specific and factual — not motivational
+      content: "Shine on your forehead. The collar that sits slightly wrong. Hair that's fine in the mirror but catches the wind the second you step outside. These are small things that become very visible at full resolution. We deal with them before the shoot starts, not after."
     },
     {
-      title: "SYDNEY LIGHT, SYDNEY VIBE",
-      text: "Bondi light is different from CBD light. Morning shoots need different prep than golden hour. We'll style you for where we're shooting, when we're shooting, and who you're trying to attract."
+      title: "SYDNEY LIGHT IS BEAUTIFUL AND UNFORGIVING.",
+      content: "That harbour glow everyone loves? It also shows up everything that foundation missed. We use products that are formulated to photograph well outdoors — matte where it counts, luminous where it doesn't. There's a real difference between makeup that looks good in your bathroom and makeup that looks good at Circular Quay at 5pm."
     }
   ],
 
-  // 错误避雷区
-  mistakes: {
-    title: "STYLING MISTAKES WE SEE",
-    subtitle: "(and how we fix them)",
-    list: [
+  // What goes wrong when people skip this
+  pitfalls: {
+    title: "WHAT HAPPENS WHEN YOU WING IT",
+    subtitle: "(we've seen all of these)",
+    // Tech note: specific product knowledge = credibility, not showing off
+    techNote: "A note on products: certain foundations contain SPF ingredients that reflect flash and show up white on camera. Certain hair products make hair look flat and heavy in direct light. We use brands that photograph well outdoors in Sydney's conditions — and yes, we test them. It's a thing.",
+    items: [
       {
         no: "01",
-        title: "The \"Too Much\" Makeup",
-        desc: "Foundation that's too heavy. Contour that shows. We do sheer, breathable, skin-like—so you look like you, just with really good skin."
+        title: "The \"I'll Do It In The Car\" Makeup",
+        // Pain: relatable, not mean
+        desc: "You know this one. Rushed, unblended, slightly the wrong shade because you did it without natural light. It reads on camera. We do it properly, with time and the right lighting, before anything else happens."
       },
       {
         no: "02",
-        title: "The Wrong Colours",
-        desc: "That olive shirt that disappears against the harbour? Not ideal. We'll help you find colours that make you pop against Sydney's famous blue and gold."
+        title: "The Outfit That Made Sense Yesterday",
+        desc: "You planned it, laid it out, felt great about it. Then you put it on and something's off. Maybe it's the colour in natural light. Maybe it creases. Maybe it just doesn't feel like you anymore. This is why we talk wardrobe beforehand — so there are no surprises on shoot day."
       },
       {
         no: "03",
-        title: "The \"Set and Forget\" Hair",
-        desc: "Hair that doesn't move looks stiff. Sydney's breezy. We do hair that moves with you—wind-friendly, natural, and still photo-ready."
+        title: "The Hair That Had Other Plans",
+        desc: "Sydney is breezy. Particularly near the water, which is, of course, where we're often shooting. We do hair that works with movement — not against it. The goal is 'effortless,' not 'I used half a can of hairspray and it still didn't hold.'"
       }
-    ],
-    techNote: "Quick truth: Camera flash reflects off certain makeup ingredients in ways you can't see in the mirror. We use products that photograph well—so what looks good in person also looks good on screen. Small detail, big difference."
+    ]
   },
 
-  // 核心体验模块
-  experience: {
-    wardrobe: {
-      no: "01",
-      label: "WARDROBE",
-      title: "WHAT'S ALREADY IN YOUR CLOSET",
-      p1: "Chances are, you already own clothes that would look great on camera. We just need to find them.",
-      p2: "We'll do a video call or in-person wardrobe edit—pulling out what works, figuring out what's missing, and making a plan.",
-      p3: "Need something new? We can help with that too—whether it's a shopping trip or just links to buy online. No pressure, no hard sell."
+  experience: [
+    {
+      id: "01",
+      label: "BEFORE SHOOT DAY",
+      title: "WE TALK WARDROBE FIRST.",
+      p1: "A quick call or video chat before the session. You show me what you're thinking of wearing, I tell you honestly whether it'll work — and why. Colours that disappear against Sydney's light. Patterns that turn into visual noise on camera. Fabrics that crease the second you sit down.",
+      italic: "You probably already own something that would look great. We just need to find it before the day, not panic about it after.",
+      p2: "If something needs replacing, I'll tell you exactly what to look for — nothing specific, nothing expensive, just what works for where we're shooting and what you're going for."
     },
-    beauty: {
-      no: "02",
-      label: "BEAUTY",
-      title: "THE MORNING OF",
-      p1: "Show up. Sit down. Let someone else do the work for once.",
-      p2: "Hair that moves, not helmet-hair",
-      p3: "Makeup that enhances, not hides",
-      p4: "Touch-up kit for during the shoot",
-      items: [
-        "Hair that moves, not helmet-hair",
-        "Makeup that enhances, not hides",
-        "Touch-up kit for during the shoot"
+    {
+      id: "02",
+      label: "SHOOT MORNING",
+      title: "YOU SHOW UP. I SORT THE REST.",
+      p1: "Hair first, then makeup, then we head out. The whole thing takes about an hour — which is also a good chance to get comfortable before the camera appears.",
+      list: [
+        "Hair styled to move, not to stay perfectly still and look terrified",
+        "Makeup that enhances what's already there — not a new face",
+        "Touch-up kit comes with us for the whole shoot"
       ]
-    },
-    travel: {
-      title: "STYLE THAT TRAVELS",
-      desc: "We might shoot at three different spots in one session—The Rocks, then Circular Quay, then a rooftop bar. Your styling needs to work everywhere. We'll make sure your hair survives the wind, your makeup lasts through the golden hour glow, and your outfits transition like you're changing scenes in a movie. Because you are."
     }
+  ],
+
+  editing: {
+    title: "STYLING AND PHOTOGRAPHY. ONE SESSION.",
+    // ✅ Internal link to photography page embedded in copy — natural, not forced
+    content: "The styling is built into your dating profile photography session — not a separate booking, not an extra day. You arrive, we sort your hair and makeup, then we go shoot. Everything's timed to finish at golden hour if we can manage it. The whole experience is designed so you're not managing five different appointments just to get one good photo."
   },
 
-  // Swiper/Experience 详情
+  // Location modules — specific Sydney details, not generic
   modules: [
     {
-      title: "Hair that moves (because you move)",
-      description: "Sydney's windy. Your hair should still look good. We do 'movement, not sculpture'—so you look natural, not like you just walked out of a hairspray commercial.",
+      title: "Before The Rocks, not at The Rocks",
+      description: "We don't show up and style you at the location. Hair and makeup happens first, somewhere calm, before we head out — so by the time we're at the harbour, you're already settled and we're just shooting.",
       image: "/assets/images/andrey-zvyagintsev-x0c6vTO5ibA-unsplash.jpg",
-      imageAlt: "Natural hair styling for dating photos",
-      caption: "Wind-proof, not helmet-head."
+      imageAlt: "Hair and makeup done before dating photography session at The Rocks Sydney",
+      caption: "Calm before the golden hour."
     },
     {
-      title: "Makeup that says 'I woke up like this'",
-      description: "Full-coverage foundation? Not our vibe. We enhance what you've got—skin that looks like skin, eyes that pop, lips that aren't sticky. Camera-ready but still touchable.",
+      title: "For Surry Hills, a different energy",
+      description: "Brick walls and afternoon light call for something slightly less polished. Lived-in hair. Easy skin. The kind of look that says 'I got ready in fifteen minutes' — which we all know takes considerably longer than fifteen minutes.",
       image: "/assets/images/stefan-stefancik-QXevDflbl8A-unsplash.jpg",
-      imageAlt: "Natural makeup for dating photos",
-      caption: "She's not wearing much. That's the point."
+      imageAlt: "Natural makeup and styling for dating photos in Surry Hills Sydney",
+      caption: "Effortless is the most high-maintenance look there is."
     },
     {
-      title: "Wardrobe that actually fits the vibe",
-      description: "Bondi beach shoot? Different outfit than CBD rooftop. We'll help you match your clothes to your location, your personality, and the kind of person you're trying to attract.",
+      title: "Bondi means SPF. Genuinely.",
+      description: "Beach shoots need different products — sweat-resistant, wind-resistant, will not turn chalky in direct Australian sun. We've tested this thoroughly so you don't have to find out the hard way in your profile photos.",
       image: "/assets/images/photo/giovanna-knollseisen-CA4OaE7f500-unsplash.jpg",
-      imageAlt: "Wardrobe styling for Sydney dating photos",
-      caption: "Sydney casual, but make it intentional."
+      imageAlt: "Bondi beach dating profile photography with hair and makeup styling Sydney",
+      caption: "Bondi light is unforgiving. The prep isn't optional."
     }
   ],
 
-  // FAQ
+  faqTitle: "THINGS PEOPLE ACTUALLY WANT TO KNOW",
   faq: [
     {
-      question: "Do I really need a stylist for dating photos?",
-      answer: "Honestly? You don't *need* one. But if you want to look at your photos and think 'damn, I look good' instead of 'why does my hair always do that thing'—then yeah, it helps."
+      // ✅ Internal link in answer — natural, helpful, not forced
+      question: "Is the styling included in the photography session or is it extra?",
+      answer: "It's an add-on to the dating profile photography session — not a separate booking. You book the photography, add styling, and it all happens on the same day in the same flow. Details on what's included are in the packages section below, or you can see the full photography session overview on the dating profile photography page."
     },
     {
-      question: "I never wear makeup. Will it look weird?",
-      answer: "Nope—because we're not doing 'makeup makeup.' Think of it as 'you, but with the good lighting already built in.' We just make you look like you had an amazing night's sleep."
+      question: "I'm a guy. Is the makeup thing going to make me look like I'm wearing makeup?",
+      // Specific and reassuring without being dismissive
+      answer: "No — and this is the most common thing men ask. For guys it's mostly skin: evening out redness, taking down shine, making sure the camera doesn't pick up things your bathroom mirror missed. You'll look like yourself. Just not like you've been outside in Sydney for three hours."
+    },
+    {
+      question: "I never wear makeup day-to-day. Will it feel weird?",
+      answer: "Probably slightly, yes — and that's fine. The goal isn't full glam. It's closer to 'you, but your skin is having an excellent day.' Most people forget about it within ten minutes of the shoot starting. The ones who don't usually end up preferring how they look in the photos anyway."
+    },
+    {
+      question: "Can I do my own hair and makeup?",
+      answer: "You can, with one caveat: let me know in advance so we can talk through what photographs well. The main issues are foundation with SPF (goes white on camera outdoors), heavy contouring (looks great in person, reads as muddy in photos), and hair products that flatten in direct sunlight. If you know what to avoid, DIY is absolutely fine."
+    },
+    {
+      question: "What if I want to look more dressed up than usual?",
+      answer: "Then we do that. Some people want natural, some people want to look like a better version of their everyday self, some people want to pull out a look they've never had the occasion for. All valid. We talk about it beforehand so it's not a surprise for either of us on the day."
     }
   ],
 
-  // 底部 CTA
-  cta: {
-    heading: "LOOK GOOD",
-    italic: "FEEL GOOD",
-    desc: "When you look in the mirror and think \"yeah, I'd date me\"—that's when the magic happens. Let's get you there.",
-    button: "Book your styling"
+  // ✅ Internal link to photography page in footer CTA
+  footerCta: {
+    bgText: "READY • READY",
+    titleLine1: "ARRIVE",
+    titleLine2: "AS YOU ARE",
+    desc: "We'll handle the rest. Add hair and makeup to your dating profile photography session — and show up on the day with one less thing to think about.",
+    buttonText: "Add styling to my session",
+    // Internal link back to photography page — rendered in template
+    internalLinkText: "See the full dating profile photography session →",
+    internalLinkUrl: "/services/sydney-dating-photography"
   }
+
 };
 ---
 
 <Layout 
-  title={pageContent.seo.metaTitle}
-  description={pageContent.seo.metaDescription}
-  ogImage="/images/dating-photography.jpg"
+  title={page.seo.metaTitle}
+  description={page.seo.metaDescription}
+  ogImage="/images/dating-styling-sydney.jpg"
   pageType="service"
-  service={serviceData}
+  service={serviceSchema}
   breadcrumbs={breadcrumbs}
 >
   <Header />
-  
-  <section class="relative h-screen min-h-[800px] flex items-center justify-center overflow-hidden bg-[#34041A]">
+
+  <section class="relative h-screen min-h-[800px] flex items-center justify-center overflow-hidden bg-brand-dark">
     <div class="absolute inset-0 z-0">
-      <div class="absolute inset-0 bg-gradient-to-b from-[#34041A]/90 via-[#34041A]/70 to-[#34041A]/90 z-10"></div>
-      <img 
-        src={pageContent.info.heroImage} 
-        alt={pageContent.seo.imageAlt} 
-        class="w-full h-full object-cover animate-ken-burns opacity-60"
-      />
+      <div class="absolute inset-0 bg-gradient-to-b from-brand-dark/90 via-brand-dark/60 to-brand-dark/90 z-10"></div>
+      <img src={page.hero.heroImage} alt={page.seo.imageAlt} class="w-full h-full object-cover opacity-60" />
     </div>
 
     <div class="container relative z-30 mx-auto px-6 text-center reveal-on-scroll">
-      <div class="inline-flex items-center gap-3 px-6 py-3 bg-white/5 backdrop-blur-xl rounded-full border border-white/10 mb-8 animate-float">
-        <span class="w-2 h-2 rounded-full bg-[#8C7355] animate-pulse"></span>
-        <span class="text-xs tracking-[0.3em] text-[#F9F2E7]/80 font-light uppercase">{pageContent.info.subtitle}</span>
-        <span class="text-xs font-mono text-brand-offwhite/60">{pageContent.narrative.badge}</span>
+      <div class="inline-flex items-center gap-3 px-6 py-3 bg-brand-on-dark/5 backdrop-blur-xl rounded-full border border-brand-on-dark/10 mb-8 animate-float">
+        <span class="w-2 h-2 rounded-full bg-brand-accent animate-pulse"></span>
+        <span class="text-xs tracking-[0.3em] text-brand-on-dark/80 font-light uppercase">{page.hero.badge}</span>
       </div>
 
-      <h1 class="text-5xl md:text-8xl font-serif text-white mb-6 leading-[1.2] tracking-tight uppercase">
-        <span class="block overflow-hidden">
-          <span class="block animate-title-slide-up">DATING STYLING</span>
-        </span>
-        <span class="block overflow-hidden">
-          <span class="block animate-title-slide-up animation-delay-200 text-[#8C7355]">& HAIR</span>
+      {/*
+        ✅ SEO FIX: Single h1 wrapping all three lines.
+        sr-only span = full keyword phrase as continuous indexable text.
+        Visual lines are aria-hidden so screen readers don't double-read.
+      */}
+      <h1 class="text-5xl md:text-8xl font-serif text-brand-on-dark mb-6 leading-[0.9] tracking-tight uppercase">
+        <span class="sr-only">{page.hero.h1Full}</span>
+        <span aria-hidden="true">
+          {page.hero.titleLine1}<br />
+          {page.hero.titleLine2}<br />
+          {page.hero.titleLine3}
         </span>
       </h1>
 
-      <div class="w-24 h-px mx-auto mb-8 bg-[#8C7355] animate-width-grow"></div>
+      <div class="w-24 h-px mx-auto mb-8 bg-gradient-to-r from-transparent via-brand-accent to-transparent"></div>
 
-      <p class="text-lg md:text-xl text-white/70 max-w-2xl mx-auto font-light leading-relaxed mb-12 animate-fade-in animation-delay-500">
-        {pageContent.info.desc}
+      <p class="text-lg md:text-xl text-brand-on-dark/70 max-w-2xl mx-auto font-light leading-relaxed mb-12">
+        {page.hero.desc}
       </p>
 
-      <div class="flex flex-col sm:flex-row gap-6 justify-center items-center animate-fade-in animation-delay-700">
-        <a href="/booking" class="group relative px-10 py-5 bg-[#8C7355] text-[#F9F2E7] overflow-hidden rounded-2xl transition-all hover:scale-105 active:scale-95">
-          <span class="absolute inset-0 w-0 bg-white/20 group-hover:w-full transition-all duration-500"></span>
-          <span class="relative flex items-center gap-3 text-sm tracking-[0.3em] uppercase font-light">
-            Fix my wardrobe
-            <Icon name="lucide:arrow-right" class="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+      <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+        <a href="/contact" class="btn-brand px-12 py-6 min-w-[200px] justify-center">
+          <span class="inline-flex items-center gap-2">
+            {page.hero.ctaPrimary}
+            <Icon name="lucide:arrow-right" class="w-4 h-4" />
           </span>
+        </a>
+        <a href="#story" class="group flex items-center gap-3 text-brand-on-dark/70 hover:text-brand-on-dark transition-colors">
+          <span class="w-12 h-px bg-brand-on-dark/30 group-hover:w-16 group-hover:bg-brand-accent transition-all"></span>
+          <span class="text-xs tracking-[0.3em] uppercase font-light">{page.hero.ctaSecondary}</span>
         </a>
       </div>
     </div>
   </section>
 
   <main class="bg-brand-bg">
-    <section id="story" class="max-w-7xl mx-auto px-8 py-32 md:py-40 text-brand-text relative">
+    <section id="story" class="max-w-7xl mx-auto px-8 py-32 md:py-40 bg-brand-bg text-brand-primary relative">
+
       <div class="mb-32 relative reveal-on-scroll">
-        <div class="absolute -top-20 left-0 text-[9vw] font-serif text-brand-accent/5 leading-none select-none pointer-events-none whitespace-nowrap uppercase">
-          STYLE • STYLE
+        <div class="absolute -top-20 left-0 text-[9vw] font-serif text-brand-accent/5 leading-none select-none pointer-events-none whitespace-nowrap">
+          {page.story.bgText}
         </div>
         <h2 class="text-6xl md:text-8xl font-serif text-brand-accent leading-[0.9] tracking-[-0.03em] uppercase relative">
-          {pageContent.narrative.mainHeading}<br />
-          <span class="italic font-light text-brand-muted">{pageContent.narrative.italicHeading}</span>
+          {page.story.titleMain}<br />
+          <span class="italic font-light text-brand-muted">{page.story.titleItalic}</span>
         </h2>
-        <p class="text-xs md:text-sm text-brand-muted tracking-[0.3em] uppercase mt-12 pl-8 border-l border-brand-muted/30 relative">
-          {pageContent.narrative.subHeading}
+        <p class="text-xs md:text-sm text-brand-muted/70 tracking-[0.3em] uppercase mt-12 pl-8 border-l border-brand-muted/30">
+          {page.story.kicker}
         </p>
       </div>
 
-      <div class="mb-32 relative reveal-on-scroll pl-16">
-        <div class="absolute -left-8 top-0 text-[12rem] font-serif text-brand-accent/10 leading-none">"</div>
-        <div class="relative">
-          <p class="text-lg md:text-2xl font-light leading-relaxed text-brand-text mb-8">
-            {pageContent.narrative.quote}
+      <div class="mb-32 relative reveal-on-scroll">
+        <div class="absolute -left-8 top-0 text-[12rem] font-serif text-brand-accent/5 leading-none">"</div>
+        <div class="relative pl-16">
+          <p class="text-lg md:text-2xl font-light leading-relaxed text-brand-primary/80 mb-8">
+            <span class="text-8xl float-left font-serif text-brand-accent mr-6 mt-2 leading-[0.8]">{page.story.quoteLetter}</span>
+            {page.story.quoteBody}
           </p>
-          <p class="text-lg md:text-xl font-light leading-relaxed text-brand-text/70 pl-8 border-l-2 border-brand-accent/30 italic">
-            {pageContent.narrative.quoteSide}
+          <p class="text-lg md:text-xl font-light leading-relaxed text-brand-primary/70 pl-8 border-l-2 border-brand-accent/30 italic">
+            {page.story.quoteHighlight}
           </p>
         </div>
       </div>
 
-      <div class="grid md:grid-cols-2 gap-20 mb-40 reveal-on-scroll">
-        {pageContent.strategy.map(item => (
+      <div class="grid md:grid-cols-2 gap-20 mb-32 reveal-on-scroll">
+        {page.whyItMatters.map((item) => (
           <div class="relative group">
             <h2 class="text-3xl font-serif text-brand-accent mb-8 uppercase tracking-wide flex items-center">
-              <span class="w-12 h-px bg-brand-muted/40 mr-6 group-hover:w-20 transition-all duration-700"></span>
+              <span class="w-12 h-px bg-brand-muted mr-6 group-hover:w-20 transition-all duration-700"></span>
               {item.title}
             </h2>
-            <p class="text-base font-light leading-relaxed text-brand-text/70">{item.text}</p>
+            <p class="text-base font-light leading-relaxed text-brand-primary/70">{item.content}</p>
           </div>
         ))}
       </div>
 
       <div class="mb-40 relative reveal-on-scroll">
         <h2 class="text-4xl md:text-5xl font-serif text-brand-accent mb-16 uppercase tracking-wide text-center">
-          {pageContent.mistakes.title}<br />
-          <span class="text-xl font-light text-brand-muted block mt-4 tracking-normal">{pageContent.mistakes.subtitle}</span>
+          {page.pitfalls.title}<br />
+          <span class="text-xl font-light text-brand-muted block mt-4 tracking-normal">{page.pitfalls.subtitle}</span>
         </h2>
         <div class="grid md:grid-cols-3 gap-8">
-          {pageContent.mistakes.list.map(m => (
-            <div class="group relative p-10 bg-white/50 border border-brand-muted/10 hover:border-brand-accent transition-all duration-700">
-              <span class="absolute -top-6 left-8 text-8xl font-serif text-brand-accent/10 group-hover:text-brand-accent/20 transition-colors">{m.no}</span>
-              <h3 class="text-2xl font-serif text-brand-accent mb-4 relative z-10 uppercase">{m.title}</h3>
-              <p class="text-sm font-light text-brand-text/60 leading-relaxed relative z-10">{m.desc}</p>
+          {page.pitfalls.items.map((item) => (
+            <div class="group relative p-10 bg-white/50 border border-brand-dark/5 hover:border-brand-accent/30 transition-all duration-700">
+              <span class="absolute -top-6 left-8 text-8xl font-serif text-brand-accent/10 group-hover:text-brand-accent/20 transition-colors">{item.no}</span>
+              <h3 class="text-2xl font-serif text-brand-accent mb-4 relative z-10">{item.title}</h3>
+              <p class="text-sm font-light text-brand-primary/60 leading-relaxed relative z-10">{item.desc}</p>
+              <div class="absolute bottom-0 left-0 w-0 h-[2px] bg-brand-accent group-hover:w-full transition-all duration-700"></div>
             </div>
           ))}
         </div>
         <div class="mt-16 p-8 bg-brand-accent/5 border-l-4 border-brand-accent">
-          <p class="text-sm font-mono text-brand-text/80 leading-relaxed italic">{pageContent.mistakes.techNote}</p>
+          <p class="text-sm font-mono text-brand-primary/80 leading-relaxed">{page.pitfalls.techNote}</p>
         </div>
       </div>
 
       <div class="grid md:grid-cols-2 gap-20 mb-40 reveal-on-scroll">
-        <div class="relative">
-          <h2 class="text-3xl font-serif text-brand-accent mb-10 uppercase tracking-wide">
-            <span class="block text-sm font-light text-brand-muted mb-3 tracking-[0.3em]">{pageContent.experience.wardrobe.no} — {pageContent.experience.wardrobe.label}</span>
-            {pageContent.experience.wardrobe.title}
-          </h2>
-          <div class="space-y-6 text-brand-text/70 font-light leading-relaxed">
-            <p>{pageContent.experience.wardrobe.p1}</p>
-            <p class="italic pl-6 border-l-2 border-brand-accent/30">{pageContent.experience.wardrobe.p2}</p>
-            <p>{pageContent.experience.wardrobe.p3}</p>
+        {page.experience.map((exp) => (
+          <div class="relative group">
+            <h2 class="text-3xl font-serif text-brand-accent mb-10 uppercase tracking-wide">
+              <span class="block text-sm font-light text-brand-muted mb-3 tracking-[0.3em]">{exp.id} — {exp.label}</span>
+              {exp.title}
+            </h2>
+            <div class="space-y-6">
+              <p class="text-base font-light leading-relaxed text-brand-primary/70">{exp.p1}</p>
+              {exp.italic && (
+                <p class="text-base font-light leading-relaxed text-brand-primary/70 italic pl-6 border-l-2 border-brand-accent/30">{exp.italic}</p>
+              )}
+              {exp.p2 && (
+                <p class="text-base font-light leading-relaxed text-brand-primary/70">{exp.p2}</p>
+              )}
+              {exp.list && (
+                <ul class="space-y-4 text-base font-light">
+                  {exp.list.map((li) => (
+                    <li class="flex items-start">
+                      <span class="w-1.5 h-1.5 rounded-full bg-brand-accent mt-2 mr-4 flex-shrink-0"></span>
+                      <span class="text-brand-primary/70">{li}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </div>
-        </div>
-        <div class="relative">
-          <h2 class="text-3xl font-serif text-brand-accent mb-10 uppercase tracking-wide">
-            <span class="block text-sm font-light text-brand-muted mb-3 tracking-[0.3em]">{pageContent.experience.beauty.no} — {pageContent.experience.beauty.label}</span>
-            {pageContent.experience.beauty.title}
-          </h2>
-          <div class="space-y-6">
-            <p class="text-brand-text/70 font-light">{pageContent.experience.beauty.p1}</p>
-            <ul class="space-y-4 text-brand-text/70 font-light">
-              {pageContent.experience.beauty.items.map(item => (
-                <li class="flex items-start">
-                  <span class="w-1.5 h-1.5 rounded-full bg-brand-accent mt-2 mr-4"></span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        ))}
+      </div>
+
+      {/* ✅ Internal link: editing block explicitly names the photography page and links to it */}
+      <div class="mb-40 relative py-24 px-8 bg-brand-dark -mx-8 text-brand-on-dark reveal-on-scroll text-center">
+        <h2 class="text-4xl md:text-5xl font-serif mb-8 uppercase tracking-wide">{page.editing.title}</h2>
+        <div class="w-24 h-px bg-brand-muted/30 mx-auto mb-8"></div>
+        <p class="text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto opacity-80 mb-10">
+          {page.editing.content}
+        </p>
+        {/* ✅ Explicit internal link — visible, in-context, natural */}
+        <a 
+          href="/services/sydney-dating-photography" 
+          class="inline-flex items-center gap-2 text-sm tracking-[0.2em] uppercase text-brand-accent border-b border-brand-accent/40 hover:border-brand-accent pb-1 transition-colors"
+        >
+          See the full dating profile photography session
+          <Icon name="lucide:arrow-right" class="w-4 h-4" />
+        </a>
       </div>
 
       <div class="mb-40 reveal-on-scroll">
-        <h2 class="text-3xl md:text-4xl font-serif text-brand-accent mb-16 text-center uppercase tracking-wide">THE STYLING EXPERIENCE</h2>
         <div class="grid md:grid-cols-3 gap-8">
-          {pageContent.modules.map((module, index) => (
-            <div class="group relative bg-white/50 border border-brand-muted/10 hover:border-brand-accent/30 transition-all duration-700">
+          {page.modules.map((module) => (
+            <div class="group relative bg-white/50 border border-brand-dark/5 hover:border-brand-accent/30 transition-all duration-700">
               <div class="aspect-[4/5] overflow-hidden">
-                <img src={module.image} alt={module.imageAlt} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" />
+                <img 
+                  src={module.image} 
+                  alt={module.imageAlt} 
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" 
+                />
               </div>
-              <div class="p-8 relative">
-                <span class="absolute top-4 right-8 text-4xl font-serif text-brand-accent/10">{(index+1).toString().padStart(2, '0')}</span>
-                <h3 class="text-xl font-serif text-brand-accent mb-4 uppercase">{module.title}</h3>
-                <p class="text-sm font-light text-brand-text/70 leading-relaxed mb-4">{module.description}</p>
+              <div class="p-8">
+                <h3 class="text-xl font-serif text-brand-accent mb-4">{module.title}</h3>
+                <p class="text-sm font-light text-brand-primary/70 leading-relaxed mb-4">{module.description}</p>
                 <p class="text-xs font-mono text-brand-muted/60 italic">{module.caption}</p>
               </div>
             </div>
@@ -333,36 +385,52 @@ const pageContent = {
       <Packages />
 
       <div class="mb-40 mt-40 reveal-on-scroll">
-        <h2 class="text-3xl md:text-4xl font-serif text-brand-accent mb-16 text-center uppercase tracking-wide">STYLING QUESTIONS</h2>
+        <h2 class="text-3xl md:text-4xl font-serif text-brand-accent mb-16 text-center uppercase tracking-wide">
+          {page.faqTitle}
+        </h2>
         <div class="max-w-3xl mx-auto space-y-6">
-          {pageContent.faq.map((item, index) => (
+          {page.faq.map((item, index) => (
             <div class="border-b border-brand-muted/10 pb-6">
               <details class="group">
                 <summary class="flex justify-between items-center cursor-pointer list-none">
-                  <h3 class="text-lg font-serif text-brand-accent group-hover:opacity-70 transition-opacity">
-                    <span class="inline-block w-8 text-sm font-mono text-brand-muted">{(index + 1).toString().padStart(2, '0')}</span>
+                  <h3 class="text-lg font-serif text-brand-accent pr-8">
+                    <span class="inline-block w-8 text-sm font-mono text-brand-muted">{index + 1}.</span>
                     {item.question}
                   </h3>
-                  <Icon name="lucide:chevron-down" class="w-5 h-5 text-brand-muted group-open:rotate-180 transition-transform" />
+                  <Icon name="lucide:chevron-down" class="w-5 h-5 text-brand-muted flex-shrink-0 group-open:rotate-180 transition-transform" />
                 </summary>
-                <p class="mt-4 text-sm font-light text-brand-text/70 leading-relaxed pl-8">{item.answer}</p>
+                <p class="mt-4 text-sm font-light text-brand-primary/70 leading-relaxed pl-8">{item.answer}</p>
               </details>
             </div>
           ))}
         </div>
       </div>
 
-      <div class="text-center py-20 relative reveal-on-scroll">
-        <h2 class="text-5xl md:text-7xl font-serif text-brand-accent mb-8 uppercase tracking-tight relative z-10">
-          {pageContent.cta.heading}<br />
-          <span class="italic font-light text-brand-muted">{pageContent.cta.italic}</span>
+      <div class="text-center relative py-20 reveal-on-scroll">
+        <div class="absolute inset-0 flex items-center justify-center opacity-5 select-none pointer-events-none overflow-hidden">
+          <span class="text-[12vw] font-serif text-brand-accent whitespace-nowrap">{page.footerCta.bgText}</span>
+        </div>
+        <h2 class="text-5xl md:text-7xl font-serif text-brand-accent mb-8 uppercase tracking-tight relative">
+          {page.footerCta.titleLine1}<br />
+          <span class="italic font-light text-brand-muted">{page.footerCta.titleLine2}</span>
         </h2>
-        <p class="text-base font-light text-brand-text/60 max-w-xl mx-auto mb-16 relative z-10">{pageContent.cta.desc}</p>
-        <a href="/booking" class="btn-brand">
-          {pageContent.cta.button}
-          <Icon name="lucide:arrow-right" class="w-4 h-4" />
-        </a>
+        <p class="text-base font-light text-brand-primary/60 max-w-xl mx-auto mb-12 relative">
+          {page.footerCta.desc}
+        </p>
+        <div class="flex flex-col items-center gap-6 relative">
+          <a href="/booking" class="btn-brand">
+            {page.footerCta.buttonText}
+          </a>
+          {/* ✅ Second internal link to photography page — footer, visible, contextual */}
+          <a 
+            href={page.footerCta.internalLinkUrl}
+            class="text-sm text-brand-muted hover:text-brand-accent transition-colors tracking-wide"
+          >
+            {page.footerCta.internalLinkText}
+          </a>
+        </div>
       </div>
+
     </section>
   </main>
 
@@ -378,7 +446,6 @@ const pageContent = {
         }
       });
     }, { threshold: 0.1 });
-
     document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
   }
   document.addEventListener('astro:page-load', initReveal);

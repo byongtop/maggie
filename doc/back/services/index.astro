@@ -1,0 +1,90 @@
+---
+// src/pages/services/index.astro
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import ContactCTA2 from '../../components/ContactCTA2.astro';
+import '../../styles/global.css';
+
+const services = [
+  {
+    title: "Lifestyle Portraits",
+    description: "Capture the authentic you in natural settings. Beyond static poses, we curate narratives that reflect your personality and lifestyle for social media and dating profiles.",
+    href: "/services/lifestyle",
+    icon: "01"
+  },
+  {
+    title: "Dating Strategy & Styling",
+    description: "Not just photography, but a complete visual overhaul. Strategic advice on wardrobe, posing, and image positioning to magnetize the right connections.",
+    href: "/services/dating",
+    icon: "02"
+  },
+  {
+    title: "Corporate Identity",
+    description: "Professional narrative portraiture for leaders and professionals who need to blend competence with approachable authenticity in a digital world.",
+    href: "/services/corporate",
+    icon: "03"
+  }
+];
+---
+
+<Layout title="Services | ROSE IS ROSE - Narrative Portraiture">
+  <Header />
+  
+  <main class="bg-brand-bg pt-28 md:pt-36">
+    
+    <section class="section-padding relative overflow-hidden">
+      <div class="container-wide relative z-10">
+        <div class="reveal-on-scroll">
+          <span class="h-badge">
+            <span class="inline-block w-8 h-px bg-brand-muted/40 mr-4 align-middle"></span>
+            Elevate Your Image
+          </span>
+          <h1 class="h-hero max-w-4xl uppercase mt-6 mb-10">
+            NARRATIVE <br />
+            <span class="italic font-light text-brand-muted/80">SERVICES</span>
+          </h1>
+          <p class="prose-narrative max-w-2xl opacity-80">
+            Tailored visual storytelling designed to magnetize connection and build authentic personal brands in Sydney and beyond.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="pb-32">
+        <div class="container-wide">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-8 reveal-on-scroll">
+                {services.map(service => (
+                    <div class="group">
+                        <ServiceCard {...service} />
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <ContactCTA2 />
+
+  </main>
+  
+  <Footer />
+</Layout>
+
+<script>
+  function initServicesAnimation() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          // observer.unobserve(entry.target); // 如果希望每次滚动都有动画可注释掉此行
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+  }
+  
+  document.addEventListener('astro:page-load', initServicesAnimation);
+  initServicesAnimation();
+</script>

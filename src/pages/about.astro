@@ -1,5 +1,5 @@
 ---
-// src/pages/philosophy.astro
+// src/pages/about.astro
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -9,34 +9,18 @@ import { Image } from 'astro:assets';
 import philImg from '../assets/images/hero/06.jpg'; 
 import '../styles/global.css';
 
-// 关于页面的数据
-const aboutData = {
-  name: "Rose",
-  title: "Portrait Photographer",
-  experience: "8+ years",
-  location: "Sydney",
-  specialties: ["Dating Portraits", "Professional Headshots", "Personal Branding"],
-  socialLinks: {
-    instagram: "https://instagram.com/roseisrose",
-    pinterest: "https://pinterest.com/roseisrose",
-    linkedin: "https://linkedin.com/in/roseisrose"
-  }
-};
-
-// 面包屑导航
 const breadcrumbs = [
   { name: "Home", item: "/" },
   { name: "About", item: "/about" }
 ];
 
-// 自定义 Schema - 添加更详细的个人信息
 const customSchemas = [
   {
     "@type": "Person",
-    "name": "Rose",
-    "description": "Professional portrait photographer specializing in dating and personal branding photography in Sydney.",
-    "image": "https://roseisrose.com.au/images/rose-portrait.jpg",
-    "jobTitle": "Portrait Photographer",
+    "name": "Maggie",
+    "description": "Sydney dating profile photographer and founder of ROSE IS ROSE. Specialising in dating portraits, personal styling and profile strategy.",
+    "image": "https://roseisrose.com.au/images/maggie-portrait.jpg",
+    "jobTitle": "Dating Profile Photographer",
     "worksFor": {
       "@type": "Organization",
       "name": "ROSE IS ROSE"
@@ -52,50 +36,95 @@ const customSchemas = [
       "addressRegion": "NSW",
       "addressCountry": "AU"
     },
-    "knowsAbout": ["Photography", "Portrait Photography", "Dating Profile Photography"]
+    "knowsAbout": ["Dating Profile Photography", "Portrait Photography", "Dating App Strategy", "Personal Styling"]
   }
 ];
 
-const pageData = {
-  seo: {
-    title: "Our Philosophy & Story | ROSE IS ROSE - Narrative Portraiture",
-    description: "Discover the art of narrative photography. We curate visual stories that speak volumes, blending confidence and authenticity for discerning individuals."
+const page = {
+
+  // ✅ SEO: primary keyword "dating profile photographer Sydney" in title
+  // ✅ Layout title and description are the single source of truth — pageData.seo removed
+  meta: {
+    title: "About Maggie | Dating Profile Photographer Sydney | ROSE IS ROSE",
+    description: "Maggie is the Sydney photographer behind ROSE IS ROSE — dating profile photography, styling and strategy for singles who are done with bad photos and worse matches.",
+    ogImage: "/images/maggie-portrait.jpg"
   },
+
   hero: {
-    floatingBg: "Philosophy",
-    badge: "The Art of Narrative Photography",
-    titleMain: "CRAFTING AUTHENTICITY,",
-    titleItalic: "MAGNETIZING CONNECTION"
+    badge: "Sydney · Dating Profile Photography",
+    // ✅ H1: contains "dating profile photographer" and "Sydney" — not just brand language
+    h1Line1: "DATING PROFILE",
+    h1Line2: "PHOTOGRAPHER",
+    h1Line3: "SYDNEY",
+    // sr-only full phrase for SEO
+    h1Full: "Dating Profile Photographer Sydney — Maggie, ROSE IS ROSE",
+    floatingBg: "Maggie"
   },
-  philosophy: {
-    beyond: {
-      title: "Beyond the Snap",
-      p1: "In an era defined by ephemeral connections and rapid digital swipes, your first impression is not just crucial—it's everything. At ROSE IS ROSE, we transcend the conventional definition of portrait photography. We don't just take pictures; we curate a visual narrative that speaks volumes before you say a single word.",
-      p2: "Our specialized dating profile photography service is designed for discerning individuals in Sydney and beyond, who understand that true attraction is a blend of confidence, vulnerability, and authenticity."
+
+  // Brand name origin — based on Gertrude Stein's "A rose is a rose is a rose" (1913)
+  // Woven into story naturally, not explained academically
+  story: {
+    // Section 1: Who Maggie is — warm, personal, first person
+    intro: {
+      heading: "Hi, I'm Maggie.",
+      // Warm opener — specific detail grounds it immediately
+      p1: "I've been photographing people in Sydney for over eight years. In that time I've shot weddings, newborns, corporate headshots, editorial portraits — the full range. But somewhere along the way, dating profile photography became the thing I kept coming back to. Not because it's glamorous, but because it's the work that seems to actually matter to people.",
+      // The pivot moment — specific and believable
+      p2: "A few years ago, a friend asked me to help her redo her dating photos. She was bright, funny, genuinely lovely — and her profile photos looked like a completely different person. We spent an afternoon at Surry Hills with a bottle of rosé and my camera. Within two weeks she'd matched with the person she's now living with. I'm not saying I take credit for their relationship. But I do think the photos helped.",
+      // Why she kept going — honest, not grandiose
+      p3: "That's when I started paying proper attention to what makes a dating photo work — and more importantly, what makes most of them fail. Eight years of studying light, composition and what makes a person relax in front of a camera turned out to be exactly the right training for this."
     },
+
+    // Section 2: The name — Gertrude Stein reference, gently handled
+    name: {
+      heading: "Why ROSE IS ROSE.",
+      // Reference without being academic about it
+      p1: "There's a line from a Gertrude Stein poem — written in 1913, still quoted constantly — that goes: a rose is a rose is a rose. It's about the fact that things don't need to be explained or justified or made into something else. A rose is exactly what it is.",
+      p2: "That's what I want for the people I photograph. Not a better version of you. Not a more polished, more filtered, more marketable you. Just you — on a day when the light was good and you weren't thinking about the camera.",
+      // Quiet confidence — not a manifesto
+      p3: "Most people have never seen a photo of themselves that they genuinely like. That's what I'm trying to fix."
+    },
+
+    // Section 3: How she works — practical, warm, specific
     approach: {
-      title: "Our Approach: Strategic Storytelling",
-      p1: "We believe that the best portraits are born from genuine moments, not staged perfection. Our approach involves deep consultation to understand your personality, your goals, and the message you want to convey to potential partners.",
-      list: [
-        "Personal brand positioning & consultation",
-        "Platform-specific image strategy (Tinder, Hinge, etc.)",
-        "Natural light and environmental portraiture",
-        "Professional styling and wardrobe advice"
-      ]
+      heading: "How I work.",
+      p1: "I'm not a fast shooter. I don't hand you a location and a time and tell you to show up looking your best. Before every session we talk — about what you're looking for, what you hate about photos of yourself, what you want someone to feel when they land on your profile.",
+      // Specific detail — feels real
+      p2: "I've photographed people who haven't liked a single photo of themselves in ten years. I've photographed people who are quietly terrified of the camera and cover it well. I've photographed people who are completely comfortable in front of a lens but have no idea why their photos still aren't working. Different problems, different sessions.",
+      italic: "The thing they all have in common is that by the end, they're looking at photos going 'oh — that's actually me.' That's the moment I'm working towards.",
+      // Internal link to photography service — natural context
+      linkText: "See how the photography session works →",
+      linkUrl: "/services/sydney-dating-photography"
     },
-    quality: {
-      title: "Quality & Professionalism",
-      p1: "Utilizing the highest quality professional photography equipment, we ensure every detail is crisp, every lighting setup is perfect. Our post-production team specializes in 'natural-look' editing, ensuring you look like the best version of yourself, not a digitally altered stranger."
-    },
-    caption: "ROSE IS ROSE // NARRATIVE PORTRAITURE"
-  }
+
+    // Section 4: The wider offering — segues naturally to other services
+    beyond: {
+      heading: "More than just photos.",
+      p1: "Over the years, clients kept asking for more. What should I wear? Can you help me write my bio? I have matches but nothing's going anywhere — what am I doing wrong?",
+      p2: "So I built out the services to cover the whole thing. Hair and makeup before the shoot. Wardrobe editing so there are no outfit panics on shoot day. Profile writing so the photos have words that match. And dating app strategy for when everything looks right but the results still aren't there.",
+      // Warm close — not a sales pitch
+      p3: "It's not a package you have to buy all of. Most people start with the photos and go from there. But it's all available if you need it.",
+      linkText: "See all services →",
+      linkUrl: "/services"
+    }
+  },
+
+  // Stats — real, specific, not inflated
+  stats: [
+    { number: "8+", label: "years photographing in Sydney" },
+    { number: "3", label: "dating apps worth knowing properly" },
+    { number: "1", label: "afternoon that started all of this" }
+  ],
+
+  caption: "MAGGIE · ROSE IS ROSE · SYDNEY"
+
 };
 ---
 
 <Layout
-  title="About Rose | ROSE IS ROSE Portrait Photography"
-  description="Meet Rose, Sydney's premier portrait photographer specializing in dating profiles, personal branding, and professional headshots."
-  ogImage="/images/about-rose.jpg"
+  title={page.meta.title}
+  description={page.meta.description}
+  ogImage={page.meta.ogImage}
   pageType="about"
   breadcrumbs={breadcrumbs}
   schemas={customSchemas}
@@ -103,83 +132,129 @@ const pageData = {
   <Header />
   
   <main class="bg-brand-bg pt-28 md:pt-36">
-    
+
+    {/* Hero */}
     <section class="section-padding relative overflow-hidden">
-      <div class="absolute top-40 left-[20%] pointer-events-none select-none opacity-[0.06] animate-float">
-        <span class="text-[12vw] font-serif italic text-brand-accent leading-none">
-          {pageData.hero.floatingBg}
+      <div class="absolute top-40 left-[20%] pointer-events-none select-none opacity-[0.04] animate-float">
+        <span class="text-[14vw] font-serif italic text-brand-accent leading-none">
+          {page.hero.floatingBg}
         </span>
       </div>
       
       <div class="container-wide relative z-10">
         <div class="reveal-on-scroll">
-            <span class="h-badge">
-              <span class="inline-block w-8 h-px bg-brand-muted/40 mr-4 align-middle"></span>
-              {pageData.hero.badge}
+          <span class="h-badge">
+            <span class="inline-block w-8 h-px bg-brand-muted/40 mr-4 align-middle"></span>
+            {page.hero.badge}
+          </span>
+          {/*
+            ✅ SEO FIX: Single h1. sr-only span = full keyword phrase.
+            Visual three-line split is aria-hidden.
+          */}
+          <h1 class="h-hero max-w-5xl uppercase mt-6">
+            <span class="sr-only">{page.hero.h1Full}</span>
+            <span aria-hidden="true">
+              {page.hero.h1Line1}<br />
+              {page.hero.h1Line2}<br />
+              <span class="italic font-light opacity-80 pl-[10%]">{page.hero.h1Line3}</span>
             </span>
-            <h1 class="h-hero max-w-5xl uppercase">
-              {pageData.hero.titleMain} <br />
-              <span class="italic font-light opacity-80 pl-[10%]">
-                {pageData.hero.titleItalic}
-              </span>
-            </h1>
+          </h1>
         </div>
       </div>
     </section>
 
+    {/* Main content */}
     <section class="pb-32">
-        <div class="container-wide grid md:grid-cols-12 gap-16 items-start">
-            
-            <div class="md:col-span-7 space-y-20 reveal-on-scroll">
-                
-                <div class="border-l border-brand-muted/30 pl-8 prose-narrative">
-                    <h2 class="h-section !text-3xl !mb-6">{pageData.philosophy.beyond.title}</h2>
-                    <p class="drop-cap">{pageData.philosophy.beyond.p1}</p>
-                    <p>{pageData.philosophy.beyond.p2}</p>
-                </div>
+      <div class="container-wide grid md:grid-cols-12 gap-16 items-start">
 
-                <div class="border-l border-brand-muted/30 pl-8 prose-narrative">
-                    <h3 class="h-section !text-2xl !mb-6">{pageData.philosophy.approach.title}</h3>
-                    <p>{pageData.philosophy.approach.p1}</p>
-                    <ul class="list-none space-y-4 mt-8">
-                        {pageData.philosophy.approach.list.map(item => (
-                          <li class="text-sm tracking-wide flex items-center gap-4 text-brand-primary/80">
-                            <span class="w-1 h-1 rounded-full bg-brand-accent/40"></span>
-                            {item}
-                          </li>
-                        ))}
-                    </ul>
-                </div>
+        {/* Left column — story */}
+        <div class="md:col-span-7 space-y-20">
 
-                <div class="border-l border-brand-muted/30 pl-8 prose-narrative">
-                    <h3 class="h-section !text-2xl !mb-6">{pageData.philosophy.quality.title}</h3>
-                    <p>{pageData.philosophy.quality.p1}</p>
-                </div>
-            </div>
+          {/* Section 1: Intro */}
+          <div class="border-l border-brand-muted/30 pl-8 prose-narrative reveal-on-scroll">
+            <h2 class="h-section !text-3xl !mb-6">{page.story.intro.heading}</h2>
+            <p class="drop-cap">{page.story.intro.p1}</p>
+            <p>{page.story.intro.p2}</p>
+            <p>{page.story.intro.p3}</p>
+          </div>
 
-            <div class="md:col-span-5 md:sticky md:top-40 reveal-on-scroll">
-                <div class="relative aspect-[3/4] overflow-hidden bg-brand-dark/5 shadow-2xl">
-                  <Image 
-                    src={philImg} 
-                    alt="The art of portrait photography" 
-                    class="w-full h-full object-cover" 
-                  />
-                  <div class="absolute inset-0 z-10 pointer-events-none p-6 opacity-30">
-                      <div class="absolute top-6 left-6 w-12 h-12 border-t border-l border-white"></div>
-                      <div class="absolute top-6 right-6 w-12 h-12 border-t border-r border-white"></div>
-                      <div class="absolute bottom-6 left-6 w-12 h-12 border-b border-l border-white"></div>
-                      <div class="absolute bottom-6 right-6 w-12 h-12 border-b border-r border-white"></div>
-                  </div>
-                </div>
-                <p class="h-badge !text-[9px] mt-6 text-center opacity-60">
-                    {pageData.philosophy.caption}
-                </p>
-            </div>
+          {/* Section 2: The name */}
+          <div class="border-l border-brand-muted/30 pl-8 prose-narrative reveal-on-scroll">
+            <h2 class="h-section !text-2xl !mb-6">{page.story.name.heading}</h2>
+            <p>{page.story.name.p1}</p>
+            <p>{page.story.name.p2}</p>
+            <p class="italic opacity-70">{page.story.name.p3}</p>
+          </div>
+
+          {/* Section 3: Approach */}
+          <div class="border-l border-brand-muted/30 pl-8 prose-narrative reveal-on-scroll">
+            <h2 class="h-section !text-2xl !mb-6">{page.story.approach.heading}</h2>
+            <p>{page.story.approach.p1}</p>
+            <p>{page.story.approach.p2}</p>
+            <p class="italic pl-6 border-l-2 border-brand-accent/30 text-brand-primary/70">
+              {page.story.approach.italic}
+            </p>
+            {/* ✅ Internal link 1: natural bridge to photography service */}
+            <a
+              href={page.story.approach.linkUrl}
+              class="inline-flex items-center gap-2 mt-6 text-xs tracking-[0.2em] uppercase text-brand-accent border-b border-brand-accent/30 hover:border-brand-accent pb-1 transition-colors"
+            >
+              {page.story.approach.linkText}
+            </a>
+          </div>
+
+          {/* Section 4: Beyond photos */}
+          <div class="border-l border-brand-muted/30 pl-8 prose-narrative reveal-on-scroll">
+            <h2 class="h-section !text-2xl !mb-6">{page.story.beyond.heading}</h2>
+            <p>{page.story.beyond.p1}</p>
+            <p>{page.story.beyond.p2}</p>
+            <p class="italic opacity-70">{page.story.beyond.p3}</p>
+            {/* ✅ Internal link 2: to services index */}
+            <a
+              href={page.story.beyond.linkUrl}
+              class="inline-flex items-center gap-2 mt-6 text-xs tracking-[0.2em] uppercase text-brand-accent border-b border-brand-accent/30 hover:border-brand-accent pb-1 transition-colors"
+            >
+              {page.story.beyond.linkText}
+            </a>
+          </div>
+
+          {/* Stats */}
+          <div class="grid grid-cols-3 gap-8 pt-8 border-t border-brand-muted/10 reveal-on-scroll">
+            {page.stats.map(stat => (
+              <div>
+                <p class="text-4xl font-serif text-brand-accent mb-2">{stat.number}</p>
+                <p class="text-xs tracking-wide text-brand-primary/50 uppercase font-light leading-relaxed">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+
         </div>
+
+        {/* Right column — photo, sticky */}
+        <div class="md:col-span-5 md:sticky md:top-40 reveal-on-scroll">
+          <div class="relative aspect-[3/4] overflow-hidden bg-brand-dark/5 shadow-2xl">
+            <Image
+              src={philImg}
+              {/* ✅ SEO: alt text identifies Maggie and her role */}
+              alt="Maggie — dating profile photographer Sydney, founder of ROSE IS ROSE"
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute inset-0 z-10 pointer-events-none p-6 opacity-30">
+              <div class="absolute top-6 left-6 w-12 h-12 border-t border-l border-white"></div>
+              <div class="absolute top-6 right-6 w-12 h-12 border-t border-r border-white"></div>
+              <div class="absolute bottom-6 left-6 w-12 h-12 border-b border-l border-white"></div>
+              <div class="absolute bottom-6 right-6 w-12 h-12 border-b border-r border-white"></div>
+            </div>
+          </div>
+          <p class="h-badge !text-[9px] mt-6 text-center opacity-60">
+            {page.caption}
+          </p>
+        </div>
+
+      </div>
     </section>
 
     <Process />
-    
     <ContactCTA2 />
 
   </main>
@@ -188,7 +263,6 @@ const pageData = {
 </Layout>
 
 <script>
-  // 使用统一的 reveal 逻辑
   function initRevealAnimation() {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -197,10 +271,8 @@ const pageData = {
         }
       });
     }, { threshold: 0.1 });
-
     document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
   }
-
   document.addEventListener('astro:page-load', initRevealAnimation);
   initRevealAnimation();
 </script>

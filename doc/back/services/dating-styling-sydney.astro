@@ -1,0 +1,386 @@
+---
+// src/pages/services/dating-styling-sydney.astro
+// Dating Styling & Hair Sydney - ROSE IS ROSE Service Page
+
+import '../../styles/global.css'; 
+import Layout from "../../layouts/Layout.astro";
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Packages from '../../components/Packages2.astro';
+import { Icon } from 'astro-icon/components';
+
+const serviceData = {
+  name: "Sydney Dating Photography",
+  description: "Professional dating profile portraits in Sydney",
+  providerName: "ROSE IS ROSE",
+  areaServed: ["Sydney", "Bondi", "Manly", "Parramatta"],
+  priceRange: "$$-$$$"
+};
+
+const breadcrumbs = [
+  { name: "Home", item: "/" },
+  { name: "Services", item: "/services" },
+  { name: "Dating Photography", item: "/services/sydney-dating-photography" }
+];
+/**
+ * 页面常量配置 - 集中管理所有文案与元数据
+ */
+const pageContent = {
+  // 基础信息
+  info: {
+    level: "1",
+    no: "02",
+    title: "DATING STYLING & HAIR",
+    subtitle: "Look Like You, But Make It Sydney",
+    h1Title: "Sydney Dating Styling: Look Effortless, Feel Confident, Actually Enjoy Your Photos",
+    desc: "Great dating photos start with great styling. We'll help you look like the best version of you—without feeling like you're wearing a costume.",
+    heroImage: "/assets/images/andrey-zvyagintsev-x0c6vTO5ibA-unsplash.jpg",
+  },
+  
+  // SEO 优化
+  seo: {
+    metaTitle: "Dating Stylist Sydney | Dating Hair & Makeup Sydney | ROSE IS ROSE",
+    metaDescription: "Looking for a dating stylist in Sydney? Professional hair, makeup and styling for your dating profile photos. Natural, confident, and totally you. Book your session.",
+    keywords: "dating stylist Sydney, dating hair Sydney, dating makeup Sydney, stylist for dating photos Sydney, dating profile stylist, Sydney hair and makeup for photoshoot, natural makeup Sydney",
+    imageAlt: "Professional hair and makeup styling for dating photos in Sydney"
+  },
+
+  // 叙事区块
+  narrative: {
+    badge: "Look good, feel good",
+    mainHeading: "THE STYLING",
+    italicHeading: "DIFFERENCE",
+    subHeading: "WHY STYLING MATTERS FOR DATING PHOTOS",
+    quote: "You know that feeling when you look at a photo and think \"I actually look good\"? It's not magic. It's styling that works with the camera, not against it.",
+    quoteSide: "We're not here to give you a makeover. We're here to help you show up as the best version of you—hair doing what it should, clothes fitting right, skin looking like skin. The camera will do the rest.",
+  },
+
+  // 核心价值主张
+  strategy: [
+    {
+      title: "CAMERA-READY, NOT STAGE-READY",
+      text: "There's a difference between looking good in real life and looking good on camera. We know that difference. Too much makeup? Washed out. Wrong colour shirt? Blends into the background. We'll help you get it right—without looking like you tried too hard."
+    },
+    {
+      title: "SYDNEY LIGHT, SYDNEY VIBE",
+      text: "Bondi light is different from CBD light. Morning shoots need different prep than golden hour. We'll style you for where we're shooting, when we're shooting, and who you're trying to attract."
+    }
+  ],
+
+  // 错误避雷区
+  mistakes: {
+    title: "STYLING MISTAKES WE SEE",
+    subtitle: "(and how we fix them)",
+    list: [
+      {
+        no: "01",
+        title: "The \"Too Much\" Makeup",
+        desc: "Foundation that's too heavy. Contour that shows. We do sheer, breathable, skin-like—so you look like you, just with really good skin."
+      },
+      {
+        no: "02",
+        title: "The Wrong Colours",
+        desc: "That olive shirt that disappears against the harbour? Not ideal. We'll help you find colours that make you pop against Sydney's famous blue and gold."
+      },
+      {
+        no: "03",
+        title: "The \"Set and Forget\" Hair",
+        desc: "Hair that doesn't move looks stiff. Sydney's breezy. We do hair that moves with you—wind-friendly, natural, and still photo-ready."
+      }
+    ],
+    techNote: "Quick truth: Camera flash reflects off certain makeup ingredients in ways you can't see in the mirror. We use products that photograph well—so what looks good in person also looks good on screen. Small detail, big difference."
+  },
+
+  // 核心体验模块
+  experience: {
+    wardrobe: {
+      no: "01",
+      label: "WARDROBE",
+      title: "WHAT'S ALREADY IN YOUR CLOSET",
+      p1: "Chances are, you already own clothes that would look great on camera. We just need to find them.",
+      p2: "We'll do a video call or in-person wardrobe edit—pulling out what works, figuring out what's missing, and making a plan.",
+      p3: "Need something new? We can help with that too—whether it's a shopping trip or just links to buy online. No pressure, no hard sell."
+    },
+    beauty: {
+      no: "02",
+      label: "BEAUTY",
+      title: "THE MORNING OF",
+      p1: "Show up. Sit down. Let someone else do the work for once.",
+      p2: "Hair that moves, not helmet-hair",
+      p3: "Makeup that enhances, not hides",
+      p4: "Touch-up kit for during the shoot",
+      items: [
+        "Hair that moves, not helmet-hair",
+        "Makeup that enhances, not hides",
+        "Touch-up kit for during the shoot"
+      ]
+    },
+    travel: {
+      title: "STYLE THAT TRAVELS",
+      desc: "We might shoot at three different spots in one session—The Rocks, then Circular Quay, then a rooftop bar. Your styling needs to work everywhere. We'll make sure your hair survives the wind, your makeup lasts through the golden hour glow, and your outfits transition like you're changing scenes in a movie. Because you are."
+    }
+  },
+
+  // Swiper/Experience 详情
+  modules: [
+    {
+      title: "Hair that moves (because you move)",
+      description: "Sydney's windy. Your hair should still look good. We do 'movement, not sculpture'—so you look natural, not like you just walked out of a hairspray commercial.",
+      image: "/assets/images/andrey-zvyagintsev-x0c6vTO5ibA-unsplash.jpg",
+      imageAlt: "Natural hair styling for dating photos",
+      caption: "Wind-proof, not helmet-head."
+    },
+    {
+      title: "Makeup that says 'I woke up like this'",
+      description: "Full-coverage foundation? Not our vibe. We enhance what you've got—skin that looks like skin, eyes that pop, lips that aren't sticky. Camera-ready but still touchable.",
+      image: "/assets/images/stefan-stefancik-QXevDflbl8A-unsplash.jpg",
+      imageAlt: "Natural makeup for dating photos",
+      caption: "She's not wearing much. That's the point."
+    },
+    {
+      title: "Wardrobe that actually fits the vibe",
+      description: "Bondi beach shoot? Different outfit than CBD rooftop. We'll help you match your clothes to your location, your personality, and the kind of person you're trying to attract.",
+      image: "/assets/images/photo/giovanna-knollseisen-CA4OaE7f500-unsplash.jpg",
+      imageAlt: "Wardrobe styling for Sydney dating photos",
+      caption: "Sydney casual, but make it intentional."
+    }
+  ],
+
+  // FAQ
+  faq: [
+    {
+      question: "Do I really need a stylist for dating photos?",
+      answer: "Honestly? You don't *need* one. But if you want to look at your photos and think 'damn, I look good' instead of 'why does my hair always do that thing'—then yeah, it helps."
+    },
+    {
+      question: "I never wear makeup. Will it look weird?",
+      answer: "Nope—because we're not doing 'makeup makeup.' Think of it as 'you, but with the good lighting already built in.' We just make you look like you had an amazing night's sleep."
+    }
+  ],
+
+  // 底部 CTA
+  cta: {
+    heading: "LOOK GOOD",
+    italic: "FEEL GOOD",
+    desc: "When you look in the mirror and think \"yeah, I'd date me\"—that's when the magic happens. Let's get you there.",
+    button: "Book your styling"
+  }
+};
+---
+
+<Layout 
+  title={pageContent.seo.metaTitle}
+  description={pageContent.seo.metaDescription}
+  ogImage="/images/dating-photography.jpg"
+  pageType="service"
+  service={serviceData}
+  breadcrumbs={breadcrumbs}
+>
+  <Header />
+  
+  <section class="relative h-screen min-h-[800px] flex items-center justify-center overflow-hidden bg-[#34041A]">
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 bg-gradient-to-b from-[#34041A]/90 via-[#34041A]/70 to-[#34041A]/90 z-10"></div>
+      <img 
+        src={pageContent.info.heroImage} 
+        alt={pageContent.seo.imageAlt} 
+        class="w-full h-full object-cover animate-ken-burns opacity-60"
+      />
+    </div>
+
+    <div class="container relative z-30 mx-auto px-6 text-center reveal-on-scroll">
+      <div class="inline-flex items-center gap-3 px-6 py-3 bg-white/5 backdrop-blur-xl rounded-full border border-white/10 mb-8 animate-float">
+        <span class="w-2 h-2 rounded-full bg-[#8C7355] animate-pulse"></span>
+        <span class="text-xs tracking-[0.3em] text-[#F9F2E7]/80 font-light uppercase">{pageContent.info.subtitle}</span>
+        <span class="text-xs font-mono text-brand-offwhite/60">{pageContent.narrative.badge}</span>
+      </div>
+
+      <h1 class="text-5xl md:text-8xl font-serif text-white mb-6 leading-[1.2] tracking-tight uppercase">
+        <span class="block overflow-hidden">
+          <span class="block animate-title-slide-up">DATING STYLING</span>
+        </span>
+        <span class="block overflow-hidden">
+          <span class="block animate-title-slide-up animation-delay-200 text-[#8C7355]">& HAIR</span>
+        </span>
+      </h1>
+
+      <div class="w-24 h-px mx-auto mb-8 bg-[#8C7355] animate-width-grow"></div>
+
+      <p class="text-lg md:text-xl text-white/70 max-w-2xl mx-auto font-light leading-relaxed mb-12 animate-fade-in animation-delay-500">
+        {pageContent.info.desc}
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-6 justify-center items-center animate-fade-in animation-delay-700">
+        <a href="/booking" class="group relative px-10 py-5 bg-[#8C7355] text-[#F9F2E7] overflow-hidden rounded-2xl transition-all hover:scale-105 active:scale-95">
+          <span class="absolute inset-0 w-0 bg-white/20 group-hover:w-full transition-all duration-500"></span>
+          <span class="relative flex items-center gap-3 text-sm tracking-[0.3em] uppercase font-light">
+            Fix my wardrobe
+            <Icon name="lucide:arrow-right" class="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <main class="bg-brand-bg">
+    <section id="story" class="max-w-7xl mx-auto px-8 py-32 md:py-40 text-brand-text relative">
+      <div class="mb-32 relative reveal-on-scroll">
+        <div class="absolute -top-20 left-0 text-[9vw] font-serif text-brand-accent/5 leading-none select-none pointer-events-none whitespace-nowrap uppercase">
+          STYLE • STYLE
+        </div>
+        <h2 class="text-6xl md:text-8xl font-serif text-brand-accent leading-[0.9] tracking-[-0.03em] uppercase relative">
+          {pageContent.narrative.mainHeading}<br />
+          <span class="italic font-light text-brand-muted">{pageContent.narrative.italicHeading}</span>
+        </h2>
+        <p class="text-xs md:text-sm text-brand-muted tracking-[0.3em] uppercase mt-12 pl-8 border-l border-brand-muted/30 relative">
+          {pageContent.narrative.subHeading}
+        </p>
+      </div>
+
+      <div class="mb-32 relative reveal-on-scroll pl-16">
+        <div class="absolute -left-8 top-0 text-[12rem] font-serif text-brand-accent/10 leading-none">"</div>
+        <div class="relative">
+          <p class="text-lg md:text-2xl font-light leading-relaxed text-brand-text mb-8">
+            {pageContent.narrative.quote}
+          </p>
+          <p class="text-lg md:text-xl font-light leading-relaxed text-brand-text/70 pl-8 border-l-2 border-brand-accent/30 italic">
+            {pageContent.narrative.quoteSide}
+          </p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-20 mb-40 reveal-on-scroll">
+        {pageContent.strategy.map(item => (
+          <div class="relative group">
+            <h2 class="text-3xl font-serif text-brand-accent mb-8 uppercase tracking-wide flex items-center">
+              <span class="w-12 h-px bg-brand-muted/40 mr-6 group-hover:w-20 transition-all duration-700"></span>
+              {item.title}
+            </h2>
+            <p class="text-base font-light leading-relaxed text-brand-text/70">{item.text}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mb-40 relative reveal-on-scroll">
+        <h2 class="text-4xl md:text-5xl font-serif text-brand-accent mb-16 uppercase tracking-wide text-center">
+          {pageContent.mistakes.title}<br />
+          <span class="text-xl font-light text-brand-muted block mt-4 tracking-normal">{pageContent.mistakes.subtitle}</span>
+        </h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          {pageContent.mistakes.list.map(m => (
+            <div class="group relative p-10 bg-white/50 border border-brand-muted/10 hover:border-brand-accent transition-all duration-700">
+              <span class="absolute -top-6 left-8 text-8xl font-serif text-brand-accent/10 group-hover:text-brand-accent/20 transition-colors">{m.no}</span>
+              <h3 class="text-2xl font-serif text-brand-accent mb-4 relative z-10 uppercase">{m.title}</h3>
+              <p class="text-sm font-light text-brand-text/60 leading-relaxed relative z-10">{m.desc}</p>
+            </div>
+          ))}
+        </div>
+        <div class="mt-16 p-8 bg-brand-accent/5 border-l-4 border-brand-accent">
+          <p class="text-sm font-mono text-brand-text/80 leading-relaxed italic">{pageContent.mistakes.techNote}</p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-20 mb-40 reveal-on-scroll">
+        <div class="relative">
+          <h2 class="text-3xl font-serif text-brand-accent mb-10 uppercase tracking-wide">
+            <span class="block text-sm font-light text-brand-muted mb-3 tracking-[0.3em]">{pageContent.experience.wardrobe.no} — {pageContent.experience.wardrobe.label}</span>
+            {pageContent.experience.wardrobe.title}
+          </h2>
+          <div class="space-y-6 text-brand-text/70 font-light leading-relaxed">
+            <p>{pageContent.experience.wardrobe.p1}</p>
+            <p class="italic pl-6 border-l-2 border-brand-accent/30">{pageContent.experience.wardrobe.p2}</p>
+            <p>{pageContent.experience.wardrobe.p3}</p>
+          </div>
+        </div>
+        <div class="relative">
+          <h2 class="text-3xl font-serif text-brand-accent mb-10 uppercase tracking-wide">
+            <span class="block text-sm font-light text-brand-muted mb-3 tracking-[0.3em]">{pageContent.experience.beauty.no} — {pageContent.experience.beauty.label}</span>
+            {pageContent.experience.beauty.title}
+          </h2>
+          <div class="space-y-6">
+            <p class="text-brand-text/70 font-light">{pageContent.experience.beauty.p1}</p>
+            <ul class="space-y-4 text-brand-text/70 font-light">
+              {pageContent.experience.beauty.items.map(item => (
+                <li class="flex items-start">
+                  <span class="w-1.5 h-1.5 rounded-full bg-brand-accent mt-2 mr-4"></span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-40 reveal-on-scroll">
+        <h2 class="text-3xl md:text-4xl font-serif text-brand-accent mb-16 text-center uppercase tracking-wide">THE STYLING EXPERIENCE</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          {pageContent.modules.map((module, index) => (
+            <div class="group relative bg-white/50 border border-brand-muted/10 hover:border-brand-accent/30 transition-all duration-700">
+              <div class="aspect-[4/5] overflow-hidden">
+                <img src={module.image} alt={module.imageAlt} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" />
+              </div>
+              <div class="p-8 relative">
+                <span class="absolute top-4 right-8 text-4xl font-serif text-brand-accent/10">{(index+1).toString().padStart(2, '0')}</span>
+                <h3 class="text-xl font-serif text-brand-accent mb-4 uppercase">{module.title}</h3>
+                <p class="text-sm font-light text-brand-text/70 leading-relaxed mb-4">{module.description}</p>
+                <p class="text-xs font-mono text-brand-muted/60 italic">{module.caption}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <Packages />
+
+      <div class="mb-40 mt-40 reveal-on-scroll">
+        <h2 class="text-3xl md:text-4xl font-serif text-brand-accent mb-16 text-center uppercase tracking-wide">STYLING QUESTIONS</h2>
+        <div class="max-w-3xl mx-auto space-y-6">
+          {pageContent.faq.map((item, index) => (
+            <div class="border-b border-brand-muted/10 pb-6">
+              <details class="group">
+                <summary class="flex justify-between items-center cursor-pointer list-none">
+                  <h3 class="text-lg font-serif text-brand-accent group-hover:opacity-70 transition-opacity">
+                    <span class="inline-block w-8 text-sm font-mono text-brand-muted">{(index + 1).toString().padStart(2, '0')}</span>
+                    {item.question}
+                  </h3>
+                  <Icon name="lucide:chevron-down" class="w-5 h-5 text-brand-muted group-open:rotate-180 transition-transform" />
+                </summary>
+                <p class="mt-4 text-sm font-light text-brand-text/70 leading-relaxed pl-8">{item.answer}</p>
+              </details>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="text-center py-20 relative reveal-on-scroll">
+        <h2 class="text-5xl md:text-7xl font-serif text-brand-accent mb-8 uppercase tracking-tight relative z-10">
+          {pageContent.cta.heading}<br />
+          <span class="italic font-light text-brand-muted">{pageContent.cta.italic}</span>
+        </h2>
+        <p class="text-base font-light text-brand-text/60 max-w-xl mx-auto mb-16 relative z-10">{pageContent.cta.desc}</p>
+        <a href="/booking" class="btn-brand">
+          {pageContent.cta.button}
+          <Icon name="lucide:arrow-right" class="w-4 h-4" />
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<script>
+  function initReveal() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+  }
+  document.addEventListener('astro:page-load', initReveal);
+  initReveal();
+</script>

@@ -1,0 +1,532 @@
+---
+// src/pages/services/dating-wardrobe-sydney.astro
+// Personal Stylist Dating Sydney - ROSE IS ROSE
+
+import '../../styles/global.css';
+import Layout from "../../layouts/Layout.astro";
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Packages from '../../components/Packages2.astro';
+import { Icon } from 'astro-icon/components';
+
+// ✅ Schema: service name matches primary keyword
+const serviceSchema = {
+  name: "Personal Stylist Dating Sydney",
+  description: "Dating wardrobe consulting, personal shopping and outfit styling for singles in Sydney",
+  providerName: "ROSE IS ROSE",
+  areaServed: ["Sydney", "Bondi", "Surry Hills", "CBD", "Parramatta"],
+  priceRange: "$$-$$$"
+};
+
+// ✅ Breadcrumb: this page sits at the same level as photography and hair & makeup
+// All three service pages link back to /services, forming a flat sibling structure
+const breadcrumbs = [
+  { name: "Home", item: "/" },
+  { name: "Services", item: "/services" },
+  { name: "Dating Profile Photography", item: "/services/sydney-dating-photography" },
+  { name: "Personal Stylist", item: "/services/dating-wardrobe-sydney" }
+];
+
+const page = {
+
+  seo: {
+    // ✅ PRIMARY keyword front-loaded: "personal stylist dating Sydney"
+    // ✅ SECONDARY keyword: "dating wardrobe consultant Sydney" in title
+    metaTitle: "Personal Stylist Dating Sydney | Dating Wardrobe Consultant | ROSE IS ROSE",
+    // ✅ PRIMARY in first sentence, secondary "dating image consultant Sydney" woven in naturally
+    metaDescription: "Sydney's personal stylist for dating — wardrobe edits, personal shopping, and outfit planning for your dating profile photos. Look like yourself. Just on a good day.",
+    keywords: "personal stylist dating Sydney, dating wardrobe consultant Sydney, dating image consultant Sydney, wardrobe styling for dating photos Sydney, personal shopping Sydney dating, what to wear dating profile photos Sydney, outfit styling dating photos Sydney",
+    imageAlt: "Personal stylist for dating photos in Sydney — wardrobe edit and outfit planning by ROSE IS ROSE"
+  },
+
+  hero: {
+    // ✅ SEO: sr-only span holds full primary keyword as continuous indexable text
+    h1Full: "Personal Stylist Dating Sydney",
+    titleLine1: "PERSONAL",
+    titleLine2: "STYLIST",
+    titleLine3: "DATING SYDNEY",
+    badge: "Personal Stylist · Dating Wardrobe · Sydney",
+    // Pain point: the closet paralysis every single person knows
+    desc: "You open your wardrobe, stare at it for ten minutes, and put on the same thing you always wear. We've heard this story. Let's end it.",
+    ctaPrimary: "Sort my wardrobe",
+    ctaSecondary: "How it works",
+    heroImage: "/assets/images/andrey-zvyagintsev-x0c6vTO5ibA-unsplash.jpg",
+  },
+
+  story: {
+    bgText: "STYLE • STYLE",
+    titleMain: "THE REAL",
+    titleItalic: "PROBLEM",
+    kicker: "WHY YOUR WARDROBE IS COSTING YOU MATCHES",
+    quoteLetter: "I",
+    // Specific, not generic — names the exact moment of failure
+    quoteBody: "t's not that you don't have clothes. You have plenty. The problem is you have no idea which ones photograph well, which ones work for where you're shooting, and which ones are sending exactly the wrong message to exactly the right person.",
+    // Pain point: the invisible first impression
+    quoteHighlight: "Your outfit is the first thing someone notices before they even register your face. On a dating app, that's not shallow — that's just how two seconds works. A dating wardrobe consultant can fix this. Your wardrobe probably already has what you need. We just need to find it.",
+  },
+
+  whyItMatters: [
+    {
+      title: "CLOTHES READ DIFFERENTLY ON CAMERA.",
+      // Specific and factual — builds credibility
+      content: "The navy shirt that looks great in your bathroom mirror photographs as a dark, textureless blob. The white linen shirt you almost left at home? Catches Sydney's light perfectly. Camera behaviour is learnable — but only if someone's told you how it works. That's what we're here for."
+    },
+    {
+      title: "YOUR OUTFIT TELLS THEM WHO YOU ARE.",
+      // Pain point: unintentional signals
+      content: "Too formal and you look like you're trying too hard. Too casual and it looks like you didn't think they were worth the effort. The sweet spot — relaxed, put-together, like you always dress this well — is very achievable. It just needs a plan."
+    }
+  ],
+
+  pitfalls: {
+    title: "WHAT YOUR CLOTHES ARE SAYING ABOUT YOU",
+    subtitle: "(that you didn't mean to say)",
+    // Specific product knowledge = real credibility
+    techNote: "A note on fabrics: flat, synthetic fabrics photograph badly in direct Sydney sunlight — they look cheap even when they weren't. Natural fabrics with texture (linen, cotton knit, lightweight wool) add depth and photograph significantly better. Small detail. Very visible difference.",
+    items: [
+      {
+        no: "01",
+        title: "The \"I Wear This Everywhere\" Outfit",
+        // Specific pain: the safety outfit that reads as no effort
+        desc: "The outfit you default to because it's comfortable and you know it fits. On camera it reads as 'I didn't think about this at all.' Not the message. We'll find you two or three alternatives you feel equally comfortable in — that also look intentional."
+      },
+      {
+        no: "02",
+        title: "The Colour That Disappears",
+        // Location-specific detail — shows real Sydney knowledge
+        desc: "Grey against a cloudy harbour. Navy against the night sky at golden hour. Olive against half of Surry Hills. Some colours just vanish against Sydney's backdrops, and you won't know which ones until you see the photos. We know which ones. We'll steer you clear."
+      },
+      {
+        no: "03",
+        title: "The Fit That Almost Works",
+        // Specific: not mean, just honest
+        desc: "One size too big reads as hiding. One size too small reads as uncomfortable. The right fit reads as someone who knows what suits them. It's not about body shape — it's about proportion. We'll show you what that actually looks like on you, not on a model."
+      }
+    ]
+  },
+
+  experience: [
+    {
+      id: "01",
+      label: "VIRTUAL WARDROBE EDIT",
+      title: "WE DO THIS ON ZOOM.",
+      // Practical, warm, removes the intimidation
+      p1: "You open your wardrobe. I look at it with you. We pull out what works, figure out what's missing, and put together a plan — outfits matched to locations, so on shoot day there's no decisions left to make.",
+      italic: "No judgement about what's in there. I've seen every version of 'I have nothing to wear' and every time, there's actually something to work with.",
+      p2: "You'll finish the call with a written outfit list: what to wear where, what to bring as backup, and what (if anything) you might want to add before shoot day."
+    },
+    {
+      id: "02",
+      label: "PERSONAL SHOPPING",
+      title: "IF YOUR WARDROBE NEEDS HELP.",
+      // Removes sales pressure explicitly — important for trust
+      p1: "Sometimes a wardrobe edit reveals a gap. A colour that would work but isn't there. A fit that would be perfect but nothing you own is quite right.",
+      list: [
+        "Shopping list with specific links — no guessing, no wrong sizes",
+        "In-person shopping trip if you'd rather do it together",
+        "No commission, no brand deals — just what actually works for your shoot"
+      ]
+    }
+  ],
+
+  editing: {
+    title: "STYLING THAT WORKS WITH THE PHOTOGRAPHY.",
+    // ✅ Internal link: explicitly names photography page and links
+    content: "The wardrobe consulting is designed to feed directly into your dating profile photography session. What you wear affects how the photos edit, how you look against Sydney's locations, and how much time we spend on shoot day second-guessing your outfit. The photographers who shoot your session know what photographs well in Sydney — and so do we, because it's the same team."
+  },
+
+  modules: [
+    {
+      title: "The Zoom wardrobe edit",
+      // Specific and demystifying
+      description: "Thirty to forty-five minutes. You hold things up, I tell you honestly whether they work and why. By the end you have a shoot-day outfit list and no more Sunday night wardrobe anxiety.",
+      image: "/assets/images/andrey-zvyagintsev-x0c6vTO5ibA-unsplash.jpg",
+      imageAlt: "Virtual wardrobe edit for dating profile photos Sydney — personal stylist consultation online",
+      caption: "Done from your bedroom. No travel required."
+    },
+    {
+      title: "Location-matched outfits",
+      // Specific Sydney locations — not generic
+      description: "Bondi needs something different from The Rocks. Surry Hills has its own energy. We match each outfit to each location so the photos look cohesive — like you dressed for where you are, not just grabbed whatever was clean.",
+      image: "/assets/images/stefan-stefancik-QXevDflbl8A-unsplash.jpg",
+      imageAlt: "Outfit styling matched to Sydney locations — personal stylist for dating photos",
+      caption: "The right outfit in the right place."
+    },
+    {
+      title: "Personal shopping, when needed",
+      description: "If something's missing, we find it. Online links, or in-person shopping in Sydney if you'd rather have company. No pressure, no upselling — just the specific thing that fills the gap in your shoot-day wardrobe.",
+      image: "/assets/images/photo/giovanna-knollseisen-CA4OaE7f500-unsplash.jpg",
+      imageAlt: "Personal shopping for dating wardrobe Sydney — stylist helping find outfits for dating photos",
+      caption: "Sometimes one piece makes the whole shoot."
+    }
+  ],
+
+  faqTitle: "THINGS PEOPLE ACTUALLY ASK",
+  faq: [
+    {
+      // ✅ FAQ question uses "personal stylist" — natural keyword placement
+      question: "Do I actually need a personal stylist for dating photos?",
+      answer: "Not strictly. But here's what happens without one: you show up on shoot day, something feels off, you spend the first twenty minutes distracted by your own outfit, and it shows in the photos. The styling consultation exists to make sure that doesn't happen — so when you arrive, the only thing left to do is be in the photos."
+    },
+    {
+      question: "I genuinely have nothing that works. What then?",
+      // Specific reassurance — not vague positivity
+      answer: "This is rarer than people think. Most wardrobes have more workable pieces than their owner realises — they just haven't been looked at with fresh eyes and Sydney's light in mind. If there really is a gap, we'll find the specific thing that fills it. Not a whole new wardrobe. One or two targeted pieces."
+    },
+    {
+      // ✅ "what to wear" long-tail keyword in question naturally
+      question: "What to wear for dating profile photos — does it really make a difference?",
+      answer: "More than most people expect. Your outfit affects how much you pop against the background, how the light falls on you, how expensive or cheap the photo looks overall, and — less obviously — how confident you feel during the shoot. Confident people photograph better. Sorted wardrobe, settled nerves, better photos."
+    },
+    {
+      // Male audience addressed directly — removes hesitation
+      question: "I'm a guy who finds clothes genuinely confusing. Is this going to be condescending?",
+      answer: "No. The advice is specific and practical: wear this colour, not that one. This fit, not that one. This fabric photographs well outdoors in Sydney, that one doesn't. No fashion theory, no trends, no 'but have you considered your personal colour season.' Just what works."
+    },
+    {
+      question: "Can this be done without the photography session?",
+      // ✅ Internal link to photography page in FAQ answer — natural context
+      answer: "Yes — the wardrobe consulting can be booked on its own if you already have photos planned elsewhere. That said, it works best alongside the dating profile photography session, because the styling is planned specifically around Sydney's shoot locations and lighting conditions. If you're curious about combining both, take a look at the full photography session."
+    }
+  ],
+
+  footerCta: {
+    bgText: "STYLE • STYLE",
+    titleLine1: "OPEN YOUR",
+    titleLine2: "WARDROBE.",
+    // Specific, direct — no vague empowerment language
+    desc: "We'll do the rest. One call, one plan, no more shoot-day outfit panic.",
+    buttonText: "Book a styling consult",
+    // ✅ Two internal links — photography page and hair & makeup page
+    link1Text: "See the full dating profile photography session →",
+    link1Url: "/services/sydney-dating-photography",
+    link2Text: "Add hair & makeup to your session →",
+    link2Url: "/services/dating-styling-sydney"
+  }
+
+};
+---
+
+<Layout
+  title={page.seo.metaTitle}
+  description={page.seo.metaDescription}
+  ogImage="/images/personal-stylist-dating-sydney.jpg"
+  pageType="service"
+  service={serviceSchema}
+  breadcrumbs={breadcrumbs}
+>
+  <Header />
+
+  <section class="relative h-screen min-h-[800px] flex items-center justify-center overflow-hidden bg-brand-dark">
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 bg-gradient-to-b from-brand-dark/90 via-brand-dark/60 to-brand-dark/90 z-10"></div>
+      <img
+        src={page.hero.heroImage}
+        alt={page.seo.imageAlt}
+        class="w-full h-full object-cover opacity-60"
+      />
+    </div>
+
+    <div class="container relative z-30 mx-auto px-6 text-center reveal-on-scroll">
+      <div class="inline-flex items-center gap-3 px-6 py-3 bg-brand-on-dark/5 backdrop-blur-xl rounded-full border border-brand-on-dark/10 mb-8 animate-float">
+        <span class="w-2 h-2 rounded-full bg-brand-accent animate-pulse"></span>
+        <span class="text-xs tracking-[0.3em] text-brand-on-dark/80 font-light uppercase">{page.hero.badge}</span>
+      </div>
+
+      {/*
+        ✅ SEO FIX: Single h1 tag. sr-only span holds the full primary keyword
+        "Personal Stylist Dating Sydney" as one continuous indexable phrase.
+        Visual three-line split is aria-hidden so screen readers don't double-read.
+      */}
+      <h1 class="text-5xl md:text-8xl font-serif text-brand-on-dark mb-6 leading-[0.9] tracking-tight uppercase">
+        <span class="sr-only">{page.hero.h1Full}</span>
+        <span aria-hidden="true">
+          {page.hero.titleLine1}<br />
+          {page.hero.titleLine2}<br />
+          {page.hero.titleLine3}
+        </span>
+      </h1>
+
+      <div class="w-24 h-px mx-auto mb-8 bg-gradient-to-r from-transparent via-brand-accent to-transparent"></div>
+
+      <p class="text-lg md:text-xl text-brand-on-dark/70 max-w-2xl mx-auto font-light leading-relaxed mb-12">
+        {page.hero.desc}
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+        <a href="/contact" class="btn-brand px-12 py-6 min-w-[200px] justify-center">
+          <span class="inline-flex items-center gap-2">
+            {page.hero.ctaPrimary}
+            <Icon name="lucide:arrow-right" class="w-4 h-4" />
+          </span>
+        </a>
+        <a href="#story" class="group flex items-center gap-3 text-brand-on-dark/70 hover:text-brand-on-dark transition-colors">
+          <span class="w-12 h-px bg-brand-on-dark/30 group-hover:w-16 group-hover:bg-brand-accent transition-all"></span>
+          <span class="text-xs tracking-[0.3em] uppercase font-light">{page.hero.ctaSecondary}</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <main class="bg-brand-bg">
+    <section id="story" class="max-w-7xl mx-auto px-8 py-32 md:py-40 bg-brand-bg text-brand-primary relative">
+
+      <div class="mb-32 relative reveal-on-scroll">
+        <div class="absolute -top-20 left-0 text-[9vw] font-serif text-brand-accent/5 leading-none select-none pointer-events-none whitespace-nowrap">
+          {page.story.bgText}
+        </div>
+        <h2 class="text-6xl md:text-8xl font-serif text-brand-accent leading-[0.9] tracking-[-0.03em] uppercase relative">
+          {page.story.titleMain}<br />
+          <span class="italic font-light text-brand-muted">{page.story.titleItalic}</span>
+        </h2>
+        <p class="text-xs md:text-sm text-brand-muted/70 tracking-[0.3em] uppercase mt-12 pl-8 border-l border-brand-muted/30">
+          {page.story.kicker}
+        </p>
+      </div>
+
+      <div class="mb-32 relative reveal-on-scroll">
+        <div class="absolute -left-8 top-0 text-[12rem] font-serif text-brand-accent/5 leading-none">"</div>
+        <div class="relative pl-16">
+          <p class="text-lg md:text-2xl font-light leading-relaxed text-brand-primary/80 mb-8">
+            <span class="text-8xl float-left font-serif text-brand-accent mr-6 mt-2 leading-[0.8]">{page.story.quoteLetter}</span>
+            {page.story.quoteBody}
+          </p>
+          <p class="text-lg md:text-xl font-light leading-relaxed text-brand-primary/70 pl-8 border-l-2 border-brand-accent/30 italic">
+            {page.story.quoteHighlight}
+          </p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-20 mb-32 reveal-on-scroll">
+        {page.whyItMatters.map((item) => (
+          <div class="relative group">
+            <h2 class="text-3xl font-serif text-brand-accent mb-8 uppercase tracking-wide flex items-center">
+              <span class="w-12 h-px bg-brand-muted mr-6 group-hover:w-20 transition-all duration-700"></span>
+              {item.title}
+            </h2>
+            <p class="text-base font-light leading-relaxed text-brand-primary/70">{item.content}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mb-40 relative reveal-on-scroll">
+        <h2 class="text-4xl md:text-5xl font-serif text-brand-accent mb-16 uppercase tracking-wide text-center">
+          {page.pitfalls.title}<br />
+          <span class="text-xl font-light text-brand-muted block mt-4 tracking-normal">{page.pitfalls.subtitle}</span>
+        </h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          {page.pitfalls.items.map((item) => (
+            <div class="group relative p-10 bg-white/50 border border-brand-dark/5 hover:border-brand-accent/30 transition-all duration-700">
+              <span class="absolute -top-6 left-8 text-8xl font-serif text-brand-accent/10 group-hover:text-brand-accent/20 transition-colors">{item.no}</span>
+              <h3 class="text-2xl font-serif text-brand-accent mb-4 relative z-10">{item.title}</h3>
+              <p class="text-sm font-light text-brand-primary/60 leading-relaxed relative z-10">{item.desc}</p>
+              <div class="absolute bottom-0 left-0 w-0 h-[2px] bg-brand-accent group-hover:w-full transition-all duration-700"></div>
+            </div>
+          ))}
+        </div>
+        <div class="mt-16 p-8 bg-brand-accent/5 border-l-4 border-brand-accent">
+          <p class="text-sm font-mono text-brand-primary/80 leading-relaxed">{page.pitfalls.techNote}</p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-20 mb-40 reveal-on-scroll">
+        {page.experience.map((exp) => (
+          <div class="relative group">
+            <h2 class="text-3xl font-serif text-brand-accent mb-10 uppercase tracking-wide">
+              <span class="block text-sm font-light text-brand-muted mb-3 tracking-[0.3em]">{exp.id} — {exp.label}</span>
+              {exp.title}
+            </h2>
+            <div class="space-y-6">
+              <p class="text-base font-light leading-relaxed text-brand-primary/70">{exp.p1}</p>
+              {exp.italic && (
+                <p class="text-base font-light leading-relaxed text-brand-primary/70 italic pl-6 border-l-2 border-brand-accent/30">{exp.italic}</p>
+              )}
+              {exp.p2 && (
+                <p class="text-base font-light leading-relaxed text-brand-primary/70">{exp.p2}</p>
+              )}
+              {exp.list && (
+                <ul class="space-y-4 text-base font-light">
+                  {exp.list.map((li) => (
+                    <li class="flex items-start">
+                      <span class="w-1.5 h-1.5 rounded-full bg-brand-accent mt-2 mr-4 flex-shrink-0"></span>
+                      <span class="text-brand-primary/70">{li}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* ✅ Internal link 1: editing block links to photography page in natural context */}
+      <div class="mb-40 relative py-24 px-8 bg-brand-dark -mx-8 text-brand-on-dark reveal-on-scroll text-center">
+        <h2 class="text-4xl md:text-5xl font-serif mb-8 uppercase tracking-wide">{page.editing.title}</h2>
+        <div class="w-24 h-px bg-brand-muted/30 mx-auto mb-8"></div>
+        <p class="text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto opacity-80 mb-10">
+          {page.editing.content}
+        </p>
+        <a
+          href="/services/sydney-dating-photography"
+          class="inline-flex items-center gap-2 text-sm tracking-[0.2em] uppercase text-brand-accent border-b border-brand-accent/40 hover:border-brand-accent pb-1 transition-colors"
+        >
+          See the full dating profile photography session
+          <Icon name="lucide:arrow-right" class="w-4 h-4" />
+        </a>
+      </div>
+
+      <div class="mb-40 reveal-on-scroll">
+        <div class="grid md:grid-cols-3 gap-8">
+          {page.modules.map((module) => (
+            <div class="group relative bg-white/50 border border-brand-dark/5 hover:border-brand-accent/30 transition-all duration-700">
+              <div class="aspect-[4/5] overflow-hidden">
+                <img
+                  src={module.image}
+                  alt={module.imageAlt}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
+                />
+              </div>
+              <div class="p-8">
+                <h3 class="text-xl font-serif text-brand-accent mb-4">{module.title}</h3>
+                <p class="text-sm font-light text-brand-primary/70 leading-relaxed mb-4">{module.description}</p>
+                <p class="text-xs font-mono text-brand-muted/60 italic">{module.caption}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <Packages />
+
+      <div class="mb-40 mt-40 reveal-on-scroll">
+        <h2 class="text-3xl md:text-4xl font-serif text-brand-accent mb-16 text-center uppercase tracking-wide">
+          {page.faqTitle}
+        </h2>
+        <div class="max-w-3xl mx-auto space-y-6">
+          {page.faq.map((item, index) => (
+            <div class="border-b border-brand-muted/10 pb-6">
+              <details class="group">
+                <summary class="flex justify-between items-center cursor-pointer list-none">
+                  <h3 class="text-lg font-serif text-brand-accent pr-8">
+                    <span class="inline-block w-8 text-sm font-mono text-brand-muted">{index + 1}.</span>
+                    {item.question}
+                  </h3>
+                  <Icon name="lucide:chevron-down" class="w-5 h-5 text-brand-muted flex-shrink-0 group-open:rotate-180 transition-transform" />
+                </summary>
+                <div class="mt-4 text-sm font-light text-brand-primary/70 leading-relaxed pl-8">
+                  <p>{item.answer}</p>
+                  {/* ✅ Internal link 2: FAQ answer for "can this be done without photography" */}
+                  {index === 4 && (
+                    <a
+                      href="/services/sydney-dating-photography"
+                      class="inline-flex items-center gap-1 mt-3 text-xs tracking-[0.15em] uppercase text-brand-accent border-b border-brand-accent/30 hover:border-brand-accent transition-colors"
+                    >
+                      See the full photography session
+                      <Icon name="lucide:arrow-right" class="w-3 h-3" />
+                    </a>
+                  )}
+                </div>
+              </details>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="text-center relative py-20 reveal-on-scroll">
+        <div class="absolute inset-0 flex items-center justify-center opacity-5 select-none pointer-events-none overflow-hidden">
+          <span class="text-[12vw] font-serif text-brand-accent whitespace-nowrap">{page.footerCta.bgText}</span>
+        </div>
+        <h2 class="text-5xl md:text-7xl font-serif text-brand-accent mb-8 uppercase tracking-tight relative">
+          {page.footerCta.titleLine1}<br />
+          <span class="italic font-light text-brand-muted">{page.footerCta.titleLine2}</span>
+        </h2>
+        <p class="text-base font-light text-brand-primary/60 max-w-xl mx-auto mb-12 relative">
+          {page.footerCta.desc}
+        </p>
+        <div class="flex flex-col items-center gap-5 relative">
+          <a href="/booking" class="btn-brand">
+            {page.footerCta.buttonText}
+          </a>
+          {/* ✅ Internal link 3: footer — photography page */}
+          <a
+            href={page.footerCta.link1Url}
+            class="text-sm text-brand-muted hover:text-brand-accent transition-colors tracking-wide"
+          >
+            {page.footerCta.link1Text}
+          </a>
+          {/* ✅ Internal link 4: footer — hair & makeup page */}
+          <a
+            href={page.footerCta.link2Url}
+            class="text-sm text-brand-muted hover:text-brand-accent transition-colors tracking-wide"
+          >
+            {page.footerCta.link2Text}
+          </a>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style is:global>
+  .reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal-on-scroll.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @keyframes titleSlideUp {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  .animate-title-slide-up {
+    animation: titleSlideUp 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  .animation-delay-200 { animation-delay: 0.2s; }
+  .animation-delay-500 { animation-delay: 0.5s; }
+  .animation-delay-700 { animation-delay: 0.7s; }
+  @keyframes widthGrow {
+    from { width: 0; }
+    to { width: 6rem; }
+  }
+  .animate-width-grow { animation: widthGrow 1.2s ease-out forwards; }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .animate-fade-in { animation: fadeIn 1s ease-out forwards; }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  .animate-float { animation: float 6s ease-in-out infinite; }
+  @keyframes kenBurns {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
+  }
+  .animate-ken-burns { animation: kenBurns 20s ease-out forwards; }
+  html { scroll-behavior: smooth; }
+  ::selection { background: rgba(52, 4, 26, 0.15); color: #34041A; }
+</style>
+
+<script>
+  function initReveal() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('active');
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+  }
+  document.addEventListener('astro:page-load', initReveal);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initReveal);
+  } else {
+    initReveal();
+  }
+</script>

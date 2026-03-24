@@ -8,64 +8,93 @@ import ContactCTA2 from '../../components/ContactCTA2.astro';
 import '../../styles/global.css';
 
 const services = [
+  // ✅ Primary service — most important, listed first
   {
-    title: "Lifestyle Portraits",
-    description: "Capture the authentic you in natural settings. Beyond static poses, we curate narratives that reflect your personality and lifestyle for social media and dating profiles.",
-    href: "/services/lifestyle",
+    title: "Dating Profile Photography",
+    description: "Sydney dating profile photography for Tinder, Hinge and Bumble. Real locations, natural light, no awkward posing. Photos that look like you on a genuinely good day.",
+    href: "/services/sydney-dating-photography",
     icon: "01"
   },
+  // ✅ Secondary services — listed in logical order: look good → wear right → write well → use well
   {
-    title: "Dating Strategy & Styling",
-    description: "Not just photography, but a complete visual overhaul. Strategic advice on wardrobe, posing, and image positioning to magnetize the right connections.",
-    href: "/services/dating",
+    title: "Dating Styling & Hair",
+    description: "Hair and makeup done before the shoot, not the morning of in a panic. We use products that photograph well in Sydney's light — so what looks good in the mirror also looks good on screen.",
+    href: "/services/dating-styling-sydney",
     icon: "02"
   },
   {
-    title: "Corporate Identity",
-    description: "Professional narrative portraiture for leaders and professionals who need to blend competence with approachable authenticity in a digital world.",
-    href: "/services/corporate",
+    title: "Dating Wardrobe",
+    description: "A personal stylist for your dating photos — wardrobe edits, personal shopping, and outfit planning matched to your shoot locations. We find what works in your closet before you decide there's nothing there.",
+    href: "/services/dating-wardrobe-stylist-sydney",
     icon: "03"
+  },
+  {
+    title: "Dating Profile Writing",
+    description: "Hinge prompts, Tinder bios and Bumble profiles written in your voice. Specific enough to stand out, honest enough to actually sound like you. No 'love food, travel, and good coffee.'",
+    href: "/services/dating-profile-writer-sydney",
+    icon: "04"
+  },
+  {
+    title: "Dating App Strategy",
+    description: "Profile audits, messaging coaching and first date advice. For when the photos are sorted but the matches still aren't going anywhere — we find where it's breaking down and fix it.",
+    href: "/services/dating-app-strategy-sydney",
+    icon: "05"
   }
+ 
 ];
+
+// ✅ SEO: services index page has its own meta — targets "dating photography Sydney" broadly
+const pageMeta = {
+  title: "Services | Dating Profile Photography Sydney | ROSE IS ROSE",
+  description: "Dating profile photography, styling, wardrobe, bio writing and app strategy in Sydney. Everything you need for a dating profile that actually works — by ROSE IS ROSE."
+};
 ---
 
-<Layout title="Services | ROSE IS ROSE - Narrative Portraiture">
+<Layout title={pageMeta.title} description={pageMeta.description}>
   <Header />
   
   <main class="bg-brand-bg pt-28 md:pt-36">
-    
+
     <section class="section-padding relative overflow-hidden">
       <div class="container-wide relative z-10">
         <div class="reveal-on-scroll">
           <span class="h-badge">
             <span class="inline-block w-8 h-px bg-brand-muted/40 mr-4 align-middle"></span>
-            Elevate Your Image
+            Sydney · Dating Profile Photography & More
           </span>
           <h1 class="h-hero max-w-4xl uppercase mt-6 mb-10">
-            NARRATIVE <br />
-            <span class="italic font-light text-brand-muted/80">SERVICES</span>
+            DATING PROFILE<br />
+            <span class="italic font-light text-brand-muted/80">PHOTOGRAPHY SYDNEY</span>
           </h1>
           <p class="prose-narrative max-w-2xl opacity-80">
-            Tailored visual storytelling designed to magnetize connection and build authentic personal brands in Sydney and beyond.
+            Photos, styling, wardrobe, bio writing, app strategy. Everything that makes a dating profile actually work — done properly, in Sydney, by someone who knows the difference between a good photo and a good dating photo.
           </p>
         </div>
       </div>
     </section>
 
     <section class="pb-32">
-        <div class="container-wide">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-8 reveal-on-scroll">
-                {services.map(service => (
-                    <div class="group">
-                        <ServiceCard {...service} />
-                    </div>
-                ))}
-            </div>
+      <div class="container-wide">
+
+        {/* Dating services grouped with a label */}
+        <div class="reveal-on-scroll mb-6">
+          <p class="text-xs tracking-[0.3em] uppercase text-brand-muted/70 font-light pl-1">
+            Dating Profile Services
+          </p>
         </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-8 reveal-on-scroll mb-24">
+          {services.slice(0, 5).map(service => (
+            <div class="group">
+              <ServiceCard {...service} />
+            </div>
+          ))}
+        </div>
+
+
+      </div>
     </section>
 
     <ContactCTA2 />
-
   </main>
   
   <Footer />
@@ -77,14 +106,11 @@ const services = [
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('active');
-          // observer.unobserve(entry.target); // 如果希望每次滚动都有动画可注释掉此行
         }
       });
     }, { threshold: 0.1 });
-
     document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
   }
-  
   document.addEventListener('astro:page-load', initServicesAnimation);
   initServicesAnimation();
 </script>

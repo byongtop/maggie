@@ -5,153 +5,115 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
-// 联系信息
-const contactInfo = {
-  email: "hello@roseisrose.com.au",
-  phone: "+61 400 000 000",
-  location: "Sydney, NSW",
-  studioAddress: "123 Oxford Street, Darlinghurst, Sydney",
-  hours: [
-    { day: "Monday - Friday", hours: "9:00 - 17:00" },
-    { day: "Saturday", hours: "10:00 - 15:00" },
-    { day: "Sunday", hours: "By appointment" }
-  ],
-  socialLinks: {
-    instagram: "https://instagram.com/roseisrose",
-    pinterest: "https://pinterest.com/roseisrose",
-    facebook: "https://facebook.com/roseisrose"
-  }
-};
-
-// 面包屑导航
 const breadcrumbs = [
   { name: "Home", item: "/" },
   { name: "Contact", item: "/contact" }
 ];
 
-// 自定义 Schema - 添加 FAQ 和服务区域
+// ✅ Schema: only real, verifiable data
+// No fake address or coordinates — LocalBusiness schema removed until real address is confirmed
+// FAQPage schema kept as it uses accurate service information
 const customSchemas = [
   {
     "@type": "FAQPage",
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "How do I book a photoshoot?",
+        "name": "How do I book a dating profile photography session in Sydney?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "You can book a photoshoot by filling out the contact form below, emailing hello@roseisrose.com.au, or calling +61 400 000 000. We'll respond within 24 hours to schedule your session."
+          "text": "Fill out the contact form below or call 0491 649 117. We'll get back to you within 24 hours to talk through what you're looking for and find a time that works."
         }
       },
       {
         "@type": "Question",
-        "name": "Where are you located?",
+        "name": "Where do you shoot in Sydney?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Our studio is located at 123 Oxford Street, Darlinghurst, Sydney. We also offer outdoor photoshoots at various Sydney locations including Bondi Beach, The Rocks, and Royal Botanic Garden."
+          "text": "We shoot on location across Sydney — The Rocks, Circular Quay, Surry Hills, Bondi, Barangaroo and more. Locations are chosen based on your vibe, your goals, and where the light is best."
         }
       },
       {
         "@type": "Question",
-        "name": "What areas do you serve?",
+        "name": "Do you offer hair, makeup and styling as well as photography?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "We serve all Sydney metropolitan areas including Sydney CBD, Eastern Suburbs, Inner West, North Shore, and Northern Beaches."
+          "text": "Yes — hair, makeup, wardrobe styling, profile writing and dating app strategy are all available as add-ons to the photography session, or as standalone services."
         }
       }
     ]
-  },
-  {
-    "@type": "LocalBusiness",
-    "name": "ROSE IS ROSE",
-    "description": "Professional portrait photography studio in Sydney specializing in dating profiles and personal branding.",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "123 Oxford Street",
-      "addressLocality": "Darlinghurst",
-      "addressRegion": "NSW",
-      "postalCode": "2010",
-      "addressCountry": "AU"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": "-33.8795",
-      "longitude": "151.2169"
-    },
-    "openingHoursSpecification": [
-      {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-        "opens": "09:00",
-        "closes": "17:00"
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Saturday"],
-        "opens": "10:00",
-        "closes": "15:00"
-      }
-    ],
-    "telephone": "+61400000000",
-    "email": "hello@roseisrose.com.au"
   }
 ];
 
+const page = {
 
-
-const contactData = {
-  seo: {
-    title: "Contact | ROSE IS ROSE - Dating Imagery & Strategy",
-    description: "Get in touch with ROSE IS ROSE. Start your transformation and elevate your dating profile with professional narrative photography in Sydney."
+  // ✅ Single source of truth for SEO — passed directly to Layout
+  meta: {
+    // ✅ PRIMARY keyword "dating profile photography Sydney" in title
+    title: "Contact | Dating Profile Photography Sydney | ROSE IS ROSE",
+    description: "Book a dating profile photography session in Sydney with Maggie at ROSE IS ROSE. Call 0491 649 117 or fill out the form — we'll get back to you within 24 hours.",
+    ogImage: "/images/contact-roseisrose.jpg"
   },
+
   hero: {
-    badge: "Get in Touch",
-    titlePart1: "Start Your",
-    titleHighlight: "Transformation",
-    description: "Ready to elevate your dating profile? Fill out the form or reach us directly. Let's craft an identity that truly represents you."
+    badge: "Sydney · Dating Profile Photography",
+    // ✅ H1: contains keyword, not a brand slogan
+    h1Full: "Book a Dating Profile Photography Session Sydney",
+    h1Line1: "BOOK A SESSION.",
+    h1Line2: "SYDNEY",
+    // Warm, direct — not a sales pitch. This is the last step before they commit.
+    desc: "Fill out the form and Maggie will get back to you within 24 hours. No pressure, no package pitch — just a conversation about what you're looking for."
   },
-  info: {
+
+  // ✅ Real contact info only — one source of truth, no duplicate objects
+  contact: {
     location: {
       label: "Location",
-      address: "Sydney, Australia",
-      note: "Available for travel across NSW."
+      value: "Sydney, NSW",
+      note: "All sessions on location across Sydney."
     },
-    direct: {
-      label: "Direct Contact",
-      email: "hello@roseisrose.com",
-      phone: "+61 400 000 000",
-      phoneLink: "tel:+61400000000"
+    phone: {
+      label: "Phone",
+      value: "0491 649 117",
+      link: "tel:+61491649117"
     },
     social: {
-      label: "Follow Us",
+      label: "Follow Along",
       links: [
-        { name: "Instagram", url: "#" },
-        { name: "Xiaohongshu", url: "#" }
+        { name: "Instagram", url: "https://instagram.com/roseisrose" },
+        { name: "小红书", url: "#" }
       ]
     }
   },
+
+  // ✅ Updated to reflect all five real services
   form: {
-    placeholders: {
-      name: "Name",
-      email: "Email",
-      message: "Tell us about your goals..."
+    fields: {
+      name: "Your name",
+      email: "Your email",
+      message: "What are you looking for? (No wrong answers.)"
     },
     services: [
-      "Select Service",
-      "Lifestyle Portraits",
-      "Dating Strategy",
-      "Full Agency Package"
+      { value: "", label: "Which service interests you?" },
+      { value: "dating-profile-photography", label: "Dating Profile Photography" },
+      { value: "hair-makeup", label: "Dating Styling & Hair" },
+      { value: "wardrobe", label: "Dating Wardrobe Styling" },
+      { value: "bio-writing", label: "Dating Profile Writing" },
+      { value: "app-strategy", label: "Dating App Strategy" },
+      { value: "full-package", label: "All of the above / not sure yet" },
+      { value: "lifestyle", label: "Lifestyle Portraits" },
+      { value: "corporate", label: "Corporate Photography" }
     ],
-    buttonText: "Send Request"
+    button: "Send"
   }
+
 };
-
-
 ---
 
 <Layout
-  title="Contact | ROSE IS ROSE Portrait Photography"
-  description="Get in touch to book your portrait photography session in Sydney. Available for dating profiles, personal branding, and professional headshots."
-  ogImage="/images/contact-studio.jpg"
+  title={page.meta.title}
+  description={page.meta.description}
+  ogImage={page.meta.ogImage}
   pageType="contact"
   breadcrumbs={breadcrumbs}
   schemas={customSchemas}
@@ -160,103 +122,122 @@ const contactData = {
   
   <main class="section-padding pt-32 md:pt-48">
     <div class="container-wide">
-      
+
+      {/* Hero */}
       <div class="max-w-3xl mb-20 reveal-on-scroll">
         <span class="h-badge">
-          {contactData.hero.badge}
+          <span class="inline-block w-8 h-px bg-brand-muted/40 mr-4 align-middle"></span>
+          {page.hero.badge}
         </span>
+        {/*
+          ✅ SEO FIX: Single h1. sr-only span = full keyword phrase.
+          Visual split is aria-hidden.
+        */}
         <h1 class="h-hero !text-5xl md:!text-7xl mt-4 mb-8 uppercase">
-          {contactData.hero.titlePart1} <br />
-          <span class="italic text-brand-muted/70 font-light">{contactData.hero.titleHighlight}</span>
+          <span class="sr-only">{page.hero.h1Full}</span>
+          <span aria-hidden="true">
+            {page.hero.h1Line1}<br />
+            <span class="italic text-brand-muted/70 font-light">{page.hero.h1Line2}</span>
+          </span>
         </h1>
         <p class="prose-narrative opacity-80">
-          {contactData.hero.description}
+          {page.hero.desc}
         </p>
       </div>
 
       <div class="grid md:grid-cols-5 gap-16 md:gap-24">
-        
+
+        {/* Left: contact info */}
         <div class="md:col-span-2 space-y-16 reveal-on-scroll">
+
           <div class="border-l border-brand-accent/20 pl-8">
-            <h3 class="h-badge !mb-2 opacity-60">{contactData.info.location.label}</h3>
-            <p class="text-brand-accent font-medium text-xl font-serif tracking-tight">{contactData.info.location.address}</p>
-            <p class="text-brand-primary/60 font-light text-sm mt-1">{contactData.info.location.note}</p>
+            <h3 class="h-badge !mb-2 opacity-60">{page.contact.location.label}</h3>
+            <p class="text-brand-accent font-medium text-xl font-serif tracking-tight">
+              {page.contact.location.value}
+            </p>
+            <p class="text-brand-primary/60 font-light text-sm mt-1">
+              {page.contact.location.note}
+            </p>
           </div>
-          
+
           <div class="border-l border-brand-accent/20 pl-8">
-            <h3 class="h-badge !mb-2 opacity-60">{contactData.info.direct.label}</h3>
-            <a href={`mailto:${contactData.info.direct.email}`} class="text-brand-accent hover:text-brand-muted transition-colors duration-500 font-medium text-xl font-serif block">
-              {contactData.info.direct.email}
-            </a>
-            <a href={contactData.info.direct.phoneLink} class="text-brand-primary/60 hover:text-brand-accent transition-colors font-light text-sm mt-1 inline-block">
-              {contactData.info.direct.phone}
+            <h3 class="h-badge !mb-2 opacity-60">{page.contact.phone.label}</h3>
+            <a
+              href={page.contact.phone.link}
+              class="text-brand-accent hover:text-brand-muted transition-colors duration-500 font-medium text-xl font-serif block"
+            >
+              {page.contact.phone.value}
             </a>
           </div>
 
           <div class="border-l border-brand-accent/20 pl-8">
-            <h3 class="h-badge !mb-2 opacity-60">{contactData.info.social.label}</h3>
+            <h3 class="h-badge !mb-2 opacity-60">{page.contact.social.label}</h3>
             <div class="flex gap-6">
-              {contactData.info.social.links.map(link => (
+              {page.contact.social.links.map(link => (
                 <a href={link.url} class="link-underlined">
                   {link.name}
                 </a>
               ))}
             </div>
           </div>
+
         </div>
 
+        {/* Right: form */}
         <div class="md:col-span-3 reveal-on-scroll">
-          <form class="space-y-10">
+          <form class="space-y-10" netlify>
+
             <div class="grid md:grid-cols-2 gap-10">
-              <div class="group">
-                <input 
-                  type="text" 
-                  placeholder={contactData.form.placeholders.name} 
-                  required
-                  class="w-full bg-transparent border-b border-brand-accent/20 py-4 text-brand-primary placeholder:text-brand-primary/30 focus:outline-none focus:border-brand-accent transition-all duration-500 font-light"
-                />
-              </div>
-              <div class="group">
-                <input 
-                  type="email" 
-                  placeholder={contactData.form.placeholders.email} 
-                  required
-                  class="w-full bg-transparent border-b border-brand-accent/20 py-4 text-brand-primary placeholder:text-brand-primary/30 focus:outline-none focus:border-brand-accent transition-all duration-500 font-light"
-                />
-              </div>
+              <input
+                type="text"
+                placeholder={page.form.fields.name}
+                required
+                class="w-full bg-transparent border-b border-brand-accent/20 py-4 text-brand-primary placeholder:text-brand-primary/30 focus:outline-none focus:border-brand-accent transition-all duration-500 font-light"
+              />
+              <input
+                type="email"
+                placeholder={page.form.fields.email}
+                required
+                class="w-full bg-transparent border-b border-brand-accent/20 py-4 text-brand-primary placeholder:text-brand-primary/30 focus:outline-none focus:border-brand-accent transition-all duration-500 font-light"
+              />
             </div>
-            
-            <div class="relative group">
-              <select 
+
+            {/* ✅ Updated service dropdown — all five real services */}
+            <div class="relative">
+              <select
+                name="service"
                 class="w-full bg-transparent border-b border-brand-accent/20 py-4 text-brand-primary/50 focus:outline-none focus:border-brand-accent transition-all duration-500 appearance-none cursor-pointer font-light"
               >
-                {contactData.form.services.map(service => (
-                  <option value={service} class="bg-brand-bg text-brand-primary">{service}</option>
+                {page.form.services.map(service => (
+                  <option value={service.value} class="bg-brand-bg text-brand-primary">
+                    {service.label}
+                  </option>
                 ))}
               </select>
               <div class="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-brand-accent/40">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
               </div>
             </div>
 
-            <textarea 
-              placeholder={contactData.form.placeholders.message} 
+            <textarea
+              name="message"
+              placeholder={page.form.fields.message}
               rows="4"
               class="w-full bg-transparent border-b border-brand-accent/20 py-4 text-brand-primary placeholder:text-brand-primary/30 focus:outline-none focus:border-brand-accent transition-all duration-500 font-light resize-none"
             ></textarea>
-            
+
             <div class="pt-6">
-              <button 
-                type="submit" 
-                class="btn-brand w-full md:w-auto text-center"
-              >
-                {contactData.form.buttonText}
+              <button type="submit" class="btn-brand w-full md:w-auto text-center">
+                {page.form.button}
               </button>
             </div>
+
           </form>
         </div>
+
       </div>
-      
     </div>
   </main>
   
@@ -264,7 +245,6 @@ const contactData = {
 </Layout>
 
 <script>
-  // 统一的滚动揭幕脚本
   function initContactReveal() {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -273,10 +253,8 @@ const contactData = {
         }
       });
     }, { threshold: 0.1 });
-
     document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
   }
-
   document.addEventListener('astro:page-load', initContactReveal);
   initContactReveal();
 </script>

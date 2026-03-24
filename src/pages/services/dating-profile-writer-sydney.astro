@@ -1,0 +1,493 @@
+---
+// src/pages/services/dating-bio-writing-sydney.astro
+// Dating Profile Writer Sydney - ROSE IS ROSE
+
+import '../../styles/global.css'; 
+import Layout from "../../layouts/Layout.astro";
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Packages from '../../components/Packages2.astro';
+import { Icon } from 'astro-icon/components';
+
+// ✅ Schema: service name matches primary keyword
+const serviceSchema = {
+  name: "Dating Profile Writer Sydney",
+  description: "Dating profile writing, Hinge prompts, Tinder and Bumble bio writing for singles in Sydney",
+  providerName: "ROSE IS ROSE",
+  areaServed: ["Sydney", "Bondi", "Surry Hills", "CBD", "Parramatta"],
+  priceRange: "$$-$$$"
+};
+
+// ✅ Breadcrumb: sibling to other service pages, all under /services
+const breadcrumbs = [
+  { name: "Home", item: "/" },
+  { name: "Services", item: "/services" },
+  { name: "Dating Profile Photography", item: "/services/sydney-dating-photography" },
+  { name: "Dating Profile Writer", item: "/services/dating-bio-writing-sydney" }
+];
+
+const page = {
+
+  seo: {
+    // ✅ PRIMARY: "dating profile writer Sydney" front-loaded
+    // ✅ SECONDARY: "dating bio writer Sydney" in title
+    metaTitle: "Dating Profile Writer Sydney | Dating Bio Writer | ROSE IS ROSE",
+    // ✅ PRIMARY in first sentence, "Hinge prompt writer Sydney" woven in naturally
+    metaDescription: "Sydney's dating profile writer — Hinge prompts, Tinder bios and Bumble profiles written in your voice. Get more matches with words that actually sound like you.",
+    keywords: "dating profile writer Sydney, dating bio writer Sydney, Hinge prompt writer Sydney, Tinder bio writer Sydney, dating profile writing service Sydney, online dating profile writing Australia, Bumble bio writer Sydney",
+    imageAlt: "Dating profile writer Sydney — Hinge prompts and dating bio writing service by ROSE IS ROSE"
+  },
+
+  hero: {
+    // ✅ SEO: sr-only span holds full primary keyword as continuous text
+    h1Full: "Dating Profile Writer Sydney",
+    titleLine1: "DATING",
+    titleLine2: "PROFILE",
+    titleLine3: "WRITER.",
+    badge: "Dating Profile Writer · Bio Writing · Sydney",
+    // Pain point: the blank screen paralysis — everyone knows this feeling
+    desc: "You've got the photos. You open the bio field. You stare at it for twenty minutes, write something, hate it, delete it, and leave it blank. We've read a lot of blank bios. Let's fix yours.",
+    ctaPrimary: "Write my profile",
+    ctaSecondary: "How it works",
+    heroImage: "/assets/images/andrey-zvyagintsev-x0c6vTO5ibA-unsplash.jpg",
+  },
+
+  story: {
+    bgText: "WORDS • WORDS",
+    titleMain: "THE BIT",
+    titleItalic: "EVERYONE SKIPS",
+    kicker: "WHY YOUR BIO IS LOSING YOU MATCHES YOUR PHOTOS ALREADY WON",
+    quoteLetter: "Y",
+    // Specific, not generic — names the exact failure mode
+    quoteBody: "our photo got them to stop scrolling. That's the hard part done. Then they tap through to your bio and it says 'I love food, travel, and good coffee' — and they keep scrolling. Not because you're not interesting. Because you gave them nothing to hold onto.",
+    // Pain point: the invisible cost of a bad bio
+    quoteHighlight: "A bad bio doesn't just fail to help. It actively undoes what your photos worked hard to build. One sentence that reads as try-hard, negative, or just boring — and the impression your photos created is gone.",
+  },
+
+  whyItMatters: [
+    {
+      title: "YOUR BIO IS THE CONVERSATION BEFORE THE CONVERSATION.",
+      // Specific and reframes the stakes
+      content: "Nobody messages 'hey' to someone whose bio gave them something better to work with. A specific detail, a half-finished opinion, a question they actually want to answer — that's what gets you 'okay I need to know more about this.' Generic gets you silence. Specific gets you conversations."
+    },
+    {
+      title: "EACH APP READS DIFFERENTLY.",
+      // Platform-specific knowledge builds credibility
+      content: "Hinge prompts are essentially tiny essays — they reward personality and specificity. Tinder bios need to land in three seconds or less. Bumble skews toward women making the first move, so your bio needs to give them an easy in. Using the same words across all three is like wearing the same outfit to a job interview, a first date, and a beach barbecue. Technically fine. Never optimal."
+    }
+  ],
+
+  pitfalls: {
+    title: "WHAT YOUR BIO IS ACTUALLY SAYING",
+    subtitle: "(versus what you think it's saying)",
+    // Specific example — much more credible than a vague tip
+    techNote: "The single most effective thing you can do on Hinge: be specific in your prompts. 'I'm looking for someone who appreciates a good wine' gets ignored. 'I'm looking for someone who will argue with me about whether the 2019 Yarra Valley Pinot was better than the 2021' gets responses. Same sentiment. Completely different result.",
+    items: [
+      {
+        no: "01",
+        title: "The Personality-Free List",
+        // Names the exact phrases — much more pointed than "be specific"
+        desc: "'Love food, travel, and good coffee.' 'Looking for my partner in crime.' 'Dog mum/dad 🐶.' These aren't wrong — they're just invisible. Every second profile in Sydney says the same things. We'll find the version of you that nobody else can copy."
+      },
+      {
+        no: "02",
+        title: "The Accidental Warning Sign",
+        // Pain: the unintentional negative signal
+        desc: "'Not looking for hookups.' 'Swipe left if you're not serious.' 'If you can't handle me at my worst...' You're trying to filter people out, but it reads as exhausting before anyone's even met you. We'll say what you actually want — without sounding like a terms and conditions page."
+      },
+      {
+        no: "03",
+        title: "The Blank Space",
+        // Specific and slightly wry
+        desc: "Nothing. Not even a single line. It says 'I couldn't be bothered' — which, to be fair, is probably not true. You bothered with the photos. You bothered to download the app. Thirty words is not a lot to ask. Let us write them."
+      }
+    ]
+  },
+
+  appDetails: [
+    {
+      id: "01",
+      platform: "HINGE",
+      title: "PROMPTS THAT MAKE SOMEONE WANT TO RESPOND.",
+      p1: "Hinge gives you three prompts. Most people pick the most popular ones and write the most expected answers. The result is a profile that's technically complete and completely forgettable.",
+      italic: "We'll pick prompts that suit your actual personality — not the ones everyone else picks — and write answers specific enough that the right person sees themselves in them.",
+      p2: "Three prompts, done properly, can do more work than ten mediocre ones. That's what we're going for."
+    },
+    {
+      id: "02",
+      platform: "TINDER & BUMBLE",
+      title: "SHORT. SPECIFIC. IMPOSSIBLE TO IGNORE.",
+      p1: "Less space means every single word is doing a job. We'll write bios that:",
+      list: [
+        "Land in under five seconds — because that's all you get",
+        "Say something specific enough to be memorable",
+        "Give them one easy, obvious reason to message you"
+      ]
+    }
+  ],
+
+  manifesto: {
+    title: "GIVE THEM SOMETHING TO SAY.",
+    // ✅ Internal link to photography page embedded naturally
+    content: "The whole point of a good dating profile — photos and words together — is to make it easy for the right person to start a conversation. Your photos get them there. Your bio hands them the opening line. If you've already sorted the photography side, the bio is the last piece. If you haven't, we can help with that too."
+  },
+
+  modules: [
+    {
+      title: "The conversation that writes the bio",
+      // Process feels real and specific — not a vague "consultation"
+      description: "We start with a call. Not a questionnaire — an actual conversation. What makes you laugh? What would your best friend say about you if they were writing this? What's the thing you're weirdly passionate about that you never put on dating apps because you think nobody cares? That's exactly what goes in.",
+      image: "/assets/images/andrey-zvyagintsev-x0c6vTO5ibA-unsplash.jpg",
+      imageAlt: "Dating profile writing consultation Sydney — bio writer conversation process",
+      caption: "The best bios come from a twenty-minute chat, not a form."
+    },
+    {
+      title: "Hinge prompts, chosen properly",
+      // Platform-specific — shows real knowledge
+      description: "Not 'two truths and a lie.' Not 'I'll fall for you if...' answered with something generic. We'll find the prompts that give you the most room to be specific — and write answers that make someone stop and think 'I actually want to know this person.'",
+      image: "/assets/images/stefan-stefancik-QXevDflbl8A-unsplash.jpg",
+      imageAlt: "Hinge prompt writer Sydney — dating bio writing for Hinge app",
+      caption: "Three prompts. Three chances. Let's not waste them."
+    },
+    {
+      title: "The hooks that start conversations",
+      // Specific mechanism — not just "be interesting"
+      description: "A good bio plants things for someone to respond to. A half-formed opinion. A specific detail that only a certain kind of person will recognise. A question that's actually interesting. We build these in deliberately — so 'hey' becomes the backup option, not the only one.",
+      image: "/assets/images/photo/giovanna-knollseisen-CA4OaE7f500-unsplash.jpg",
+      imageAlt: "Dating profile writing strategy Sydney — conversation hooks and bio structure",
+      caption: "Make it easy for them to start the chat."
+    }
+  ],
+
+  faqTitle: "THINGS PEOPLE ACTUALLY ASK",
+  faq: [
+    {
+      question: "Can't I just write my own bio?",
+      // Honest, not dismissive — respects the reader's intelligence
+      answer: "Yes. But most people either write something so safe it's forgettable, or overthink it until it sounds nothing like them. The problem isn't that you're bad at writing — it's that writing about yourself is genuinely weird. We ask different questions than you'd ask yourself, which tends to surface the actually interesting stuff."
+    },
+    {
+      question: "Will it still sound like me?",
+      answer: "That's the only thing that matters. A bio that sounds like a dating coach wrote it gets fewer responses than a slightly imperfect one that sounds like an actual human. We write in your voice — we just sharpen it. Think of it as the version of you that's on in a good conversation, not the version filling out a form."
+    },
+    {
+      question: "I genuinely don't know what to say about myself. Is that a problem?",
+      // Pain point 3 addressed directly — reassuring without being saccharine
+      answer: "It's actually the most common thing we hear. Most people are surprisingly bad at identifying what's interesting about themselves — not because there's nothing there, but because you've been you your whole life and it all feels ordinary. It isn't. We'll find it."
+    },
+    {
+      question: "Does it work for both men and women?",
+      answer: "Yes — with different strategies. Women on Bumble need to make the first move, so their bio needs to give men something easy to respond to. Men on Hinge need prompts specific enough to stand out in a crowded field. Same goal, different execution. We tailor for whoever you are and wherever you're swiping."
+    },
+    {
+      // ✅ Internal link to photography page in FAQ — natural context
+      question: "Do I need the photos sorted before the bio?",
+      answer: "Ideally yes — because the bio works best when it complements your photos rather than trying to compensate for them. If your photos are already done, we can go straight to the words. If you're still working on the photography side, we can help with that first and come back to the bio. Either way, the two things are designed to work together."
+    }
+  ],
+
+  footerCta: {
+    bgText: "WORDS • WORDS",
+    titleLine1: "SAY IT",
+    titleLine2: "BETTER.",
+    // Direct, specific — not vague empowerment
+    desc: "You've got the photos. Now give them something to say back.",
+    buttonText: "Write my profile",
+    // ✅ Three internal links — photography, hair & makeup, wardrobe
+    link1Text: "See the dating profile photography session →",
+    link1Url: "/services/sydney-dating-photography",
+    link2Text: "Add hair & makeup to your session →",
+    link2Url: "/services/dating-styling-sydney",
+    link3Text: "Sort your shoot-day wardrobe →",
+    link3Url: "/services/dating-wardrobe-sydney"
+  }
+
+};
+---
+
+<Layout 
+  title={page.seo.metaTitle}
+  description={page.seo.metaDescription}
+  ogImage="/images/dating-profile-writer-sydney.jpg"
+  pageType="service"
+  service={serviceSchema}
+  breadcrumbs={breadcrumbs}
+>
+  <Header />
+  
+  <section class="relative h-screen min-h-[800px] flex items-center justify-center overflow-hidden bg-brand-dark">
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 bg-gradient-to-b from-brand-dark/95 via-brand-dark/70 to-brand-dark/95 z-10"></div>
+      <img
+        src={page.hero.heroImage}
+        alt={page.seo.imageAlt}
+        class="w-full h-full object-cover opacity-50"
+      />
+    </div>
+
+    <div class="container relative z-30 mx-auto px-6 text-center reveal-on-scroll">
+      <div class="inline-flex items-center gap-3 px-6 py-3 bg-brand-on-dark/5 backdrop-blur-xl rounded-full border border-brand-on-dark/10 mb-8 animate-float">
+        <span class="w-2 h-2 rounded-full bg-brand-accent animate-pulse"></span>
+        <span class="text-xs tracking-[0.3em] text-brand-on-dark/80 font-light uppercase">{page.hero.badge}</span>
+      </div>
+
+      {/*
+        ✅ SEO FIX: Single h1 tag.
+        sr-only span = "Dating Profile Writer Sydney" as one continuous indexable phrase.
+        Visual three-line split is aria-hidden.
+      */}
+      <h1 class="text-5xl md:text-8xl font-serif text-brand-on-dark mb-6 leading-[0.9] tracking-tight uppercase">
+        <span class="sr-only">{page.hero.h1Full}</span>
+        <span aria-hidden="true">
+          {page.hero.titleLine1}<br/>
+          {page.hero.titleLine2}<br/>
+          {page.hero.titleLine3}
+        </span>
+      </h1>
+
+      <div class="w-24 h-px mx-auto mb-8 bg-gradient-to-r from-transparent via-brand-accent to-transparent"></div>
+
+      <p class="text-lg md:text-xl text-brand-on-dark/70 max-w-2xl mx-auto font-light leading-relaxed mb-12">
+        {page.hero.desc}
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+        <a href="/contact" class="btn-brand px-12 py-6 min-w-[200px] justify-center">
+          <span class="inline-flex items-center gap-2">
+            {page.hero.ctaPrimary}
+            <Icon name="lucide:arrow-right" class="w-4 h-4" />
+          </span>
+        </a>
+        <a href="#story" class="group flex items-center gap-3 text-brand-on-dark/70 hover:text-brand-on-dark transition-colors">
+          <span class="w-12 h-px bg-brand-on-dark/30 group-hover:w-16 group-hover:bg-brand-accent transition-all"></span>
+          <span class="text-xs tracking-[0.3em] uppercase font-light">{page.hero.ctaSecondary}</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <main class="bg-brand-bg">
+    <section id="story" class="max-w-7xl mx-auto px-8 py-32 md:py-40 text-brand-primary relative">
+
+      <div class="mb-32 relative reveal-on-scroll">
+        <div class="absolute -top-20 left-0 text-[12vw] font-serif text-brand-accent/5 leading-none select-none pointer-events-none whitespace-nowrap">
+          {page.story.bgText}
+        </div>
+        <h2 class="text-6xl md:text-8xl font-serif text-brand-accent leading-[0.9] tracking-[-0.03em] uppercase relative">
+          {page.story.titleMain}<br />
+          <span class="italic font-light text-brand-muted">{page.story.titleItalic}</span>
+        </h2>
+        <p class="text-xs md:text-sm text-brand-muted/70 tracking-[0.3em] uppercase mt-12 pl-8 border-l border-brand-muted/30 relative">
+          {page.story.kicker}
+        </p>
+      </div>
+
+      <div class="mb-32 relative reveal-on-scroll">
+        <div class="absolute -left-8 top-0 text-[12rem] font-serif text-brand-accent/5 leading-none">"</div>
+        <div class="relative pl-16">
+          <p class="text-lg md:text-2xl font-light leading-relaxed text-brand-primary/80 mb-8">
+            <span class="text-8xl float-left font-serif text-brand-accent mr-6 mt-2 leading-[0.8]">{page.story.quoteLetter}</span>
+            {page.story.quoteBody}
+          </p>
+          <p class="text-lg md:text-xl font-light leading-relaxed text-brand-primary/70 pl-8 border-l-2 border-brand-accent/30 italic">
+            {page.story.quoteHighlight}
+          </p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-20 mb-32 reveal-on-scroll">
+        {page.whyItMatters.map((item) => (
+          <div class="relative group">
+            <h2 class="text-3xl font-serif text-brand-accent mb-8 uppercase tracking-wide flex items-center">
+              <span class="w-12 h-px bg-brand-muted mr-6 group-hover:w-20 transition-all duration-700"></span>
+              {item.title}
+            </h2>
+            <p class="text-base font-light leading-relaxed text-brand-primary/70">{item.content}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mb-40 relative reveal-on-scroll">
+        <h2 class="text-4xl md:text-5xl font-serif text-brand-accent mb-16 uppercase tracking-wide text-center">
+          {page.pitfalls.title}<br />
+          <span class="text-xl font-light text-brand-muted block mt-4 tracking-normal">{page.pitfalls.subtitle}</span>
+        </h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          {page.pitfalls.items.map((item) => (
+            <div class="group relative p-10 bg-white/50 border border-brand-dark/5 hover:border-brand-accent/30 transition-all duration-700">
+              <span class="absolute -top-6 left-8 text-8xl font-serif text-brand-accent/10 group-hover:text-brand-accent/20 transition-colors">{item.no}</span>
+              <h3 class="text-2xl font-serif text-brand-accent mb-4 relative z-10">{item.title}</h3>
+              <p class="text-sm font-light text-brand-primary/60 leading-relaxed relative z-10">{item.desc}</p>
+              <div class="absolute bottom-0 left-0 w-0 h-[2px] bg-brand-accent group-hover:w-full transition-all duration-700"></div>
+            </div>
+          ))}
+        </div>
+        <div class="mt-16 p-8 bg-brand-accent/5 border-l-4 border-brand-accent">
+          <p class="text-sm font-mono text-brand-primary/80 leading-relaxed">{page.pitfalls.techNote}</p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-20 mb-40 reveal-on-scroll">
+        {page.appDetails.map((detail) => (
+          <div class="relative group">
+            <h2 class="text-3xl font-serif text-brand-accent mb-10 uppercase tracking-wide">
+              <span class="block text-sm font-light text-brand-muted mb-3 tracking-[0.3em]">{detail.id} — {detail.platform}</span>
+              {detail.title}
+            </h2>
+            <div class="space-y-6">
+              <p class="text-base font-light leading-relaxed text-brand-primary/70">{detail.p1}</p>
+              {detail.italic && (
+                <p class="text-base font-light leading-relaxed text-brand-primary/70 italic pl-6 border-l-2 border-brand-accent/30">{detail.italic}</p>
+              )}
+              {detail.p2 && (
+                <p class="text-base font-light leading-relaxed text-brand-primary/70">{detail.p2}</p>
+              )}
+              {detail.list && (
+                <ul class="space-y-4 text-base font-light">
+                  {detail.list.map((li) => (
+                    <li class="flex items-start">
+                      <span class="w-1.5 h-1.5 rounded-full bg-brand-accent mt-2 mr-4 flex-shrink-0"></span>
+                      <span class="text-brand-primary/70">{li}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* ✅ Internal link 1: manifesto block links to photography page in natural context */}
+      <div class="mb-40 relative py-24 px-8 bg-brand-dark -mx-8 text-brand-on-dark reveal-on-scroll text-center">
+        <h2 class="text-4xl md:text-5xl font-serif mb-8 uppercase tracking-wide">{page.manifesto.title}</h2>
+        <div class="w-24 h-px bg-brand-muted/30 mx-auto mb-8"></div>
+        <p class="text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto opacity-80 mb-10">
+          {page.manifesto.content}
+        </p>
+        <a
+          href="/services/sydney-dating-photography"
+          class="inline-flex items-center gap-2 text-sm tracking-[0.2em] uppercase text-brand-accent border-b border-brand-accent/40 hover:border-brand-accent pb-1 transition-colors"
+        >
+          See the dating profile photography session
+          <Icon name="lucide:arrow-right" class="w-4 h-4" />
+        </a>
+      </div>
+
+      <div class="mb-40 reveal-on-scroll">
+        <h2 class="text-3xl md:text-4xl font-serif text-brand-accent mb-16 text-center uppercase tracking-wide">
+          HOW IT WORKS
+        </h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          {page.modules.map((module, index) => (
+            <div class="group relative bg-white/50 border border-brand-dark/5 hover:border-brand-accent/30 transition-all duration-700">
+              <div class="aspect-[4/5] overflow-hidden">
+                <img
+                  src={module.image}
+                  alt={module.imageAlt}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
+                />
+              </div>
+              <div class="p-8 relative">
+                <span class="absolute top-4 right-8 text-4xl font-serif text-brand-accent/10">
+                  {(index + 1).toString().padStart(2, '0')}
+                </span>
+                <h3 class="text-xl font-serif text-brand-accent mb-4">{module.title}</h3>
+                <p class="text-sm font-light text-brand-primary/70 leading-relaxed mb-4">{module.description}</p>
+                <p class="text-xs font-mono text-brand-muted/60 italic">{module.caption}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <Packages />
+
+      <div class="mb-40 mt-40 reveal-on-scroll">
+        <h2 class="text-3xl md:text-4xl font-serif text-brand-accent mb-16 text-center uppercase tracking-wide">
+          {page.faqTitle}
+        </h2>
+        <div class="max-w-3xl mx-auto space-y-6">
+          {page.faq.map((item, index) => (
+            <div class="border-b border-brand-muted/10 pb-6">
+              <details class="group">
+                <summary class="flex justify-between items-center cursor-pointer list-none">
+                  <h3 class="text-lg font-serif text-brand-accent pr-8">
+                    <span class="inline-block w-8 text-sm font-mono text-brand-muted">{index + 1}.</span>
+                    {item.question}
+                  </h3>
+                  <Icon name="lucide:chevron-down" class="w-5 h-5 text-brand-muted flex-shrink-0 group-open:rotate-180 transition-transform" />
+                </summary>
+                <div class="mt-4 text-sm font-light text-brand-primary/70 leading-relaxed pl-8">
+                  <p>{item.answer}</p>
+                  {/* ✅ Internal link 2: FAQ last item links to photography page */}
+                  {index === 4 && (
+                    <a
+                      href="/services/sydney-dating-photography"
+                      class="inline-flex items-center gap-1 mt-3 text-xs tracking-[0.15em] uppercase text-brand-accent border-b border-brand-accent/30 hover:border-brand-accent transition-colors"
+                    >
+                      See the full photography session
+                      <Icon name="lucide:arrow-right" class="w-3 h-3" />
+                    </a>
+                  )}
+                </div>
+              </details>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="text-center relative py-20 reveal-on-scroll">
+        <div class="absolute inset-0 flex items-center justify-center opacity-5 select-none pointer-events-none overflow-hidden">
+          <span class="text-[12vw] font-serif text-brand-accent whitespace-nowrap">{page.footerCta.bgText}</span>
+        </div>
+        <h2 class="text-5xl md:text-7xl font-serif text-brand-accent mb-8 uppercase tracking-tight relative">
+          {page.footerCta.titleLine1}<br />
+          <span class="italic font-light text-brand-muted">{page.footerCta.titleLine2}</span>
+        </h2>
+        <p class="text-base font-light text-brand-primary/60 max-w-xl mx-auto mb-12 relative">
+          {page.footerCta.desc}
+        </p>
+        <div class="flex flex-col items-center gap-5 relative">
+          <a href="/booking" class="btn-brand">
+            {page.footerCta.buttonText}
+          </a>
+          {/* ✅ Internal links 3, 4, 5: footer — all three sibling service pages */}
+          <a
+            href={page.footerCta.link1Url}
+            class="text-sm text-brand-muted hover:text-brand-accent transition-colors tracking-wide"
+          >
+            {page.footerCta.link1Text}
+          </a>
+          <a
+            href={page.footerCta.link2Url}
+            class="text-sm text-brand-muted hover:text-brand-accent transition-colors tracking-wide"
+          >
+            {page.footerCta.link2Text}
+          </a>
+          <a
+            href={page.footerCta.link3Url}
+            class="text-sm text-brand-muted hover:text-brand-accent transition-colors tracking-wide"
+          >
+            {page.footerCta.link3Text}
+          </a>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<script>
+  function initReveal() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('active');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+  }
+  document.addEventListener('astro:page-load', initReveal);
+  initReveal();
+</script>

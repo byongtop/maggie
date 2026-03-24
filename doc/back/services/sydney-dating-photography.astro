@@ -10,192 +10,162 @@ import Packages from '../../components/Packages2.astro';
 import { Icon } from 'astro-icon/components';
 
 const serviceD = {
-  name: "Sydney Dating Profile Photography",
-  description: "Dating profile photography and dating portraits in Sydney",
+  name: "Sydney Dating Profile Photography & Headshots",
+  description: "Professional dating profile portraits in Sydney",
   providerName: "ROSE IS ROSE",
   areaServed: ["Sydney", "Bondi", "Manly", "Parramatta"],
-  priceRange: "$$-$$$",
-  // For Review schema — add when you have real reviews:
-  // aggregateRating: { ratingValue: "5", reviewCount: "24" }
+  priceRange: "$$-$$$"
 };
 
 const breadcrumbs = [
   { name: "Home", item: "/" },
   { name: "Services", item: "/services" },
-  { name: "Dating Profile Photography Sydney", item: "/services/sydney-dating-photography" }
+  { name: "Dating Profile Photography & Headshots", item: "/services/sydney-dating-photography" }
 ];
 
+
+// 页面所有文本内容 (保持你原有的所有数据，不做任何删减)
 const serviceData = {
   seo: {
-    // PRIMARY keyword: "dating profile photography Sydney" in title, near the front
-    metaTitle: "Dating Profile Photography Sydney | Dating Portraits | ROSE IS ROSE",
-    // Natural sentence, primary keyword in first half, secondary (dating portraits) woven in
-    metaDescription: "Sydney dating profile photography for Tinder, Hinge and Bumble. Real locations, honest portraits, no awkward posing. Book with Rose.",
-    keywords: "dating profile photography Sydney, dating profile photographer Sydney, dating portraits Sydney, Tinder photos Sydney, Hinge photographer Sydney, Bumble photos Sydney, Bondi photographer",
-    // ✅ SEO-rich alt: brand + primary keyword + location
-    imageAlt: "Sydney dating profile photography session by ROSE IS ROSE — natural outdoor portrait near the harbour"
+    metaTitle: "Sydney Dating Photography | Dating Profile Photographer Sydney | ROSE IS ROSE",
+    metaDescription: "Looking for a dating photographer in Sydney? We'll capture you at Bondi, The Rocks & CBD—natural, confident, and ready for Tinder, Hinge & Bumble. Book your session.",
+    keywords: "Sydney dating photography, dating profile photographer Sydney, Tinder photos Sydney, Hinge photographer Sydney, dating portraits Sydney, Bondi photographer, Sydney lifestyle photographer",
+    imageAlt: "Relaxed guy near Sydney Opera House getting natural dating photos"
   },
   
   hero: {
-    // Badge: no fluff, speaks directly to the problem
-    badge: "Dating Profile Photography · Sydney",
-    locationTag: "Sydney only",
-    // H1 rendered as three visual lines — but the actual text reads as one indexable phrase
-    // Wrap in a single <h1> with CSS line breaks, not separate elements, for SEO
-    h1Full: "Sydney Dating Profile Photography",
+    badge: "Dating Portraits That Actually Get You Matches",
+    locationTag: "Sydney exclusive",
     titleLine1: "SYDNEY",
-    titleLine2: "DATING PROFILE",
-    titleLine3: "PHOTOGRAPHY",
-    // Direct, no "journey" language — speaks to the person who is privately frustrated
-    desc: "You're not unlovable. You're just using photos that don't look like you on a good day. Let's fix that.",
-    ctaPrimary: "Book a session",
-    ctaSecondary: "See how it works",
+    titleLine2: "DATING",
+    titleLine3: "PORTRAITS",
+    desc: "Real photos, real Sydney locations, real you. We'll help you stand out on Tinder, Hinge and Bumble—without feeling like you're trying too hard.",
+    ctaPrimary: "Let's do this",
+    ctaSecondary: "Tell me more",
     scrollText: "Scroll",
     heroImage: "/assets/images/andrey-zvyagintsev-x0c6vTO5ibA-unsplash.jpg",
   },
 
   story: {
     bgText: "MATCH • MATCH",
-    titleMain: "THE REAL",
-    titleItalic: "REASON",
-    // Kicker names the problem head-on — no softening
-    kicker: "WHY YOUR DATING PROFILE ISN'T WORKING",
-    quoteLetter: "N",
-    // Starts mid-thought, like a real person talking — no "Sydney is beautiful, sure"
-    quoteBody: "obody swipes on a photo and thinks 'I wonder what their personality is like.' They swipe on a feeling. And right now, your photos are giving off the wrong one — or worse, no feeling at all.",
-    // The pivot: empathy without being patronising
-    quoteHighlight: "It's not your face. It's the photo. There's a difference, and I've spent years learning exactly how to close that gap.",
+    titleMain: "THE SYDNEY",
+    titleItalic: "DIFFERENCE",
+    kicker: "WHY YOUR DATING PROFILE NEEDS A LOCAL",
+    quoteLetter: "S",
+    quoteBody: "ydney's beautiful, sure. But it's also competitive. On dating apps, your photo is fighting for attention with Bondi sunsets, harbour views, and about a thousand other people who also live here.",
+    quoteHighlight: "We're not here to make you look like someone else. We're here to make you look like the best version of you—the one your future date will actually want to meet.",
   },
 
-  // Renamed from "strategy" to something more pointed
-  whyItMatters: [
+  strategy: [
     {
-      title: "THREE SECONDS.",
-      content: "That's how long someone spends on your first photo before deciding. Not your bio. Not your job. Your photo. If it's not pulling them in within three seconds, they're already gone — and you'll never know why."
+      title: "PHOTOS WITH A PLAN",
+      content: "Anyone can take a photo at the Opera House. We'll help you build a profile that actually tells a story—so when someone's deciding whether to swipe right, they're not just looking at a picture, they're getting a sense of who you are."
     },
     {
-      title: "SYDNEY IS COMPETITIVE.",
-      content: "This city is full of attractive, interesting people — and most of them have mediocre dating profile photos. That's actually good news for you. One session and you're already ahead of half the app."
+      title: "SYDNEY, BUT MAKE IT YOU",
+      content: "The Rocks, Bondi, Surry Hills—they're not just backdrops. They're part of your story. We'll pick spots that match your energy, not just the tourist checklist."
     }
   ],
 
   pitfalls: {
-    title: "WHAT YOUR PHOTOS ARE SAYING ABOUT YOU",
-    subtitle: "(without you realising)",
-    // Tech note rewritten — confident, not nerdy-explaining
-    techNote: "Shot on Sony Alpha full-frame with 35mm and 85mm prime lenses. That soft background that makes you look like the subject of the photo, not a person standing in front of a background? That's not a filter. That's the glass. Colour grading done to match how Sydney actually looks in real life — warm, bright, a little golden.",
+    title: "WHAT'S HOLDING YOUR PROFILE BACK",
+    subtitle: "(and how we fix it)",
+    techNote: "Quick gear nerd moment: We shoot on Sony Alpha full-frame with prime lenses (35mm/85mm). Translation? That creamy blurry background that makes you pop? That's the lens. The colours that look like Sydney actually looks? That's the skill. You're welcome.",
     items: [
       {
         no: "01",
-        title: "The Caught-Off-Guard Shot",
-        // Pain point: no confidence in how they look — reframe as a solvable problem
-        desc: "Squinting into the sun, mid-laugh at something no one else can see, slightly blurry. It reads as 'I don't have a single photo I actually like of myself.' We're going to change that."
+        title: "The Gym Mirror Shot",
+        desc: "We get it, you work out. But this says \"I spend a lot of time looking at myself\" more than it says \"I'm healthy.\" Let's find something better."
       },
       {
         no: "02",
-        title: "The Group Photo Stand-In",
-        desc: "Four people, zero context. Are you the one on the left? The right? The one who got cropped? Don't make someone do detective work. Every photo should be clearly, confidently you."
+        title: "The Group Shot Puzzle",
+        desc: "Three photos in, and they're still guessing which one is you. Don't make them work that hard. We'll give you shots where you're unmistakably the main character."
       },
       {
         no: "03",
-        title: "The Mirror, The Car, The Ceiling",
-        // Specific and a bit wry — not preachy
-        desc: "Bathroom mirror, car selfie, photo taken from below while you're lying on the couch. These aren't bad because of a 'rule' — they're bad because they tell someone you didn't think you were worth the effort."
+        title: "The Dark Bar Blur",
+        desc: "Grainy, dark, weirdly orange—it's not doing you any favours. Sydney has some of the best light in the world. Let's use it."
       }
     ]
   },
 
-  // Rewritten to feel like genuine prep advice, not a listicle
   experience: [
     {
       id: "01",
-      label: "BEFORE WE SHOOT",
-      title: "WE TALK FIRST.",
-      p1: "Not a form. An actual conversation. What are you looking for? What do you hate about photos of yourself? What's the one thing you wish people noticed about you before they judged your height or your hairline?",
-      italic: "I've heard it all. The woman who thinks she photographs badly from every angle. The guy who hasn't liked a photo of himself in ten years. We start there.",
-      p2: "Then we figure out what to wear, where to shoot, and how to make the whole thing feel less like a photoshoot and more like a good afternoon in Sydney."
+      label: "WARDROBE",
+      title: "WHAT TO WEAR (AND WHAT TO SKIP)",
+      p1: "Sydney weather is a mood—four seasons in one day, sometimes. We'll help you pack for it.",
+      italic: "Linen shirt for that Bondi coastal vibe? Yes. Tailored blazer for a CBD rooftop drink? Also yes. Just not at the same time.",
+      p2: "We'll also talk colours—what pops against Sydney's blue-gold palette, what fades into the background. (Spoiler: that grey hoodie? Maybe leave it at home.)"
     },
     {
       id: "02",
-      label: "PROFILE STRATEGY",
-      title: "THE ORDER MATTERS MORE THAN YOU THINK.",
-      p1: "I'll tell you exactly which photo to lead with and why. The apps reward profiles that get early right-swipes — your first image sets that in motion. Whether you're on Tinder, Hinge or Bumble, the dating profile photos that perform best aren't the ones where you look the most attractive — they're the ones where you look the most like yourself.",
+      label: "STRATEGY",
+      title: "THE ALGORITHM IS REAL",
+      p1: "Here's something most photographers won't tell you: the order of your photos matters. A lot. We'll give you a \"put this first, this second, save this for later\" guide based on actual data.",
       list: [
-        "Photo one: stops the scroll — eye contact, good light, clearly you",
-        "Photos two and three: build the picture of who you are",
-        "Final photo: relaxed, full-length, the version of you someone would actually meet"
+        "First photo: Makes them stop scrolling",
+        "Middle photos: Shows your personality",
+        "Last photo: The full-body confidence shot"
       ]
     }
   ],
 
   editing: {
-    title: "EDITED TO LOOK LIKE YOU. ON A REALLY GOOD DAY.",
-    // Rewritten — removes "Palm Beach" cliché opener, leads with the real reassurance
-    content: "No smoothed-out skin, no whitened teeth, no 'fixed' features. People edit their dating photos into someone slightly better-looking than themselves — and then wonder why their dates seem underwhelmed when they show up. I colour-grade for Sydney's light: warm, natural, sharp where it counts. You'll look like yourself. Just well-rested, well-lit, and happy."
+    title: "EDITING: LESS IS MORE",
+    content: "Australia's sun is gorgeous. It's also intense. We'll colour-grade to keep that warm Sydney glow while softening harsh shadows and making your skin look like skin—not plastic. You'll look like you just got back from a weekend at Palm Beach. Refreshed. Real. Ready."
   },
 
   experienceModules: [
     {
-      title: "The Rocks & Circular Quay",
-      // Location copy: feels like insider knowledge, not tourism brochure
-      description: "Sandstone, harbour light, spots that look expensive without trying. We find the angles that say 'I've actually lived here' rather than 'I'm standing in front of the famous thing.'",
+      title: "Harbour energy, minus the tourist vibe",
+      description: "Yes, we shoot at The Rocks and Circular Quay. No, it won't look like every other tourist photo. We find the quiet corners, the good light, the angles that say 'I live here and I know the good spots.'",
       image: "/assets/images/andrey-zvyagintsev-x0c6vTO5ibA-unsplash.jpg",
-      imageAlt: "Dating portrait session at The Rocks Sydney — warm harbour light, natural expression",
-      caption: "The light near the water at 5pm. Nothing else needed."
+      imageAlt: "Sydney lifestyle shoot",
+      caption: "That Sydney light just hits different."
     },
     {
-      title: "Surry Hills & Redfern",
-      description: "Textured walls, good coffee, the kind of neighbourhood that makes you look interesting by proximity. If your dating profile currently has zero personality, this is where we start.",
+      title: "Surry Hills if you've got an edge",
+      description: "Brick walls, street art, hidden laneways—Surry Hills has texture for days. If your vibe is more 'creative, a little alternative, definitely interesting,' this is your spot.",
       image: "/assets/images/stefan-stefancik-QXevDflbl8A-unsplash.jpg",
-      imageAlt: "Dating profile portrait in Surry Hills Sydney — urban backdrop, natural light",
-      caption: "Depth of field that actually flatters."
+      imageAlt: "Depth of field portrait",
+      caption: "That blurry background? That's what good glass does."
     },
     {
-      title: "Golden Hour, Wherever You Are",
-      // Removed the "okay just one" joke — felt forced
-      description: "An hour before sunset, Sydney turns into a different city. Softer light, longer shadows, that warmth that makes everyone look like they're exactly where they should be. We plan around it.",
+      title: "Golden hour, every hour (okay just one)",
+      description: "That one hour when Sydney looks like a movie set. We'll chase the light, you'll look like the main character. Simple.",
       image: "/assets/images/photo/giovanna-knollseisen-CA4OaE7f500-unsplash.jpg",
-      imageAlt: "Golden hour dating portrait session Sydney — warm natural light outdoor photography",
-      caption: "Golden hour in Sydney. Worth planning your whole afternoon around."
+      imageAlt: "Sydney golden hour",
+      caption: "No filter needed, but we'll add one anyway."
     }
   ],
 
-  faqTitle: "QUESTIONS PEOPLE ACTUALLY ASK",
+  faqTitle: "YOU'VE GOT QUESTIONS",
   faq: [
     {
-      question: "I genuinely don't like how I look in photos. Can you still help?",
-      // Pain point 3 addressed head-on — no toxic positivity
-      answer: "Yes — and honestly, this is the most common thing I hear. Most people who think they photograph badly have just never been photographed well. There's a difference between your face and a bad photo of your face. Give me an hour and I'll show you."
+      question: "Where in Sydney do you shoot?",
+      answer: "Wherever feels like you. The Rocks if you're into that timeless, sandstone vibe. Surry Hills if you're more artsy. Bondi or Barangaroo if you want that relaxed coastal energy. Or mix it up—we love a good location mash-up."
     },
     {
-      question: "Where do you shoot in Sydney?",
-      answer: "Wherever suits you. The Rocks and Circular Quay if you want that effortlessly Sydney feel. Surry Hills or Redfern for more texture and edge. Bondi or Barangaroo for something relaxed and coastal. We decide together based on what you're going for — not just what photographs well in general."
+      question: "How do I not look like I'm trying too hard?",
+      answer: "That's literally our whole thing. We call it 'candid but make it flattering.' We'll get you moving, laughing, pretending to look at something interesting—so it looks like a friend caught you being your best self, not a photographer telling you where to put your hand for the 15th time."
     },
     {
-      question: "What should I wear?",
-      answer: "Bring two or three options and we'll decide on the day. Generally: colours that aren't grey or black, nothing with a large logo, something you'd actually wear on a first date. I'll tell you what works against Sydney's light and what doesn't. The grey hoodie stays home."
+      question: "When's the best time for photos in Sydney?",
+      answer: "Golden hour, no contest. That magic 60-90 minutes before sunset when the light makes everyone look like they just came back from a week at Palm Springs. Especially if we're near the water—which, let's be honest, in Sydney we usually are."
     },
     {
-      question: "Will I look like myself, or will I look like a 'dating profile photo'?",
-      // Addresses the fear of looking try-hard — speaks to both men and women
-      answer: "You'll look like yourself. The whole point is that whoever matches with you recognises you when you walk through the door. We're not building a fantasy — we're capturing the version of you that already exists, just on a day when the light was good and you weren't staring at your own camera."
-    },
-    {
-      question: "How many photos do I get?",
-      answer: "Depends on the package — full details in the packages section below. But every final image is individually edited. You won't be sorting through 200 half-decent shots trying to figure out which ones to use. I do that work for you."
-    },
-    {
-      question: "Do you shoot Tinder, Hinge and Bumble profile photos?",
-      answer: "All three — and each app has a slightly different vibe. Hinge tends to reward photos that show personality and context, not just a headshot. Tinder's first photo needs to stop the scroll fast. Bumble, especially if you're a woman, gives you control — so your lead photo needs to do real work. I'll help you think through which photos work where, not just hand you a folder and wish you luck."
+      question: "I'm awkward in photos. Help?",
+      answer: "Same, honestly. But here's the thing—most people are. We've gotten really good at making awkward people look effortless. Think of it as hanging out with a friend who happens to have a camera, not a 'photoshoot.' We'll figure it out together."
     }
   ],
 
   footerCta: {
     bgText: "SWIPE • SWIPE",
-    titleLine1: "ENOUGH",
-    titleLine2: "WAITING",
-    // Removed the "swiped right on" pun — a bit too on-the-nose
-    desc: "You know what you want. You know the photos aren't helping. One session, done properly — let's go.",
+    titleLine1: "YOUR STORY",
+    titleLine2: "STARTS HERE",
+    desc: "Sydney's full of stories. Let's make yours one that gets told. (And swiped right on.)",
     button: "Book your session"
   }
 };
@@ -204,7 +174,7 @@ const serviceData = {
 <Layout 
   title={serviceData.seo.metaTitle}
   description={serviceData.seo.metaDescription}
-  ogImage="/images/dating-profile-photography-sydney.jpg"
+  ogImage="/images/dating-photography.jpg"
   pageType="service"
   service={serviceD}
   breadcrumbs={breadcrumbs}
@@ -225,19 +195,10 @@ const serviceData = {
         <span class="text-xs font-mono text-brand-on-dark/60">{serviceData.hero.locationTag}</span>
       </div>
 
-      {/* 
-        ✅ SEO FIX: Single <h1> tag wrapping all three lines.
-        The full phrase "Sydney Dating Profile Photography" is readable by crawlers.
-        Visual line breaks achieved with <br/> inside one element, not separate elements.
-        The hidden span ensures the full keyword phrase exists as continuous text.
-      */}
       <h1 class="text-5xl md:text-8xl font-serif text-brand-on-dark mb-6 leading-[0.9] tracking-tight uppercase">
-        <span class="sr-only">{serviceData.hero.h1Full}</span>
-        <span aria-hidden="true">
-          {serviceData.hero.titleLine1}<br />
-          {serviceData.hero.titleLine2}<br />
-          {serviceData.hero.titleLine3}
-        </span>
+        {serviceData.hero.titleLine1} 
+        {serviceData.hero.titleLine2}<br/>
+        {serviceData.hero.titleLine3}
       </h1>
 
       <div class="w-24 h-px mx-auto mb-8 bg-gradient-to-r from-transparent via-brand-accent to-transparent"></div>
@@ -290,7 +251,7 @@ const serviceData = {
       </div>
 
       <div class="grid md:grid-cols-2 gap-20 mb-32 reveal-on-scroll">
-        {serviceData.whyItMatters.map((item) => (
+        {serviceData.strategy.map((item) => (
           <div class="relative group">
             <h2 class="text-3xl font-serif text-brand-accent mb-8 uppercase tracking-wide flex items-center">
               <span class="w-12 h-px bg-brand-muted mr-6 group-hover:w-20 transition-all duration-700"></span>
