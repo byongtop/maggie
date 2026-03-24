@@ -1,128 +1,149 @@
 ---
 /**
- * FAQ.astro - 艺术重构版 (ROSE IS ROSE)
- * 风格：法式极简 / 艺术画报感 / 极致丝滑交互
+ * FAQ.astro - Homepage FAQ component - ROSE IS ROSE
+ * Four questions covering the real concerns of someone considering booking.
+ * Keeps the existing accordion interaction and visual style intact.
  */
+
 const faqs = [
   {
     num: "01",
-    question: "What is your photography style?",
-    answer: "Our style is rooted in warm minimalism and cinematic storytelling. We focus on authentic emotions and natural light, capturing moments that feel timeless rather than staged."
+    question: "How is this different from just taking my own photos?",
+    answer: "Most people's self-taken photos look like self-taken photos — and on a dating app, that reads as someone who either doesn't have anyone to take their photo, or couldn't be bothered. The difference isn't just technical quality. It's that a good session gives you photos where you look relaxed, lit properly, and like yourself on a genuinely good day. That combination is very hard to achieve pointing a phone at your own reflection."
   },
   {
     num: "02",
-    question: "How soon will we receive the photos?",
-    answer: "Quality takes time. You will receive a 'sneak peek' selection within 48 hours. The full professionally edited gallery is typically delivered within 4 to 6 weeks."
+    question: "How long does a session take, and when do I get the photos?",
+    answer: "Most sessions run two to three hours — long enough to shoot across a couple of locations and let you settle into it, not so long that it becomes exhausting. Edited images are delivered within two weeks. Every final image is individually edited, so you receive a finished set rather than a folder of hundreds of half-decent shots to sort through yourself."
   },
   {
     num: "03",
-    question: "Do you travel for destination shoots?",
-    answer: "Absolutely. We have a deep passion for exploring new landscapes. Whether it's a remote mountain range or an urban cityscape, we are available for travel worldwide."
+    question: "Do I need to book all the services together?",
+    answer: "No. Most people start with the photography session and add from there. Hair and makeup, wardrobe styling, profile writing and app strategy are all available as add-ons — or as standalone sessions if you've already got the photos sorted. There's no package you have to buy. You just book what's actually useful for where you're at."
   },
   {
     num: "04",
-    question: "What should we wear for the session?",
-    answer: "We recommend neutral tones and natural fabrics that complement our warm aesthetic. Once booked, we provide a detailed 'Style Guide' to help you prepare."
+    question: "I'm nervous about being photographed. Will that show?",
+    answer: "It shows in the first twenty minutes, and then it usually doesn't. The beginning of every session is warm-up — walking, talking, getting comfortable with the camera present. The good photos almost always happen after that, once you've stopped thinking about being photographed. Most people are surprised by how quickly that happens. And for what it's worth: nearly everyone says some version of 'I'm terrible in photos' before we start, and nearly everyone ends up with photos they actually like."
   }
 ];
 ---
 
-<section class="py-32 bg-[#F9F2E7] px-6 md:px-20 relative overflow-hidden text-[#3C3835]">
-  
-  <div class="absolute left-[-5%] top-40 text-[18vw] font-serif italic text-[#34041A]/[0.03] pointer-events-none leading-none select-none">
-    Essence
+<section class="py-32 bg-brand-bg px-6 md:px-20 relative overflow-hidden text-brand-primary">
+
+  {/* Faint background word */}
+  <div class="absolute left-[-5%] top-40 text-[18vw] font-serif italic text-brand-dark/[0.03] pointer-events-none leading-none select-none">
+    Questions
   </div>
 
   <div class="max-w-7xl mx-auto relative z-10">
-    
-    <div class="w-full h-[0.5px] bg-[#34041A]/10 mb-24"></div>
+
+    <div class="w-full h-px bg-brand-dark/10 mb-24"></div>
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 md:gap-24">
-      
+
+      {/* Left: sticky label */}
       <div class="lg:col-span-4">
         <div class="lg:sticky lg:top-40">
-          <p class="text-[10px] tracking-[0.8em] text-[#8C7355] uppercase mb-10 font-medium">
-            Perspective / 004
+          <p class="text-[10px] tracking-[0.8em] text-brand-accent uppercase mb-10 font-medium">
+            Before you book
           </p>
-          <h2 class="text-6xl md:text-8xl font-serif font-extralight text-[#34041A] leading-[0.8] tracking-tighter uppercase">
-            The <br />
-            <span class="italic opacity-30 ml-12 lowercase font-light">Journal</span> <br />
-            <span class="ml-4">Faq</span>
+          <h2 class="text-6xl md:text-8xl font-serif font-extralight text-brand-dark leading-[0.85] tracking-tighter uppercase">
+            Good<br />
+            <span class="italic opacity-30 ml-12 lowercase font-light">to</span><br />
+            <span class="ml-4">Know</span>
           </h2>
-          
-          <div class="mt-24 hidden lg:block">
-             <div class="w-px h-40 bg-gradient-to-b from-[#8C7355]/40 to-transparent"></div>
+
+          <div class="mt-16 hidden lg:block">
+            <div class="w-px h-32 bg-gradient-to-b from-brand-accent/30 to-transparent"></div>
           </div>
+
+          {/* Link to full FAQ on booking page */}
+          <a
+            href="/booking"
+            class="hidden lg:inline-flex items-center gap-3 mt-8 text-[10px] tracking-[0.3em] uppercase text-brand-muted/60 hover:text-brand-accent transition-colors duration-300"
+          >
+            <span>More questions</span>
+            <span>→</span>
+          </a>
         </div>
       </div>
 
+      {/* Right: accordion */}
       <div class="lg:col-span-8">
         {faqs.map((faq) => (
-          <div class="faq-item border-b border-[#34041A]/10 group transition-all duration-700">
-            <button 
-              class="faq-trigger w-full py-16 flex items-start justify-between text-left focus:outline-none transition-all duration-700 hover:pl-6"
+          <div class="faq-item border-b border-brand-dark/10 group transition-all duration-700">
+            <button
+              class="faq-trigger w-full py-14 flex items-start justify-between text-left focus:outline-none transition-all duration-500 hover:pl-4"
               aria-expanded="false"
             >
-              <div class="flex gap-10 md:gap-20 items-start">
-                <span class="font-mono text-[10px] text-[#8C7355]/40 mt-3 tracking-tighter">
+              <div class="flex gap-8 md:gap-16 items-start">
+                <span class="font-mono text-[10px] text-brand-accent/40 mt-2.5 tracking-tighter shrink-0">
                   ({faq.num})
                 </span>
-                <h3 class="faq-question text-2xl md:text-4xl font-serif font-light text-[#34041A]/90 tracking-tight leading-[1.2] transition-all duration-700">
+                <h3 class="faq-question text-xl md:text-3xl font-serif font-light text-brand-dark/85 tracking-tight leading-[1.25] transition-all duration-500">
                   {faq.question}
                 </h3>
               </div>
 
-              <div class="relative w-12 h-12 mt-1 shrink-0 flex items-center justify-center transition-transform duration-700 icon-box">
-                 <div class="absolute w-6 h-[0.5px] bg-[#34041A]/30"></div>
-                 <div class="absolute h-6 w-[0.5px] bg-[#34041A]/30 vertical-bar transition-transform duration-700"></div>
-                 <div class="absolute inset-0 border border-[#34041A]/5 rounded-full scale-50 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-700"></div>
+              {/* Plus / minus icon */}
+              <div class="relative w-10 h-10 mt-1 shrink-0 flex items-center justify-center transition-transform duration-700 icon-box ml-6">
+                <div class="absolute w-5 h-px bg-brand-dark/30"></div>
+                <div class="absolute h-5 w-px bg-brand-dark/30 vertical-bar transition-transform duration-500"></div>
+                <div class="absolute inset-0 border border-brand-dark/5 rounded-full scale-50 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-500"></div>
               </div>
             </button>
 
-            <div class="faq-content max-h-0 opacity-0 transition-all duration-1000 ease-[cubic-bezier(0.19,1,0.22,1)] overflow-hidden">
-              <div class="pb-20 pl-24 md:pl-44 max-w-3xl">
-                <p class="text-[#3C3835]/80 text-xl md:text-2xl leading-relaxed font-serif italic tracking-wide">
-                  "{faq.answer}"
+            <div class="faq-content max-h-0 opacity-0 overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]">
+              <div class="pb-16 pl-16 md:pl-32 max-w-2xl">
+                <p class="text-brand-primary/70 text-base md:text-lg leading-relaxed font-light">
+                  {faq.answer}
                 </p>
-                
-                <div class="mt-10 h-px w-16 bg-[#8C7355]/30"></div>
+                <div class="mt-8 h-px w-12 bg-brand-accent/25"></div>
               </div>
             </div>
+
           </div>
         ))}
+
+        {/* Mobile link to booking page */}
+        <div class="lg:hidden mt-12">
+          <a
+            href="/booking"
+            class="inline-flex items-center gap-3 text-[10px] tracking-[0.3em] uppercase text-brand-muted/60 hover:text-brand-accent transition-colors duration-300"
+          >
+            <span>More questions on the booking page</span>
+            <span>→</span>
+          </a>
+        </div>
+
       </div>
     </div>
   </div>
 </section>
 
 <style is:global>
-  /* 极致顺滑的展开逻辑 */
   .faq-item.is-active .faq-content {
-    max-height: 800px;
+    max-height: 600px;
     opacity: 1;
-    margin-top: 0;
   }
 
   .faq-item.is-active .faq-question {
     font-style: italic;
     color: #34041A;
-    transform: translateX(20px);
+    transform: translateX(12px);
   }
 
-  /* 加号变横线动画 */
   .faq-item.is-active .vertical-bar {
     transform: rotate(90deg) scaleY(0);
   }
 
-  /* 整体旋转 */
   .faq-item.is-active .icon-box {
-    transform: rotate(180deg);
+    transform: rotate(45deg);
   }
 
-  /* 针对中文字符的微调（如果之后加入中文） */
   .faq-question {
     -webkit-font-smoothing: antialiased;
-    letter-spacing: -0.01em;
   }
 </style>
 
@@ -132,17 +153,18 @@ const faqs = [
 
     items.forEach(item => {
       const trigger = item.querySelector('.faq-trigger');
-      
-      trigger?.addEventListener('click', () => {
-        const isCurrentlyActive = item.classList.contains('is-active');
 
-        // 排他模式：点击一个时关闭其他，保持页面整洁
+      trigger?.addEventListener('click', () => {
+        const isActive = item.classList.contains('is-active');
+
+        // Close all
         items.forEach(i => {
           i.classList.remove('is-active');
           i.querySelector('.faq-trigger')?.setAttribute('aria-expanded', 'false');
         });
 
-        if (!isCurrentlyActive) {
+        // Open clicked if it was closed
+        if (!isActive) {
           item.classList.add('is-active');
           trigger.setAttribute('aria-expanded', 'true');
         }
@@ -150,7 +172,6 @@ const faqs = [
     });
   }
 
-  // 确保在 Astro 的不同生命周期下都能运行
   setupFAQ();
   document.addEventListener('astro:page-load', setupFAQ);
 </script>
