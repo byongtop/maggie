@@ -1,195 +1,184 @@
 ---
 /**
- * Footer.astro - 勃艮第红画廊艺术版 (变量映射全量版)
- * 严格保留所有交互逻辑与装饰元素，严禁简化
+ * Footer.astro - ROSE IS ROSE
+ * Clean, high-end layout. All links real. No placeholder copy.
  */
+
 const currentYear = new Date().getFullYear();
 
 const navLinks = [
-  { id: "01", name: "Portfolio", href: "/portfolio" },
-  { id: "02", name: "Services", href: "/services" },
-  { id: "03", name: "The Studio", href: "/about" },
-  { id: "04", name: "Connect", href: "/contact" },
+  { id: "01", name: "Portfolio",  href: "/portfolio" },
+  { id: "02", name: "Services",   href: "/services" },
+  { id: "03", name: "About",      href: "/about" },
+  { id: "04", name: "Contact",    href: "/contact" },
 ];
 
-const socialLinks = ["Instagram", "Xiaohongshu", "Behance"];
+// ✅ Services sub-links — gives the footer more depth and SEO value
+const serviceLinks = [
+  { name: "Dating Profile Photography", href: "/services/sydney-dating-photography" },
+  { name: "Hair & Makeup",              href: "/services/dating-styling-sydney" },
+  { name: "Wardrobe Styling",           href: "/services/dating-wardrobe-stylist-sydney" },
+  { name: "Profile Writing",            href: "/services/dating-profile-writer-sydney" },
+  { name: "App Strategy",               href: "/services/dating-app-strategy-sydney" },
+];
+
+const socialLinks = [
+  { name: "Instagram",    href: "https://instagram.com/roseisrose" },
+  { name: "小红书",        href: "#" },
+  { name: "Facebook",     href: "https://facebook.com/roseisrose" },
+  { name: "Pinterest",    href: "https://pinterest.com/roseisrose" },
+];
 ---
 
-<footer
-  class="bg-brand-dark text-brand-on-dark pt-20 pb-12 px-8 md:px-20 relative overflow-hidden"
->
-  <div
-    class="absolute top-40 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none opacity-[0.02]"
-  >
-    <span class="text-[15vw] font-serif italic whitespace-nowrap"
-      >AUTHENTIC</span
-    >
+<footer class="bg-brand-dark text-brand-on-dark relative overflow-hidden">
+
+  {/* Decorative top line */}
+  <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-on-dark/10 to-transparent"></div>
+
+  {/* Faint background word */}
+  <div class="absolute bottom-0 right-0 pointer-events-none select-none opacity-[0.025] leading-none overflow-hidden">
+    <span class="text-[18vw] font-serif italic text-brand-on-dark whitespace-nowrap">
+      ROSE
+    </span>
   </div>
 
-  <div class="max-w-7xl mx-auto relative z-10">
-    <div
-      class="grid grid-cols-1 lg:grid-cols-2 gap-20 mb-32 border-b border-brand-on-dark/10 pb-24"
-    >
-      <div class="space-y-20">
-        <p
-          class="text-brand-on-dark text-xl md:text-xl font-serif lowercase italic leading-tight tracking-tight normal-case"
-        >
-          Ready to tell your <br />
-          <span class="text-brand-muted opacity-80">unspoken story</span>?
+  <div class="max-w-7xl mx-auto px-8 md:px-12 relative z-10">
+
+    {/* ── Top section ──────────────────────────────────── */}
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 pt-20 pb-20 border-b border-brand-on-dark/10">
+
+      {/* Brand + CTA — col 1–4 */}
+      <div class="lg:col-span-4 space-y-12">
+
+        {/* Logo */}
+        <div class="font-serif text-3xl tracking-[0.08em]">
+          ROSE<span class="italic font-light text-brand-muted">IS</span>ROSE
+        </div>
+
+        {/* One-line positioning statement — no AI copy */}
+        <p class="text-sm font-light text-brand-on-dark/50 leading-relaxed max-w-xs">
+          Dating profile photography, styling and strategy.<br />
+          Sydney.
         </p>
 
+        {/* Phone — real number */}
         <div class="group inline-block">
-          <p
-            class="text-[9px] tracking-[0.4em] text-brand-on-dark/30 uppercase mb-4"
-          >
-            Direct Inquiry
+          <p class="text-[9px] tracking-[0.4em] text-brand-on-dark/30 uppercase mb-3">
+            Call or text
           </p>
           <a
-            href="#"
-            class="text-2xl md:text-2xl font-light tracking-tighter hover:text-brand-muted transition-colors duration-500"
+            href="tel:+61491649117"
+            class="text-xl font-light tracking-tight hover:text-brand-muted transition-colors duration-500"
           >
             0491 649 117
           </a>
-          <div
-            class="h-[1px] w-full bg-brand-muted/30 mt-4 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700"
-          >
-          </div>
+          <div class="h-px w-full bg-brand-muted/30 mt-3 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700"></div>
         </div>
+
       </div>
 
-      <div class="grid grid-cols-2 gap-10">
-        <div class="space-y-8">
-          <p
-            class="text-[9px] tracking-[0.4em] text-brand-on-dark/30 uppercase"
-          >
-            Navigation
-          </p>
-          <ul class="space-y-4">
-            {
-              navLinks.map((link) => (
-                <li class="group">
-                  <a
-                    href={link.href}
-                    class="flex items-center space-x-3 text-xs tracking-[0.2em] uppercase hover:text-brand-muted transition-colors"
-                  >
-                    <span class="text-[8px] text-brand-muted font-mono">
-                      {link.id}
-                    </span>
-                    <span>{link.name}</span>
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-        <div class="space-y-8">
-          <p
-            class="text-[9px] tracking-[0.4em] text-brand-on-dark/30 uppercase"
-          >
-            Socials
-          </p>
-          <ul class="space-y-4">
-            {
-              socialLinks.map((name) => (
-                <li>
-                  <a
-                    href="#"
-                    class="text-xs tracking-[0.2em] uppercase hover:italic hover:text-brand-muted transition-all"
-                  >
-                    {name}
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
-        </div>
+      {/* Navigation — col 5–7 */}
+      <div class="lg:col-span-3 space-y-8">
+        <p class="text-[9px] tracking-[0.4em] text-brand-on-dark/30 uppercase">
+          Pages
+        </p>
+        <ul class="space-y-4">
+          {navLinks.map(link => (
+            <li>
+              <a
+                href={link.href}
+                class="flex items-center gap-3 text-xs tracking-[0.2em] uppercase text-brand-on-dark/70 hover:text-brand-on-dark transition-colors duration-300"
+              >
+                <span class="text-[8px] text-brand-muted font-mono opacity-60">{link.id}</span>
+                <span>{link.name}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
+
+      {/* Services sub-links — col 8–10 */}
+      <div class="lg:col-span-3 space-y-8">
+        <p class="text-[9px] tracking-[0.4em] text-brand-on-dark/30 uppercase">
+          Services
+        </p>
+        <ul class="space-y-4">
+          {serviceLinks.map(link => (
+            <li>
+              <a
+                href={link.href}
+                class="text-xs tracking-wide text-brand-on-dark/50 hover:text-brand-on-dark transition-colors duration-300 leading-relaxed"
+              >
+                {link.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Socials — col 11–12 */}
+      <div class="lg:col-span-2 space-y-8">
+        <p class="text-[9px] tracking-[0.4em] text-brand-on-dark/30 uppercase">
+          Follow
+        </p>
+        <ul class="space-y-4">
+          {socialLinks.map(link => (
+            <li>
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-xs tracking-[0.2em] uppercase text-brand-on-dark/50 hover:text-brand-on-dark hover:italic transition-all duration-300"
+              >
+                {link.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
     </div>
 
-    <div class="flex flex-col md:flex-row justify-between items-end gap-12">
-      <div class="space-y-6">
-        <div
-          class="logo-area font-serif text-2xl tracking-[0.1em] text-brand-on-dark"
-        >
-          ROSE<span class="italic font-light text-brand-muted">IS</span>ROSE
-        </div>
-        <div class="space-y-1">
-          <p
-            class="text-[9px] tracking-[0.4em] text-brand-on-dark/20 uppercase max-w-xs leading-loose italic font-bold"
-          >
-            NAATI Certified Interpreter & Translator
-          </p>
-          <p
-            class="text-[9px] tracking-[0.4em] text-brand-on-dark/20 uppercase max-w-xs leading-loose"
-          >
-            Based in Sydney / Available Worldwide <br />
-            © {currentYear} All Rights Reserved.
-          </p>
-        </div>
-      </div>
+    {/* ── Bottom bar ───────────────────────────────────── */}
+    <div class="flex flex-col md:flex-row justify-between items-center gap-8 py-10">
 
+      {/* Copyright */}
+      <p class="text-[9px] tracking-[0.35em] text-brand-on-dark/25 uppercase">
+        © {currentYear} ROSE IS ROSE · Sydney · All rights reserved
+      </p>
+
+      {/* Back to top */}
       <button
         id="back-to-top"
-        class="group flex flex-col items-center space-y-4 text-[9px] tracking-[0.5em] text-brand-on-dark/40 hover:text-brand-on-dark transition-all duration-500 outline-none"
+        class="group flex items-center gap-4 text-[9px] tracking-[0.4em] text-brand-on-dark/30 hover:text-brand-on-dark transition-all duration-500 outline-none"
+        aria-label="Back to top"
       >
-        <div
-          class="w-12 h-12 border border-brand-on-dark/10 rounded-full flex items-center justify-center relative overflow-hidden group-hover:border-brand-muted"
-        >
-          <span
-            class="relative z-10 transition-transform duration-500 group-hover:-translate-y-8"
-            >↑</span
-          >
-          <span
-            class="absolute translate-y-8 z-10 transition-transform duration-500 group-hover:translate-y-0 text-brand-muted font-bold"
-            >↑</span
-          >
+        <span class="uppercase">Back to top</span>
+        <div class="w-8 h-8 border border-brand-on-dark/10 rounded-full flex items-center justify-center group-hover:border-brand-muted transition-colors duration-500 overflow-hidden relative">
+          <span class="relative z-10 transition-transform duration-500 group-hover:-translate-y-8">↑</span>
+          <span class="absolute translate-y-8 z-10 transition-transform duration-500 group-hover:translate-y-0 text-brand-muted">↑</span>
         </div>
-        <span class="uppercase">Back to Top</span>
       </button>
+
     </div>
+
   </div>
 </footer>
 
 <style is:global>
-  /* 针对页脚的衬线字体增强：严格保留 Cormorant Garamond 逻辑 */
-  footer h2,
-  footer .logo-area,
-  footer span.font-serif {
+  footer .font-serif,
+  footer .logo-area {
     font-family: "Cormorant Garamond", serif;
-    text-transform: none;
-  }
-
-  /* 顶部单像素装饰虚线：背景色使用 brand-on-dark 变量动态计算 */
-  footer::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 0;
-    width: 1px;
-    height: 120px;
-    background: linear-gradient(
-      to bottom,
-      var(--color-brand-on-dark),
-      transparent
-    );
-    opacity: 0.2;
   }
 </style>
 
 <script>
-  /**
-   * 确保在 Astro 的 View Transitions 环境下脚本依然有效
-   */
   function setupFooter() {
     const btt = document.getElementById("back-to-top");
     if (btt) {
-      btt.onclick = () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      };
+      btt.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }
-
-  // 初始化并监听页面加载
   setupFooter();
   document.addEventListener("astro:page-load", setupFooter);
 </script>

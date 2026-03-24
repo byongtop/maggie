@@ -1,0 +1,346 @@
+---
+// src/pages/booking.astro
+// How to Book - ROSE IS ROSE
+
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+const breadcrumbs = [
+  { name: "Home",    item: "/" },
+  { name: "Booking", item: "/booking" }
+];
+
+const page = {
+
+  meta: {
+    // ✅ PRIMARY keyword in title
+    title: "How to Book | Dating Profile Photography Sydney | ROSE IS ROSE",
+    description: "How to book a dating profile photography session in Sydney with Maggie. Free consultation first — no commitment, no pressure. Weekday sessions available.",
+    ogImage: "/images/booking-roseisrose.jpg"
+  },
+
+  hero: {
+    badge: "Booking · Sydney · Weekdays",
+    h1Full: "Book a Dating Profile Photography Session Sydney",
+    h1Line1: "HOW TO",
+    h1Line2: "BOOK.",
+    desc: "No online calendar, no instant checkout. Just a conversation first — to make sure the session is right for you before anything is confirmed."
+  },
+
+  // Four steps — simple, honest, no upselling language
+  steps: [
+    {
+      no: "01",
+      title: "Send a message.",
+      desc: "Fill out the contact form or call 0491 649 117. Tell Maggie which service you're interested in and roughly when you're free. No need to have everything figured out — that's what the next step is for.",
+      note: null
+    },
+    {
+      no: "02",
+      title: "Free consultation.",
+      desc: "A quick call or Zoom — usually fifteen to thirty minutes. Maggie will ask what you're looking for, talk through the options, and answer any questions. No pitch, no pressure. If it's not the right fit, she'll tell you.",
+      note: "In-person consultations are also available if you'd prefer to meet first."
+    },
+    {
+      no: "03",
+      title: "Confirm the details.",
+      desc: "Once you're happy to go ahead, you'll confirm the date, location and any add-ons (styling, wardrobe, bio writing). Sessions run on weekdays during daylight hours — timing is planned around golden hour where possible.",
+      note: null
+    },
+    {
+      no: "04",
+      title: "Shoot day.",
+      desc: "Show up. Maggie handles the rest — locations, light, keeping things moving without it feeling like a photoshoot. Most sessions run two to three hours. Edited images are delivered within two weeks.",
+      note: null
+    }
+  ],
+
+  // What to expect section — practical, removes anxiety
+  expect: {
+    title: "WHAT TO EXPECT",
+    items: [
+      {
+        heading: "Before the session",
+        body: "After the consultation, Maggie will send through a short prep guide — what to bring, what to wear, how to think about the locations. There's also an optional wardrobe call if you want to go through your outfit options before shoot day."
+      },
+      {
+        heading: "On the day",
+        body: "Sessions start slow. The first twenty minutes are warm-up — walking, talking, getting comfortable. The actual photos happen once you've stopped thinking about the camera. Most people are surprised by how relaxed it ends up feeling."
+      },
+      {
+        heading: "After the session",
+        body: "Edited images delivered within two weeks. Every final image is individually edited — you won't receive a folder of hundreds of half-finished shots. Maggie selects and edits the strongest images from the session."
+      }
+    ]
+  },
+
+  // FAQ — specific to the booking process
+  faqTitle: "BOOKING QUESTIONS",
+  faq: [
+    {
+      question: "Do I need to know exactly what I want before I get in touch?",
+      answer: "No — that's what the consultation is for. Some people arrive knowing exactly which services they want. Most people have a rough idea and work out the details in the call. Either is fine."
+    },
+    {
+      question: "How far in advance do I need to book?",
+      answer: "Weekday availability varies. A week or two notice is usually enough, though popular time slots (late afternoon, golden hour) book faster. If you have a specific date in mind, it's worth getting in touch sooner rather than later."
+    },
+    {
+      question: "What if the weather is bad on shoot day?",
+      answer: "Sydney's weather is generally reliable for outdoor photography, but it happens. If the light is genuinely unusable on the day, sessions can be rescheduled without any issue. Maggie will make the call based on conditions — overcast days often photograph beautifully, so it's not always a problem."
+    },
+    {
+      question: "Can I add hair, makeup or wardrobe styling to my session?",
+      answer: "Yes — all of these can be added when you confirm your booking. If you're not sure whether you need them, that's a good thing to discuss in the consultation."
+    },
+    {
+      question: "I just want the bio written, not the photography. Is that possible?",
+      answer: "Yes. The profile writing and app strategy services can be booked as standalone sessions. Get in touch and Maggie will talk through what makes sense for your situation."
+    }
+  ],
+
+  // Services summary — internal links to all five service pages
+  services: [
+    { name: "Dating Profile Photography", href: "/services/sydney-dating-photography",  note: "The foundation." },
+    { name: "Hair & Makeup",              href: "/services/dating-styling-sydney",       note: "Add-on or standalone." },
+    { name: "Wardrobe Styling",           href: "/services/dating-wardrobe-stylist-sydney",      note: "Virtual or in-person." },
+    { name: "Profile Writing",            href: "/services/dating-profile-writer-sydney",   note: "Hinge, Tinder, Bumble." },
+    { name: "App Strategy",               href: "/services/dating-app-strategy-sydney",  note: "When the profile is sorted but results aren't." },
+  ],
+
+  cta: {
+    title: "READY WHEN YOU ARE.",
+    desc: "No commitment until after the consultation. Get in touch and Maggie will get back to you within 24 hours.",
+    buttonText: "Get in touch",
+    buttonHref: "/contact",
+    phone: "0491 649 117",
+    phoneHref: "tel:+61491649117"
+  }
+
+};
+---
+
+<Layout
+  title={page.meta.title}
+  description={page.meta.description}
+  ogImage={page.meta.ogImage}
+  pageType="page"
+  breadcrumbs={breadcrumbs}
+>
+  <Header />
+
+  <main class="bg-brand-bg">
+
+    {/* ── Hero ─────────────────────────────────────────── */}
+    <section class="relative min-h-[50vh] flex items-center pt-32 pb-20 bg-brand-dark text-brand-on-dark overflow-hidden">
+      <div class="absolute inset-0 opacity-[0.03] bg-[url('/assets/images/grid-pattern.svg')] bg-repeat"></div>
+
+      <div class="max-w-4xl mx-auto px-6 md:px-12 relative z-10 reveal-on-scroll">
+        <div class="inline-flex items-center gap-3 px-6 py-3 bg-brand-on-dark/5 backdrop-blur-xl rounded-full border border-brand-on-dark/10 mb-8">
+          <span class="w-2 h-2 rounded-full bg-brand-accent animate-pulse"></span>
+          <span class="text-xs tracking-[0.3em] text-brand-on-dark/70 font-light uppercase">{page.hero.badge}</span>
+        </div>
+
+        <h1 class="text-5xl md:text-7xl font-serif text-brand-on-dark mb-8 leading-[0.95] tracking-tight uppercase">
+          <span class="sr-only">{page.hero.h1Full}</span>
+          <span aria-hidden="true">
+            {page.hero.h1Line1}<br />
+            <span class="italic font-light text-brand-muted">{page.hero.h1Line2}</span>
+          </span>
+        </h1>
+
+        <p class="text-lg md:text-xl text-brand-on-dark/60 max-w-xl font-light leading-relaxed">
+          {page.hero.desc}
+        </p>
+      </div>
+    </section>
+
+{/* ── Steps: Horizontal Timeline (Desktop) ───────────────────── */}
+<section class="max-w-7xl mx-auto px-6 md:px-12 py-32 reveal-on-scroll">
+  
+  {/* Section label */}
+  <p class="text-[10px] tracking-[0.5em] uppercase text-[#8C7355] font-bold mb-20 text-center">
+    The Process
+  </p>
+
+  <div class="relative">
+    {/* 1. 穿过圆圈中心的横线 - 仅在桌面端显示 */}
+    {/* top-10 是因为圆圈高度为 20 (80px)，一半是 40px，对应 h-20 的中心 */}
+    <div class="hidden md:block absolute top-10 left-[10%] right-[10%] h-px bg-[#34041A]/10 z-0"></div>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-16 md:gap-12 relative z-10">
+      {page.steps.map((step, index) => (
+        <div class="flex flex-col items-start md:items-center text-left md:text-center group">
+
+          {/* 2. 圆圈区域 - 保持高度固定以固定线条位置 */}
+          <div class="relative h-20 mb-10 flex items-center justify-center w-full">
+            <div class="w-20 h-20 rounded-full border border-[#34041A]/10 bg-[#F9F2E7] flex items-center justify-center group-hover:border-[#34041A] group-hover:scale-110 transition-all duration-700 ease-out">
+              <span class="text-2xl font-serif text-[#34041A]/30 group-hover:text-[#34041A] transition-colors duration-500 leading-none">
+                {step.no}
+              </span>
+            </div>
+            
+            {/* 桌面端装饰性箭头 */}
+            {index < page.steps.length - 1 && (
+              <span class="hidden lg:block absolute -right-[15%] top-1/2 -translate-y-1/2 text-[#34041A]/10 text-xl font-light">
+                →
+              </span>
+            )}
+          </div>
+
+          {/* 3. 内容区域 - 增加行间距和最大宽度控制 */}
+          <div class="space-y-5 md:px-4 flex flex-col items-start md:items-center">
+            <h2 class="text-xl font-serif text-[#34041A] uppercase tracking-wider leading-[1.2]">
+              {step.title}
+            </h2>
+            
+            <p class="text-sm md:text-base font-light leading-relaxed text-[#34041A]/70 max-w-[280px]">
+              {step.desc}
+            </p>
+
+            {step.note && (
+              <p class="text-[11px] font-light italic text-[#8C7355] leading-relaxed pt-2 border-t border-[#8C7355]/20 w-fit">
+                {step.note}
+              </p>
+            )}
+          </div>
+
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+    {/* ── What to expect ───────────────────────────────── */}
+    <section class="bg-brand-dark text-brand-on-dark py-24 px-6 md:px-12">
+      <div class="max-w-4xl mx-auto">
+
+        <h2 class="text-3xl md:text-4xl font-serif uppercase tracking-wide mb-16 reveal-on-scroll">
+          {page.expect.title}
+        </h2>
+
+        <div class="grid md:grid-cols-3 gap-12">
+          {page.expect.items.map(item => (
+            <div class="reveal-on-scroll space-y-4">
+              <h3 class="text-sm tracking-[0.25em] uppercase text-brand-accent font-light">
+                {item.heading}
+              </h3>
+              <p class="text-sm font-light leading-relaxed text-brand-on-dark/60">
+                {item.body}
+              </p>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+    {/* ── Services summary ─────────────────────────────── */}
+    <section class="max-w-4xl mx-auto px-6 md:px-12 py-24 reveal-on-scroll">
+
+      <p class="text-xs tracking-[0.35em] uppercase text-brand-muted/60 mb-10">
+        Available services
+      </p>
+
+      <div class="space-y-0">
+        {page.services.map((service, index) => (
+          <a
+            href={service.href}
+            class={`group flex items-center justify-between py-6 border-b border-brand-muted/10 hover:border-brand-accent/30 transition-colors duration-500 ${index === 0 ? 'border-t border-brand-muted/10' : ''}`}
+          >
+            <div class="flex items-center gap-6">
+              <span class="text-xs font-mono text-brand-muted/40">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <span class="text-base font-light tracking-wide text-brand-primary group-hover:text-brand-accent transition-colors duration-300">
+                {service.name}
+              </span>
+            </div>
+            <div class="flex items-center gap-6">
+              <span class="text-xs text-brand-primary/40 font-light hidden md:block">
+                {service.note}
+              </span>
+              <span class="text-brand-accent/40 group-hover:text-brand-accent transition-colors duration-300 group-hover:translate-x-1 inline-block transition-transform">
+                →
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+
+    </section>
+
+    {/* ── FAQ ──────────────────────────────────────────── */}
+    <section class="max-w-4xl mx-auto px-6 md:px-12 pb-24">
+
+      <h2 class="text-3xl md:text-4xl font-serif text-brand-accent uppercase tracking-wide mb-16 reveal-on-scroll">
+        {page.faqTitle}
+      </h2>
+
+      <div class="space-y-0 max-w-2xl">
+        {page.faq.map((item, index) => (
+          <div class="border-b border-brand-muted/10 reveal-on-scroll">
+            <details class="group py-6">
+              <summary class="flex justify-between items-center cursor-pointer list-none gap-8">
+                <h3 class="text-base font-serif text-brand-accent">
+                  <span class="inline-block w-8 text-xs font-mono text-brand-muted/50">{index + 1}.</span>
+                  {item.question}
+                </h3>
+                <span class="text-brand-muted/40 group-open:rotate-180 transition-transform duration-300 flex-shrink-0">↓</span>
+              </summary>
+              <p class="mt-4 text-sm font-light text-brand-primary/65 leading-relaxed pl-8 pb-2">
+                {item.answer}
+              </p>
+            </details>
+          </div>
+        ))}
+      </div>
+
+    </section>
+
+    {/* ── CTA ──────────────────────────────────────────── */}
+    <section class="bg-brand-dark text-brand-on-dark py-24 px-6 md:px-12 text-center reveal-on-scroll">
+      <div class="max-w-xl mx-auto space-y-8">
+
+        <h2 class="text-4xl md:text-5xl font-serif uppercase tracking-tight">
+          {page.cta.title}
+        </h2>
+
+        <p class="text-base font-light text-brand-on-dark/55 leading-relaxed">
+          {page.cta.desc}
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-6 pt-4">
+          <a href={page.cta.buttonHref} class="btn-brand">
+            {page.cta.buttonText}
+          </a>
+          <a
+            href={page.cta.phoneHref}
+            class="text-sm tracking-[0.2em] text-brand-on-dark/50 hover:text-brand-on-dark transition-colors"
+          >
+            or call {page.cta.phone}
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>
+
+<script>
+  function initReveal() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('active');
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+  }
+  document.addEventListener('astro:page-load', initReveal);
+  initReveal();
+</script>
