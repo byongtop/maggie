@@ -11,10 +11,10 @@ const pathname = Astro.url.pathname;
 const isTransparentPage = pathname === "/" || pathname.startsWith("/services/");
 
 const navLinks = [
-  { name: "PORTFOLIO", href: "/portfolio" },
+  { name: "PORTFOLIO", href: "/portfolio/" },
   {
     name: "SERVICES",
-    href: "/services",
+    href: "/services/",
     children: [
       {
         name: "Sydney Dating Profile Photography",
@@ -37,7 +37,7 @@ const navLinks = [
       },
     ],
   },
-  { name: "ABOUT", href: "/about" },
+  { name: "ABOUT", href: "/about/" },
   {
     name: "BLOG",
     href: "/blog",
@@ -50,7 +50,7 @@ const navLinks = [
       { name: "Dating Insights", href: "/blog/category/dating-insights/" },
     ],
   },
-  { name: "CONTACT", href: "/contact" },
+  { name: "CONTACT", href: "/contact/" },
 ];
 
 // 初始状态类名
