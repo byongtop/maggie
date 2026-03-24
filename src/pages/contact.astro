@@ -185,22 +185,26 @@ const page = {
 
         {/* Right: form */}
         <div class="md:col-span-3 reveal-on-scroll">
-          <form class="space-y-10" netlify>
+          <form name="contact-form" class="space-y-10" data-netlify-honeypot="bot-field" netlify>
 
             <div class="grid md:grid-cols-2 gap-10">
               <input
                 type="text"
-                placeholder={page.form.fields.name}
+                name="name" placeholder={page.form.fields.name}
                 required
                 class="w-full bg-transparent border-b border-brand-accent/20 py-4 text-brand-primary placeholder:text-brand-primary/30 focus:outline-none focus:border-brand-accent transition-all duration-500 font-light"
               />
               <input
                 type="email"
-                placeholder={page.form.fields.email}
+                name="email" placeholder={page.form.fields.email}
                 required
                 class="w-full bg-transparent border-b border-brand-accent/20 py-4 text-brand-primary placeholder:text-brand-primary/30 focus:outline-none focus:border-brand-accent transition-all duration-500 font-light"
               />
             </div>
+
+            <p class="hidden">
+              <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+            </p>
 
             {/* ✅ Updated service dropdown — all five real services */}
             <div class="relative">
