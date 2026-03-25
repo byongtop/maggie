@@ -4,15 +4,15 @@
 export async function getStaticPaths() {
   // ✅ 将映射定义在函数内部
   const categoryToSlug: Record<string, string> = {
-    'Photography Tips & Guides': 'photography-tips-guides',
-    'Success Stories': 'success-stories',
-    'Dating Insights': 'dating-insights',
-    'Behind the Scenes': 'behind-the-scenes'
+    "Photography Tips & Guides": "photography-tips-guides",
+    // 'Success Stories': 'success-stories',
+    // 'Behind the Scenes': 'behind-the-scenes',
+    "Dating Insights": "dating-insights",
   };
 
   // 只返回实际存在的 slug
-  return Object.values(categoryToSlug).map(slug => ({
-    params: { category: slug }
+  return Object.values(categoryToSlug).map((slug) => ({
+    params: { category: slug },
   }));
 }
 
@@ -21,7 +21,7 @@ const { category } = Astro.params;
 const url = `/blog/category/${category}/1`;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <meta http-equiv="refresh" content={`0; url=${url}`} />

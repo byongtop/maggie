@@ -1,59 +1,71 @@
 ---
 // src/pages/blog/category/[category]/[page].astro
-import '../../../../styles/global.css';
+import "../../../../styles/global.css";
 
-import { getCollection } from 'astro:content';
+import { getCollection } from "astro:content";
 import Layout from "../../../../layouts/Layout.astro";
-import Header from '../../../../components/Header.astro';
-import Footer from '../../../../components/Footer.astro';
-import { Icon } from 'astro-icon/components';
+import Header from "../../../../components/Header.astro";
+import Footer from "../../../../components/Footer.astro";
+import { Icon } from "astro-icon/components";
 
 // 分类显示名称映射
 const categoryDisplayNames: Record<string, string> = {
-  'Photography Tips & Guides': 'Photography Tips & Guides',
-  'Success Stories': 'Success Stories',
-  'Dating Insights': 'Dating Insights',
-  'Behind the Scenes': 'Behind the Scenes'
+  "Photography Tips & Guides": "Photography Tips & Guides",
+  "Success Stories": "Success Stories",
+  "Dating Insights": "Dating Insights",
+  "Behind the Scenes": "Behind the Scenes",
 };
 
 // 分类描述（用于SEO）
 const categoryDescriptions: Record<string, string> = {
-  'Photography Tips & Guides': 'Expert advice on lighting, posing, and getting the perfect shot for your dating profile.',
-  'Success Stories': 'Real stories from real clients who found love (or at least great dates) after their session.',
-  'Dating Insights': 'Thoughts on modern dating in Sydney—the apps, the spots, the whole scene.',
-  'Behind the Scenes': 'A peek behind the lens—what happens on shoot day, how we work, and why we love it.'
+  "Photography Tips & Guides":
+    "Expert advice on lighting, posing, and getting the perfect shot for your dating profile.",
+  "Success Stories":
+    "Real stories from real clients who found love (or at least great dates) after their session.",
+  "Dating Insights":
+    "Thoughts on modern dating in Sydney—the apps, the spots, the whole scene.",
+  "Behind the Scenes":
+    "A peek behind the lens—what happens on shoot day, how we work, and why we love it.",
 };
 
 // 分类长描述（用于更详细的SEO）
 const categoryLongDescriptions: Record<string, string> = {
-  'Photography Tips & Guides': 'Discover expert photography tips and guides for creating stunning dating profiles. Learn about lighting techniques, posing tips, wardrobe choices, and how to capture authentic moments that showcase your personality.',
-  'Success Stories': 'Read inspiring success stories from clients who transformed their dating lives with professional portraits. Real experiences, real results, and the journey to finding meaningful connections in Sydney.',
-  'Dating Insights': 'Explore our dating insights and analysis of modern romance in Sydney. From dating app strategies to first date tips, we share valuable observations about the contemporary dating landscape.',
-  'Behind the Scenes': 'Go behind the scenes at ROSE IS ROSE. See our creative process, meet the team, and discover what goes into creating the perfect portrait. Studio life, shoot days, and more.'
+  "Photography Tips & Guides":
+    "Discover expert photography tips and guides for creating stunning dating profiles. Learn about lighting techniques, posing tips, wardrobe choices, and how to capture authentic moments that showcase your personality.",
+  "Success Stories":
+    "Read inspiring success stories from clients who transformed their dating lives with professional portraits. Real experiences, real results, and the journey to finding meaningful connections in Sydney.",
+  "Dating Insights":
+    "Explore our dating insights and analysis of modern romance in Sydney. From dating app strategies to first date tips, we share valuable observations about the contemporary dating landscape.",
+  "Behind the Scenes":
+    "Go behind the scenes at ROSE IS ROSE. See our creative process, meet the team, and discover what goes into creating the perfect portrait. Studio life, shoot days, and more.",
 };
 
 // 分类颜色映射
 const categoryColors: Record<string, string> = {
-  'Photography Tips & Guides': 'border-[#8C7355]/30 text-[#8C7355]',
-  'Success Stories': 'border-[#34041A]/30 text-[#34041A]',
-  'Dating Insights': 'border-[#34041A]/30 text-[#34041A]',
-  'Behind the Scenes': 'border-[#8C7355]/30 text-[#8C7355]'
+  "Photography Tips & Guides": "border-[#8C7355]/30 text-[#8C7355]",
+  "Success Stories": "border-[#34041A]/30 text-[#34041A]",
+  "Dating Insights": "border-[#34041A]/30 text-[#34041A]",
+  "Behind the Scenes": "border-[#8C7355]/30 text-[#8C7355]",
 };
 
 // 分类OG图片映射
 const categoryOgImages: Record<string, string> = {
-  'Photography Tips & Guides': '/images/category-photography-tips.jpg',
-  'Success Stories': '/images/category-success-stories.jpg',
-  'Dating Insights': '/images/category-dating-insights.jpg',
-  'Behind the Scenes': '/images/category-behind-scenes.jpg'
+  "Photography Tips & Guides": "/images/category-photography-tips.jpg",
+  "Success Stories": "/images/category-success-stories.jpg",
+  "Dating Insights": "/images/category-dating-insights.jpg",
+  "Behind the Scenes": "/images/category-behind-scenes.jpg",
 };
 
 // 分类关键词映射
 const categoryKeywords: Record<string, string> = {
-  'Photography Tips & Guides': 'photography tips, portrait photography, dating profile photos, photography guides, lighting tips, posing advice',
-  'Success Stories': 'success stories, client transformations, dating success, real stories, client experiences, photography results',
-  'Dating Insights': 'dating insights, modern dating, Sydney dating, dating advice, relationship tips, dating culture',
-  'Behind the Scenes': 'behind the scenes, photography process, studio life, creative process, photoshoot preparation'
+  "Photography Tips & Guides":
+    "photography tips, portrait photography, dating profile photos, photography guides, lighting tips, posing advice",
+  "Success Stories":
+    "success stories, client transformations, dating success, real stories, client experiences, photography results",
+  "Dating Insights":
+    "dating insights, modern dating, Sydney dating, dating advice, relationship tips, dating culture",
+  "Behind the Scenes":
+    "behind the scenes, photography process, studio life, creative process, photoshoot preparation",
 };
 
 export async function getStaticPaths() {
@@ -61,52 +73,59 @@ export async function getStaticPaths() {
 
   // ✅ 将 slug 映射定义在函数内部
   const categorySlugs: Record<string, string> = {
-    'Photography Tips & Guides': 'photography-tips-guides',
-    'Success Stories': 'success-stories',
-    'Dating Insights': 'dating-insights',
-    'Behind the Scenes': 'behind-the-scenes'
+    "Photography Tips & Guides": "photography-tips-guides",
+    // 'Success Stories': 'success-stories',
+    // 'Behind the Scenes': 'behind-the-scenes'，
+    "Dating Insights": "dating-insights",
   };
 
   // 反向映射，用于从 slug 获取原始分类名
   const slugsToCategory: Record<string, string> = {
-    'photography-tips-guides': 'Photography Tips & Guides',
-    'success-stories': 'Success Stories',
-    'dating-insights': 'Dating Insights',
-    'behind-the-scenes': 'Behind the Scenes'
+    "photography-tips-guides": "Photography Tips & Guides",
+    // 'success-stories': 'Success Stories',
+    // 'behind-the-scenes': 'Behind the Scenes',
+    "dating-insights": "Dating Insights",
   };
-  
-  const allPosts = await getCollection('blog');
-  
+
+  const allPosts = await getCollection("blog");
+
   const paths = [];
-  
+
   // 遍历所有分类
   for (const [categoryName, slug] of Object.entries(categorySlugs)) {
     // 过滤出该分类的文章
     const categoryPosts = allPosts
-      .filter(post => post.data.category === categoryName)
-      .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime());
-    
+      .filter((post) => post.data.category === categoryName)
+      .sort(
+        (a, b) =>
+          new Date(b.data.pubDate).getTime() -
+          new Date(a.data.pubDate).getTime()
+      );
+
     // 计算总页数
     const totalPages = Math.ceil(categoryPosts.length / POSTS_PER_PAGE);
-    
+
     // 为每一页生成路径
     for (let i = 1; i <= totalPages; i++) {
       paths.push({
-        params: { 
+        params: {
           category: slug,
-          page: i.toString() 
+          page: i.toString(),
         },
         props: {
           category: categoryName,
           page: i,
           totalPages,
-          posts: categoryPosts.slice((i - 1) * POSTS_PER_PAGE, i * POSTS_PER_PAGE),
-          allCategoryPosts: categoryPosts // 用于SEO
-        }
+          posts: categoryPosts.slice(
+            (i - 1) * POSTS_PER_PAGE,
+            i * POSTS_PER_PAGE
+          ),
+          allCategoryPosts: categoryPosts, // 用于SEO
+        },
       });
     }
   }
-  
+
   return paths;
 }
 
@@ -118,45 +137,65 @@ interface Props {
   allCategoryPosts?: any[]; // 用于SEO
 }
 
-const { category, page, totalPages, posts, allCategoryPosts = posts } = Astro.props;
+const {
+  category,
+  page,
+  totalPages,
+  posts,
+  allCategoryPosts = posts,
+} = Astro.props;
 
 // ==========================================
 // SEO 数据结构
 // ==========================================
 
 // 构建规范URL
-const canonicalURL = `https://roseisrose.com.au/blog/category/${category.toLowerCase().replace(/\s+/g, '-')}${page > 1 ? `/${page}` : ''}`;
+const canonicalURL = `https://roseisrose.com.au/blog/category/${category.toLowerCase().replace(/\s+/g, "-")}${page > 1 ? `/${page}` : ""}`;
 
 // 构建分页URL（用于rel="prev"和rel="next"）
-const prevPageURL = page > 1 
-  ? `https://roseisrose.com.au/blog/category/${category.toLowerCase().replace(/\s+/g, '-')}${page === 2 ? '' : `/${page - 1}`}`
-  : null;
-  
-const nextPageURL = page < totalPages
-  ? `https://roseisrose.com.au/blog/category/${category.toLowerCase().replace(/\s+/g, '-')}/${page + 1}`
-  : null;
+const prevPageURL =
+  page > 1
+    ? `https://roseisrose.com.au/blog/category/${category.toLowerCase().replace(/\s+/g, "-")}${page === 2 ? "" : `/${page - 1}`}`
+    : null;
+
+const nextPageURL =
+  page < totalPages
+    ? `https://roseisrose.com.au/blog/category/${category.toLowerCase().replace(/\s+/g, "-")}/${page + 1}`
+    : null;
 
 // 面包屑导航
 const breadcrumbs = [
   { name: "Home", item: "/" },
   { name: "Blog", item: "/blog" },
   { name: "Categories", item: "/blog/category" },
-  { name: categoryDisplayNames[category] || category, item: `/blog/category/${category.toLowerCase().replace(/\s+/g, '-')}` },
-  ...(page > 1 ? [{ name: `Page ${page}`, item: `/blog/category/${category.toLowerCase().replace(/\s+/g, '-')}/${page}` }] : [])
+  {
+    name: categoryDisplayNames[category] || category,
+    item: `/blog/category/${category.toLowerCase().replace(/\s+/g, "-")}`,
+  },
+  ...(page > 1
+    ? [
+        {
+          name: `Page ${page}`,
+          item: `/blog/category/${category.toLowerCase().replace(/\s+/g, "-")}/${page}`,
+        },
+      ]
+    : []),
 ];
 
 // 构建文章列表数据用于 Schema
 const postItems = posts.map((post, index) => ({
   "@type": "ListItem",
-  "position": ((page - 1) * 9) + index + 1,
-  "item": {
+  position: (page - 1) * 9 + index + 1,
+  item: {
     "@type": "BlogPosting",
-    "headline": post.data.title,
-    "description": post.data.description,
-    "url": `https://roseisrose.com.au/blog/${post.slug}`,
-    "datePublished": post.data.pubDate.toISOString(),
-    "image": post.data.image ? `https://roseisrose.com.au${post.data.image}` : undefined
-  }
+    headline: post.data.title,
+    description: post.data.description,
+    url: `https://roseisrose.com.au/blog/${post.slug}`,
+    datePublished: post.data.pubDate.toISOString(),
+    image: post.data.image
+      ? `https://roseisrose.com.au${post.data.image}`
+      : undefined,
+  },
 }));
 
 // 自定义 Schema
@@ -165,58 +204,63 @@ const customSchemas = [
   {
     "@type": "CollectionPage",
     "@id": `${canonicalURL}#collection`,
-    "name": page === 1 
-      ? `${categoryDisplayNames[category] || category} | ROSE IS ROSE Blog`
-      : `${categoryDisplayNames[category] || category} - Page ${page} | ROSE IS ROSE Blog`,
-    "description": categoryLongDescriptions[category] || categoryDescriptions[category],
-    "url": canonicalURL,
-    "mainEntity": {
+    name:
+      page === 1
+        ? `${categoryDisplayNames[category] || category} | ROSE IS ROSE Blog`
+        : `${categoryDisplayNames[category] || category} - Page ${page} | ROSE IS ROSE Blog`,
+    description:
+      categoryLongDescriptions[category] || categoryDescriptions[category],
+    url: canonicalURL,
+    mainEntity: {
       "@type": "ItemList",
-      "itemListElement": postItems,
-      "numberOfItems": posts.length
-    }
+      itemListElement: postItems,
+      numberOfItems: posts.length,
+    },
   },
   // 分页信息
   {
     "@type": "ItemList",
-    "itemListElement": postItems,
-    "numberOfItems": posts.length
+    itemListElement: postItems,
+    numberOfItems: posts.length,
   },
   // 分类信息
   {
     "@type": "DefinedTermSet",
-    "name": categoryDisplayNames[category] || category,
-    "description": categoryLongDescriptions[category] || categoryDescriptions[category],
-    "hasDefinedTerm": posts.slice(0, 5).map(post => ({
+    name: categoryDisplayNames[category] || category,
+    description:
+      categoryLongDescriptions[category] || categoryDescriptions[category],
+    hasDefinedTerm: posts.slice(0, 5).map((post) => ({
       "@type": "DefinedTerm",
-      "name": post.data.title,
-      "description": post.data.description,
-      "url": `https://roseisrose.com.au/blog/${post.slug}`
-    }))
-  }
+      name: post.data.title,
+      description: post.data.description,
+      url: `https://roseisrose.com.au/blog/${post.slug}`,
+    })),
+  },
 ];
 
 // 添加面包屑导航 Schema
 if (breadcrumbs.length > 0) {
   customSchemas.push({
     "@type": "BreadcrumbList",
-    "itemListElement": breadcrumbs.map((crumb, index) => ({
+    itemListElement: breadcrumbs.map((crumb, index) => ({
       "@type": "ListItem",
-      "position": index + 1,
-      "name": crumb.name,
-      "item": `https://roseisrose.com.au${crumb.item}`
-    }))
+      position: index + 1,
+      name: crumb.name,
+      item: `https://roseisrose.com.au${crumb.item}`,
+    })),
   });
 }
 
 // 构建页面标题和描述
-const pageTitle = page === 1
-  ? `${categoryDisplayNames[category] || category} | ROSE IS ROSE Blog`
-  : `${categoryDisplayNames[category] || category} - Page ${page} of ${totalPages} | ROSE IS ROSE Blog`;
+const pageTitle =
+  page === 1
+    ? `${categoryDisplayNames[category] || category} | ROSE IS ROSE Blog`
+    : `${categoryDisplayNames[category] || category} - Page ${page} of ${totalPages} | ROSE IS ROSE Blog`;
 
-const pageDescription = page === 1
-  ? categoryLongDescriptions[category] || categoryDescriptions[category]
-  : `${categoryLongDescriptions[category] || categoryDescriptions[category]} Page ${page} of ${totalPages}. Browse our collection of articles and stories.`;
+const pageDescription =
+  page === 1
+    ? categoryLongDescriptions[category] || categoryDescriptions[category]
+    : `${categoryLongDescriptions[category] || categoryDescriptions[category]} Page ${page} of ${totalPages}. Browse our collection of articles and stories.`;
 ---
 
 <Layout
@@ -230,226 +274,283 @@ const pageDescription = page === 1
   <Header />
 
   {/* Hero Section */}
-  <section class="relative pt-40 pb-20 md:pt-48 md:pb-24 bg-[#34041A] text-[#F9F2E7] overflow-hidden">
+  <section
+    class="relative pt-40 pb-20 md:pt-48 md:pb-24 bg-[#34041A] text-[#F9F2E7] overflow-hidden"
+  >
     <div class="absolute inset-0 z-0">
-      <div class="absolute inset-0 opacity-[0.03] bg-[url('/assets/images/grid-pattern.svg')] bg-repeat"></div>
-      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#34041A]/20 to-[#34041A]"></div>
+      <div
+        class="absolute inset-0 opacity-[0.03] bg-[url('/assets/images/grid-pattern.svg')] bg-repeat"
+      >
+      </div>
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-transparent via-[#34041A]/20 to-[#34041A]"
+      >
+      </div>
     </div>
-    
-    <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10 text-center reveal-on-scroll">
+
+    <div
+      class="max-w-7xl mx-auto px-6 md:px-12 relative z-10 text-center reveal-on-scroll"
+    >
       {/* 分类标签 */}
       <div class="flex justify-center mb-6">
-        <span class={`text-[10px] tracking-[0.2em] uppercase px-4 py-2 border ${categoryColors[category] || 'border-[#8C7355]/30 text-[#8C7355]'} backdrop-blur-sm`}>
+        <span
+          class={`text-[10px] tracking-[0.2em] uppercase px-4 py-2 border ${categoryColors[category] || "border-[#8C7355]/30 text-[#8C7355]"} backdrop-blur-sm`}
+        >
           {categoryDisplayNames[category] || category}
         </span>
       </div>
-      
-      <h1 class="text-5xl md:text-7xl font-serif mb-6 tracking-tighter leading-none">
+
+      <h1
+        class="text-5xl md:text-7xl font-serif mb-6 tracking-tighter leading-none"
+      >
         {categoryDisplayNames[category] || category}
       </h1>
-      
-      <div class="w-24 h-px bg-[#8C7355]/40 mx-auto mb-6 animate-width-grow"></div>
-      
-      <p class="text-lg text-[#F9F2E7]/70 max-w-2xl mx-auto font-light italic leading-relaxed">
-        {categoryDescriptions[category] || ''}
+
+      <div class="w-24 h-px bg-[#8C7355]/40 mx-auto mb-6 animate-width-grow">
+      </div>
+
+      <p
+        class="text-lg text-[#F9F2E7]/70 max-w-2xl mx-auto font-light italic leading-relaxed"
+      >
+        {categoryDescriptions[category] || ""}
       </p>
-      
+
       {/* 分页信息 */}
-      {totalPages > 1 && (
-        <div class="mt-8 text-sm text-[#8C7355]">
-          <span class="text-xs tracking-wider uppercase">
-            Page {page} of {totalPages} • {allCategoryPosts.length} {allCategoryPosts.length === 1 ? 'Story' : 'Stories'}
-          </span>
-        </div>
-      )}
+      {
+        totalPages > 1 && (
+          <div class="mt-8 text-sm text-[#8C7355]">
+            <span class="text-xs tracking-wider uppercase">
+              Page {page} of {totalPages} • {allCategoryPosts.length}{" "}
+              {allCategoryPosts.length === 1 ? "Story" : "Stories"}
+            </span>
+          </div>
+        )
+      }
     </div>
   </section>
 
   <main class="bg-[#F9F2E7]">
     <section class="max-w-7xl mx-auto px-6 py-20 md:py-24">
-      
       {/* 导航链接 */}
       <div class="flex justify-between items-center mb-16">
-        <a 
+        <a
           href="/blog/category"
           class="text-[10px] tracking-[0.3em] uppercase text-[#3C3835]/40 hover:text-[#34041A] transition-all flex items-center gap-3 group"
           aria-label="Back to all categories"
         >
-          <Icon name="lucide:arrow-left" class="w-3 h-3 group-hover:-translate-x-1 transition-transform" />
-          <span class="border-b border-transparent group-hover:border-[#34041A]/20 pb-1">
+          <Icon
+            name="lucide:arrow-left"
+            class="w-3 h-3 group-hover:-translate-x-1 transition-transform"
+          />
+          <span
+            class="border-b border-transparent group-hover:border-[#34041A]/20 pb-1"
+          >
             All Categories
           </span>
         </a>
-        
-        <a 
+
+        <a
           href="/blog"
           class="text-[10px] tracking-[0.3em] uppercase text-[#3C3835]/40 hover:text-[#34041A] transition-all flex items-center gap-3 group"
           aria-label="Back to all blog posts"
         >
-          <span class="border-b border-transparent group-hover:border-[#34041A]/20 pb-1">
+          <span
+            class="border-b border-transparent group-hover:border-[#34041A]/20 pb-1"
+          >
             All Posts
           </span>
-          <Icon name="lucide:arrow-right" class="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+          <Icon
+            name="lucide:arrow-right"
+            class="w-3 h-3 group-hover:translate-x-1 transition-transform"
+          />
         </a>
       </div>
-      
+
       {/* 文章网格 */}
-      {posts.length > 0 ? (
-        <>
-          {/* 隐藏的SEO描述 */}
-          <div class="sr-only" aria-hidden="false">
-            <h2>{categoryDisplayNames[category] || category} Articles - Page {page}</h2>
-            <p>{categoryLongDescriptions[category] || categoryDescriptions[category]}</p>
-            <p>Showing {posts.length} of {allCategoryPosts.length} articles in this category.</p>
-            <ul>
-              {posts.map(post => (
-                <li>
-                  <strong>{post.data.title}</strong> - {post.data.description} 
-                  (Published: {new Date(post.data.pubDate).toLocaleDateString('en-AU')})
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 gap-y-12">
-            {posts.map((post, index) => (
-              <a 
-                href={`/blog/${post.slug}`}
-                class="group block reveal-on-scroll"
-                style={`transition-delay: ${index * 100}ms`}
-                aria-label={`Read ${post.data.title}`}
-              >
-                <article class="h-full flex flex-col">
-                  {/* 文章图片 */}
-                  <div class="aspect-[4/3] overflow-hidden bg-[#34041A]/5 mb-5 relative rounded-sm">
-                    {post.data.image ? (
-                      <img 
-                        src={post.data.image} 
-                        alt={post.data.title}
-                        class="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-                        loading={index < 3 ? "eager" : "lazy"}
-                      />
-                    ) : (
-                      <div class="w-full h-full flex items-center justify-center bg-[#34041A]/5">
-                        <span class="text-[#34041A]/10 font-serif text-6xl">R</span>
-                      </div>
-                    )}
-                    <div class="absolute inset-0 bg-[#34041A]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  </div>
-                  
-                  {/* 文章元数据 */}
-                  <div class="flex items-center gap-3 mb-3">
-                    <span class={`text-[9px] tracking-[0.2em] uppercase px-3 py-1 border ${categoryColors[post.data.category] || 'border-[#8C7355]/30 text-[#8C7355]'}`}>
-                      {post.data.category}
-                    </span>
-                    <span class="text-[10px] tracking-widest text-[#3C3835]/40 uppercase">
-                      {new Date(post.data.pubDate).toLocaleDateString('en-AU', {
-                        month: 'short',
-                        day: 'numeric',
-                        year: 'numeric'
-                      })}
-                    </span>
-                  </div>
-                  
-                  {/* 文章标题 */}
-                  <h2 class="text-xl font-serif text-[#34041A] mb-3 leading-snug group-hover:text-[#8C7355] transition-colors duration-300">
-                    {post.data.title}
-                  </h2>
-                  
-                  {/* 文章描述 */}
-                  <p class="text-sm text-[#3C3835]/70 font-light leading-relaxed line-clamp-3 mb-4">
-                    {post.data.description}
-                  </p>
-                  
-                  {/* 阅读更多 */}
-                  <div class="mt-auto pt-2 flex items-center gap-2 text-[9px] tracking-[0.2em] uppercase text-[#8C7355] group-hover:text-[#34041A] transition-colors">
-                    <span>Read More</span>
-                    <div class="w-6 h-px bg-[#8C7355] group-hover:w-8 group-hover:bg-[#34041A] transition-all duration-500"></div>
-                  </div>
-                </article>
-              </a>
-            ))}
-          </div>
-        </>
-      ) : (
-        <div class="text-center py-20">
-          <p class="text-xl text-[#3C3835]/60">No posts in this category yet. Check back soon!</p>
-          <a href="/blog" class="inline-block mt-8 text-sm tracking-wider text-[#34041A] hover:text-[#8C7355] transition-colors">
-            Browse all articles →
-          </a>
-        </div>
-      )}
-
-      {/* 分页导航 */}
-      {totalPages > 1 && (
-        <div class="mt-20 border-t border-[#34041A]/5 pt-12">
-          <div class="flex justify-center items-center gap-2">
-            {/* 上一页 */}
-            {page > 1 ? (
-              <a 
-                href={`/blog/category/${category.toLowerCase().replace(/\s+/g, '-')}${page === 2 ? '' : `/${page - 1}`}`}
-                class="w-10 h-10 rounded-full border border-[#34041A]/10 hover:border-[#34041A] hover:bg-white flex items-center justify-center text-[#34041A] transition-all"
-                aria-label="Previous Page"
-                rel="prev"
-              >
-                <Icon name="lucide:chevron-left" class="w-4 h-4" />
-              </a>
-            ) : (
-              <span class="w-10 h-10 rounded-full border border-[#34041A]/5 flex items-center justify-center text-[#34041A]/20 cursor-not-allowed">
-                <Icon name="lucide:chevron-left" class="w-4 h-4" />
-              </span>
-            )}
-
-            {/* 页码 */}
-            <div class="flex items-center gap-1">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
-                p === page ? (
-                  <span 
-                    key={p}
-                    class="w-10 h-10 rounded-full bg-[#34041A] text-[#F9F2E7] flex items-center justify-center text-sm font-mono"
-                    aria-current="page"
-                  >
-                    {p}
-                  </span>
-                ) : (
-                  <a 
-                    key={p}
-                    href={`/blog/category/${category.toLowerCase().replace(/\s+/g, '-')}${p === 1 ? '' : `/${p}`}`}
-                    class="w-10 h-10 rounded-full border border-[#34041A]/10 hover:border-[#34041A] hover:bg-white flex items-center justify-center text-[#34041A]/60 hover:text-[#34041A] transition-all text-sm font-mono"
-                    aria-label={`Go to page ${p}`}
-                  >
-                    {p}
-                  </a>
-                )
-              ))}
+      {
+        posts.length > 0 ? (
+          <>
+            {/* 隐藏的SEO描述 */}
+            <div class="sr-only" aria-hidden="false">
+              <h2>
+                {categoryDisplayNames[category] || category} Articles - Page{" "}
+                {page}
+              </h2>
+              <p>
+                {categoryLongDescriptions[category] ||
+                  categoryDescriptions[category]}
+              </p>
+              <p>
+                Showing {posts.length} of {allCategoryPosts.length} articles in
+                this category.
+              </p>
+              <ul>
+                {posts.map((post) => (
+                  <li>
+                    <strong>{post.data.title}</strong> - {post.data.description}
+                    (Published:{" "}
+                    {new Date(post.data.pubDate).toLocaleDateString("en-AU")})
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            {/* 下一页 */}
-            {page < totalPages ? (
-              <a 
-                href={`/blog/category/${category.toLowerCase().replace(/\s+/g, '-')}/${page + 1}`}
-                class="w-10 h-10 rounded-full border border-[#34041A]/10 hover:border-[#34041A] hover:bg-white flex items-center justify-center text-[#34041A] transition-all"
-                aria-label="Next Page"
-                rel="next"
-              >
-                <Icon name="lucide:chevron-right" class="w-4 h-4" />
-              </a>
-            ) : (
-              <span class="w-10 h-10 rounded-full border border-[#34041A]/5 flex items-center justify-center text-[#34041A]/20 cursor-not-allowed">
-                <Icon name="lucide:chevron-right" class="w-4 h-4" />
-              </span>
-            )}
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 gap-y-12">
+              {posts.map((post, index) => (
+                <a
+                  href={`/blog/${post.slug}`}
+                  class="group block reveal-on-scroll"
+                  style={`transition-delay: ${index * 100}ms`}
+                  aria-label={`Read ${post.data.title}`}
+                >
+                  <article class="h-full flex flex-col">
+                    {/* 文章图片 */}
+                    <div class="aspect-[4/3] overflow-hidden bg-[#34041A]/5 mb-5 relative rounded-sm">
+                      {post.data.image ? (
+                        <img
+                          src={post.data.image}
+                          alt={post.data.title}
+                          class="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                          loading={index < 3 ? "eager" : "lazy"}
+                        />
+                      ) : (
+                        <div class="w-full h-full flex items-center justify-center bg-[#34041A]/5">
+                          <span class="text-[#34041A]/10 font-serif text-6xl">
+                            R
+                          </span>
+                        </div>
+                      )}
+                      <div class="absolute inset-0 bg-[#34041A]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    </div>
+
+                    {/* 文章元数据 */}
+                    <div class="flex items-center gap-3 mb-3">
+                      <span
+                        class={`text-[9px] tracking-[0.2em] uppercase px-3 py-1 border ${categoryColors[post.data.category] || "border-[#8C7355]/30 text-[#8C7355]"}`}
+                      >
+                        {post.data.category}
+                      </span>
+                      <span class="text-[10px] tracking-widest text-[#3C3835]/40 uppercase">
+                        {new Date(post.data.pubDate).toLocaleDateString(
+                          "en-AU",
+                          {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                          }
+                        )}
+                      </span>
+                    </div>
+
+                    {/* 文章标题 */}
+                    <h2 class="text-xl font-serif text-[#34041A] mb-3 leading-snug group-hover:text-[#8C7355] transition-colors duration-300">
+                      {post.data.title}
+                    </h2>
+
+                    {/* 文章描述 */}
+                    <p class="text-sm text-[#3C3835]/70 font-light leading-relaxed line-clamp-3 mb-4">
+                      {post.data.description}
+                    </p>
+
+                    {/* 阅读更多 */}
+                    <div class="mt-auto pt-2 flex items-center gap-2 text-[9px] tracking-[0.2em] uppercase text-[#8C7355] group-hover:text-[#34041A] transition-colors">
+                      <span>Read More</span>
+                      <div class="w-6 h-px bg-[#8C7355] group-hover:w-8 group-hover:bg-[#34041A] transition-all duration-500" />
+                    </div>
+                  </article>
+                </a>
+              ))}
+            </div>
+          </>
+        ) : (
+          <div class="text-center py-20">
+            <p class="text-xl text-[#3C3835]/60">
+              No posts in this category yet. Check back soon!
+            </p>
+            <a
+              href="/blog"
+              class="inline-block mt-8 text-sm tracking-wider text-[#34041A] hover:text-[#8C7355] transition-colors"
+            >
+              Browse all articles →
+            </a>
           </div>
-          
-          {/* 分页信息 */}
-          <p class="text-center text-[9px] tracking-[0.3em] text-[#8C7355] mt-8 uppercase font-light">
-            Page {page} of {totalPages}
-          </p>
-        </div>
-      )}
+        )
+      }
+
+      {/* 分页导航 */}
+      {
+        totalPages > 1 && (
+          <div class="mt-20 border-t border-[#34041A]/5 pt-12">
+            <div class="flex justify-center items-center gap-2">
+              {/* 上一页 */}
+              {page > 1 ? (
+                <a
+                  href={`/blog/category/${category.toLowerCase().replace(/\s+/g, "-")}${page === 2 ? "" : `/${page - 1}`}`}
+                  class="w-10 h-10 rounded-full border border-[#34041A]/10 hover:border-[#34041A] hover:bg-white flex items-center justify-center text-[#34041A] transition-all"
+                  aria-label="Previous Page"
+                  rel="prev"
+                >
+                  <Icon name="lucide:chevron-left" class="w-4 h-4" />
+                </a>
+              ) : (
+                <span class="w-10 h-10 rounded-full border border-[#34041A]/5 flex items-center justify-center text-[#34041A]/20 cursor-not-allowed">
+                  <Icon name="lucide:chevron-left" class="w-4 h-4" />
+                </span>
+              )}
+
+              {/* 页码 */}
+              <div class="flex items-center gap-1">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) =>
+                  p === page ? (
+                    <span
+                      key={p}
+                      class="w-10 h-10 rounded-full bg-[#34041A] text-[#F9F2E7] flex items-center justify-center text-sm font-mono"
+                      aria-current="page"
+                    >
+                      {p}
+                    </span>
+                  ) : (
+                    <a
+                      key={p}
+                      href={`/blog/category/${category.toLowerCase().replace(/\s+/g, "-")}${p === 1 ? "" : `/${p}`}`}
+                      class="w-10 h-10 rounded-full border border-[#34041A]/10 hover:border-[#34041A] hover:bg-white flex items-center justify-center text-[#34041A]/60 hover:text-[#34041A] transition-all text-sm font-mono"
+                      aria-label={`Go to page ${p}`}
+                    >
+                      {p}
+                    </a>
+                  )
+                )}
+              </div>
+
+              {/* 下一页 */}
+              {page < totalPages ? (
+                <a
+                  href={`/blog/category/${category.toLowerCase().replace(/\s+/g, "-")}/${page + 1}`}
+                  class="w-10 h-10 rounded-full border border-[#34041A]/10 hover:border-[#34041A] hover:bg-white flex items-center justify-center text-[#34041A] transition-all"
+                  aria-label="Next Page"
+                  rel="next"
+                >
+                  <Icon name="lucide:chevron-right" class="w-4 h-4" />
+                </a>
+              ) : (
+                <span class="w-10 h-10 rounded-full border border-[#34041A]/5 flex items-center justify-center text-[#34041A]/20 cursor-not-allowed">
+                  <Icon name="lucide:chevron-right" class="w-4 h-4" />
+                </span>
+              )}
+            </div>
+
+            {/* 分页信息 */}
+            <p class="text-center text-[9px] tracking-[0.3em] text-[#8C7355] mt-8 uppercase font-light">
+              Page {page} of {totalPages}
+            </p>
+          </div>
+        )
+      }
 
       {/* 分类订阅提示 */}
-      <div class="mt-32 text-center bg-[#34041A]/5 py-16 px-6 rounded-lg reveal-on-scroll">
+      <div
+        class="mt-32 text-center bg-[#34041A]/5 py-16 px-6 rounded-lg reveal-on-scroll"
+      >
         <h2 class="text-3xl font-serif text-[#34041A] mb-4">
           Follow the {categoryDisplayNames[category] || category} Series
         </h2>
@@ -457,13 +558,16 @@ const pageDescription = page === 1
           Get notified when we publish new articles in this category.
         </p>
         <form class="max-w-md mx-auto flex gap-4">
-          <input 
-            type="email" 
+          <input
+            type="email"
             placeholder="Your email"
             class="flex-1 px-4 py-3 bg-transparent border border-[#34041A]/20 focus:border-[#34041A] outline-none transition-colors text-sm"
             required
           />
-          <button type="submit" class="px-6 py-3 bg-[#34041A] text-[#F9F2E7] text-xs tracking-wider uppercase hover:bg-[#8C7355] transition-colors">
+          <button
+            type="submit"
+            class="px-6 py-3 bg-[#34041A] text-[#F9F2E7] text-xs tracking-wider uppercase hover:bg-[#8C7355] transition-colors"
+          >
             Subscribe
           </button>
         </form>
@@ -479,9 +583,11 @@ const pageDescription = page === 1
   .reveal-on-scroll {
     opacity: 0;
     transform: translateY(30px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    transition:
+      opacity 0.8s ease,
+      transform 0.8s ease;
   }
-  
+
   .reveal-on-scroll.active {
     opacity: 1;
     transform: translateY(0);
@@ -489,10 +595,14 @@ const pageDescription = page === 1
 
   /* 标题宽度动画 */
   @keyframes widthGrow {
-    from { width: 0; }
-    to { width: 6rem; }
+    from {
+      width: 0;
+    }
+    to {
+      width: 6rem;
+    }
   }
-  
+
   .animate-width-grow {
     animation: widthGrow 1.2s ease-out forwards;
   }
@@ -524,21 +634,21 @@ const pageDescription = page === 1
   }
 
   ::-webkit-scrollbar-track {
-    background: #FDFAF7;
+    background: #fdfaf7;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #6B4E5E;
+    background: #6b4e5e;
     border-radius: 4px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #34041A;
+    background: #34041a;
   }
 
   ::selection {
     background: rgba(52, 4, 26, 0.15);
-    color: #34041A;
+    color: #34041a;
   }
 
   html {
@@ -548,23 +658,28 @@ const pageDescription = page === 1
 
 <script>
   function initReveal() {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    );
 
-    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+    document
+      .querySelectorAll(".reveal-on-scroll")
+      .forEach((el) => observer.observe(el));
   }
-  
+
   // 兼容 Astro 的 View Transitions
-  document.addEventListener('astro:page-load', initReveal);
-  
+  document.addEventListener("astro:page-load", initReveal);
+
   // 页面加载时执行
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initReveal);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initReveal);
   } else {
     initReveal();
   }
