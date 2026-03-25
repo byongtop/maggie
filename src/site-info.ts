@@ -14,10 +14,10 @@ export const THEME = {
 // 全站元数据
 export const SITE_METADATA = {
   name: "Rose is Rose Photography",
-  defaultTitle: "Dating Profile Photography Sydney | ROSE IS ROSE",
-  defaultDescription: "Sydney dating profile photography by Maggie — photos, styling, wardrobe, bio writing and app strategy for Hinge, Tinder and Bumble. Book a free consultation.",
+  defaultTitle: "Portrait & Dating Profile Photographer Sydney | ROSE IS ROSE",
+  defaultDescription: "Sydney portrait & dating profile photography by Maggie — photos, styling, wardrobe, bio writing and app strategy for Hinge, Tinder and Bumble. Book a free consultation.",
   defaultOgImage: "/og-image.jpg",
-  siteUrl: "https://yourdomain.com.au", // 建议在此处填入正式域名
+  siteUrl: "https://roseisrose.com.au", // 建议在此处填入正式域名
   locale: "en-AU",
 };
 

@@ -11,9 +11,9 @@ const blogCollection = defineCollection({
     pubDate: z.date(),
     category: z.enum([
       'Photography Tips & Guides',
-      'Success Stories',
-      'Dating Insights',
-      'Behind the Scenes'
+      //'Success Stories',
+      //'Behind the Scenes',
+      'Dating Insights'
     ]),
     image: z.string().optional(),
     
