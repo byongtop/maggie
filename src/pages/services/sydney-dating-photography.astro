@@ -14,9 +14,7 @@ const serviceD = {
   description: "Dating profile photography and dating portraits in Sydney",
   providerName: "ROSE IS ROSE",
   areaServed: ["Sydney", "Bondi", "Manly", "Parramatta"],
-  priceRange: "$$-$$$",
-  // For Review schema — add when you have real reviews:
-  // aggregateRating: { ratingValue: "5", reviewCount: "24" }
+  priceRange: "$440-$880",
 };
 
 const breadcrumbs = [
@@ -27,26 +25,19 @@ const breadcrumbs = [
 
 const serviceData = {
   seo: {
-    // PRIMARY keyword: "dating profile photography Sydney" in title, near the front
     metaTitle: "Dating Profile Photography Sydney | Dating Portraits | ROSE IS ROSE",
-    // Natural sentence, primary keyword in first half, secondary (dating portraits) woven in
     metaDescription: "Sydney dating profile photography for Tinder, Hinge and Bumble. Real locations, honest portraits, no awkward posing. Book with Rose.",
     keywords: "dating profile photography Sydney, dating profile photographer Sydney, dating portraits Sydney, Tinder photos Sydney, Hinge photographer Sydney, Bumble photos Sydney, Bondi photographer",
-    // ✅ SEO-rich alt: brand + primary keyword + location
     imageAlt: "Sydney dating profile photography session by ROSE IS ROSE — natural outdoor portrait near the harbour"
   },
   
   hero: {
-    // Badge: no fluff, speaks directly to the problem
     badge: "Dating Profile Photography · Sydney",
     locationTag: "Sydney only",
-    // H1 rendered as three visual lines — but the actual text reads as one indexable phrase
-    // Wrap in a single <h1> with CSS line breaks, not separate elements, for SEO
     h1Full: "Sydney Dating Profile Photography",
     titleLine1: "SYDNEY",
     titleLine2: "DATING PROFILE",
     titleLine3: "PHOTOGRAPHY",
-    // Direct, no "journey" language — speaks to the person who is privately frustrated
     desc: "You're not unlovable. You're just using photos that don't look like you on a good day. Let's fix that.",
     ctaPrimary: "Book a session",
     ctaSecondary: "See how it works",
@@ -56,39 +47,33 @@ const serviceData = {
 
   story: {
     bgText: "MATCH • MATCH",
-    titleMain: "THE REAL",
-    titleItalic: "REASON",
-    // Kicker names the problem head-on — no softening
-    kicker: "WHY YOUR DATING PROFILE ISN'T WORKING",
+    titleMain: "Why Your Dating Profile",
+    titleItalic: "Isn't Working",
+    kicker: "",
     quoteLetter: "N",
-    // Starts mid-thought, like a real person talking — no "Sydney is beautiful, sure"
     quoteBody: "obody swipes on a photo and thinks 'I wonder what their personality is like.' They swipe on a feeling. And right now, your photos are giving off the wrong one — or worse, no feeling at all.",
-    // The pivot: empathy without being patronising
     quoteHighlight: "It's not your face. It's the photo. There's a difference, and I've spent years learning exactly how to close that gap.",
   },
 
-  // Renamed from "strategy" to something more pointed
   whyItMatters: [
     {
-      title: "THREE SECONDS.",
+      title: "Three Seconds Is All You Get.",
       content: "That's how long someone spends on your first photo before deciding. Not your bio. Not your job. Your photo. If it's not pulling them in within three seconds, they're already gone — and you'll never know why."
     },
     {
-      title: "SYDNEY IS COMPETITIVE.",
+      title: "Sydney Dating Apps Are Competitive.",
       content: "This city is full of attractive, interesting people — and most of them have mediocre dating profile photos. That's actually good news for you. One session and you're already ahead of half the app."
     }
   ],
 
   pitfalls: {
-    title: "WHAT YOUR PHOTOS ARE SAYING ABOUT YOU",
+    title: "What Your Dating Profile Photos Are Saying About You",
     subtitle: "(without you realising)",
-    // Tech note rewritten — confident, not nerdy-explaining
     techNote: "Shot on Sony Alpha full-frame with 35mm and 85mm prime lenses. That soft background that makes you look like the subject of the photo, not a person standing in front of a background? That's not a filter. That's the glass. Colour grading done to match how Sydney actually looks in real life — warm, bright, a little golden.",
     items: [
       {
         no: "01",
         title: "The Caught-Off-Guard Shot",
-        // Pain point: no confidence in how they look — reframe as a solvable problem
         desc: "Squinting into the sun, mid-laugh at something no one else can see, slightly blurry. It reads as 'I don't have a single photo I actually like of myself.' We're going to change that."
       },
       {
@@ -99,13 +84,11 @@ const serviceData = {
       {
         no: "03",
         title: "The Mirror, The Car, The Ceiling",
-        // Specific and a bit wry — not preachy
         desc: "Bathroom mirror, car selfie, photo taken from below while you're lying on the couch. These aren't bad because of a 'rule' — they're bad because they tell someone you didn't think you were worth the effort."
       }
     ]
   },
 
-  // Rewritten to feel like genuine prep advice, not a listicle
   experience: [
     {
       id: "01",
@@ -130,14 +113,12 @@ const serviceData = {
 
   editing: {
     title: "EDITED TO LOOK LIKE YOU. ON A REALLY GOOD DAY.",
-    // Rewritten — removes "Palm Beach" cliché opener, leads with the real reassurance
     content: "No smoothed-out skin, no whitened teeth, no 'fixed' features. People edit their dating photos into someone slightly better-looking than themselves — and then wonder why their dates seem underwhelmed when they show up. I colour-grade for Sydney's light: warm, natural, sharp where it counts. You'll look like yourself. Just well-rested, well-lit, and happy."
   },
 
   experienceModules: [
     {
       title: "The Rocks & Circular Quay",
-      // Location copy: feels like insider knowledge, not tourism brochure
       description: "Sandstone, harbour light, spots that look expensive without trying. We find the angles that say 'I've actually lived here' rather than 'I'm standing in front of the famous thing.'",
       image: "/assets/images/dating/d03.jpeg",
       imageAlt: "Dating portrait session at The Rocks Sydney — warm harbour light, natural expression",
@@ -152,7 +133,6 @@ const serviceData = {
     },
     {
       title: "Golden Hour, Wherever You Are",
-      // Removed the "okay just one" joke — felt forced
       description: "An hour before sunset, Sydney turns into a different city. Softer light, longer shadows, that warmth that makes everyone look like they're exactly where they should be. We plan around it.",
       image: "/assets/images/dating/d05.jpeg",
       imageAlt: "Golden hour dating portrait session Sydney — warm natural light outdoor photography",
@@ -164,7 +144,6 @@ const serviceData = {
   faq: [
     {
       question: "I genuinely don't like how I look in photos. Can you still help?",
-      // Pain point 3 addressed head-on — no toxic positivity
       answer: "Yes — and honestly, this is the most common thing I hear. Most people who think they photograph badly have just never been photographed well. There's a difference between your face and a bad photo of your face. Give me an hour and I'll show you."
     },
     {
@@ -177,7 +156,6 @@ const serviceData = {
     },
     {
       question: "Will I look like myself, or will I look like a 'dating profile photo'?",
-      // Addresses the fear of looking try-hard — speaks to both men and women
       answer: "You'll look like yourself. The whole point is that whoever matches with you recognises you when you walk through the door. We're not building a fantasy — we're capturing the version of you that already exists, just on a day when the light was good and you weren't staring at your own camera."
     },
     {
@@ -194,7 +172,6 @@ const serviceData = {
     bgText: "SWIPE • SWIPE",
     titleLine1: "ENOUGH",
     titleLine2: "WAITING",
-    // Removed the "swiped right on" pun — a bit too on-the-nose
     desc: "You know what you want. You know the photos aren't helping. One session, done properly — let's go.",
     button: "Book your session"
   }
@@ -225,12 +202,6 @@ const serviceData = {
         <span class="text-xs font-mono text-brand-on-dark/60">{serviceData.hero.locationTag}</span>
       </div>
 
-      {/* 
-        ✅ SEO FIX: Single <h1> tag wrapping all three lines.
-        The full phrase "Sydney Dating Profile Photography" is readable by crawlers.
-        Visual line breaks achieved with <br/> inside one element, not separate elements.
-        The hidden span ensures the full keyword phrase exists as continuous text.
-      */}
       <h1 class="text-5xl md:text-8xl font-serif text-brand-on-dark mb-6 leading-[0.9] tracking-tight uppercase">
         <span class="sr-only">{serviceData.hero.h1Full}</span>
         <span aria-hidden="true">
@@ -271,9 +242,11 @@ const serviceData = {
           {serviceData.story.titleMain}<br />
           <span class="italic font-light text-brand-muted">{serviceData.story.titleItalic}</span>
         </h2>
-        <p class="text-xs md:text-sm text-brand-muted/70 tracking-[0.3em] uppercase mt-12 pl-8 border-l border-brand-muted/30">
-          {serviceData.story.kicker}
-        </p>
+        {serviceData.story.kicker && (
+          <p class="text-xs md:text-sm text-brand-muted/70 tracking-[0.3em] uppercase mt-12 pl-8 border-l border-brand-muted/30">
+            {serviceData.story.kicker}
+          </p>
+        )}
       </div>
 
       <div class="mb-32 relative reveal-on-scroll">
