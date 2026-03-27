@@ -11,61 +11,43 @@ import { Icon } from "astro-icon/components";
 // 分类显示名称映射
 const categoryDisplayNames: Record<string, string> = {
   "Photography Tips & Guides": "Photography Tips & Guides",
-  "Success Stories": "Success Stories",
   "Dating Insights": "Dating Insights",
-  "Behind the Scenes": "Behind the Scenes",
 };
 
 // 分类描述（用于SEO）
 const categoryDescriptions: Record<string, string> = {
   "Photography Tips & Guides":
     "Expert advice on lighting, posing, and getting the perfect shot for your dating profile.",
-  "Success Stories":
-    "Real stories from real clients who found love (or at least great dates) after their session.",
   "Dating Insights":
     "Thoughts on modern dating in Sydney—the apps, the spots, the whole scene.",
-  "Behind the Scenes":
-    "A peek behind the lens—what happens on shoot day, how we work, and why we love it.",
 };
 
 // 分类长描述（用于更详细的SEO）
 const categoryLongDescriptions: Record<string, string> = {
   "Photography Tips & Guides":
     "Discover expert photography tips and guides for creating stunning dating profiles. Learn about lighting techniques, posing tips, wardrobe choices, and how to capture authentic moments that showcase your personality.",
-  "Success Stories":
-    "Read inspiring success stories from clients who transformed their dating lives with professional portraits. Real experiences, real results, and the journey to finding meaningful connections in Sydney.",
   "Dating Insights":
     "Explore our dating insights and analysis of modern romance in Sydney. From dating app strategies to first date tips, we share valuable observations about the contemporary dating landscape.",
-  "Behind the Scenes":
-    "Go behind the scenes at ROSE IS ROSE. See our creative process, meet the team, and discover what goes into creating the perfect portrait. Studio life, shoot days, and more.",
 };
 
 // 分类颜色映射
 const categoryColors: Record<string, string> = {
   "Photography Tips & Guides": "border-[#8C7355]/30 text-[#8C7355]",
-  "Success Stories": "border-[#34041A]/30 text-[#34041A]",
   "Dating Insights": "border-[#34041A]/30 text-[#34041A]",
-  "Behind the Scenes": "border-[#8C7355]/30 text-[#8C7355]",
 };
 
 // 分类OG图片映射
 const categoryOgImages: Record<string, string> = {
   "Photography Tips & Guides": "/images/category-photography-tips.jpg",
-  "Success Stories": "/images/category-success-stories.jpg",
   "Dating Insights": "/images/category-dating-insights.jpg",
-  "Behind the Scenes": "/images/category-behind-scenes.jpg",
 };
 
 // 分类关键词映射
 const categoryKeywords: Record<string, string> = {
   "Photography Tips & Guides":
     "photography tips, portrait photography, dating profile photos, photography guides, lighting tips, posing advice",
-  "Success Stories":
-    "success stories, client transformations, dating success, real stories, client experiences, photography results",
   "Dating Insights":
     "dating insights, modern dating, Sydney dating, dating advice, relationship tips, dating culture",
-  "Behind the Scenes":
-    "behind the scenes, photography process, studio life, creative process, photoshoot preparation",
 };
 
 export async function getStaticPaths() {
@@ -106,7 +88,7 @@ export async function getStaticPaths() {
     const totalPages = Math.ceil(categoryPosts.length / POSTS_PER_PAGE);
 
     // 为每一页生成路径
-    for (let i = 1; i <= totalPages; i++) {
+    for (let i = 2; i <= totalPages; i++) {
       paths.push({
         params: {
           category: slug,

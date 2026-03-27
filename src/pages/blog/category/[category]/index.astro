@@ -1,32 +1,371 @@
 ---
 // src/pages/blog/category/[category]/index.astro
+import "../../../../styles/global.css";
+
+import { getCollection } from "astro:content";
+import Layout from "../../../../layouts/Layout.astro";
+import Header from "../../../../components/Header.astro";
+import Footer from "../../../../components/Footer.astro";
+import { Icon } from "astro-icon/components";
+
+const categoryDisplayNames: Record<string, string> = {
+  "Photography Tips & Guides": "Photography Tips & Guides",
+  "Dating Insights": "Dating Insights",
+};
+
+const categoryDescriptions: Record<string, string> = {
+  "Photography Tips & Guides":
+    "Expert advice on lighting, posing, and getting the perfect shot for your dating profile.",
+  "Dating Insights":
+    "Thoughts on modern dating in Sydney—the apps, the spots, the whole scene.",
+};
+
+const categoryLongDescriptions: Record<string, string> = {
+  "Photography Tips & Guides":
+    "Discover expert photography tips and guides for creating stunning dating profiles. Learn about lighting techniques, posing tips, wardrobe choices, and how to capture authentic moments that showcase your personality.",
+  "Dating Insights":
+    "Explore our dating insights and analysis of modern romance in Sydney. From dating app strategies to first date tips, we share valuable observations about the contemporary dating landscape.",
+};
+
+const categoryColors: Record<string, string> = {
+  "Photography Tips & Guides": "border-[#8C7355]/30 text-[#8C7355]",
+  "Dating Insights": "border-[#34041A]/30 text-[#34041A]",
+};
+
+const categoryOgImages: Record<string, string> = {
+  "Photography Tips & Guides": "/images/category-photography-tips.jpg",
+  "Dating Insights": "/images/category-dating-insights.jpg",
+};
 
 export async function getStaticPaths() {
-  // ✅ 将映射定义在函数内部
   const categoryToSlug: Record<string, string> = {
     "Photography Tips & Guides": "photography-tips-guides",
-    // 'Success Stories': 'success-stories',
-    // 'Behind the Scenes': 'behind-the-scenes',
     "Dating Insights": "dating-insights",
   };
 
-  // 只返回实际存在的 slug
-  return Object.values(categoryToSlug).map((slug) => ({
-    params: { category: slug },
-  }));
+  const POSTS_PER_PAGE = 9;
+  const allPosts = await getCollection("blog");
+
+  return Object.entries(categoryToSlug).map(([categoryName, slug]) => {
+    const categoryPosts = allPosts
+      .filter((post) => post.data.category === categoryName)
+      .sort(
+        (a, b) =>
+          new Date(b.data.pubDate).getTime() -
+          new Date(a.data.pubDate).getTime()
+      );
+
+    const totalPages = Math.ceil(categoryPosts.length / POSTS_PER_PAGE) || 1;
+
+    return {
+      params: { category: slug },
+      props: {
+        category: categoryName,
+        page: 1,
+        totalPages,
+        posts: categoryPosts.slice(0, POSTS_PER_PAGE),
+        allCategoryPosts: categoryPosts,
+      },
+    };
+  });
 }
 
-const { category } = Astro.params;
-// 直接使用 slug 构建 URL
-const url = `/blog/category/${category}/1`;
+interface Props {
+  category: string;
+  page: number;
+  totalPages: number;
+  posts: any[];
+  allCategoryPosts: any[];
+}
+
+const { category, page, totalPages, posts, allCategoryPosts } = Astro.props;
+const { category: categorySlug } = Astro.params;
+
+const pageTitle = (categoryDisplayNames[category] || category) + " | ROSE IS ROSE Blog";
+const pageDescription = categoryLongDescriptions[category] || categoryDescriptions[category];
+
+const breadcrumbs = [
+  { name: "Home", item: "/" },
+  { name: "Blog", item: "/blog" },
+  { name: "Categories", item: "/blog/category" },
+  {
+    name: categoryDisplayNames[category] || category,
+    item: "/blog/category/" + categorySlug,
+  },
+];
+
+const customSchemas = [
+  {
+    "@type": "CollectionPage",
+    name: pageTitle,
+    description: pageDescription,
+    url: "https://roseisrose.com.au/blog/category/" + categorySlug,
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: posts.map((post, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "BlogPosting",
+          headline: post.data.title,
+          url: "https://roseisrose.com.au/blog/" + post.slug,
+        },
+      })),
+    },
+  },
+];
+
+// 获取当前分类的颜色类
+const categoryColorClass = categoryColors[category] || "border-[#8C7355]/30 text-[#8C7355]";
 ---
 
-<!doctype html>
-<html>
-  <head>
-    <meta http-equiv="refresh" content={`0; url=${url}`} />
-  </head>
-  <body>
-    <p>Redirecting to <a href={url}>page 1</a>...</p>
-  </body>
-</html>
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  ogImage={categoryOgImages[category] || "/images/blog-og-image.jpg"}
+  pageType="blog-list"
+  breadcrumbs={breadcrumbs}
+  schemas={customSchemas}
+>
+  <Header />
+
+  {/* Hero Section */}
+  <section class="relative pt-40 pb-20 md:pt-48 md:pb-24 bg-[#34041A] text-[#F9F2E7] overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 opacity-[0.03] bg-[url('/assets/images/grid-pattern.svg')] bg-repeat"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#34041A]/20 to-[#34041A]"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10 text-center reveal-on-scroll">
+      <div class="flex justify-center mb-6">
+        <span class={`text-[10px] tracking-[0.2em] uppercase px-4 py-2 border backdrop-blur-sm ${categoryColorClass}`}>
+          {categoryDisplayNames[category] || category}
+        </span>
+      </div>
+
+      <h1 class="text-5xl md:text-7xl font-serif mb-6 tracking-tighter leading-none">
+        {categoryDisplayNames[category] || category}
+      </h1>
+
+      <div class="w-24 h-px bg-[#8C7355]/40 mx-auto mb-6 animate-width-grow"></div>
+
+      <p class="text-lg text-[#F9F2E7]/70 max-w-2xl mx-auto font-light italic leading-relaxed">
+        {categoryDescriptions[category] || ""}
+      </p>
+
+      {totalPages > 1 && (
+        <div class="mt-8 text-sm text-[#8C7355]">
+          <span class="text-xs tracking-wider uppercase">
+            {allCategoryPosts.length} {allCategoryPosts.length === 1 ? "Story" : "Stories"}
+          </span>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <main class="bg-[#F9F2E7]">
+    <section class="max-w-7xl mx-auto px-6 py-20 md:py-24">
+
+      <div class="flex justify-between items-center mb-16">
+        <a
+          href="/blog/category"
+          class="text-[10px] tracking-[0.3em] uppercase text-[#3C3835]/40 hover:text-[#34041A] transition-all flex items-center gap-3 group"
+        >
+          <Icon name="lucide:arrow-left" class="w-3 h-3 group-hover:-translate-x-1 transition-transform" />
+          <span class="border-b border-transparent group-hover:border-[#34041A]/20 pb-1">All Categories</span>
+        </a>
+        <a
+          href="/blog"
+          class="text-[10px] tracking-[0.3em] uppercase text-[#3C3835]/40 hover:text-[#34041A] transition-all flex items-center gap-3 group"
+        >
+          <span class="border-b border-transparent group-hover:border-[#34041A]/20 pb-1">All Posts</span>
+          <Icon name="lucide:arrow-right" class="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+        </a>
+      </div>
+
+      {posts.length > 0 ? (
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 gap-y-12">
+          {posts.map((post, index) => {
+            const postCategoryColorClass = categoryColors[post.data.category] || "border-[#8C7355]/30 text-[#8C7355]";
+            return (
+              <a
+                href={"/blog/" + post.slug}
+                class="group block reveal-on-scroll"
+                style={"transition-delay: " + index * 100 + "ms"}
+              >
+                <article class="h-full flex flex-col">
+                  <div class="aspect-[4/3] overflow-hidden bg-[#34041A]/5 mb-5 relative rounded-sm">
+                    {post.data.image ? (
+                      <img
+                        src={post.data.image}
+                        alt={post.data.title}
+                        class="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                        loading={index < 3 ? "eager" : "lazy"}
+                      />
+                    ) : (
+                      <div class="w-full h-full flex items-center justify-center bg-[#34041A]/5">
+                        <span class="text-[#34041A]/10 font-serif text-6xl">R</span>
+                      </div>
+                    )}
+                    <div class="absolute inset-0 bg-[#34041A]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </div>
+
+                  <div class="flex items-center gap-3 mb-3">
+                    <span class={`text-[9px] tracking-[0.2em] uppercase px-3 py-1 border ${postCategoryColorClass}`}>
+                      {post.data.category}
+                    </span>
+                    <span class="text-[10px] tracking-widest text-[#3C3835]/40 uppercase">
+                      {new Date(post.data.pubDate).toLocaleDateString("en-AU", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      })}
+                    </span>
+                  </div>
+
+                  <h2 class="text-xl font-serif text-[#34041A] mb-3 leading-snug group-hover:text-[#8C7355] transition-colors duration-300">
+                    {post.data.title}
+                  </h2>
+
+                  <p class="text-sm text-[#3C3835]/70 font-light leading-relaxed line-clamp-3 mb-4">
+                    {post.data.description}
+                  </p>
+
+                  <div class="mt-auto pt-2 flex items-center gap-2 text-[9px] tracking-[0.2em] uppercase text-[#8C7355] group-hover:text-[#34041A] transition-colors">
+                    <span>Read More</span>
+                    <div class="w-6 h-px bg-[#8C7355] group-hover:w-8 group-hover:bg-[#34041A] transition-all duration-500" />
+                  </div>
+                </article>
+              </a>
+            );
+          })}
+        </div>
+      ) : (
+        <div class="text-center py-20">
+          <p class="text-xl text-[#3C3835]/60">No posts in this category yet. Check back soon!</p>
+          <a href="/blog" class="inline-block mt-8 text-sm tracking-wider text-[#34041A] hover:text-[#8C7355] transition-colors">
+            Browse all articles →
+          </a>
+        </div>
+      )}
+
+      {/* 分页导航 */}
+      {totalPages > 1 && (
+        <div class="mt-20 border-t border-[#34041A]/5 pt-12">
+          <div class="flex justify-center items-center gap-2">
+            {/* 第1页，上一页禁用 */}
+            <span class="w-10 h-10 rounded-full border border-[#34041A]/5 flex items-center justify-center text-[#34041A]/20 cursor-not-allowed">
+              <Icon name="lucide:chevron-left" class="w-4 h-4" />
+            </span>
+
+            <div class="flex items-center gap-1">
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) =>
+                p === 1 ? (
+                  <span class="w-10 h-10 rounded-full bg-[#34041A] text-[#F9F2E7] flex items-center justify-center text-sm font-mono" aria-current="page">
+                    1
+                  </span>
+                ) : (
+                  <a
+                    href={"/blog/category/" + categorySlug + "/" + p}
+                    class="w-10 h-10 rounded-full border border-[#34041A]/10 hover:border-[#34041A] hover:bg-white flex items-center justify-center text-[#34041A]/60 hover:text-[#34041A] transition-all text-sm font-mono"
+                  >
+                    {p}
+                  </a>
+                )
+              )}
+            </div>
+
+            <a
+              href={"/blog/category/" + categorySlug + "/2"}
+              class="w-10 h-10 rounded-full border border-[#34041A]/10 hover:border-[#34041A] hover:bg-white flex items-center justify-center text-[#34041A] transition-all"
+              aria-label="Next Page"
+              rel="next"
+            >
+              <Icon name="lucide:chevron-right" class="w-4 h-4" />
+            </a>
+          </div>
+
+          <p class="text-center text-[9px] tracking-[0.3em] text-[#8C7355] mt-8 uppercase font-light">
+            Page 1 of {totalPages}
+          </p>
+        </div>
+      )}
+
+      <div class="mt-32 text-center bg-[#34041A]/5 py-16 px-6 rounded-lg reveal-on-scroll">
+        <h2 class="text-3xl font-serif text-[#34041A] mb-4">
+          Follow the {categoryDisplayNames[category] || category} Series
+        </h2>
+        <p class="text-lg text-[#3C3835]/70 mb-8 max-w-2xl mx-auto font-light">
+          Get notified when we publish new articles in this category.
+        </p>
+        <form class="max-w-md mx-auto flex gap-4">
+          <input
+            type="email"
+            placeholder="Your email"
+            class="flex-1 px-4 py-3 bg-transparent border border-[#34041A]/20 focus:border-[#34041A] outline-none transition-colors text-sm"
+            required
+          />
+          <button
+            type="submit"
+            class="px-6 py-3 bg-[#34041A] text-[#F9F2E7] text-xs tracking-wider uppercase hover:bg-[#8C7355] transition-colors"
+          >
+            Subscribe
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style is:global>
+  .reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal-on-scroll.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @keyframes widthGrow {
+    from { width: 0; }
+    to { width: 6rem; }
+  }
+  .animate-width-grow {
+    animation: widthGrow 1.2s ease-out forwards;
+  }
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: #fdfaf7; }
+  ::-webkit-scrollbar-thumb { background: #6b4e5e; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #34041a; }
+  ::selection { background: rgba(52, 4, 26, 0.15); color: #34041a; }
+  html { scroll-behavior: smooth; }
+</style>
+
+<script>
+  function initReveal() {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add("active");
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    );
+    document.querySelectorAll(".reveal-on-scroll").forEach((el) => observer.observe(el));
+  }
+  document.addEventListener("astro:page-load", initReveal);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initReveal);
+  } else {
+    initReveal();
+  }
+</script>

@@ -1,18 +1,285 @@
 ---
 // src/pages/blog/index.astro
-// 这个文件只是重定向到第一页
-export const prerender = true;
+// Blog Page 1 - ROSE IS ROSE
 
+import '../../styles/global.css';
+
+import { getCollection } from 'astro:content';
+import Layout from "../../layouts/Layout.astro";
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { Icon } from 'astro-icon/components';
+
+const POSTS_PER_PAGE = 9;
+const allPosts = await getCollection('blog');
+
+const sortedPosts = allPosts.sort((a, b) => 
+  new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+);
+
+const totalPages = Math.ceil(sortedPosts.length / POSTS_PER_PAGE);
 const page = 1;
-const url = `/blog/${page}`;
+const posts = sortedPosts.slice(0, POSTS_PER_PAGE);
+
+// ==========================================
+// 页面静态文案与配置
+// ==========================================
+const blogListData = {
+  seo: {
+    title: "Dating Insights & App Strategy Sydney | ROSE IS ROSE Blog | ROSE IS ROSE",
+    description: "Dating app strategy, profile tips and real talk about modern dating in Sydney — from photographer Maggie at ROSE IS ROSE."
+  },
+  hero: {
+    title: "THE JOURNAL",
+    subtitle: "Narratives behind the lens — stories of identity, connection, and visual strategy.",
+    badge: "Stories & Insights"
+  },
+  ui: {
+    readMore: "Read Story",
+    noImageAlt: "R",
+    pagination: {
+      prev: "Prev",
+      next: "Next",
+      infoPrefix: "Page",
+      infoSeparator: "of"
+    }
+  },
+  categoryStyles: {
+    'Photography Tips & Guides': 'border-[#8C7355]/30 text-[#8C7355]',
+    'Success Stories': 'border-[#34041A]/30 text-[#34041A]',
+    'Dating Insights': 'border-[#34041A]/30 text-[#34041A]',
+    'Behind the Scenes': 'border-[#8C7355]/30 text-[#8C7355]'
+  }
+};
+
+const breadcrumbs = [
+  { name: "Home", item: "/" },
+  { name: "Blog", item: "/blog" }
+];
+
+const blogListForSEO = {
+  title: "ROSE IS ROSE Blog",
+  description: "Photography tips, success stories, and dating insights from Sydney's premier portrait photographer",
+  posts: posts.map(post => ({
+    title: post.data.title,
+    description: post.data.description,
+    pubDate: post.data.pubDate,
+    category: post.data.category,
+    image: post.data.image,
+    slug: post.slug
+  })),
+  currentPage: 1,
+  totalPages: totalPages
+};
+
+const customSchemas = [];
+
+if (totalPages > 1) {
+  customSchemas.push({
+    "@type": "ItemList",
+    "itemListElement": posts.map((post, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "url": `https://roseisrose.com.au/blog/${post.slug}`
+    }))
+  });
+}
 ---
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="refresh" content={`0; url=${url}`} />
-  </head>
-  <body>
-    <p>Redirecting to <a href={url}>blog page {page}</a>...</p>
-  </body>
-</html>
+<Layout
+  title={blogListData.seo.title}
+  description={blogListData.seo.description}
+  ogImage="/images/blog-og-image.jpg"
+  pageType="blog-list"
+  blogList={blogListForSEO}
+  breadcrumbs={breadcrumbs}
+  schemas={customSchemas}
+>
+  <Header />
+
+  {/* Hero Section */}
+  <section class="relative pt-40 pb-20 md:pt-56 md:pb-28 bg-[#34041A] text-[#F9F2E7] overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 opacity-[0.03] bg-[url('/assets/images/grid-pattern.svg')] bg-repeat"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#34041A]/20 to-[#34041A]"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10 text-center reveal-on-scroll">
+      <span class="text-[10px] tracking-[0.5em] text-[#8C7355] block mb-6 uppercase font-medium">
+        {blogListData.hero.badge}
+      </span>
+      <h1 class="text-6xl md:text-9xl font-serif mb-8 tracking-tighter leading-none">
+        {blogListData.hero.title}
+      </h1>
+      <div class="w-20 h-px bg-[#8C7355]/40 mx-auto mb-8 animate-width-grow"></div>
+      <p class="text-lg text-[#F9F2E7]/70 max-w-2xl mx-auto font-light italic leading-relaxed">
+        {blogListData.hero.subtitle}
+      </p>
+    </div>
+  </section>
+
+  {/* Main Content */}
+  <main class="bg-[#F9F2E7]">
+    <section class="max-w-7xl mx-auto px-6 py-20 md:py-32">
+      
+      {/* 文章网格 */}
+      {posts.length > 0 ? (
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-20">
+          {posts.map((post, index) => (
+            <a href={`/blog/${post.slug}`} class="group block reveal-on-scroll" style={`transition-delay: ${index * 100}ms`}>
+              <article class="h-full flex flex-col">
+                <div class="aspect-[4/5] overflow-hidden bg-[#34041A]/5 mb-8 relative rounded-sm">
+                  {post.data.image ? (
+                    <img 
+                      src={post.data.image} 
+                      alt={post.data.title}
+                      class="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-[1.2s] ease-out"
+                      loading={index < 3 ? "eager" : "lazy"}
+                    />
+                  ) : (
+                    <div class="w-full h-full flex items-center justify-center bg-[#34041A]/5">
+                      <span class="text-[#34041A]/10 font-serif text-8xl">
+                        {blogListData.ui.noImageAlt}
+                      </span>
+                    </div>
+                  )}
+                  <div class="absolute inset-0 bg-[#34041A]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                
+                <div class="flex items-center gap-4 mb-4">
+                  <span class={`text-[9px] tracking-[0.2em] uppercase px-3 py-1 border ${blogListData.categoryStyles[post.data.category] || 'border-[#3C3835]/20 text-[#3C3835]/60'}`}>
+                    {post.data.category}
+                  </span>
+                  <span class="text-[10px] tracking-widest text-[#3C3835]/40 uppercase">
+                    {new Date(post.data.pubDate).toLocaleDateString('en-AU', {
+                      month: 'short',
+                      day: 'numeric',
+                      year: 'numeric'
+                    })}
+                  </span>
+                </div>
+                
+                <h2 class="text-2xl font-serif text-[#34041A] mb-4 leading-snug group-hover:text-[#8C7355] transition-colors duration-300">
+                  {post.data.title}
+                </h2>
+                
+                <p class="text-[15px] text-[#3C3835]/70 font-light leading-relaxed line-clamp-2 mb-6">
+                  {post.data.description}
+                </p>
+                
+                <div class="mt-auto pt-4 flex items-center gap-3">
+                  <span class="text-[10px] tracking-[0.3em] uppercase text-[#34041A] font-medium">
+                    {blogListData.ui.readMore}
+                  </span>
+                  <div class="w-8 h-px bg-[#8C7355] group-hover:w-12 transition-all duration-500"></div>
+                </div>
+              </article>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-20">
+          <p class="text-xl text-[#3C3835]/60">No blog posts found.</p>
+        </div>
+      )}
+
+      {/* 分页导航 */}
+      {totalPages > 1 && (
+        <div class="mt-32 border-t border-[#34041A]/5 pt-20">
+          <div class="flex justify-center items-center gap-4">
+            {/* 上一页按钮 - 第一页禁用 */}
+            <span class="w-12 h-12 rounded-full border border-[#34041A]/5 flex items-center justify-center text-[#34041A]/20 cursor-not-allowed">
+              <Icon name="lucide:chevron-left" class="w-4 h-4" />
+            </span>
+
+            {/* 页码按钮 */}
+            <div class="flex items-center gap-2">
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+                p === 1 ? (
+                  <span 
+                    class="w-10 h-10 rounded-full bg-[#34041A] text-[#F9F2E7] flex items-center justify-center text-xs font-medium"
+                  >
+                    {p}
+                  </span>
+                ) : (
+                  <a 
+                    href={`/blog/${p}`}
+                    class="w-10 h-10 rounded-full border border-[#34041A]/5 hover:bg-[#34041A] hover:text-[#F9F2E7] flex items-center justify-center text-[#34041A]/60 transition-all text-xs"
+                  >
+                    {p}
+                  </a>
+                )
+              ))}
+            </div>
+
+            {/* 下一页按钮 */}
+            <a 
+              href="/blog/2"
+              class="w-12 h-12 rounded-full border border-[#34041A]/10 hover:border-[#34041A] hover:bg-white flex items-center justify-center text-[#34041A] transition-all"
+              aria-label="Next Page"
+            >
+              <Icon name="lucide:chevron-right" class="w-4 h-4" />
+            </a>
+          </div>
+          
+          <p class="text-center text-[9px] tracking-[0.3em] text-[#8C7355] mt-10 uppercase font-light">
+            {blogListData.ui.pagination.infoPrefix} 1 {blogListData.ui.pagination.infoSeparator} {totalPages}
+          </p>
+        </div>
+      )}
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style is:global>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+  }
+
+  .reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  
+  .reveal-on-scroll.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @keyframes widthGrow {
+    from { width: 0; }
+    to { width: 5rem; }
+  }
+  
+  .animate-width-grow {
+    animation: widthGrow 1.2s ease-out forwards;
+  }
+</style>
+
+<script>
+  function initReveal() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+  }
+  
+  document.addEventListener('astro:page-load', initReveal);
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initReveal);
+  } else {
+    initReveal();
+  }
+</script>

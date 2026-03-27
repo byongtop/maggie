@@ -14,12 +14,12 @@ const breadcrumbs = [
 
 const portfolioData = {
   seo: {
-    title: "Portfolio | ROSE IS ROSE - Dating & Narrative Portraiture",
-    description: "Explore our curated collection of narrative portraits and personal branding sessions in Sydney."
+    title: "Dating Profile Photography Portfolio Sydney | ROSE IS ROSE",
+    description: "Sydney dating profile photography portfolio by Maggie — real sessions, real people, honest portraits for Tinder, Hinge and Bumble. See the work before you book."
   },
   hero: {
     badge: "CURATED COLLECTION",
-    title: "PORTFOLIO",
+    title: "Sydney Dating Profile Photography Portfolio",
     bgText: "Narrative"
   },
 
@@ -34,8 +34,8 @@ const portfolioData = {
 ---
 
 <Layout 
-  title="Portfolio | ROSE IS ROSE Photography"
-  description="Browse our portfolio of professional portraits in Sydney"
+  title={portfolioData.seo.title}
+  description={portfolioData.seo.description}
   ogImage="/images/portfolio/featured.jpg"
   pageType="portfolio"
   breadcrumbs={breadcrumbs}
