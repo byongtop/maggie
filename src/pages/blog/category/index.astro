@@ -103,8 +103,8 @@ const categoryEntries = Object.entries(categoryIndexData.categoryConfig);
 // 面包屑导航
 const breadcrumbs = [
   { name: "Home", item: "/" },
-  { name: "Blog", item: "/blog" },
-  { name: "Categories", item: "/blog/category" },
+  { name: "Blog", item: "/blog/" },
+  { name: "Categories", item: "/blog/category/" },
 ];
 
 // 构建分类列表数据用于 Schema
@@ -274,7 +274,7 @@ const categoryDescriptions = categoryEntries
       {/* 返回链接 */}
       <div class="flex justify-center mb-20 reveal-on-scroll">
         <a
-          href="/blog"
+          href="/blog/"
           class="text-[10px] tracking-[0.3em] uppercase text-[#3C3835]/40 hover:text-[#34041A] transition-all flex items-center gap-3 group"
           aria-label="Back to all blog posts"
         >
@@ -379,7 +379,7 @@ const categoryDescriptions = categoryEntries
       {/* 查看所有文章链接 */}
       <div class="text-center mt-32 reveal-on-scroll">
         <a
-          href="/blog"
+          href="/blog/"
           class="inline-flex items-center gap-6 text-[11px] tracking-[0.5em] uppercase text-[#34041A] group font-medium"
           aria-label="View all blog posts"
         >

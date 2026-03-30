@@ -54,8 +54,8 @@ const readingTime = Math.max(1, Math.round(wordCount / 200));
 
 const breadcrumbs = [
   { name: "Home",  item: "/" },
-  { name: "Blog",  item: "/blog" },
-  { name: data.title, item: `/blog/${entry.slug}` },
+  { name: "Blog",  item: "/blog/" },
+  { name: data.title, item: `/blog/${entry.slug}/` },
 ];
 
 // ✅ SEO: use seoTitle/seoDescription if provided, fall back to title/description
@@ -230,7 +230,7 @@ const metaDescription = data.seoDescription ?? data.description;
 
           {/* Back to blog */}
           <a
-            href="/blog"
+            href="/blog/"
             class="group flex items-center gap-5 text-brand-primary/50 hover:text-brand-primary transition-colors"
           >
             <div class="w-10 h-10 rounded-full border border-brand-dark/10 flex items-center justify-center group-hover:bg-brand-dark group-hover:text-brand-on-dark group-hover:border-brand-dark transition-all">

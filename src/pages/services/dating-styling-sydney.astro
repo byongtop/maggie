@@ -21,9 +21,9 @@ const serviceSchema = {
 // ✅ Breadcrumb: reflects actual URL structure, links back to photography page
 const breadcrumbs = [
   { name: "Home", item: "/" },
-  { name: "Services", item: "/services" },
-  { name: "Dating Profile Photography", item: "/services/sydney-dating-photography" },
-  { name: "Hair & Makeup", item: "/services/dating-styling-sydney" }
+  { name: "Services", item: "/services/" },
+  { name: "Dating Profile Photography", item: "/services/sydney-dating-photography/" },
+  { name: "Hair & Makeup", item: "/services/dating-styling-sydney/" }
 ];
 
 const page = {
@@ -190,7 +190,7 @@ const page = {
     buttonText: "Add styling to my session",
     // Internal link back to photography page — rendered in template
     internalLinkText: "See the full dating profile photography session →",
-    internalLinkUrl: "/services/sydney-dating-photography"
+    internalLinkUrl: "/services/sydney-dating-photography/"
   }
 
 };
@@ -239,7 +239,7 @@ const page = {
       </p>
 
       <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-        <a href="/contact" class="btn-brand px-12 py-6 min-w-[200px] justify-center">
+        <a href="/contact/" class="btn-brand px-12 py-6 min-w-[200px] justify-center">
           <span class="inline-flex items-center gap-2">
             {page.hero.ctaPrimary}
             <Icon name="lucide:arrow-right" class="w-4 h-4" />
@@ -418,7 +418,7 @@ const page = {
           {page.footerCta.desc}
         </p>
         <div class="flex flex-col items-center gap-6 relative">
-          <a href="/booking" class="btn-brand">
+          <a href="/booking/" class="btn-brand">
             {page.footerCta.buttonText}
           </a>
           {/* ✅ Second internal link to photography page — footer, visible, contextual */}

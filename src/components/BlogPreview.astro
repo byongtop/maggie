@@ -14,7 +14,7 @@ const posts = (await getCollection("blog"))
     title: post.data.title,
     excerpt: post.data.description,
     image: post.data.image || "", // 如果没有图片则为空字符串
-    slug: `/blog/${post.slug}`,
+    slug: `/blog/${post.slug}/`,
   }))
   .slice(0, 3); // 仅显示最新的 3 篇文章
 ---
@@ -42,7 +42,7 @@ const posts = (await getCollection("blog"))
         </h2>
       </div>
 
-      <a href="/blog" class="link-underlined group flex items-center gap-6">
+      <a href="/blog/" class="link-underlined group flex items-center gap-6">
         View All Stories
         <span
           class="inline-block transition-transform duration-700 group-hover:translate-x-3"

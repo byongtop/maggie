@@ -19,8 +19,8 @@ const serviceD = {
 
 const breadcrumbs = [
   { name: "Home", item: "/" },
-  { name: "Services", item: "/services" },
-  { name: "Dating Profile Photography Sydney", item: "/services/sydney-dating-photography" }
+  { name: "Services", item: "/services/" },
+  { name: "Dating Profile Photography Sydney", item: "/services/sydney-dating-photography/" }
 ];
 
 const serviceData = {
@@ -218,7 +218,7 @@ const serviceData = {
       </p>
 
       <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-        <a href="/contact" class="btn-brand px-12 py-6 min-w-[200px] justify-center">
+        <a href="/contact/" class="btn-brand px-12 py-6 min-w-[200px] justify-center">
           <span class="inline-flex items-center gap-2">
             {serviceData.hero.ctaPrimary}
             <Icon name="lucide:arrow-right" class="w-4 h-4" />
@@ -374,7 +374,7 @@ const serviceData = {
           <span class="italic font-light text-brand-muted">{serviceData.footerCta.titleLine2}</span>
         </h2>
         <p class="text-base font-light text-brand-primary/60 max-w-xl mx-auto mb-16 relative">{serviceData.footerCta.desc}</p>
-        <a href="/booking" class="btn-brand">
+        <a href="/booking/" class="btn-brand">
           {serviceData.footerCta.button}
         </a>
       </div>

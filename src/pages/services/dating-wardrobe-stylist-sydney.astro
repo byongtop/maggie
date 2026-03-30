@@ -22,9 +22,9 @@ const serviceSchema = {
 // All three service pages link back to /services, forming a flat sibling structure
 const breadcrumbs = [
   { name: "Home", item: "/" },
-  { name: "Services", item: "/services" },
-  { name: "Dating Profile Photography", item: "/services/sydney-dating-photography" },
-  { name: "Personal Stylist", item: "/services/dating-wardrobe-sydney" }
+  { name: "Services", item: "/services/" },
+  { name: "Dating Profile Photography", item: "/services/sydney-dating-photography/" },
+  { name: "Personal Stylist", item: "/services/dating-wardrobe-sydney/" }
 ];
 
 const page = {
@@ -254,7 +254,7 @@ const page = {
       </p>
 
       <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-        <a href="/contact" class="btn-brand px-12 py-6 min-w-[200px] justify-center">
+        <a href="/contact/" class="btn-brand px-12 py-6 min-w-[200px] justify-center">
           <span class="inline-flex items-center gap-2">
             {page.hero.ctaPrimary}
             <Icon name="lucide:arrow-right" class="w-4 h-4" />
@@ -367,7 +367,7 @@ const page = {
           {page.editing.content}
         </p>
         <a
-          href="/services/sydney-dating-photography"
+          href="/services/sydney-dating-photography/"
           class="inline-flex items-center gap-2 text-sm tracking-[0.2em] uppercase text-brand-accent border-b border-brand-accent/40 hover:border-brand-accent pb-1 transition-colors"
         >
           See the full dating profile photography session
@@ -418,7 +418,7 @@ const page = {
                   {/* ✅ Internal link 2: FAQ answer for "can this be done without photography" */}
                   {index === 4 && (
                     <a
-                      href="/services/sydney-dating-photography"
+                      href="/services/sydney-dating-photography/"
                       class="inline-flex items-center gap-1 mt-3 text-xs tracking-[0.15em] uppercase text-brand-accent border-b border-brand-accent/30 hover:border-brand-accent transition-colors"
                     >
                       See the full photography session
@@ -444,7 +444,7 @@ const page = {
           {page.footerCta.desc}
         </p>
         <div class="flex flex-col items-center gap-5 relative">
-          <a href="/booking" class="btn-brand">
+          <a href="/booking/" class="btn-brand">
             {page.footerCta.buttonText}
           </a>
           {/* ✅ Internal link 3: footer — photography page */}
