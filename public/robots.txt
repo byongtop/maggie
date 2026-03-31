@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://roseisrose.com.au/sitemap-0.xml
