@@ -58,6 +58,20 @@ const imageURL = new URL(ogImage, Astro.url);
       {article}
       {images}
     />
+
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+
+    <noscript>
+      <style>
+        .reveal-on-scroll,
+        .reveal-on-scroll.active,
+        .reveal-on-scroll.entering {
+          opacity: 1 !important;
+          transform: none !important;
+          visibility: visible !important;
+        }
+      </style>
+    </noscript>
     
   </head>
 

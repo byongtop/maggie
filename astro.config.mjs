@@ -13,6 +13,8 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
 
+  output: 'static',
+
   // Astro 集成配置
   integrations: [mdx(), icon({
     // 这里的配置修复了括号缺失的问题
